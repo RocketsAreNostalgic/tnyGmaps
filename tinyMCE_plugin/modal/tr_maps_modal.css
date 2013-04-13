@@ -1,0 +1,16 @@
+#insert { text-align: center; margin:10px; padding:10px; line-height: 24px; width: 95%; height: 60px;}
+textarea,
+input { padding:10px; margin:10px;}
+.wide { width: 90% !important; }
+.Right{ float: right; }
+.Left { float: left; }
+.float:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.float {	display: inline-block; }
+html[xmlns] .float { display: block; }
+* html .float {	height: 1%; }
+label { margin-left: 10px; }
+div.input { margin:5px 0 5px 0; }
+textarea {	width: 100%; resize: auto; cursor: auto; white-space: pre-wrap; }
+#map_canvas { height: 400px; width: 95%; margin: 0.6em 10px; }
+.marker.icon { float: left; height: 40px; width: 40px; padding: 3px; margin: 0 10px 10px 0; border: 1px solid silver; }
+.marker.jumplink { float:right; margin-top: 10px; }

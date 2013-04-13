@@ -1,0 +1,3 @@
+/* google maps fix */
+.entry-content img { max-width: 100000%; /* override */ }
+#directionsPanel { border:1px solid gray;padding:10px;overflow:auto; }
