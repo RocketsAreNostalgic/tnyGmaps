@@ -11,8 +11,8 @@
  * **********************************************************************
  */
 // Load up Wordpress so we can use get_bloginfo('url') etc
-define('WP_USE_THEMES', false);
-require('../../../../../../../wp-blog-header.php');
+define( 'WP_USE_THEMES', false );
+require '../../../../../../../wp-blog-header.php';
 $pluginURL = plugin_dir_URL( __FILE__ );
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ $pluginURL = plugin_dir_URL( __FILE__ );
 <link rel="stylesheet" href="tr_maps_modal.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
 <script src="http://maps.google.com/maps/api/js?libraries=places&sensor=false"></script>
-<script src="<?php echo $pluginURL) ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
+<script src="<?php echo $pluginURL ) ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
 <script src="tr_maps_modal_loadmaps.js"/>
 </head>
 <body>
