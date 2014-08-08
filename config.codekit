@@ -1,0 +1,2539 @@
+{
+"CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
+"creatorBuild": "17018",
+"files": {
+	"\/inc\/tinymce\/alt_icons\/aboriginal.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1013,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/aboriginal.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/aboriginal.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/airshow-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 738,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/airshow-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/airshow-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/animals.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1339,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/animals.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/animals.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/anniversary.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 979,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/anniversary.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/anniversary.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/anthropo.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 844,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/anthropo.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/anthropo.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/apple.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 830,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/apple.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/apple.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/aquarium.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1048,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/aquarium.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/aquarium.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/art-museum-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 994,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/art-museum-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/art-museum-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/audio.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1234,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/audio.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/audio.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/bar.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 908,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bar.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bar.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/beautifulview.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1035,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/beautifulview.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/beautifulview.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/billiard-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1075,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/billiard-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/billiard-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/blue-pushpin.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1408,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/blue-pushpin.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/blue-pushpin.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/bookstore.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1093,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bookstore.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bookstore.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/bowling.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1617,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bowling.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bowling.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/bullfight.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1407,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bullfight.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bullfight.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/bustour.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1018,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bustour.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/bustour.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/casino-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1370,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/casino-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/casino-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/castle-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 911,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/castle-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/castle-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/chapel.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 952,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/chapel.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/chapel.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/cinema.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1346,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/cinema.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/cinema.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/clock.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1955,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/clock.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/clock.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/coffee.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1131,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/coffee.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/coffee.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/coins.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1088,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/coins.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/coins.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/comedyclub.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1405,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/comedyclub.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/comedyclub.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/country.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1937,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/country.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/country.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/cramschool.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 868,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/cramschool.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/cramschool.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/cruiseship.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 750,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/cruiseship.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/cruiseship.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/cycling.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1340,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/cycling.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/cycling.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/dance_class.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1438,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/dance_class.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/dance_class.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/dancinghall.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2067,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/dancinghall.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/dancinghall.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/daycare.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1737,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/daycare.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/daycare.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/deer.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1126,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/deer.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/deer.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/dogpark.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 936,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/dogpark.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/dogpark.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/dogs_leash.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1306,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/dogs_leash.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/dogs_leash.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/family.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1231,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/family.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/family.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/ferriswheel.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1662,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/ferriswheel.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/ferriswheel.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/festival.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1122,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/festival.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/festival.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/field.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1499,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/field.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/field.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/fireworks.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1943,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/fireworks.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/fireworks.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/fishing.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1303,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/fishing.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/fishing.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/flowers.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1292,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/flowers.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/flowers.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/footprint.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 791,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/footprint.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/footprint.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/friends.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1302,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/friends.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/friends.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/fsb_marker.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1421,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/fsb_marker.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/fsb_marker.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/geocaching-3.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1325,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/geocaching-3.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/geocaching-3.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/girlfriend.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1210,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/girlfriend.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/girlfriend.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/highschool.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 955,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/highschool.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/highschool.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/hiking-tourism.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1262,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/hiking-tourism.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/hiking-tourism.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/hiking.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1312,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/hiking.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/hiking.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/historical_museum.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1399,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/historical_museum.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/historical_museum.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/historicalquarter.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 893,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/historicalquarter.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/historicalquarter.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/home.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1220,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/home.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/home.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/hookah_final.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 881,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/hookah_final.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/hookah_final.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/hotel_0star.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 667,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/hotel_0star.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/hotel_0star.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/iceskating.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1354,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/iceskating.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/iceskating.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/information.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 963,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/information.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/information.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/japanese-lantern.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 887,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/japanese-lantern.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/japanese-lantern.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/jazzclub.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1576,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/jazzclub.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/jazzclub.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/jewishquarter.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1089,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/jewishquarter.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/jewishquarter.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/laterne.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1266,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/laterne.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/laterne.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/library.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1180,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/library.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/library.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/lighthouse-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1205,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/lighthouse-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/lighthouse-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/love_date.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1016,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/love_date.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/love_date.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/magicshow.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1349,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/magicshow.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/magicshow.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/map.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1526,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/map.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/map.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/mural.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1422,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/mural.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/mural.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/museum_archeological.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1702,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_archeological.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_archeological.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/museum_art.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1091,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_art.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_art.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/museum_crafts.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1352,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_crafts.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_crafts.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/museum_industry.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1926,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_industry.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_industry.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/museum_naval.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1468,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_naval.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_naval.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/museum_openair.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1278,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_openair.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_openair.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/museum_science.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2012,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_science.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_science.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/museum_war.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1420,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_war.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/museum_war.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/music_choral.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1621,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/music_choral.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/music_choral.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/music_hiphop.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1938,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/music_hiphop.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/music_hiphop.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/music_live.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1908,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/music_live.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/music_live.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/music_rock.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1885,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/music_rock.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/music_rock.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/nanny.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1435,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/nanny.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/nanny.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/notvisited.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1769,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/notvisited.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/notvisited.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/nursery.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1354,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/nursery.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/nursery.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/olympicsite.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 999,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/olympicsite.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/olympicsite.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/paintball.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1201,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/paintball.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/paintball.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/panoramicview.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1153,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/panoramicview.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/panoramicview.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/party-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1655,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/party-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/party-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/petroglyphs-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1275,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/petroglyphs-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/petroglyphs-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/photo.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1068,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/photo.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/photo.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/pin.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1460,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/pin.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/pin.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/planetarium-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1356,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/planetarium-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/planetarium-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/playground.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1153,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/playground.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/playground.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/poker.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1640,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/poker.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/poker.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/publicart.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1586,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/publicart.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/publicart.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/regroup.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1401,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/regroup.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/regroup.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/ropescourse.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1116,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/ropescourse.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/ropescourse.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/school.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 950,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/school.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/school.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/segway.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1072,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/segway.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/segway.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/shoppingmall.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 938,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/shoppingmall.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/shoppingmall.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/sight-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1216,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/sight-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/sight-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/sledge_summer.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1362,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/sledge_summer.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/sledge_summer.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/smallcity.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 900,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/smallcity.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/smallcity.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/snowy.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1795,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/snowy.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/snowy.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/square-compass.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2007,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/square-compass.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/square-compass.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/stripclub2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1391,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/stripclub2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/stripclub2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/summercamp.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1179,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/summercamp.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/summercamp.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/sunny.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1736,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/sunny.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/sunny.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/supermarket.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1081,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/supermarket.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/supermarket.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/targ.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1630,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/targ.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/targ.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/teahouse.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1249,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/teahouse.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/teahouse.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/temple-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1061,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/temple-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/temple-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/theater.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1461,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/theater.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/theater.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/themepark.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1423,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/themepark.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/themepark.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/treasure-mark.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1177,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/treasure-mark.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/treasure-mark.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/triskelion.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1817,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/triskelion.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/triskelion.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/university.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1215,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/university.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/university.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/videogames.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1098,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/videogames.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/videogames.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/walkingtour.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1238,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/walkingtour.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/walkingtour.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/watermill.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1812,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/watermill.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/watermill.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/waterpark.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1185,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/waterpark.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/waterpark.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/webcam.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1350,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/webcam.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/webcam.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/workshop.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1143,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/workshop.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/workshop.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/world.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1966,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/world.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/world.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/worldheritagesite.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1753,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/worldheritagesite.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/worldheritagesite.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/yoga.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 923,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/yoga.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/yoga.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/zoo.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1160,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/zoo.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/zoo.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/alt_icons\/zoom.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1351,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/zoom.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/alt_icons\/zoom.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/anniversary.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1179,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/anniversary.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/anniversary.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/bigcity.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 949,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/bigcity.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/bigcity.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/bus.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1156,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/bus.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/bus.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/chicken.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1396,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/chicken.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/chicken.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/cinema.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1549,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/cinema.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/cinema.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/circus.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1252,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/circus.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/circus.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/citysquare.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1208,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/citysquare.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/citysquare.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/dance_class.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1655,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/dance_class.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/dance_class.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/dinopark.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 836,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/dinopark.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/dinopark.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/fireworks.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2140,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/fireworks.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/fireworks.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/music_classical.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1334,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/music_classical.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/music_classical.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/music_folk_map.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 4577,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/music_folk_map.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/music_folk_map.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/party-2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1448,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/party-2.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/party-2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/peace.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1746,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/peace.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/peace.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/star-3.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1122,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/star-3.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/star-3.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/icons\/university.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1147,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/icons\/university.png",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/icons\/university.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/inc\/tinymce\/modal\/index.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/index.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tinymce\/modal\/jquery-base64\/jquery.base64.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-base64\/jquery.base64.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-base64\/min\/jquery.base64-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tinymce\/modal\/jquery-base64\/jquery.base64.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-base64\/jquery.base64.min.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-base64\/min\/jquery.base64.min-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tinymce\/modal\/jquery-htmlclean\/jquery.htmlClean.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-htmlclean\/jquery.htmlClean.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-htmlclean\/min\/jquery.htmlClean-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tinymce\/modal\/jquery-htmlclean\/jquery.htmlClean.min-old.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-htmlclean\/jquery.htmlClean.min-old.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-htmlclean\/min\/jquery.htmlClean.min-old-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tinymce\/modal\/jquery-htmlclean\/jquery.htmlClean.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-htmlclean\/jquery.htmlClean.min.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-htmlclean\/min\/jquery.htmlClean.min-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tinymce\/modal\/jquery-htmlclean\/README.md": {
+		"enableFootnoteSupport": 0,
+		"enableSmartyPants": 1,
+		"expandTabs": 1,
+		"fileType": 4096,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-htmlclean\/README.md",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery-htmlclean\/README.html",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tinymce\/modal\/jquery.qtip.custom\/imagesloaded.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery.qtip.custom\/imagesloaded.min.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery.qtip.custom\/min\/imagesloaded.min-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tinymce\/modal\/jquery.qtip.custom\/jquery.qtip.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery.qtip.custom\/jquery.qtip.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tinymce\/modal\/jquery.qtip.custom\/jquery.qtip.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery.qtip.custom\/jquery.qtip.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery.qtip.custom\/min\/jquery.qtip-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tinymce\/modal\/jquery.qtip.custom\/jquery.qtip.min.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery.qtip.custom\/jquery.qtip.min.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tinymce\/modal\/jquery.qtip.custom\/jquery.qtip.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery.qtip.custom\/jquery.qtip.min.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/modal\/jquery.qtip.custom\/min\/jquery.qtip.min-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tinymce\/modal\/tr_gmaps_modal.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/tr_gmaps_modal.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tinymce\/modal\/tr_maps_modal.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/tr_maps_modal.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tinymce\/modal\/tr_maps_modal_loadmaps.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/modal\/tr_maps_modal_loadmaps.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tinymce\/tr_maps_tinyMCE_load_gmaps.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tinymce\/tr_maps_tinyMCE_load_gmaps.js",
+		"outputAbbreviatedPath": "\/inc\/tinymce\/min\/tr_maps_tinyMCE_load_gmaps-ck.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/inc\/tr_maps_admin.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tr_maps_admin.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tr_maps_shortcode.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tr_maps_shortcode.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/inc\/tr_maps_tinyMCE.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/inc\/tr_maps_tinyMCE.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/index.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/index.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/README.md": {
+		"enableFootnoteSupport": 0,
+		"enableSmartyPants": 1,
+		"expandTabs": 1,
+		"fileType": 4096,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/README.md",
+		"outputAbbreviatedPath": "\/README.html",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/tr_maps.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/tr_maps.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		}
+	},
+"hooks": [
+	],
+"lastSavedByUser": "anachronistic",
+"manualImportLinks": {
+	},
+"projectAttributes": {
+	"bowerAbbreviatedPath": "",
+	"displayValue": "tinier-googlemaps-plugin",
+	"displayValueWasSetByUser": 0,
+	"iconImageName": "harddrive_brown"
+	},
+"projectSettings": {
+	"alwaysUseExternalServer": 0,
+	"animateCSSInjections": 1,
+	"autoApplyPSLanguageSettingsStyle": 0,
+	"autoprefixerBrowserString": "> 1%, last 2 versions, ff 17, opera 12.1",
+	"autoSyncProjectSettingsFile": 1,
+	"browserRefreshDelay": 0,
+	"coffeeAutoOutputPathRelativePath": "",
+	"coffeeAutoOutputPathReplace1": "",
+	"coffeeAutoOutputPathReplace2": "",
+	"coffeeAutoOutputPathStyle": 0,
+	"coffeeCreateSourceMap": 0,
+	"coffeeLintFlags2": {
+		"arrow_spacing": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"camel_case_classes": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"colon_assignment_spacing": {
+			"active": 0,
+			"flagValue": 1
+			},
+		"cyclomatic_complexity": {
+			"active": 0,
+			"flagValue": 10
+			},
+		"duplicate_key": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"empty_constructor_needs_parens": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"indentation": {
+			"active": 1,
+			"flagValue": 2
+			},
+		"line_endings": {
+			"active": 0,
+			"flagValue": 0
+			},
+		"max_line_length": {
+			"active": 0,
+			"flagValue": 150
+			},
+		"missing_fat_arrows": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"newlines_after_classes": {
+			"active": 0,
+			"flagValue": 3
+			},
+		"no_backticks": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_debugger": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_empty_functions": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"no_empty_param_list": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"no_implicit_braces": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_implicit_parens": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"no_interpolation_in_single_quotes": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"no_plusplus": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"no_stand_alone_at": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_tabs": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_throwing_strings": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_trailing_semicolons": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_trailing_whitespace": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_unnecessary_double_quotes": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"no_unnecessary_fat_arrows": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"non_empty_constructor_needs_parens": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"space_operators": {
+			"active": 0,
+			"flagValue": -1
+			}
+		},
+	"coffeeMinifyOutput": 1,
+	"coffeeOutputStyle": 0,
+	"coffeeSyntaxCheckerStyle": 1,
+	"externalServerAddress": "http:\/\/localhost:8888",
+	"externalServerPreviewPathAddition": "",
+	"genericWebpageFileExtensionsString": "html, htm, shtml, shtm, xhtml, php, jsp, asp, aspx, erb, ctp",
+	"hamlAutoOutputPathRelativePath": "",
+	"hamlAutoOutputPathReplace1": "",
+	"hamlAutoOutputPathReplace2": "",
+	"hamlAutoOutputPathStyle": 0,
+	"hamlEscapeHTMLCharacters": 0,
+	"hamlNoEscapeInAttributes": 0,
+	"hamlOutputFormat": 2,
+	"hamlOutputStyle": 0,
+	"hamlUseCDATA": 0,
+	"hamlUseDoubleQuotes": 0,
+	"hamlUseUnixNewlines": 0,
+	"jadeAutoOutputPathRelativePath": "",
+	"jadeAutoOutputPathReplace1": "",
+	"jadeAutoOutputPathReplace2": "",
+	"jadeAutoOutputPathStyle": 0,
+	"jadeCompileDebug": 1,
+	"jadeOutputStyle": 0,
+	"javascriptAutoOutputPathRelativePath": "\/min",
+	"javascriptAutoOutputPathReplace1": "",
+	"javascriptAutoOutputPathReplace2": "",
+	"javascriptAutoOutputPathStyle": 2,
+	"javascriptCreateSourceMap": 1,
+	"javascriptOutputStyle": 1,
+	"javascriptOutputSuffix": "-ck",
+	"javascriptSyntaxCheckerStyle": 1,
+	"jsCheckerReservedNamesString": "",
+	"jsHintFlags2": {
+		"asi": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"bitwise": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"boss": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"browser": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"camelcase": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"couch": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"curly": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"debug": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"devel": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"dojo": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"eqeqeq": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"eqnull": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"es3": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"esnext": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"evil": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"expr": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"forin": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"freeze": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"funcscope": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"globalstrict": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"immed": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"indent": {
+			"active": 0,
+			"flagValue": 4
+			},
+		"iterator": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"jquery": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"lastsemic": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"latedef": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"laxbreak": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"laxcomma": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"loopfunc": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"maxcomplexity": {
+			"active": 0,
+			"flagValue": 10
+			},
+		"maxdepth": {
+			"active": 0,
+			"flagValue": 3
+			},
+		"maxlen": {
+			"active": 0,
+			"flagValue": 150
+			},
+		"maxparams": {
+			"active": 0,
+			"flagValue": 3
+			},
+		"maxstatements": {
+			"active": 0,
+			"flagValue": 4
+			},
+		"mootools": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"moz": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"multistr": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"newcap": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"noarg": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"node": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"noempty": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"nonbsp": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"nonew": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"nonstandard": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"notypeof": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"noyield": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"onecase": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"phantom": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"plusplus": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"proto": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"prototypejs": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"regexp": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"rhino": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"scripturl": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"shadow": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"shelljs": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"strict": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"sub": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"supernew": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"typed": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"undef": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"unused": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"withstmt": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"worker": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"wsh": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"yui": {
+			"active": 0,
+			"flagValue": -1
+			}
+		},
+	"jsLintFlags2": {
+		"ass": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"bitwise": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"browser": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"closure": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"continue": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"debug": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"devel": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"eqeq": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"evil": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"forin": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"indent": {
+			"active": 0,
+			"flagValue": 4
+			},
+		"maxlen": {
+			"active": 0,
+			"flagValue": 150
+			},
+		"newcap": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"node": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"nomen": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"plusplus": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"properties": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"regexp": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"rhino": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"sloppy": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"stupid": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"sub": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"todo": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unparam": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"vars": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"white": {
+			"active": 0,
+			"flagValue": -1
+			}
+		},
+	"kitAutoOutputPathRelativePath": "",
+	"kitAutoOutputPathReplace1": "",
+	"kitAutoOutputPathReplace2": "",
+	"kitAutoOutputPathStyle": 0,
+	"lessAllowInsecureImports": 0,
+	"lessAutoOutputPathRelativePath": "..\/css",
+	"lessAutoOutputPathReplace1": "less",
+	"lessAutoOutputPathReplace2": "css",
+	"lessAutoOutputPathStyle": 2,
+	"lessCreateSourceMap": 0,
+	"lessDisableJavascript": 0,
+	"lessIeCompatibility": 1,
+	"lessOutputStyle": 0,
+	"lessRelativeURLS": 0,
+	"lessStrictImports": 0,
+	"lessStrictMath": 0,
+	"lessStrictUnits": 0,
+	"markdownAutoOutputPathRelativePath": "",
+	"markdownAutoOutputPathReplace1": "",
+	"markdownAutoOutputPathReplace2": "",
+	"markdownAutoOutputPathStyle": 0,
+	"markdownEnableFootnotes": 0,
+	"markdownEnableSmartyPants": 1,
+	"markdownExpandTabs": 1,
+	"reloadFileURLs": 0,
+	"sassAutoOutputPathRelativePath": "..\/css",
+	"sassAutoOutputPathReplace1": "sass",
+	"sassAutoOutputPathReplace2": "css",
+	"sassAutoOutputPathStyle": 2,
+	"sassCreateSourceMap": 0,
+	"sassDebugStyle": 0,
+	"sassDecimalPrecision": 5,
+	"sassOutputStyle": 0,
+	"sassUseLibsass": 0,
+	"shouldRunAutoprefixer": 0,
+	"shouldRunBless": 0,
+	"skippedItemsString": ".svn, .git, .hg, log, _logs, _cache, cache, logs",
+	"slimAutoOutputPathRelativePath": "",
+	"slimAutoOutputPathReplace1": "",
+	"slimAutoOutputPathReplace2": "",
+	"slimAutoOutputPathStyle": 0,
+	"slimCompileOnly": 0,
+	"slimLogicless": 0,
+	"slimOutputStyle": 1,
+	"slimRailsCompatible": 0,
+	"stylusAutoOutputPathRelativePath": "..\/css",
+	"stylusAutoOutputPathReplace1": "stylus",
+	"stylusAutoOutputPathReplace2": "css",
+	"stylusAutoOutputPathStyle": 2,
+	"stylusDebugStyle": 0,
+	"stylusImportCSS": 0,
+	"stylusOutputStyle": 0,
+	"stylusResolveRelativeURLS": 0,
+	"typescriptAutoOutputPathRelativePath": "\/js",
+	"typescriptAutoOutputPathReplace1": "",
+	"typescriptAutoOutputPathReplace2": "",
+	"typescriptAutoOutputPathStyle": 2,
+	"typescriptCreateDeclarationFile": 0,
+	"typescriptCreateSourceMap": 0,
+	"typescriptMinifyOutput": 0,
+	"typescriptModuleType": 0,
+	"typescriptNoImplicitAny": 0,
+	"typescriptNoResolve": 0,
+	"typescriptRemoveComments": 0,
+	"typescriptTargetECMAVersion": 0,
+	"uglifyDefinesString": "",
+	"uglifyFlags2": {
+		"ascii-only": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"booleans": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"bracketize": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"cascade": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"comments": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"comparisons": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"compress": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"conditionals": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"dead_code": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"drop_debugger": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"eval": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"evaluate": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"hoist_funs": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"hoist_vars": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"if_return": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"indent-level": {
+			"active": 0,
+			"flagValue": 4
+			},
+		"indent-start": {
+			"active": 0,
+			"flagValue": 0
+			},
+		"inline-script": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"join_vars": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"loops": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"mangle": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"max-line-len": {
+			"active": 1,
+			"flagValue": 32000
+			},
+		"properties": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"quote-keys": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"screw-ie8": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"semicolons": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"sequences": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"sort": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"space-colon": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"toplevel": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unused": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"warnings": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"width": {
+			"active": 1,
+			"flagValue": 80
+			}
+		},
+	"uglifyReservedNamesString": "$",
+	"websiteRelativeRoot": ""
+	},
+"settingsFileVersion": "2"
+}
