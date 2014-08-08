@@ -2,22 +2,37 @@
 if ( ! defined( 'ABSPATH' ) ) die();
 /**
 * ========================================
-* Adds the Google Maps plugin to tinyMCE editor
+* Add the Map Modal button to tinyMCE editor
 *
 * ======================================== */
 // Register all buttons
+/**
+ * [tr_maps_register_button Add additional plugin button to tinyMCE button array]
+ * @param  array $buttons [tinyMCE button array]
+ * @return array $buttons [tinyMCE button array with button added]
+ */
 function tr_maps_register_button( $buttons ) {
-   array_push( $buttons, "|", "trgmaps" );
+   array_push( $buttons, "|", "TRMAPS" );
    return $buttons;
 }
 
-// Add the plugin js for each button
-function tr_maps_add_plugin( $plugin_array ) {
-   $plugin_array['trgmaps'] = plugins_url('tinyMCE_plugin/tr_maps_tinyMCE_load_gmaps.js', __FILE__);
+/**
+ * [tr_maps_add_plugin Add the plugin js for each button]
+ * @param  array $plugin_array [tinyMCE plugin array]
+ * @return array               [tinyMCE plugin array with TRMAPS js added]
+ */
+function tr_maps_add_plugin( $plugin_array ) {  
+   $plugin_array['TRMAPS'] = plugins_url('/tinymce/tr_maps_tinyMCE_load_gmaps.js', __FILE__);
    return $plugin_array;
 }
 
-// Add the plugin buttons
+// 
+
+
+/**
+ * [tr_maps_tinyMCE_buttons Add the plugin buttons via the add_filter hook]
+ * @return NULL
+ */
 add_action('init', 'tr_maps_tinyMCE_buttons');
 function tr_maps_tinyMCE_buttons() {
    if ( !current_user_can('edit_posts') && !current_user_can('edit_pages') ) {
