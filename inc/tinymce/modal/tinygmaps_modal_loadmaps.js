@@ -242,8 +242,7 @@ function initialize(infowindow) {
 			scrollwheel : false,
 			streetViewControl: false,
 			panControl: false,
-			disableDefaultUI : mapControlsReturn,
-            last_map : false
+			disableDefaultUI : mapControlsReturn
 		};
 		map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 		updateMapType(); // needed for when we cycle controls on/off
