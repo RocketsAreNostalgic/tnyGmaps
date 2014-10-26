@@ -66,30 +66,28 @@ $icons_list = implode(", ", $icons_list);
 		<?php } ?>
 		<div id="button-dialog" class="wrap">
 			<form action="/" method="get" accept-charset="utf-8">
-				<?php ?>
-
 							
 				<div class="group <?php echo(!$api_test)? 'hidden': ''?>	" id="mapAddress-group">
-				<label class="heading" for="mapAddress" > <?php _e('Address lookup', 'tiny_gmap')?>:</label>
+				<label class="heading" for="mapAddress" > <?php _e('Address lookup', 'tiny_gmap') ?>:</label>
 					<div class="autoMapAddress input">
 						<input type="text" name="mapAddressAuto"  id="mapAddress" class="noEnterSubmit" />
 					</div>
 				</div>
 		
-			<?php if ($api_test){?>						
+			<?php if ($api_test){ ?>						
 				<label class="heading" ><?php _e('Location details', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e('Only use this section if &quot;Address lookup&quot; can&#039;t find, gives incorrect or incomplete results. </br>&quot;Address lookup&quot; gives us a refrence we can use to automatically upadte location details from Google&#039;s servers.</br></br>Results from this section may differ from that of &quot;Address lookup&quot; and may require you provide greater detial to achive correct results.</br> </br>If you just want to add a website or phone number, consider adding these to the &quot;Infowindow extras&quot; section instead.', 'tiny_gmap')?>">?</span></label>
-			<? } else { ?>
+			<?php } else { ?>
 				<label class="heading" ><?php _e('Location details', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e('Input your location address.', 'tiny_gmap'); ?>" >?</span></label>
-				<? } ?>
+				<?php } ?>
 				<div class="group">
 						<div id="address_extras" class="accordion" style="display:none;">
 							<label for="custom_use_address_check">
 							<?php if ($api_test){?>
 							<?php _e('Use custom address details?', 'tiny_gmap'); ?>
 							<input type="checkbox" name="custom_use_address_check" value="false">
-							<? } else { ?>
+							<?php } else { ?>
 							<input type="hidden" name="custom_use_address_check" value="checked">
-							<? } ?>
+							<?php } ?>
 							</label>
 							
 							<div class="input ">
@@ -144,7 +142,7 @@ $icons_list = implode(", ", $icons_list);
 							</div>
 						</div>
 				</div>
-				<label class="heading" ><?php _e('Infowindow extras', 'tiny_gmap');?>:<span data-tooltip="<?php _e('Use this text area to add custom information to the marker info window. Some HTML is allowed here though the field auto corrects malformed or disalowed markup -– so best to copy-paste anything complex.', 'tiny_gmap'); ?>">?</span></label>
+				<label class="heading" ><?php _e('Infowindow extras', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e('Use this text area to add custom information to the marker info window. Some HTML is allowed here though the field auto corrects malformed or disalowed markup -– so best to copy-paste anything complex.', 'tiny_gmap'); ?>">?</span></label>
 				<div class="group">
 					<div class="input">
 						<div id="mapInfoWindowContainer" class="accordion" style="display:none;">
@@ -238,7 +236,7 @@ $icons_list = implode(", ", $icons_list);
 			<div class="map-wrap">
 				<div id="map_canvas"></div>
 			</div>
-			<input name="save" type="submit" class="submit-button" id="insert" value="Insert Map Shortcode" onclick="javascript:tinyGmaps.insert(tinyGmaps.local_ed)">
+			<input name="save" type="submit" class="submit-button" id="insert" value="Insert Map Shortcode" onclick="javascript:tinyGmaps.insert(tinyGmaps.local_ed)" />
 		</div>
 	</body>
     <script src="//maps.google.com/maps/api/js?libraries=places&amp;sensor=false"></script>
