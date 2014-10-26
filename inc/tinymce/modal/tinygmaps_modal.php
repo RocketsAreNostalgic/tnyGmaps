@@ -29,6 +29,7 @@ function make_root_relative($url) {
 
 // Path to the plugin root
 $local_uri = make_root_relative( TINYGMAP_URL . 'inc/tinymce/' );
+
 // do we have the google places api key?
 if (defined('GOOGLEMAPS_API_KEY') && (constant('GOOGLEMAPS_API_KEY') != null || constant('GOOGLEMAPS_API_KEY') != '')){
     $api_test = true;
@@ -242,6 +243,5 @@ $icons_list = implode(", ", $icons_list);
     <script src="//maps.google.com/maps/api/js?libraries=places&amp;sensor=false"></script>
     <script src="<?php echo $local_uri; ?>modal/tinygmaps_modal_loadmaps.min.js"></script>
     <script src="<?php echo $local_uri; ?>modal/jquery-base64/jquery.base64.min.js"></script>
-    <script src="<?php echo $local_uri; ?>modal/jquery-htmlClean/jquery.htmlClean.min.js"></script>
     <script src="<?php echo $local_uri; ?>modal/jquery.qtip.custom/jquery.qtip.min.js"></script>
 </html>
