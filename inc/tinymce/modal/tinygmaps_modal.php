@@ -243,5 +243,6 @@ $icons_list = implode(", ", $icons_list);
     <script src="//maps.google.com/maps/api/js?libraries=places&amp;sensor=false"></script>
     <script src="<?php echo $local_uri; ?>modal/tinygmaps_modal_loadmaps.min.js"></script>
     <script src="<?php echo $local_uri; ?>modal/jquery-base64/jquery.base64.min.js"></script>
+    <script src="<?php echo $local_uri; ?>modal/jquery-htmlclean/jquery.htmlClean.min.js"></script>
     <script src="<?php echo $local_uri; ?>modal/jquery.qtip.custom/jquery.qtip.min.js"></script>
 </html>
