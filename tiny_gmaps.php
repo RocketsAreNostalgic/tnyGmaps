@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) die();
 
 Plugin Name: Tiny Google Maps Plugin
 Description: A google maps plugin sponsored by Tom Rush.com
-Version: 0.0.1
+Version: 0.0.2
 License: GPL
 Author: Ben Rush
 Author URI: http://www.orionrush.com
@@ -36,12 +36,12 @@ define('TINYGMAP_URL', plugin_dir_url( __FILE__ ));
 /*********************************************************************/
 
 // Translation files
-load_plugin_textdomain( 'tiny_gmap', false, TINYGMAP_PATH . '/inc/languages/' );
+load_plugin_textdomain( 'tinygmaps', false, TINYGMAP_PATH . '/inc/languages/' );
 // Admin screen
 //require_once ( TINYGMAP_PATH . 'inc/tr_maps_admin.php');
 // Shortcode
 require_once ( TINYGMAP_PATH . 'inc/tinygmaps_shortcode.php');
-// Modal window and tinyMCE button
+// GUI via modal and tinyMCE button
 require_once ( TINYGMAP_PATH . 'inc/tinygmaps_tinyMCE.php');
-// Ajax functions
+// Ajax functions, must be in the main plugin file
 require_once ( TINYGMAP_PATH . 'inc/tinygmaps_ajax.php');
