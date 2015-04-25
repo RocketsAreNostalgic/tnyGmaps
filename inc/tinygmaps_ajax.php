@@ -40,9 +40,9 @@ function tinygmaps_loadgmaps() {
 add_action('wp_ajax_tinygmaps_loadgmaps', 'tinygmaps_loadgmaps');
 
  /*
-  * Add needed global vars to js to wp head
+  * Add needed global vars for js to wp head
   * We couldn't use wp_localize_script without making a call to a script, so instead we'll just output it
-  * This allows us to cache js and this way we dont have to dynamically load the js through php
+  * This allows us to cache js and this way we don't have to dynamically load the js through php
   *
   * @wp_hook:   admin_print_scripts
   * @global:    $pagenow

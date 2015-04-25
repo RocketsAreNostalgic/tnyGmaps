@@ -4,7 +4,6 @@
          // Register commands
          ed.addCommand('TINYGMAPS', function() {
             ed.windowManager.open({
-               //file : url + '/modal/tinygmaps_modal.php', // modal window//
                file : ajaxurl + '?action=tinygmaps_modal', // modal window
                width : 520 + parseInt(ed.getLang('button.delta_width', 0)), // size of our window
                height : 620 + parseInt(ed.getLang('button.delta_height', 0)),
