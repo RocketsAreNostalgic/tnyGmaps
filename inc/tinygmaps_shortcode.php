@@ -64,10 +64,11 @@ add_action('wp_enqueue_scripts', 'trmap_load_js');
  *      @type boolean $scale (true : false) Is the map scale drawn?
  *      @type boolean $scrollwheel (true : false) Will the map zoom react to mouse scrollwheel? 
  *      @type boolean $refresh (true : false) Will flush any transient data from being cashed for a given location (good for testing results)
- *      @type boolean $debug (true : false) Will render the return values from the Goolge Maps API object for debugging.
+ *      @type boolean $debug (true : false) Will render the return values from the Google Maps API object for debugging.
  *      }
  */
-add_shortcode('TRMAP', 'trmap_mapme');
+add_shortcode('TRMAP', 'trmap_mapme'); //legacy installs
+add_shortcode('TINYGMAPS', 'trmap_mapme');
 function trmap_mapme($attr)
 {
     $api_key      = (defined('GOOGLEMAPS_API_KEY')) ? constant('GOOGLEMAPS_API_KEY') : false;

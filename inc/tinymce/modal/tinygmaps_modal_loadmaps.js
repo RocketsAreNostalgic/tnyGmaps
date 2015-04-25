@@ -660,7 +660,7 @@ tinyGmaps = {
 		mapInfoWindowReturn = htmlEntities(mapInfoWindowReturn) // encode html entities 
 		mapInfoWindowReturn = jQuery.base64.encode(mapInfoWindowReturn); // then base64 encode it as a string
 		// output the shortcode
-		markerOutput = '[TRMAP ';
+		markerOutput = '[TINYGMAPS ';
 		markerOutput += 'z="' + mapZoomReturn +'" ';
 		markerOutput += 'w="' + mapWidthReturn + '" ';
 		markerOutput += 'h="' + mapHeightReturn + '" ';
