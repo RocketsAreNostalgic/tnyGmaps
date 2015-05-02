@@ -14,19 +14,23 @@
  * 
  */
 
-// Set the debug var as global
+/**
+ * Set the debug var as global
+ */
+
 global $tinygmaps_debug;
 
-
 /*
- * Register scripts for plugin
+ * Register scripts
  */
 
 wp_register_script('googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&signed_in=true', null, null, 'true');
 wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', array('googelmaps_js', 'jquery'), '0.0.1', 'true');
 
 /**
- * Shortcode parameters 
+ * Shortcode outputs markup, and enqueues the js needed
+ *
+ * Shortcode parameters
  * @since 0.0.1
  * 
  * @var string $api_key [A check to see if the constant GOOGLEMAPS_API_KEY has been set.]
@@ -52,7 +56,7 @@ wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', 
  *      @type string $country
  *      @type string $web
  *      @type string $phone      
- *      @type string $icon
+ *      @type string $icon an image from the maps api for that location
  *      @type string $marker 
  *      
  *      @type string $infowindowdefault ( yes : no ) Show the infowindow on page load, or keep it hidden until the map icon is clicked.
@@ -61,7 +65,12 @@ wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', 
  *      @type string $infowindowb64 Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
  *      @type string $hidecontrols (true : false) Hides the zoom, street view and other controls
  *      @type boolean $scale (true : false) Is the map scale drawn?
- *      @type boolean $scrollwheel (true : false) Will the map zoom react to mouse scrollwheel? 
+ *      @type boolean $scrollwheel (true : false) Will the map zoom react to mouse scrollwheel?
+ *
+ *      @type string $static dom width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate not map is drawn
+ *      @type int $static_w width of static map in pixels
+ *      @type int $static_h height of of static map in pixels
+ *
  *      @type boolean $refresh (true : false) Will flush any transient data from being cashed for a given location (good for testing results)
  *      @type boolean $debug (true : false) Will render the return values from the Google Maps API object for debugging.
  *      }
@@ -99,6 +108,9 @@ function trmap_mapme($attr)
         'hidecontrols' => 'false',
         'scale' => 'false',
         'scrollwheel' => 'false',
+        'static' => '480',
+        'static_w' => '480',
+        'static_h' => '500',
         'refresh' => 'false',
         'debug' => 'false'
     ), $attr);
@@ -114,7 +126,7 @@ function trmap_mapme($attr)
     $tinygmaps_h       = ((substr($attr['h'], -2) != 'px') && (substr($attr['h'], -1) != '%')) ? $attr['h'] . 'px' : $attr['h'];
     $tinygmaps_maptype = $attr['maptype'];
     
-    $tinygmaps_marker        = $attr['marker'];
+    $tinygmaps_marker        = (filter_var($attr['marker'], FILTER_VALIDATE_URL) != FALSE) ? $attr['marker'] : null;
     $tinygmaps_icon          = $attr['icon'];
     $tinygmaps_infowindow    = $attr['infowindow'];
     $tinygmaps_infowindowb64 = $attr['infowindowb64'];
@@ -123,8 +135,13 @@ function trmap_mapme($attr)
     $tinygmaps_hidecontrols      = ($attr['hidecontrols'] == 'true') ? true : false;
     $tinygmaps_scalecontrol      = ($attr['scale'] == 'true') ? true : false;
     $tinygmaps_scrollwheel       = ($attr['scrollwheel'] == 'true') ? true : false;
-    $tinygmaps_refresh           = ($attr['refresh'] == 'true') ? true : false;
-    $tinygmaps_debug             = ($attr['debug'] == 'true') ? true : false;
+
+    $tinygmaps_static_width     = remove_px_percent($attr['static']);
+    $tinygmaps_static_w         = remove_px_percent($attr['static_w']);
+    $tinygmaps_static_h         = remove_px_percent($attr['static_h']);
+
+    $tinygmaps_refresh          = ($attr['refresh'] == 'true') ? true : false;
+    $tinygmaps_debug            = ($attr['debug'] == 'true') ? true : false;
 
     // setup the incoming values
     if ($attr['placeref'] != '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] == '') {
@@ -193,8 +210,8 @@ function trmap_mapme($attr)
         '\0',
         '\x0B'
     ); // wt space
-    $linkAddress = str_replace($remove, '+', $linkAddress);
-    $linkAddress = urlencode($linkAddress);
+    $linkAddress_url = str_replace($remove, '+', $linkAddress);
+    $linkAddress_url = urlencode($linkAddress_url);
 
 
     /**
@@ -210,9 +227,8 @@ function trmap_mapme($attr)
      * Example js http://codepen.io/anon/pen/zGxxaQ
      */
 
-    // Load all the  variables into array
+    // Load all the  variables into array for js global var
     $tinygmaps_init_array = array(
-
         'z' => (int)$tinygmaps_z,
         'maptype' => $tinygmaps_maptype,
         'lat' => (float) $attr['lat'],
@@ -223,19 +239,29 @@ function trmap_mapme($attr)
         'infowindowdefault' => (boolean)$tinygmaps_infowindowdefault,
         'hidecontrols' => (boolean) $tinygmaps_hidecontrols,
         'scale' => (boolean) $tinygmaps_scalecontrol,
-        'scrollwheel' => (boolean) $tinygmaps_scrollwheel
-
+        'scrollwheel' => (boolean) $tinygmaps_scrollwheel,
+        'static' => (string)$tinygmaps_static_width,
+        'static_h' => (int)$tinygmaps_static_w,
+        'static_w' => (int)$tinygmaps_static_h
     );
 
     wp_localize_script( 'tinygmaps_init', $tinygmaps_map_id . '_loc', $tinygmaps_init_array );
     wp_enqueue_script( 'tinygmaps_init' ); // will appear in footer
 
+    $static_src  = "http://maps.google.com/maps/api/staticmap?size=" . $tinygmaps_static_w . "x" . $tinygmaps_static_h . "&zoom=" . $tinygmaps_z;
+    $static_src .= "&center=" . $linkAddress_url;
+    $static_src .= "&markers=label:m" . "%257C" . "icon:" . $tinygmaps_marker . "%7C" . $linkAddress_url . "&maptype=" . $tinygmaps_maptype;
+    $static_src .= "&scale=2&format=jpg";
+
     // output the map wrappers and links
-    $returnme = '<div class="$tnygmps_wrap ' . $tinygmaps_map_id . '_wrap">';
-    $returnme .= '    <div class="tnygmps_canvas" id="' . $tinygmaps_map_id . '" style="width:' . $tinygmaps_w . '; height:' . $tinygmaps_h . ';"></div>';
-    $returnme .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?z=' . $tinygmaps_z . '&q=' . $linkAddress . '&f=d&t=m"  class="tnygmps_ext_lnk" target="_blank">open in new window</a>';
-    $returnme .= '</div>';
-    return $returnme;
+    $markup = '<div class="tnygmps_wrap" id="' . $tinygmaps_map_id . '_wrap">';
+    $markup .= '    <div class="tnygmps_canvas" id="' . $tinygmaps_map_id . '" style="width:' . $tinygmaps_w . '; height:' . $tinygmaps_h . ';">';
+    $markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" style="width:' . $tinygmaps_static_w . '; height:' . $tinygmaps_static_h . ';">';
+    $markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $tinygmaps_infowindow . '</div>';
+    $markup .= '    </div>';
+    $markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?z=' . $tinygmaps_z . '&q=' . $linkAddress_url . '&f=d&t=m"  class="tnygmps_ext_lnk" target="_blank">open in new window</a></div>';
+    $markup .= '</div>';
+    return $markup;
 }
 
 /**
@@ -243,7 +269,7 @@ function trmap_mapme($attr)
  * @var  string [Infowindow string provided by the user to be scrubbed.]
  * @uses  wp_kses() [This function makes sure that only the allowed HTML element names, attribute names and attribute values plus only sane HTML entities will occur in $string.]
  * @link (wp_kses(), http://codex.wordpress.org/Function_Reference/wp_kses)
- * @return string [Returns the sanatised string]
+ * @return string [Returns the sanitised string]
  */
 function info_window_sanitize($string)
 {
@@ -524,7 +550,7 @@ function processObject($needle, $haystack)
 }
 /**
  * Iterates through and performs htmlentites ENT_QUOTES on all elements of an array 
- * @var    array $elem [An array of strings]
+ * @var    array $elem [An array of strings], using & to pass the array by reference so we are not changing the original
  * @return array [an array of strings with all quotes encoded]
  * 
  */
@@ -539,3 +565,12 @@ function array_htmlentities(&$elem)
     return $elem;
 }
 
+/**
+ * @param $dim
+ * @return mixed returns the string without any instances of 'px' or '%'
+ */
+function remove_px_percent ($dim){
+    $dim = str_ireplace('px', '', $dim);
+    $dim = str_replace('%', '', $dim);
+    return $dim;
+}
