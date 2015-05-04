@@ -258,7 +258,7 @@ function trmap_mapme($attr)
     // output the map wrappers and links
     $markup = '<div class="tnygmps_wrap" id="' . $tinygmaps_map_id . '_wrap">';
     $markup .= '    <div class="tnygmps_canvas" id="' . $tinygmaps_map_id . '" style="width:' . $tinygmaps_w . '; height:auto;">'; //height will be set by js for googlemaps api
-    $markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $tinygmaps_static_w . '; height:' . $tinygmaps_static_h . ';">';
+    $markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $tinygmaps_static_w . '; height:' . $tinygmaps_static_h . ';" alt="Google Map for "' . $attr['name'] . '>';
     if ($tinygmaps_infowindow) { // if we have an infowindow
         $markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $tinygmaps_infowindow . '</div>';
     }
