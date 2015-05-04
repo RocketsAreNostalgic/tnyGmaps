@@ -14,18 +14,14 @@
  * 
  */
 
-/**
- * Set the debug var as global
- */
-
-global $tinygmaps_debug;
 
 /*
  * Register scripts
  */
-
 wp_register_script('googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&signed_in=true', null, null, 'true');
 wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', array('googelmaps_js', 'jquery'), '0.0.1', 'true');
+//Set the debug var as global
+global $tinygmaps_debug;
 
 /**
  * Shortcode outputs markup, and enqueues the js needed
@@ -75,6 +71,7 @@ wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', 
  *      @type boolean $debug (true : false) Will render the return values from the Google Maps API object for debugging.
  *      }
  */
+
 add_shortcode('TRMAP', 'trmap_mapme'); //legacy installs
 add_shortcode('TINYGMAPS', 'trmap_mapme');
 function trmap_mapme($attr)
@@ -108,8 +105,8 @@ function trmap_mapme($attr)
         'hidecontrols' => 'false',
         'scale' => 'false',
         'scrollwheel' => 'false',
-        'static' => '480',
-        'static_w' => '480',
+        'static' => '767',
+        'static_w' => '500',
         'static_h' => '500',
         'refresh' => 'false',
         'debug' => 'false'
@@ -157,7 +154,7 @@ function trmap_mapme($attr)
         // here we have lat and lng so we will assume the individual params are set too  - do nothing	
         
     } elseif ($attr['placeref'] == '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] == '' && $attr['city'] != '') {
-        // we have no lat lag but we have address componets so build the address from these attr
+        // we have no lat lag but we have address components so build the address from these attr
         $attr['address'] = $attr['street'] . ', ' . $attr['city'] . ', ' . $attr['region'] . ', ' . $attr['postcode'] . '+' . $attr['country'];
         
         $string          = array(
@@ -215,8 +212,12 @@ function trmap_mapme($attr)
 
 
     /**
-     * Enqueue the js properly and pass the vars as globals through wp_localize_script, sweet.
-     * We are still able to have, multiple maps on a screen - nice!
+     * We enqueue the js properly and now can pass the vars as globals through wp_localize_script, sweet.
+     * We are able to have, multiple maps too - nice!
+     *
+     * Also we have set up retina 2x and 3x resolutions
+     * 3x requires google api key
+     *
      *
      * http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
      * https://pippinsplugins.com/use-wp_localize_script-it-is-awesome/
@@ -230,6 +231,7 @@ function trmap_mapme($attr)
     // Load all the  variables into array for js global var
     $tinygmaps_init_array = array(
         'z' => (int)$tinygmaps_z,
+        'h' => $tinygmaps_h,
         'maptype' => $tinygmaps_maptype,
         'lat' => (float) $attr['lat'],
         'lng' => (float) $attr['lng'],
@@ -251,16 +253,19 @@ function trmap_mapme($attr)
     $static_src  = "http://maps.google.com/maps/api/staticmap?size=" . $tinygmaps_static_w . "x" . $tinygmaps_static_h . "&zoom=" . $tinygmaps_z;
     $static_src .= "&center=" . $linkAddress_url;
     $static_src .= "&markers=label:m" . "%257C" . "icon:" . $tinygmaps_marker . "%7C" . $linkAddress_url . "&maptype=" . $tinygmaps_maptype;
-    $static_src .= "&scale=2&format=jpg";
-
+    $static_src .= "format=jpg";
+    $static_src_2x = $static_src . "&scale=2 2x,";
     // output the map wrappers and links
     $markup = '<div class="tnygmps_wrap" id="' . $tinygmaps_map_id . '_wrap">';
-    $markup .= '    <div class="tnygmps_canvas" id="' . $tinygmaps_map_id . '" style="width:' . $tinygmaps_w . '; height:' . $tinygmaps_h . ';">';
-    $markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" style="width:' . $tinygmaps_static_w . '; height:' . $tinygmaps_static_h . ';">';
-    $markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $tinygmaps_infowindow . '</div>';
+    $markup .= '    <div class="tnygmps_canvas" id="' . $tinygmaps_map_id . '" style="width:' . $tinygmaps_w . '; height:auto;">'; //height will be set by js for googlemaps api
+    $markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $tinygmaps_static_w . '; height:' . $tinygmaps_static_h . ';">';
+    if ($tinygmaps_infowindow) { // if we have an infowindow
+        $markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $tinygmaps_infowindow . '</div>';
+    }
     $markup .= '    </div>';
-    $markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?z=' . $tinygmaps_z . '&q=' . $linkAddress_url . '&f=d&t=m"  class="tnygmps_ext_lnk" target="_blank">open in new window</a></div>';
+    $markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?z=' . $tinygmaps_z . '&q=' . $linkAddress_url . '&f=d&t=m"  class="tnygmps_ext_lnk" target="_blank">open map in new window</a></div>';
     $markup .= '</div>';
+
     return $markup;
 }
 
