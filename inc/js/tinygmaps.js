@@ -37,27 +37,16 @@ function initialize(map_id, map_loc) {
             });
         });
 
-    // Centering on window resize
-    google.maps.event.addDomListener(window, "resize", function(){
-        var center = map_id.getCenter();
-        google.maps.event.trigger(map_id, "resize");
-        map_id.setCenter(center);
-    });
-}
+        google.maps.event.addDomListener(window, "resize", function () {
+            // Centering on window resize
+            var center = map_id.getCenter();
+            google.maps.event.trigger(map_id, "resize");
+            map_id.setCenter(center);
+            console.log('resize center');
 
-google.maps.event.addDomListener(window, "resize", function(map_id, map_loc){
-    if(document.documentElement.clientWidth > map_loc.static) {
-        jQuery('.tnygmps_canvas').each(function() {
-            var map_id = jQuery( this ).attr('id');
-            var map_loc = window[map_id + "_loc"]; // our localised scope
-            // Is the window large enough?
-            if(document.documentElement.clientWidth > map_loc.static) {
-                initialize(map_id, map_loc);
-            }
         });
     }
-});
-
+}
 
 // Initialise on dom ready
 jQuery(document).ready(function(jQuery) {
