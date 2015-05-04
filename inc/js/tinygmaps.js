@@ -49,13 +49,24 @@ function initialize(map_id, map_loc) {
 }
 
 // Initialise on dom ready
+/**
+ * On Dom Ready, test if screen is large enough and init map
+ * if not, adjust local css
+ */
 jQuery(document).ready(function(jQuery) {
-    jQuery('.tnygmps_canvas').each(function() {
-    var map_id = jQuery( this ).attr('id');
-    var map_loc = window[map_id + "_loc"]; // our localised scope
-        // Is the window large enough?
-        if(document.documentElement.clientWidth > map_loc.static) {
+    jQuery('.tnygmps_canvas').each(function () {
+        var map_id = jQuery(this).attr('id');
+        var map_loc = window[map_id + "_loc"]; // our the global var for the map
+        console.log('map found');
+        if (document.documentElement.clientWidth > map_loc.static) {
+            console.log('dom loaded & large enough so init map');
+            jQuery('#' + map_id).css('height', map_loc.h); // set the map height
+            jQuery('#' + map_id +'> .tnygmps_staticimg').hide();
+            jQuery('#' + map_id +'> .tnygmps_static_bubble').hide();
             initialize(map_id, map_loc);
+        } else {
+            console.log('scren too small');
+            jQuery('#'+map_id).css('height', 'auto');
         }
     });
 });
