@@ -67,3 +67,17 @@ jQuery(document).ready(function(jQuery) {
     });
 });
 
+/**
+ * On resize, load map if screen is large enough, also set container height for googlemaps api
+ */
+google.maps.event.addDomListener(window, "resize", function(){
+    jQuery('.tnygmps_canvas').each(function () {
+        var map_id = jQuery(this).attr('id');
+        var map_loc = window[map_id + "_loc"]; // our the global var for this map
+        if (document.documentElement.clientWidth > map_loc.static) {
+            jQuery('#' + map_id).css('height', map_loc.h); // set the map height
+            initialize(map_id, map_loc);
+            console.log('dom resize and large enough so init map');
+        }
+    });
+});
