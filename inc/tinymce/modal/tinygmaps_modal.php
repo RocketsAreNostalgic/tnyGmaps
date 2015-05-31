@@ -56,7 +56,8 @@ $icons_list = implode(", ", $icons_list);
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <title>Google Map</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <link type="text/css" rel="stylesheet" href="<?php echo $local_uri?>modal/tinygmaps_modal.css?<?php echo uniqid(); ?>" />
+	    <link type="text/css" rel="stylesheet" href="<?php echo $local_uri?>css/tinygmaps_modal.min.css?; ?>" />
+<!--	    <link type="text/css" rel="stylesheet" href="--><?php //echo $local_uri?><!--css/tinygmaps_modal.css?--><?php //echo uniqid(); ?><!--" />-->
         <link type="text/css" rel="stylesheet" href="<?php echo $local_uri?>modal/jquery.qtip.custom/jquery.qtip.min.css" />
     </head>
 	<body>
