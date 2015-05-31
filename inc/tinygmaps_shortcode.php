@@ -177,14 +177,16 @@ function trmap_mapme($attr)
             $hold['phone'] = $attr['phone'];
             $attr          = $hold; // shove it back into the attributes array
         }
-    // After all this, lets make sure its is still an array
-     $attr = (array)$attr;
 
     } else {
         if ($debug == true && current_user_can('edit_posts'))
             echo __("<b>MAP PLUGIN NOTICE:</b> Conflicting input values.<br> Include either a google <em>placeref</em> <b>OR</b> <em>address</em>, <b>OR</b> explicit <em>lat, lng</em> values <b>WITH</b> explicit location values: <em>name, street, city, state, postcode, country, phone, web.</em></br>", 'tinygmaps');
         return '';
     }
+
+    // After all this, lets make sure its is still an array
+    $attr = (array)$attr;
+
     // process the infowindow extras
     $tinygmaps_infowindow_extras = ($tinygmaps_infowindowb64 != '') ? base64_decode($tinygmaps_infowindowb64) : '';
     // add any content from the basic to the end in its own div
