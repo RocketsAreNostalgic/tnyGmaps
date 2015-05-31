@@ -211,7 +211,6 @@ function trmap_mapme($attr)
     $linkAddress_url = str_replace($remove, '+', $linkAddress);
     $linkAddress_url = urlencode($linkAddress_url);
 
-
     /**
      * We enqueue the js properly and now can pass the vars as globals through wp_localize_script, sweet.
      * We are able to have multiple maps too - nice!
