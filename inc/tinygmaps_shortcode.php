@@ -11,9 +11,9 @@
  *
  * @copyright (c) 2012-`date "+%Y"` orionrush. All rights reserved.
  * @license [url] GPL
- * 
+ *
  */
-// test
+
 /*
  * Register scripts
  */
