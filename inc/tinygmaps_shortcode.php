@@ -19,7 +19,7 @@
  */
 wp_register_script('googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&signed_in=true', null, null, 'true');
 wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', array('googelmaps_js', 'jquery'), '0.0.1', 'true');
-wp_enqueue_script( 'tinygmaps_init' ); // will appear in footer
+
 
 //Set the debug var as global
 global $tinygmaps_debug;
@@ -248,7 +248,7 @@ function trmap_mapme($attr)
         'static_w' => (int)$tinygmaps_static_h
     );
 
-    wp_localize_script( 'tinygmaps_init', $tinygmaps_map_id . '_loc', $tinygmaps_init_array );
+    do_action ('tr_map_load_scripts', $tinygmaps_map_id, $tinygmaps_init_array);// fire up the scripts
 
     $static_src  = "http://maps.google.com/maps/api/staticmap?size=" . $tinygmaps_static_w . "x" . $tinygmaps_static_h . "&zoom=" . $tinygmaps_z;
     $static_src .= "&center=" . $linkAddress_url;
@@ -363,6 +363,16 @@ function get_info_bubble($icon, $name, $street, $city, $state, $post, $country, 
     $tinygmaps_infowindowPlace .= '</div>';
     return $tinygmaps_infowindowPlace;
 }
+
+
+
+// Load Scripts
+function tr_map_load_scripts ($map_id, $init_array) {
+    wp_localize_script( 'tinygmaps_init', $map_id . '_loc', $init_array );
+    wp_enqueue_script( 'tinygmaps_init' ); // will appear in footer
+}
+
+
 
 /**
  * [tr_map_get_place gets the place information from the appropriate Google API and sets it to a transient]
