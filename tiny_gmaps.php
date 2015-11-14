@@ -31,6 +31,10 @@ if (!defined('GOOGLE_API_KEY')){
 define('TINYGMAP_PATH', plugin_dir_path( __FILE__ ));
 define('TINYGMAP_URL', plugin_dir_url( __FILE__ ));
 
+
+// //Set the debug var as global
+global $tinygmaps_debug;
+//$tinygmaps_debug = true;
 /***********************************************************************
  * Includes
 /*********************************************************************/
@@ -39,9 +43,11 @@ define('TINYGMAP_URL', plugin_dir_url( __FILE__ ));
 load_plugin_textdomain( 'tinygmaps', false, TINYGMAP_PATH . '/inc/languages/' );
 // Admin screen
 //require_once ( TINYGMAP_PATH . 'inc/tr_maps_admin.php');
+
+
+// Ajax functions, must be in the main plugin file
+require_once ( TINYGMAP_PATH . 'inc/tinygmaps_ajax.php');
 // Shortcode
 require_once ( TINYGMAP_PATH . 'inc/tinygmaps_shortcode.php');
 // GUI via modal and tinyMCE button
 require_once ( TINYGMAP_PATH . 'inc/tinygmaps_tinyMCE.php');
-// Ajax functions, must be in the main plugin file
-require_once ( TINYGMAP_PATH . 'inc/tinygmaps_ajax.php');
