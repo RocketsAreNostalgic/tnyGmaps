@@ -31,7 +31,7 @@ function make_root_relative($url) {
 $local_uri = make_root_relative( TINYGMAP_URL . 'inc/tinymce/' );
 
 // do we have the google places api key?
-if (defined('GOOGLEMAPS_API_KEY') && (constant('GOOGLEMAPS_API_KEY') != null || constant('GOOGLEMAPS_API_KEY') != '')){
+if (defined('GOOGLE_API_KEY') && (constant('GOOGLE_API_KEY') != null || constant('GOOGLE_API_KEY') != '')){
     $api_test = true;
 } else {
     $api_Test = false;
