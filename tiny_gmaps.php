@@ -21,9 +21,9 @@ Map details are saved using the transients api, which are refreshed via Google w
  * See the README.md file for more information
  * https://developers.google.com/places/documentation/
 /*********************************************************************/
-
-define('GOOGLEMAPS_API_KEY', 'AIzaSyBJk9dfvS4WYVVzrPNUOshAUZSgqufNSls'); 
-
+if (!defined('GOOGLE_API_KEY')){
+    define('GOOGLE_API_KEY', 'AIzaSyBJk9dfvS4WYVVzrPNUOshAUZSgqufNSls');
+}
 /***********************************************************************
  * Definitions
 /*********************************************************************/
