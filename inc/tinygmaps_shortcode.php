@@ -1,6 +1,6 @@
 <?php
 /**
- * Shortcode outputs markup, and enqueues the js needed
+ * Shortcode outputs markup and enqueues the js just in time.
  *
  * Shortcode parameters
  * @since 0.0.1
@@ -371,23 +371,35 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
     if ($force_refresh || false === $location) {
         if ($placeID != '' && $placeID != null) {
             // return early now if we don't have an api key
-            if (!$api_key) {
-                exit(__("<b>MAP PLUGIN NOTICE:</b> Google API Key has not been set and we cannot process a Places API refrence without it. See documentation on how to get and set your own key.", 'tinygmaps'));
-                
-            }
+            if (!$api_key && $tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
+                exit(__("<b>MAP PLUGIN NOTICE:</b> Looks like you've used a Google place_ID, but right now the Google API key has not been set. Because of this we cannot process a place_ID reference without it. See documentation on how to get and set your own key.", 'tinygmaps'));
+                }
             $args = array(
                 'placeid' => $placeID,
                 'key' => $api_key,
                 'sensor' => 'false'
             );
             $url  = add_query_arg($args, 'https://maps.googleapis.com/maps/api/place/details/json');
-        } elseif ($address != '') { // we're geocoding
+        } elseif ($address != '') { // we must be using the geocode api
+
+            if ($api_key){
+                $args = array(
+                    'address' => urlencode($address),
+                    'sensor' => 'false',
+                    'key' => $api_key // not strictly needed, though the way things are going it may be needed in future, so here it is.
+                );
+            } else {
+                $args = array(
+                    'address' => urlencode($address),
+                    'sensor' => 'false'
+                );
+            }
+
             $args = array(
                 'address' => urlencode($address),
                 'sensor' => 'false',
-                'key' => $api_key
+                'key' => $api_key // not strictly needed but the way things are going it may be in future.
             );
-            // $args       = array( 'address' => urlencode( $address ), 'lat' => $lat, 'lng' => $lng, 'sensor' => 'false' );
             $url  = add_query_arg($args, 'http://maps.googleapis.com/maps/api/geocode/json');
         } else {
             if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
