@@ -238,7 +238,7 @@ function trmap_mapme($attr)
     wp_enqueue_script( 'tinygmaps_init' ); // will appear in footer
 
 
-    $static_src  = "http://maps.google.com/maps/api/staticmap?size=" . $tinygmaps_static_w . "x" . $tinygmaps_static_h . "&zoom=" . $tinygmaps_z;
+    $static_src  = "https://maps.google.com/maps/api/staticmap?size=" . $tinygmaps_static_w . "x" . $tinygmaps_static_h . "&zoom=" . $tinygmaps_z;
     $static_src .= "&center=" . $linkAddress_url;
     $static_src .= "&markers=label:m" . "%257C" . "icon:" . $tinygmaps_marker . "%7C" . $linkAddress_url . "&maptype=" . $tinygmaps_maptype;
     $static_src .= "format=jpg";
@@ -396,7 +396,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                     'sensor' => 'false'
                 );
             }
-            $url  = add_query_arg($args, 'http://maps.googleapis.com/maps/api/geocode/json');
+            $url  = add_query_arg($args, 'https://maps.googleapis.com/maps/api/geocode/json');
         } else {
             if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
                 echo __("<b>MAP PLUGIN NOTICE:</b> There doesn't seem to be a location place_ID or address parameter, check that the shortcode is formed properly.", 'tinygmaps');
