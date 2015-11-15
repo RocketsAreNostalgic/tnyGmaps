@@ -376,7 +376,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                 $args = array(
                     'address' => urlencode($address),
                     'sensor' => 'false',
-                    'key' => $api_key // not strictly needed, though the way things are going it may be needed in future, so here it is.
+                    'key' => $api_key // Google asks for it in the docs, though doesn't expressly require it ... yet
                 );
             } else {
                 $args = array(
@@ -384,12 +384,6 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                     'sensor' => 'false'
                 );
             }
-
-            $args = array(
-                'address' => urlencode($address),
-                'sensor' => 'false',
-                'key' => $api_key // not strictly needed but the way things are going it may be in future.
-            );
             $url  = add_query_arg($args, 'http://maps.googleapis.com/maps/api/geocode/json');
         } else {
             if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
