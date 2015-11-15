@@ -1,30 +1,5 @@
 <?php
 /**
- * The shortcode used in the TR GMaps plugin
- * Map details are saved using the transients api
- * [TRMAP z="10" w="100%" h="300px" maptype="ROADMAP" marker="yes" infowindow="" address="" marker=""]
- *
- * @URL http://www.orionrush.com
- * @since 0.0.1
- * @package WordPress
- * @subpackage TR GMaps
- *
- * @copyright (c) 2012-`date "+%Y"` orionrush. All rights reserved.
- * @license [url] GPL
- *
- */
-
-/*
- * Register scripts
- */
-wp_register_script('googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&signed_in=true', null, null, 'true');
-wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', array('googelmaps_js', 'jquery'), '0.0.1', 'true');
-
-
-//Set the debug var as global
-global $tinygmaps_debug;
-
-/**
  * Shortcode outputs markup, and enqueues the js needed
  *
  * Shortcode parameters
