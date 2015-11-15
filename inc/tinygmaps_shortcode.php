@@ -9,24 +9,24 @@
  * @var string $tinygmaps_map_id [A 13 character id key so multiple maps may be used on the same page.]
  * @var array $attr {
  *      // Shortcode attributes array
- *      @type string $z           | Map zoom level 1 - 22
- *      @type string $w           | Map width in pixels or percent
- *      @type string $h           | Map height in pixels or percent
- *      @type string $maptype     | Map type: ROADMAP, SATELLITE, HYBRID, TERRAIN
- *      @type string $lat         | Location latitude
- *      @type string $lng         | Location longitude
- *      @type string $placeID     | A Google Places API reference if provided one.
- *      @type string $address     | An address to the location as a string
- *      @type string $name        |
- *      @type string $street      |
- *      @type string $city        |
- *      @type string $region      |
- *      @type string $postcode    |
- *      @type string $country     |
- *      @type string $web         |
- *      @type string $phone       |
- *      @type string $icon        |  An image from the maps api for that location
- *      @type string $marker
+ *      @type string $z             | Map zoom level 1 - 22
+ *      @type string $w             | Map width in pixels or percent
+ *      @type string $h             | Map height in pixels or percent
+ *      @type string $maptype       | Map type: ROADMAP, SATELLITE, HYBRID, TERRAIN
+ *      @type string $lat           | Location latitude
+ *      @type string $lng           | Location longitude
+ *      @type string $placeID       | A Google Places API reference if provided one.
+ *      @type string $address       | An address to the location as a string
+ *      @type string $name          | Business or location name
+ *      @type string $street        | Street number and street name
+ *      @type string $city          | City Name
+ *      @type string $region        | State or Provence
+ *      @type string $postcode      | Zip or regional post code
+ *      @type string $country       | Country code, long or short
+ *      @type string $web           | URL inclusive of http://
+ *      @type string $phone         | Phone Number
+ *      @type string $icon          | An image from the maps api for that location
+ *      @type string $marker        | A url full or relative to the plugin (see example) to the icon png
  *      @type string $infowindowdefault  | (yes : no) Show the infowindow on page load, or keep it hidden until the map icon is clicked.
  *      @type string $infowindow    | Additional contents of the infowindow, but must be text only without any markup.
  *      @type string $infowindowb64 | Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
