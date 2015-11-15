@@ -55,9 +55,8 @@ add_shortcode('TINYGMAPS', 'trmap_mapme');
 
 function trmap_mapme($attr)
 {
-    $api_key      = (defined('GOOGLEMAPS_API_KEY')) ? constant('GOOGLEMAPS_API_KEY') : false;
-    $tinygmaps_map_id = uniqid('tnygmps_'); // generate a unique
-    global $debug;
+    $api_key      = (defined('GOOGLE_API_KEY')) ? constant('GOOGLE_API_KEY') : false;
+    $tinygmaps_map_id = uniqid('tnygmps_'); // generate a unique map instance for each map displayed
     // default atts
     $attr = shortcode_atts(array(
         'z' => '1',
