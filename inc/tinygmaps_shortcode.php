@@ -146,7 +146,7 @@ function trmap_mapme($attr)
         
         if ($attr['address'] == '' || $attr['address'] == ",") {
             $attr['address'] = null; // Set it or forget it
-            if ($debug == true && current_user_can('edit_posts'))
+            if ($tinygmaps_debug == true && current_user_can('edit_posts')  && !is_admin())
                 echo __('<b>MAP PLUGIN NOTICE:</b> Insufficiant location information.', 'tinygmaps');
             
         } else {
@@ -159,9 +159,10 @@ function trmap_mapme($attr)
         }
 
     } else {
-        if ($debug == true && current_user_can('edit_posts'))
-            echo __("<b>MAP PLUGIN NOTICE:</b> Conflicting input values.<br> Include either a google <em>placeref</em> <b>OR</b> <em>address</em>, <b>OR</b> explicit <em>lat, lng</em> values <b>WITH</b> explicit location values: <em>name, street, city, state, postcode, country, phone, web.</em></br>", 'tinygmaps');
+        if ($tinygmaps_debug == true && current_user_can('edit_posts')  && !is_admin()) {
+            echo __("<b>MAP PLUGIN NOTICE: </b> Whoops! You possibly have conflicting input values.<br> Include either a google <em>placeID</em> <b>OR</b> <em>address</em>, <b>OR</b> explicit <em>lat, lng</em> values <b>WITH</b> explicit location values: <em>name, street, city, state, postcode, country, phone, web.</em></br>", 'tinygmaps');
         return '';
+        }
     }
 
     // After all this, lets make sure its is still an array
@@ -383,8 +384,8 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
             // $args       = array( 'address' => urlencode( $address ), 'lat' => $lat, 'lng' => $lng, 'sensor' => 'false' );
             $url  = add_query_arg($args, 'http://maps.googleapis.com/maps/api/geocode/json');
         } else {
-            if ($debug == true && current_user_can('edit_posts')) {
-                echo __("<b>MAP PLUGIN NOTICE:</b> There doesn't seem to be a location or address, check that the shortcode is formed propperly.", 'tinygmaps');
+            if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
+                echo __("<b>MAP PLUGIN NOTICE:</b> There doesn't seem to be a location or address, check that the shortcode is formed properly.", 'tinygmaps');
             }
             return '';
         }
@@ -392,8 +393,8 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
         $response = wp_remote_get($url);
         
         if (is_wp_error($response)) {
-            if ($debug == true && current_user_can('edit_posts')) {
-                echo __("<b>MAP PLUGIN NOTICE:</b> We recieved an error in the responce: </br>", 'tinygmaps');
+            if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
+                echo __("<b>MAP PLUGIN NOTICE:</b> We received an error in the response: </br>", 'tinygmaps');
                 echo "<pre>";
                 print_r($response);
                 echo "</pre>";
@@ -403,24 +404,27 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
         $data = wp_remote_retrieve_body($response);
         
         if (is_wp_error($data)) {
-            if ($debug == true && current_user_can('edit_posts')) {
-                echo __("<b>MAP PLUGIN NOTICE:</b> There were problems retrieving the body of the responce. ", 'tinygmaps');
+            if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
+                echo __("<b>MAP PLUGIN NOTICE:</b> There were problems retrieving the body of the response. ", 'tinygmaps');
+                echo "<pre>";
+                print_r($data);
+                echo "</pre>";
             }
             return '';
         }
         if ($response['response']['code'] == 200 && !is_admin()) {
             $data = json_decode($data);
             if ($data->status === 'OK' ) {
-                if ($debug == true && current_user_can('edit_posts') ) {
+                if ($tinygmaps_debug == true && current_user_can('edit_posts')  && !is_admin()) {
                     echo __("<b>MAP PLUGIN NOTICE:</b> Status OK", 'tinygmaps');
                     echo "<pre>";
                     print_r($data);
                     echo "</pre>";
                 }
-                if ($plugin_debug == true && current_user_can('edit_posts')) {
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
                     echo __("<b>Google Responce:</b>", 'tinygmaps');
                     echo "<pre>";
-                    echo $debug;
+                    echo $tinygmaps_debug;
                     print_r($data);
                     echo "</pre>";
                 }
@@ -469,45 +473,68 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                 $data = $cache_value;
                 
             } elseif ($data->status === 'UNKNOWN_ERROR') {
-                if ($debug == true && current_user_can('edit_posts'))
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                     echo __('<b>MAP PLUGIN NOTICE:</b> Server-side error, please try again in a short while.', 'tinygmaps');
+                echo "<pre>";
+                print_r($data);
+                echo "</pre>";
+
                 return '';
             } elseif ($data->status === 'ZERO_RESULTS') {
-                if ($debug == true && current_user_can('edit_posts'))
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                     echo __('<b>MAP PLUGIN NOTICE:</b> No location found for the entered place reference. This may indicate the location may have changed names, or is no longer opperating.', 'tinygmaps');
+                    echo "<pre>";
+                    print_r($data);
+                    echo "</pre>";
                 return '';
             } elseif ($data->status === 'OVER_QUERY_LIMIT') {
-                if ($debug == true && current_user_can('edit_posts'))
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                     echo __('<b>MAP PLUGIN NOTICE:</b> This API Key is over its quota.', 'tinygmaps');
+                    echo "<pre>";
+                    print_r($data);
+                    echo "</pre>";
                 return '';
             } elseif ($data->status === 'REQUEST_DENIED') {
-                if ($debug == true && current_user_can('edit_posts'))
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                     echo __('<b>MAP PLUGIN NOTICE:</b> Request Denied. Usually this is due to the sensor parameter being missing in the search string..', 'tinygmaps');
+                    echo "<pre>";
+                    print_r($data);
+                    echo "</pre>";
                 return '';
             } elseif ($data->status === 'INVALID_REQUEST') {
-                if ($debug == true && current_user_can('edit_posts'))
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                     echo __('<b>MAP PLUGIN NOTICE:</b> Invalid request. Did you enter a location reference?', 'tinygmaps');
+                    echo "<pre>";
+                    print_r($data);
+                    echo "</pre>";
                 return '';
             } elseif ($data->status === 'NOT_FOUND') {
-                if ($debug == true && current_user_can('edit_posts'))
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                     echo __('<b>MAP PLUGIN NOTICE:</b> Place not found. Usually this is due to an incomplete or corrupted reference string.', 'tinygmaps');
+                    echo "<pre>";
+                    print_r($data);
+                    echo "</pre>";
                 return '';
             } else {
-                if ($debug == true && current_user_can('edit_posts'))
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                     echo __('<b>MAP PLUGIN NOTICE:</b> Something went wrong while retrieving your map, please ensure you have entered the short code correctly.', 'tinygmaps');
-                return '';
+                    echo "<pre>";
+                    print_r($data);
+                    echo "</pre>";
+                   return '';
             }
             } else {
                 $responseCode = $response['response']['code'];
-                if ($debug == true && current_user_can('edit_posts'))
+                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                     echo __('Unable to contact Google API, service response: ' . $responseCode, 'tinygmaps');
+
                 return '';
             }
     } else {
         // return cached results
         $data = $location;
     }
-    if ($plugin_debug == true && current_user_can('edit_posts') && !is_admin()) {
+    if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
         echo "<pre>";
         print_r($data);
         echo "</pre>";
