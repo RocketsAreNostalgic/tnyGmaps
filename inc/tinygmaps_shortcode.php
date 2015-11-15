@@ -5,10 +5,10 @@
  * Shortcode parameters
  * @since 0.0.1
  * 
- * @var string $api_key [A check to see if the constant GOOGLEMAPS_API_KEY has been set.]
+ * @var string $api_key [A check to see if the constant GOOGLE_API_KEY has been set.]
  * @var string $tinygmaps_map_id [A 13 character id key so multiple maps may be used on the same page.]
  * @var array $attr {
- *      [The Shortcode attributes array.] 
+ *      [The Shortcode attributes array]
  *      @type string $z Map zoom level 1 - 22
  *      @type string $w Map width in pixels or percent
  *      @type string $h Map height in pixels or percent
@@ -520,7 +520,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
  * *********************************************************************
  * Process the returned Geocodeing, or Places API object for address values
  * 
- * @var string $needle [The google address element beeing searched for]
+ * @var string $needle [The google address element being searched for]
  * @var array $haystack [The Google place results as an array]
  * @return string [The information held in the array at the "needle" position saught after, such as "city" or "postcode" ] 
  * 
