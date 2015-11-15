@@ -8,43 +8,36 @@
  * @var string $api_key [A check to see if the constant GOOGLE_API_KEY has been set.]
  * @var string $tinygmaps_map_id [A 13 character id key so multiple maps may be used on the same page.]
  * @var array $attr {
- *      [The Shortcode attributes array]
- *      @type string $z Map zoom level 1 - 22
- *      @type string $w Map width in pixels or percent
- *      @type string $h Map height in pixels or percent
- *      @type string $maptype Map type: ROADMAP, SATELLITE, HYBRID, TERRAIN
- *
- *      @type string $lat Location coordinates
- *      @type string $lng
- *      @type string $placeID A Google Places API reference if the Modal Preview provided one.
- *      @type string $address An address to the location as a single string
- *
- * 		// Explicit location values
- *      @type string $name
- *      @type string $street
- *      @type string $city
- *      @type string $region
- *      @type string $postcode
- *      @type string $country
- *      @type string $web
- *      @type string $phone      
- *      @type string $icon an image from the maps api for that location
- *      @type string $marker 
- *      
- *      @type string $infowindowdefault ( yes : no ) Show the infowindow on page load, or keep it hidden until the map icon is clicked.
- *      
- *      @type string $infowindow Additional contents of the infowindow, but must be text only without any markup.
- *      @type string $infowindowb64 Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
- *      @type string $hidecontrols (true : false) Hides the zoom, street view and other controls
- *      @type boolean $scale (true : false) Is the map scale drawn?
- *      @type boolean $scrollwheel (true : false) Will the map zoom react to mouse scrollwheel?
- *
- *      @type string $static dom width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate not map is drawn
- *      @type int $static_w width of static map in pixels
- *      @type int $static_h height of of static map in pixels
- *
- *      @type boolean $refresh (true : false) Will flush any transient data from being cashed for a given location (good for testing results)
- *      @type boolean $debug (true : false) Will render the return values from the Google Maps API object for debugging.
+ *      // Shortcode attributes array
+ *      @type string $z           | Map zoom level 1 - 22
+ *      @type string $w           | Map width in pixels or percent
+ *      @type string $h           | Map height in pixels or percent
+ *      @type string $maptype     | Map type: ROADMAP, SATELLITE, HYBRID, TERRAIN
+ *      @type string $lat         | Location latitude
+ *      @type string $lng         | Location longitude
+ *      @type string $placeID     | A Google Places API reference if provided one.
+ *      @type string $address     | An address to the location as a string
+ *      @type string $name        |
+ *      @type string $street      |
+ *      @type string $city        |
+ *      @type string $region      |
+ *      @type string $postcode    |
+ *      @type string $country     |
+ *      @type string $web         |
+ *      @type string $phone       |
+ *      @type string $icon        |  An image from the maps api for that location
+ *      @type string $marker
+ *      @type string $infowindowdefault  | (yes : no) Show the infowindow on page load, or keep it hidden until the map icon is clicked.
+ *      @type string $infowindow    | Additional contents of the infowindow, but must be text only without any markup.
+ *      @type string $infowindowb64 | Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
+ *      @type string $hidecontrols  | (true : false) Hides the zoom, street view and other controls
+ *      @type boolean $scale        | (true : false) Is the map scale drawn?
+ *      @type boolean $scrollwheel  |  (true : false) Will the map zoom react to mouse scrollwheel?
+ *      @type string $static        | Dom width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate not map is drawn
+ *      @type int $static_w         | Width of static map in pixels
+ *      @type int $static_h         | Height of of static map in pixels
+ *      @type boolean $refresh      | (true : false) Will flush any transient data from being cashed for a given location (good for testing results)
+ *      @type boolean $debug        | (true : false) Will render the return values from the Google Maps API object for debugging.
  *      }
  */
 
@@ -52,10 +45,7 @@
 wp_register_script('googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&signed_in=true', null, null, 'true');
 wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', array('googelmaps_js', 'jquery'), '0.0.1', 'true');
 
-
-
 add_action('wp_enqueue_scripts', 'trmap_mapme');
-add_shortcode('TRMAP', 'trmap_mapme'); //legacy installs
 add_shortcode('TINYGMAPS', 'trmap_mapme');
 
 function trmap_mapme($attr)
@@ -409,18 +399,20 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
         }
         
         $response = wp_remote_get($url);
-        
+
+        // Catch any errors from wp_remote_get
         if (is_wp_error($response)) {
             if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
-                echo __("<b>MAP PLUGIN NOTICE:</b> We received an error in the response: </br>", 'tinygmaps');
+                echo __("<b>MAP PLUGIN NOTICE:</b> We received an error in the URL response: </br>", 'tinygmaps');
                 echo "<pre>";
                 print_r($response);
                 echo "</pre>";
             }
             return '';
         }
+
         $data = wp_remote_retrieve_body($response);
-        
+
         if (is_wp_error($data)) {
             if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
                 echo __("<b>MAP PLUGIN NOTICE:</b> There were problems retrieving the body of the response. ", 'tinygmaps');
@@ -428,7 +420,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                 print_r($data);
                 echo "</pre>";
             }
-            return '';
+            return ''; // exit now
         }
         if ($response['response']['code'] == 200 && !is_admin()) {
             $data = json_decode($data);
@@ -446,19 +438,17 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                     print_r($data);
                     echo "</pre>";
                 }
-                // Places vs Geocoding APIs
+                /* We've received a positive result, populate the variables */
+                // place_ID vs Geocoding APIs
                 $result = ($placeID != '' && $placeID != null) ? $data->result : $data->results[0];
-                
                 $coordinates        = $result->geometry->location;
                 $cache_value['lat'] = (string) $coordinates->lat;
                 $cache_value['lng'] = (string) $coordinates->lng;
-                
                 // top level items
                 $cache_value['name']  = (string) (property_exists($result, 'name')) ? htmlentities((string) $result->name, ENT_QUOTES) : '';
                 $cache_value['icon']  = (string) (property_exists($result, 'icon')) ? ((string) $result->icon) : '';
                 $cache_value['phone'] = (string) (property_exists($result, 'formatted_phone_number')) ? ($result->formatted_phone_number) : '';
                 $cache_value['web']   = (string) (property_exists($result, 'website')) ? ($result->website) : '';
-                
                 // Address components		
                 $premise               = (processObject('premise', $result)) ? processObject('premise', $result) . ', ' : '';
                 $street_number         = processObject('street_number', $result);
@@ -466,7 +456,6 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                 $street_number         = processObject('street_number', $result);
                 $streetAddress         = $premise . ' ' . $street_number . ' ' . $route;
                 $cache_value['street'] = htmlentities($streetAddress, ENT_QUOTES);
-                
                 // City
                 $city                = (processObject('administrative_area3', $result)) ? processObject('administrative_area3', $result) : '';
                 $city                = (processObject('locality', $result)) ? processObject('locality', $result) : $city;
