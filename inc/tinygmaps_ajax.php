@@ -30,14 +30,13 @@ add_action('wp_ajax_tinygmaps_modal', 'tinygmaps_modal');
  *
  */
 function tinygmaps_loadgmaps() {
-
-        ob_start();
-        header('Content-Type: text/javascript; charset=utf-8');
-        include ( TINYGMAP_PATH . 'inc/tinymce/modal/tinygmaps_modal_loadmaps.min.js');
-        $string = ob_get_clean();
-        exit($string);
+    wp_enqueue_script( 'my-js', TINYGMAP_PATH . 'inc/tinymce/modal/tinygmaps_modal_loadmaps.min.js', false );
 }
-add_action('wp_ajax_tinygmaps_loadgmaps', 'tinygmaps_loadgmaps');
+
+function load_tinygmaps_loadgmaps(){
+    add_action('wp_enqueue_scripts', 'tinygmaps_loadgmaps');
+}
+add_action('wp_ajax_tinygmaps_loadgmaps', 'load_tinygmaps_loadgmaps');
 
  /*
   * Add needed global vars for js to wp head
