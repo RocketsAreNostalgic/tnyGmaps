@@ -55,7 +55,7 @@ add_action('wp_ajax_tinygmaps_loadgmaps', 'tinygmaps_loadgmaps');
 function tinygmaps_load_js_globals (){
     global $pagenow;
     if (! empty($pagenow) && ('post-new.php' === $pagenow || 'post.php' === $pagenow )){
-        if ( defined('GOOGLEMAPS_API_KEY') && (constant('GOOGLEMAPS_API_KEY') != null || constant('GOOGLEMAPS_API_KEY') != '') ) {
+        if ( defined('GOOGLE_API_KEY') && (constant('GOOGLE_API_KEY') != null || constant('GOOGLE_API_KEY') != '') ) {
             $have_key = true;
         } else {
             $have_key = false;
