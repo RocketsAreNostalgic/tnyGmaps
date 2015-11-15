@@ -15,7 +15,7 @@ var mapTypeReturn = null;
 var mapControlsReturn = null;
 var mapAddressReturn = null;
 var mapAddressElement = null;
-var locGoogleRef = null;
+var locGooglePlaceID = null;
 var mapMarkerReturn = null;
 var mapMarkerImageReturn = null;
 var infowindow = null;
@@ -45,8 +45,8 @@ function seed_vars (){
 	//console.log('mapHeightReturn: ' + mapHeightReturn);
 	mapTypeReturn = jQuery('select[id=mapType]').val();
 	//console.log('mapTypeReturn: ' + mapTypeReturn);
-	locGoogleRef = jQuery('input#locGoogleRef').val();
-	//console.log('locGoogleRef: ' + locGoogleRef);
+	locGooglePlaceID = jQuery('input#locGooglePlaceID').val();
+	//console.log('locGooglePlaceID: ' + locGooglePlaceID);
 	mapAddressReturn = jQuery('input[id=mapAddress]').val();
 	//console.log('mapAddressReturn: ' + mapAddressReturn);
 	locName = jQuery('input#locName').val();
@@ -96,7 +96,7 @@ function get_marker_image(){
 // User isn't useing auto-complete so clean the inputs fields so we can reverse lookup the address and cache the cordinates
 function custom_location(){
 	jQuery('#mapAddress').val(''); 	// empty autocomplete feild
-	jQuery('#locGoogleRef').val(''); 	// empty location ref
+	jQuery('#locGooglePlaceID').val(''); 	// empty location ref
 	jQuery('#locIconURL').val(''); 	// empty icon
 	jQuery('#mapLat').val(''); 		// empty cordinates
 	jQuery('#mapLng').val('');
@@ -383,7 +383,7 @@ function initialize(infowindow) {
 		infowindow.close();
 		input.className = '';
 		locPlace = autocomplete.getPlace();
-		// console.log(locPlace);
+		 console.log(locPlace);
 		if (!locPlace.geometry) {
 			// Inform the user that the place was not found and return.
 			input.className = 'notfound';
@@ -414,15 +414,15 @@ function initialize(infowindow) {
 			locWeb = '';
 			lat = '';
 			lng = '';
-			locGoogleRef = '';
+			locGooglePlaceID = '';
 
 			// these live at the top level of the object so we can access them easily
 			// get the information and set the text field if it exsists, else clear the varriable and the associated field
 
 
 			// Googles Places Refrence ID
-			(locPlace.reference) ?  locGoogleRef = locPlace.reference : locGoogleRef = '';
-			jQuery('#locGoogleRef').val(locGoogleRef.trim());
+			(locPlace.place_id) ?  locGooglePlaceID = locPlace.place_id : locGooglePlaceID = '';
+			jQuery('#locGooglePlaceID').val(locGooglePlaceID.trim());
 			//Lng & Lat
 			lat = locPlace.geometry.location.lat();
 			jQuery('#mapLat').val(lat);	
@@ -528,7 +528,7 @@ function initialize(infowindow) {
 				locIcon = '';
 				// lat = '';
 				// lng = '';
-				locGoogleRef = '';
+				locGooglePlaceID = '';
 
 				// Name of location
 				locName = processObject ( 'point_of_interest', locPlace.address_components );
@@ -667,7 +667,7 @@ tinyGmaps = {
 		(mapControlsReturn == true ) ? markerOutput += 'hidecontrols="true" ' : '';
 
 		
-		if (locGoogleRef == null || locGoogleRef == '') {
+		if (locGooglePlaceID == null || locGooglePlaceID == '') {
 			markerOutput += 'lat="' + lat + '" ';
 			markerOutput += 'lng="' + lng + '" ';
 			// assemble the address values
@@ -682,7 +682,7 @@ tinyGmaps = {
 			(locPhone !== "" && locPhone !== "") 			? markerOutput += 'phone="' + htmlEntities(locPhone) + '" ' : '';
 
 		}
-		else markerOutput += 'placeref="' + locGoogleRef + '" ';
+		else markerOutput += 'placeid="' + locGooglePlaceID + '" ';
 		(mapMarkerReturn !== "" && mapMarkerImageReturn !== "") ? markerOutput += 'marker="' + mapMarkerImageReturn + '" ' : '';
 		(mapMarkerReturn !== "" && mapInfoWindowReturn !=="") ? markerOutput += 'infowindowb64="' + mapInfoWindowReturn + '" ' : '';
 		markerOutput += ']';

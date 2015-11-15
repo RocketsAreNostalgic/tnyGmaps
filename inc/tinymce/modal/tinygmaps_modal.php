@@ -138,7 +138,7 @@ $icons_list = implode(", ", $icons_list);
 								<input type="hidden" name="mapLat"  id="mapLat" disabled />
 								<input type="hidden" name="mapLng"  id="mapLng" disabled/>
 								<input type="hidden" name="locIconURL"  id="locIconURL"  disabled />
-								<input type="hidden" name="locGoogleRef"  id="locGoogleRef" disabled />
+								<input type="hidden" name="locGooglePlaceID"  id="locGooglePlaceID" disabled />
 							</div>
 						</div>
 				</div>
