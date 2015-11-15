@@ -48,6 +48,11 @@
  *      }
  */
 
+/* Register scripts */
+wp_register_script('googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&signed_in=true', null, null, 'true');
+wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', array('googelmaps_js', 'jquery'), '0.0.1', 'true');
+
+
 
 add_action('wp_enqueue_scripts', 'trmap_mapme');
 add_shortcode('TRMAP', 'trmap_mapme'); //legacy installs
