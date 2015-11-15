@@ -41,7 +41,7 @@ global $tinygmaps_debug;
  *
  *      @type string $lat Location coordinates
  *      @type string $lng
- *      @type string $placeref A Google Places API reference if the Modal Preview provided one.
+ *      @type string $placeID A Google Places API reference if the Modal Preview provided one.
  *      @type string $address An address to the location as a single string
  *
  * 		// Explicit location values
@@ -91,7 +91,7 @@ function trmap_mapme($attr)
         'maptype' => 'ROADMAP',
         'lat' => '',
         'lng' => '',
-        'placeref' => '',
+        'placeid' => '',
         'address' => '',
         'name' => '',
         'street' => '',
@@ -143,19 +143,21 @@ function trmap_mapme($attr)
     $tinygmaps_debug            = ($attr['debug'] == 'true') ? true : false;
 
     // setup the incoming values
-    if ($attr['placeref'] != '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] == '') {
+    if ($attr['placeid'] != '' ) {
         // Here we have a place ref so get/set transient with fetched values
         $attr['address'] = null;
-        (array) $attr = tr_map_get_place($api_key, $attr['placeref'], $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
 
-    } elseif ($attr['placeref'] == '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] != '') {
+        (array) $attr = tr_map_get_place($api_key, $attr['placeid'], $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
+
+
+    } elseif ($attr['placeid'] == '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] != '') {
         // here we have a address so get/set transient with fetched values		
         (array) $attr = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
 
-    } elseif ($attr['placeref'] == '' && ($attr['lat'] != '' || $attr['lng'] != '') && $attr['address'] == '') {
+    } elseif ($attr['placeid'] == '' && ($attr['lat'] != '' || $attr['lng'] != '') && $attr['address'] == '') {
         // here we have lat and lng so we will assume the individual params are set too  - do nothing	
         
-    } elseif ($attr['placeref'] == '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] == '' && $attr['city'] != '') {
+    } elseif ($attr['placeid'] == '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] == '' && $attr['city'] != '') {
         // we have no lat lag but we have address components so build the address from these attr
         $attr['address'] = $attr['street'] . ', ' . $attr['city'] . ', ' . $attr['region'] . ', ' . $attr['postcode'] . '+' . $attr['country'];
 
@@ -372,29 +374,29 @@ function get_info_bubble($icon, $name, $street, $city, $state, $post, $country, 
 /**
  * [tr_map_get_place gets the place information from the appropriate Google API and sets it to a transient]
  * @param  [type] $api_key       [The Client API Key provided by the user.]
- * @param  [type] $placeRef      [The optional Google Places Refrence if it has been provided]
+ * @param  [type] $placeID      [The optional Google Places Reference if it has been provided]
  * @param  string $address       [An optional address sting]
- * @param  [type] $force_refresh [Set by the "refresh" short code parm, this flushes any transient values associated with this addres hash]
- * @param  [type] $plugin_debug  [Prints debuggin information on to the client end, if the user has admin rights.]
+ * @param  [type] $force_refresh [Set by the "refresh" short code parm, this flushes any transient values associated with this address hash]
+ * @param  [type] $debug  [Prints debugging information on to the client end, if the user has admin rights.]
  * @return [type]                [description]
  */
-function tr_map_get_place($api_key, $placeRef, $address = '', $force_refresh, $plugin_debug)
+function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $tinygmaps_debug)
 {
-    global $debug;
+    global $tinygmaps_debug;
 
     // Transient hashes need to be less then 45 char long
-    $location = ($placeRef) ? substr($placeRef, 0, 44) : substr(md5($address), 0, 44);
+    $location = ($placeID) ? substr($placeID, 0, 44) : substr(md5($address), 0, 44);
     $location = get_transient($location);
     
     if ($force_refresh || false === $location) {
-        if ($placeRef != '' && $placeRef != null) {
+        if ($placeID != '' && $placeID != null) {
             // return early now if we don't have an api key
             if (!$api_key) {
                 exit(__("<b>MAP PLUGIN NOTICE:</b> Google API Key has not been set and we cannot process a Places API refrence without it. See documentation on how to get and set your own key.", 'tinygmaps'));
                 
             }
             $args = array(
-                'reference' => $placeRef,
+                'placeid' => $placeID,
                 'key' => $api_key,
                 'sensor' => 'false'
             );
@@ -449,7 +451,7 @@ function tr_map_get_place($api_key, $placeRef, $address = '', $force_refresh, $p
                     echo "</pre>";
                 }
                 // Places vs Geocoding APIs
-                $result = ($placeRef != '' && $placeRef != null) ? $data->result : $data->results[0];
+                $result = ($placeID != '' && $placeID != null) ? $data->result : $data->results[0];
                 
                 $coordinates        = $result->geometry->location;
                 $cache_value['lat'] = (string) $coordinates->lat;
@@ -489,7 +491,7 @@ function tr_map_get_place($api_key, $placeRef, $address = '', $force_refresh, $p
                 $cache_value['country']  = htmlentities(processObject('country', $result), ENT_QUOTES);
                 
                 //cache address details for 3 months
-                set_transient(substr($placeRef, 0, 44), $cache_value, 3600 * 24 * 30 * 3);
+                set_transient(substr($$placeID, 0, 44), $cache_value, 3600 * 24 * 30 * 3);
                 $data = $cache_value;
                 
             } elseif ($data->status === 'UNKNOWN_ERROR') {
