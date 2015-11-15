@@ -175,17 +175,28 @@ function trmap_mapme($attr)
      $tinygmaps_infowindow        = get_info_bubble($tinygmaps_icon, $name, $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $tinygmaps_infowindow);
     
     // for external map link
-    $linkAddress = $attr['name'] . ' ' . $attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
+    $linkAddress = $attr['name'] . ' ' .$attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
+    $linkAddress_url = urlencode($linkAddress);
+    // Clean up whitespace and commas
     $remove      = array(
+        '  ',
         ' ',
+        ', ',
+        ',',
+        '%2C', // commas
         '\t',
+        '\t\t',
         '\n',
+        '\n\n',
         '\r',
+        '\r\r',
         '\0',
-        '\x0B'
-    ); // wt space
-    $linkAddress_url = str_replace($remove, '+', $linkAddress);
-    $linkAddress_url = urlencode($linkAddress_url);
+        '\0\0',
+        '\x0B',
+        '\x0B\x0B'
+    );
+    $linkAddress_url = str_replace($remove, '+', $linkAddress_url);
+    $linkAddress_url = str_replace('++', '', $linkAddress_url); // remove double plus from an empty attribute string
 
     /**
      * We enqueue the js properly and now can pass the vars as globals through wp_localize_script, sweet.
@@ -240,7 +251,8 @@ function trmap_mapme($attr)
         $markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $tinygmaps_infowindow . '</div>';
     }
     $markup .= '    </div>';
-    $markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?z=' . $tinygmaps_z . '&q=' . $linkAddress_url . '&f=d&t=m"  class="tnygmps_ext_lnk" target="_blank">open map in new window</a></div>';
+    $markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">open map in new window</a></div>';
+    //    $markup .= '<pre>' .$linkAddress_url . '</pre>';// troubleshoot url params
     $markup .= '</div>';
 
     return $markup;
