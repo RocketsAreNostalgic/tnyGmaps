@@ -109,7 +109,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function initialize(infowindow) {
 	/* 
 	 * Form UX
-	 * We put this here so that we have access to map handelers 
+	 * We put this here so that we have access to map handlers
 	 */ 
 	jQuery(document).ready(function($) {
 		// Prevent the return key from submitting the form too soon
@@ -467,7 +467,7 @@ function initialize(infowindow) {
 			locRegion = processObject ( 'administrative_area_level_1', locPlace.address_components );
 			if (!locRegion) locRegion = processObject ( 'administrative_area_level_2', locPlace.address_components );
 		
-			// if we dont have a state but do have a region, use that instead. 
+			// if we don't have a state but do have a region, use that instead.
 			if ((locRegion !=='' || locRegion !== null)  && (locRegion == '' || locRegion == null)) locRegion = locRegion;
 			jQuery('#locCity').val(locCity.trim());	
 			jQuery('#locRegion').val(locRegion.trim());	
@@ -513,8 +513,7 @@ function initialize(infowindow) {
 
 			  if (status == google.maps.GeocoderStatus.OK){
 			  	locPlace = results[0];
-			  	var locComponents = locPlace.address_components;	
-			  	// console.log(locPlace);
+			  	var locComponents = locPlace.address_components;
 
 			  	// Flush previous values
 				locName = '';
