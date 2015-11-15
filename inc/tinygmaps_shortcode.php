@@ -387,7 +387,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
             $url  = add_query_arg($args, 'http://maps.googleapis.com/maps/api/geocode/json');
         } else {
             if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
-                echo __("<b>MAP PLUGIN NOTICE:</b> There doesn't seem to be a location or address, check that the shortcode is formed properly.", 'tinygmaps');
+                echo __("<b>MAP PLUGIN NOTICE:</b> There doesn't seem to be a location place_ID or address parameter, check that the shortcode is formed properly.", 'tinygmaps');
             }
             return '';
         }
@@ -483,7 +483,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                 return '';
             } elseif ($data->status === 'ZERO_RESULTS') {
                 if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('<b>MAP PLUGIN NOTICE:</b> No location found for the entered place reference. This may indicate the location may have changed names, or is no longer opperating.', 'tinygmaps');
+                    echo __('<b>MAP PLUGIN NOTICE:</b> No location found for the entered place reference. This may indicate the location may have changed names, or is no longer operating.', 'tinygmaps');
                     echo "<pre>";
                     print_r($data);
                     echo "</pre>";
