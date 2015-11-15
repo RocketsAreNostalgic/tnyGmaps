@@ -379,7 +379,8 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
         } elseif ($address != '') { // we're geocoding
             $args = array(
                 'address' => urlencode($address),
-                'sensor' => 'false'
+                'sensor' => 'false',
+                'key' => $api_key
             );
             // $args       = array( 'address' => urlencode( $address ), 'lat' => $lat, 'lng' => $lng, 'sensor' => 'false' );
             $url  = add_query_arg($args, 'http://maps.googleapis.com/maps/api/geocode/json');
