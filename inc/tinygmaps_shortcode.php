@@ -172,7 +172,7 @@ function trmap_mapme($attr)
     // pass it through KSES to scrub it from unwanted markup
     $tinygmaps_infowindow        = info_window_sanitize($tinygmaps_infowindow);
     // Assemble the infowindow components
-     $tinygmaps_infowindow        = get_info_bubble($tinygmaps_icon, $name, $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $tinygmaps_infowindow);
+     $tinygmaps_infowindow        = get_info_bubble($tinygmaps_icon, $attr['name'], $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $tinygmaps_infowindow);
     
     // for external map link
     $linkAddress = $attr['name'] . ' ' .$attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
