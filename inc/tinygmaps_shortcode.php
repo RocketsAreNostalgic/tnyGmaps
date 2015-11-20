@@ -362,11 +362,13 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
 {
     global $tinygmaps_debug;
 
-    // Transient hashes need to be less then 45 char long
+    // Transient hashes need to be less then 45 char long, in case placeID ever gets that big again place ref, used to be very long
     $location = ($placeID) ? substr($placeID, 0, 44) : substr(md5($address), 0, 44);
     $location = get_transient($location);
-    
+
+
     if ($force_refresh || false === $location) {
+    // We dont have a tranisient saved
         if ($placeID != '' && $placeID != null) {
             // return early now if we don't have an api key
             if (!$api_key && $tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
