@@ -114,10 +114,9 @@ function trmap_mapme($attr)
     // setup the incoming values
     if ($attr['placeid'] != '' ) {
         // Here we have a place ref so get/set transient with fetched values
-        $attr['address'] = null;
+        $attr['address'] = null; // strip this out as we don't need to cache it internally
 
-        (array) $attr = tr_map_get_place($api_key, $attr['placeid'], $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
-
+        $attr = tr_map_get_place($api_key, $attr['placeid'], $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
 
     } elseif ($attr['placeid'] == '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] != '') {
         // here we have a address so get/set transient with fetched values		
