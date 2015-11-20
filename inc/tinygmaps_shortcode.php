@@ -159,9 +159,6 @@ function trmap_mapme($attr)
         }
     }
 
-    // After all this, lets make sure its is still an array
-    $attr = (array)$attr;
-
     // process the infowindow extras
     $tinygmaps_infowindow_extras = ($tinygmaps_infowindowb64 != '') ? base64_decode($tinygmaps_infowindowb64) : '';
     // add any content from the basic to the end in its own div
