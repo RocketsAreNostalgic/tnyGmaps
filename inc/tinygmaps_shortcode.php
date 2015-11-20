@@ -397,9 +397,8 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
             if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
                 echo __("<b>MAP PLUGIN NOTICE:</b> There doesn't seem to be a location place_ID or address parameter, check that the shortcode is formed properly.", 'tinygmaps');
             }
-            return '';
+            return false;
         }
-        
         $response = wp_remote_get($url);
 
         // Catch any errors from wp_remote_get
@@ -410,7 +409,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                 print_r($response);
                 echo "</pre>";
             }
-            return '';
+            return false;
         }
 
         $data = wp_remote_retrieve_body($response);
@@ -422,7 +421,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                 print_r($data);
                 echo "</pre>";
             }
-            return ''; // exit now
+            return false; // exit now
         }
         if ($response['response']['code'] == 200 && !is_admin()) {
             $data = json_decode($data);
