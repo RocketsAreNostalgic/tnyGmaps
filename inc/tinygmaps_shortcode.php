@@ -18,7 +18,7 @@
  *      @type string $placeID       | A Google Places API reference if provided one.
  *      @type string $address       | An address to the location as a string
  *      @type string $name          | Business or location name
- *      @type string $street        | Street number and street name
+ *      @type string $street        | Building number and street name
  *      @type string $city          | City Name
  *      @type string $region        | State or Provence
  *      @type string $postcode      | Zip or regional post code
@@ -50,7 +50,7 @@ add_shortcode('TINYGMAPS', 'trmap_mapme');
 
 function trmap_mapme($attr)
 {
-    $api_key      = (defined('GOOGLE_API_KEY')) ? constant('GOOGLE_API_KEY') : false;
+    $api_key = (defined('GOOGLE_API_KEY')) ? constant('GOOGLE_API_KEY') : false;
     $tinygmaps_map_id = uniqid('tnygmps_'); // generate a unique map instance for each map displayed
     // default atts
     $attr = shortcode_atts(array(
@@ -87,49 +87,49 @@ function trmap_mapme($attr)
     // clean up array
     array_walk($attr, create_function('&$val', '$val = trim($val);')); //trim white space
     $attr = array_htmlentities($attr); // encode any single quotes that may appear
+
     // load map params into variables
-    (int) $tinygmaps_z = $attr['z'];
+    (int)$tinygmaps_z = $attr['z'];
     // make sure h&w have at least px values if nothing is specified
-    $tinygmaps_w       = ((substr($attr['w'], -2) != 'px') && (substr($attr['w'], -1) != '%')) ? $attr['w'] . 'px' : $attr['w'];
-    $tinygmaps_h       = ((substr($attr['h'], -2) != 'px') && (substr($attr['h'], -1) != '%')) ? $attr['h'] . 'px' : $attr['h'];
+    $tinygmaps_w = ((substr($attr['w'], -2) != 'px') && (substr($attr['w'], -1) != '%')) ? $attr['w'] . 'px' : $attr['w'];
+    $tinygmaps_h = ((substr($attr['h'], -2) != 'px') && (substr($attr['h'], -1) != '%')) ? $attr['h'] . 'px' : $attr['h'];
     $tinygmaps_maptype = $attr['maptype'];
-    
-    $tinygmaps_marker        = (filter_var($attr['marker'], FILTER_VALIDATE_URL) != FALSE) ? $attr['marker'] : null;
-    $tinygmaps_icon          = $attr['icon'];
-    $tinygmaps_infowindow    = $attr['infowindow'];
+
+    $tinygmaps_marker = (filter_var($attr['marker'], FILTER_VALIDATE_URL) != FALSE) ? $attr['marker'] : null;
+    $tinygmaps_icon = $attr['icon'];
+    $tinygmaps_infowindow = $attr['infowindow'];
     $tinygmaps_infowindowb64 = $attr['infowindowb64'];
-    
+
     $tinygmaps_infowindowdefault = ($attr['infowindowdefault'] == 'true' || $attr['infowindowdefault'] == 'yes') ? 'yes' : 'no';
-    $tinygmaps_hidecontrols      = ($attr['hidecontrols'] == 'true') ? true : false;
-    $tinygmaps_scalecontrol      = ($attr['scale'] == 'true') ? true : false;
-    $tinygmaps_scrollwheel       = ($attr['scrollwheel'] == 'true') ? true : false;
+    $tinygmaps_hidecontrols = ($attr['hidecontrols'] == 'true') ? true : false;
+    $tinygmaps_scalecontrol = ($attr['scale'] == 'true') ? true : false;
+    $tinygmaps_scrollwheel = ($attr['scrollwheel'] == 'true') ? true : false;
 
-    $tinygmaps_static_width     = remove_px_percent($attr['static']);
-    $tinygmaps_static_w         = remove_px_percent($attr['static_w']);
-    $tinygmaps_static_h         = remove_px_percent($attr['static_h']);
+    $tinygmaps_static_width = remove_px_percent($attr['static']);
+    $tinygmaps_static_w = remove_px_percent($attr['static_w']);
+    $tinygmaps_static_h = remove_px_percent($attr['static_h']);
 
-    $tinygmaps_refresh          = ($attr['refresh'] == 'true') ? true : false;
-    $tinygmaps_debug            = ($attr['debug'] == 'true') ? true : false;
+    $tinygmaps_refresh = ($attr['refresh'] == 'true') ? true : false;
+    $tinygmaps_debug = ($attr['debug'] == 'true') ? true : false;
+
 
     // setup the incoming values
-    if ($attr['placeid'] != '' ) {
+    if (!empty($attr['placeid'])) {
         // Here we have a place ref so get/set transient with fetched values
-        $attr['address'] = null; // strip this out as we don't need to cache it internally
+        $attr['address'] = null; // strip this out as we will want to refer to google's values instead
+        $attr = tr_map_get_place($api_key, $attr['placeid'], null, $tinygmaps_refresh, $tinygmaps_debug);
 
-        $attr = tr_map_get_place($api_key, $attr['placeid'], $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
+    } elseif (empty($attr['placeid']) && (empty($attr['lat']) || empty($attr['lng'])) && !empty($attr['address'])) {
+        // here we have a address so get/set transient with fetched values
+        $attr = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
 
-    } elseif ($attr['placeid'] == '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] != '') {
-        // here we have a address so get/set transient with fetched values		
-        (array) $attr = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
-
-    } elseif ($attr['placeid'] == '' && ($attr['lat'] != '' || $attr['lng'] != '') && $attr['address'] == '') {
+    } elseif (empty($attr['placeid']) && (!empty($attr['lat']) && !empty($attr['lng'])) && empty($attr['address'])) {
         // here we have lat and lng so we will assume the individual params are set too  - do nothing	
-        
-    } elseif ($attr['placeid'] == '' && ($attr['lat'] == '' || $attr['lng'] == '') && $attr['address'] == '' && $attr['city'] != '') {
-        // we have no lat lag but we have address components so build the address from these attr
-        $attr['address'] = $attr['street'] . ', ' . $attr['city'] . ', ' . $attr['region'] . ', ' . $attr['postcode'] . '+' . $attr['country'];
 
-        $string          = array(
+    } elseif (empty($attr['placeid']) && (empty($attr['lat']) || empty($attr['lng'])) && empty($attr['address']) && !empty($attr['street']) && !empty($attr['city']) && !empty($attr['region'])) {
+        // here we have missing lat lags, and no unified address strings, may have enough address components so build the place query from these attr
+        $attr['address'] = $attr['street'] . ', ' . $attr['city'] . ', ' . $attr['region'] . ', ' . $attr['postcode'] . '+' . $attr['country'];
+        $string = array(
             ', , ',
             ', , , ',
             ', , , , ',
@@ -137,121 +137,127 @@ function trmap_mapme($attr)
         );
         $attr['address'] = str_replace($string, '', $attr['address']); // trim any double commas signs that may be in the string
         $attr['address'] = trim($attr['address'], " \t\n\r\0\x0B\,"); // clean any leading whitepasce or commas
-        
+
         if ($attr['address'] == '' || $attr['address'] == ",") {
             $attr['address'] = null; // Set it or forget it
-            if ($tinygmaps_debug == true && current_user_can('edit_posts')  && !is_admin())
+            if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
                 echo __('<b>MAP PLUGIN NOTICE:</b> Insufficiant location information.', 'tinygmaps');
-            
+
         } else {
-            (array) $hold = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
+            $hold = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
             // put the missing stuff back in if it's there
-            $hold['name']  = $attr['name'];
-            $hold['web']   = $attr['web'];
+            $hold['name'] = $attr['name'];
+            $hold['web'] = $attr['web'];
             $hold['phone'] = $attr['phone'];
-            $attr          = $hold; // shove it back into the attributes array
+            $attr = $hold; // shove it back into the attributes array
         }
-
     } else {
-        if ($tinygmaps_debug == true && current_user_can('edit_posts')  && !is_admin()) {
-            echo __("<b>MAP PLUGIN NOTICE: </b> Whoops! You possibly have conflicting input values.<br> Include either a google <em>placeID</em> <b>OR</b> <em>address</em>, <b>OR</b> explicit <em>lat, lng</em> values <b>WITH</b> explicit location values: <em>name, street, city, state, postcode, country, phone, web.</em></br>", 'tinygmaps');
-        return '';
+
+        if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
+            echo __("<b>MAP PLUGIN NOTICE: </b> Whoops! You possibly have conflicting input values.<br> Include either a google <em>placeID</em> <b>OR</b> <em>address</em>, <b>OR</b> explicit <em>lat, lng</em> values <b>WITH</b> explicit location parameters for: <em>name, street, city, state, postcode, country, phone and web.</em></br>", 'tinygmaps');
+            return false;
         }
     }
+    // Don't continue with if we are in admin, sometimes there is a slow responce from tr_map_get_place and it always returning in time....
+    if(!is_admin && !empty($attr)){
+        // process the infowindow extras
+        $tinygmaps_infowindow_extras = ($tinygmaps_infowindowb64 != '') ? base64_decode($tinygmaps_infowindowb64) : '';
+        // add any content from the basic to the end in its own div
 
-    // process the infowindow extras
-    $tinygmaps_infowindow_extras = ($tinygmaps_infowindowb64 != '') ? base64_decode($tinygmaps_infowindowb64) : '';
-    // add any content from the basic to the end in its own div
-    $tinygmaps_infowindow_extras = ($tinygmaps_infowindow != '') ? $tinygmaps_infowindow_extras . '<div>' . $tinygmaps_infowindow . '</div>' : $tinygmaps_infowindow_extras;
-    // convert the html special chars
-    $tinygmaps_infowindow        = htmlspecialchars_decode($tinygmaps_infowindow_extras, ENT_QUOTES);
-    // pass it through KSES to scrub it from unwanted markup
-    $tinygmaps_infowindow        = info_window_sanitize($tinygmaps_infowindow);
-    // Assemble the infowindow components
-     $tinygmaps_infowindow        = get_info_bubble($tinygmaps_icon, $attr['name'], $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $tinygmaps_infowindow);
-    
-    // for external map link
-    $linkAddress = $attr['name'] . ' ' .$attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
-    $linkAddress_url = urlencode($linkAddress);
-    // Clean up whitespace and commas
-    $remove      = array(
-        '  ',
-        ' ',
-        ', ',
-        ',',
-        '%2C', // commas
-        '\t',
-        '\t\t',
-        '\n',
-        '\n\n',
-        '\r',
-        '\r\r',
-        '\0',
-        '\0\0',
-        '\x0B',
-        '\x0B\x0B'
-    );
-    $linkAddress_url = str_replace($remove, '+', $linkAddress_url);
-    $linkAddress_url = str_replace('++', '', $linkAddress_url); // remove double plus from an empty attribute string
+        $tinygmaps_infowindow_extras = ($tinygmaps_infowindow != '') ? $tinygmaps_infowindow_extras . '<div>' . $tinygmaps_infowindow . '</div>' : '';
 
-    /**
-     * We enqueue the js properly and now can pass the vars as globals through wp_localize_script, sweet.
-     * We are able to have multiple maps too - nice!
-     *
-     * Also we have set up retina 2x and 3x resolutions
-     * 3x requires google api key
-     *
-     *
-     * http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
-     * https://pippinsplugins.com/use-wp_localize_script-it-is-awesome/
-     * http://wordpress.stackexchange.com/questions/91546/pass-custom-fields-values-to-google-maps
-     * http://wordpress.stackexchange.com/questions/135821/creating-multiple-wp-localize-script-for-shortcode
-     * http://wordpress.stackexchange.com/questions/114807/localize-variable-for-multiple-shortcodes
-     *
-     * Example js http://codepen.io/anon/pen/zGxxaQ
-     */
+        // convert the html special chars
+        $tinygmaps_infowindow = htmlspecialchars_decode($tinygmaps_infowindow_extras, ENT_QUOTES);
+        // pass it through KSES to scrub it from unwanted markup
 
-    // Load all the  variables into array for js global var
-    $tinygmaps_init_array = array(
-        'z' => (int)$tinygmaps_z,
-        'h' => $tinygmaps_h,
-        'maptype' => $tinygmaps_maptype,
-        'lat' => (float) $attr['lat'],
-        'lng' => (float) $attr['lng'],
-        'marker' => $tinygmaps_marker,
-        'icon' => $tinygmaps_icon,
-        'infowindow' => $tinygmaps_infowindow,
-        'infowindowdefault' => (boolean)$tinygmaps_infowindowdefault,
-        'hidecontrols' => (boolean) $tinygmaps_hidecontrols,
-        'scale' => (boolean) $tinygmaps_scalecontrol,
-        'scrollwheel' => (boolean) $tinygmaps_scrollwheel,
-        'static' => (string)$tinygmaps_static_width,
-        'static_h' => (int)$tinygmaps_static_w,
-        'static_w' => (int)$tinygmaps_static_h
-    );
+        $tinygmaps_infowindow_extras = info_window_sanitize($tinygmaps_infowindow);
+        // Assemble the infowindow components
 
-    wp_localize_script( 'tinygmaps_init', $tinygmaps_map_id . '_loc', $tinygmaps_init_array );
-    wp_enqueue_script( 'tinygmaps_init' ); // will appear in footer
+        $tinygmaps_infowindow = get_info_bubble($tinygmaps_icon, $attr['name'], $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $tinygmaps_infowindow);
 
+        // for external map link
+        $linkAddress = $attr['name'] . ' ' . $attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
+        $linkAddress_url = urlencode($linkAddress);
+        // Clean up whitespace and commas
+        $remove = array(
+            '  ',
+            ' ',
+            ', ',
+            ',',
+            '%2C', // commas
+            '\t',
+            '\t\t',
+            '\n',
+            '\n\n',
+            '\r',
+            '\r\r',
+            '\0',
+            '\0\0',
+            '\x0B',
+            '\x0B\x0B'
+        );
+        $linkAddress_url = str_replace($remove, '+', $linkAddress_url);
+        $linkAddress_url = str_replace('++', '', $linkAddress_url); // remove double plus from an empty attribute string
 
-    $static_src  = "https://maps.google.com/maps/api/staticmap?size=" . $tinygmaps_static_w . "x" . $tinygmaps_static_h . "&zoom=" . $tinygmaps_z;
-    $static_src .= "&center=" . $linkAddress_url;
-    $static_src .= "&markers=label:m" . "%257C" . "icon:" . $tinygmaps_marker . "%7C" . $linkAddress_url . "&maptype=" . $tinygmaps_maptype;
-    $static_src .= "format=jpg";
-    $static_src_2x = $static_src . "&scale=2 2x,";
-    // output the map wrappers and links
-    $markup = '<div class="tnygmps_wrap" id="' . $tinygmaps_map_id . '_wrap">';
-    $markup .= '    <div class="tnygmps_canvas" id="' . $tinygmaps_map_id . '" style="width:' . $tinygmaps_w . '; height:auto;">'; //height will be set by js for googlemaps api
-    $markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $tinygmaps_static_w . '; height:' . $tinygmaps_static_h . ';" alt="Google Map for ' . $attr['name'] . '">';
-    if ($tinygmaps_infowindow) { // if we have an infowindow
-        $markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $tinygmaps_infowindow . '</div>';
+        /**
+         * We enqueue the js properly and now can pass the vars as globals through wp_localize_script, sweet.
+         * We are able to have multiple maps too - nice!
+         *
+         * Also we have set up retina 2x and 3x resolutions
+         * 3x requires google api key
+         *
+         *
+         * http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
+         * https://pippinsplugins.com/use-wp_localize_script-it-is-awesome/
+         * http://wordpress.stackexchange.com/questions/91546/pass-custom-fields-values-to-google-maps
+         * http://wordpress.stackexchange.com/questions/135821/creating-multiple-wp-localize-script-for-shortcode
+         * http://wordpress.stackexchange.com/questions/114807/localize-variable-for-multiple-shortcodes
+         *
+         * Example js http://codepen.io/anon/pen/zGxxaQ
+         */
+
+        // Load all the  variables into array for js global var
+        $tinygmaps_init_array = array(
+            'z' => (int)$tinygmaps_z,
+            'h' => $tinygmaps_h,
+            'maptype' => $tinygmaps_maptype,
+            'lat' => (float)$attr['lat'],
+            'lng' => (float)$attr['lng'],
+            'marker' => $tinygmaps_marker,
+            'icon' => $tinygmaps_icon,
+            'infowindow' => $tinygmaps_infowindow,
+            'infowindowdefault' => (boolean)$tinygmaps_infowindowdefault,
+            'hidecontrols' => (boolean)$tinygmaps_hidecontrols,
+            'scale' => (boolean)$tinygmaps_scalecontrol,
+            'scrollwheel' => (boolean)$tinygmaps_scrollwheel,
+            'static' => (string)$tinygmaps_static_width,
+            'static_h' => (int)$tinygmaps_static_w,
+            'static_w' => (int)$tinygmaps_static_h
+        );
+        // Add them to the page via wp_localize_script
+        wp_localize_script('tinygmaps_init', $tinygmaps_map_id . '_loc', $tinygmaps_init_array);
+        wp_enqueue_script('tinygmaps_init'); // will appear in footer
+
+        // Build the 'view map on its own' link
+        $static_src = "https://maps.google.com/maps/api/staticmap?size=" . $tinygmaps_static_w . "x" . $tinygmaps_static_h . "&zoom=" . $tinygmaps_z;
+        $static_src .= "&center=" . $linkAddress_url;
+        $static_src .= "&markers=label:m" . "%257C" . "icon:" . $tinygmaps_marker . "%7C" . $linkAddress_url . "&maptype=" . $tinygmaps_maptype;
+        $static_src .= "format=jpg";
+        $static_src_2x = $static_src . "&scale=2 2x,";
+        // output the map wrappers and links
+        $markup = '<div class="tnygmps_wrap" id="' . $tinygmaps_map_id . '_wrap">';
+        $markup .= '    <div class="tnygmps_canvas" id="' . $tinygmaps_map_id . '" style="width:' . $tinygmaps_w . '; height:auto;">'; //height will be set by js for googlemaps api
+        $markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $tinygmaps_static_w . '; height:' . $tinygmaps_static_h . ';" alt="Google Map for ' . $attr['name'] . '">';
+        if ($tinygmaps_infowindow) { // if we have an infowindow
+            $markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $tinygmaps_infowindow . '</div>';
+        }
+        $markup .= '    </div>';
+        $markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">open map in new window</a></div>';
+        //    $markup .= '<pre>' .$linkAddress_url . '</pre>';// troubleshoot url params
+        $markup .= '</div>';
+
+        return $markup;
     }
-    $markup .= '    </div>';
-    $markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">open map in new window</a></div>';
-    //    $markup .= '<pre>' .$linkAddress_url . '</pre>';// troubleshoot url params
-    $markup .= '</div>';
-
-    return $markup;
 }
 
 /**
@@ -368,7 +374,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
 
 
     if ($force_refresh || false === $location) {
-    // We dont have a tranisient saved
+    // We don't have a transient saved
         if ($placeID != '' && $placeID != null) {
             // return early now if we don't have an api key
             if (!$api_key && $tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
@@ -479,7 +485,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
                 $cache_value['country']  = htmlentities(processObject('country', $result), ENT_QUOTES);
                 
                 //cache address details for 3 months
-                set_transient(substr($$placeID, 0, 44), $cache_value, 3600 * 24 * 30 * 3);
+                set_transient(substr($placeID, 0, 44), $cache_value, 3600 * 24 * 30 * 3);
                 $data = $cache_value;
                 
             } elseif ($data->status === 'UNKNOWN_ERROR') {
@@ -543,12 +549,14 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $ti
     } else {
         // return cached results
         $data = $location;
+
     }
     if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
         echo "<pre>";
         print_r($data);
         echo "</pre>";
     }
+
     return ($data) ? (array)$data : '';
 }
 
