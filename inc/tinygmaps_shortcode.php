@@ -81,15 +81,16 @@ function trmap_mapme($attr)
         'static' => '767',
         'static_w' => '500',
         'static_h' => '500',
-        'refresh' => 'false',
-        'debug' => 'false'
+        'refresh' => 'false', // executes if present and not equal to false
+        'debug' => 'false'    // executes if present and not equal to false
     ), $attr);
     // clean up array
     array_walk($attr, create_function('&$val', '$val = trim($val);')); //trim white space
-    $attr = array_htmlentities($attr); // encode any single quotes that may appear
+    $attr = array_htmlentities($attr); // encode any single quotes that may appear in text
 
     // load map params into variables
     (int)$tinygmaps_z = $attr['z'];
+
     // make sure h&w have at least px values if nothing is specified
     $tinygmaps_w = ((substr($attr['w'], -2) != 'px') && (substr($attr['w'], -1) != '%')) ? $attr['w'] . 'px' : $attr['w'];
     $tinygmaps_h = ((substr($attr['h'], -2) != 'px') && (substr($attr['h'], -1) != '%')) ? $attr['h'] . 'px' : $attr['h'];
@@ -109,17 +110,19 @@ function trmap_mapme($attr)
     $tinygmaps_static_w = remove_px_percent($attr['static_w']);
     $tinygmaps_static_h = remove_px_percent($attr['static_h']);
 
-    $tinygmaps_refresh = ($attr['refresh'] == 'true') ? true : false;
-    $tinygmaps_debug = ($attr['debug'] == 'true') ? true : false;
-
+    $tinygmaps_refresh = (( $attr['refresh'] != 'false' ) ? true : false );
+    $tinygmaps_debug = (( $attr['debug'] != 'false' ) ? true : false );
 
     // setup the incoming values
     if (!empty($attr['placeid'])) {
         // Here we have a place ref so get/set transient with fetched values
-        $attr['address'] = null; // strip this out as we will want to refer to google's values instead
+        // strip address out as we will want to refer to google's cashed values instead
+        $attr['address'] = null;
+        // here we have a place_ID so get/set transient with fetched values
         $attr = tr_map_get_place($api_key, $attr['placeid'], null, $tinygmaps_refresh, $tinygmaps_debug);
 
     } elseif (empty($attr['placeid']) && (empty($attr['lat']) || empty($attr['lng'])) && !empty($attr['address'])) {
+
         // here we have a address so get/set transient with fetched values
         $attr = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
 
@@ -141,10 +144,12 @@ function trmap_mapme($attr)
         if ($attr['address'] == '' || $attr['address'] == ",") {
             $attr['address'] = null; // Set it or forget it
             if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                echo __('<b>MAP PLUGIN NOTICE:</b> Insufficiant location information.', 'tinygmaps');
+                echo  tr_map_errors($tinygmaps_debug, 'insufficient_address');
 
         } else {
+            // here we dont have an place_ID or address, but we've constructed an address string from the other
             $hold = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
+
             // put the missing stuff back in if it's there
             $hold['name'] = $attr['name'];
             $hold['web'] = $attr['web'];
@@ -153,31 +158,32 @@ function trmap_mapme($attr)
         }
     } else {
 
-        if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
-            echo __("<b>MAP PLUGIN NOTICE: </b> Whoops! You possibly have conflicting input values.<br> Include either a google <em>placeID</em> <b>OR</b> <em>address</em>, <b>OR</b> explicit <em>lat, lng</em> values <b>WITH</b> explicit location parameters for: <em>name, street, city, state, postcode, country, phone and web.</em></br>", 'tinygmaps');
+        if ($tinygmaps_debug && current_user_can('edit_posts') && !is_admin()) {
+            echo tr_map_errors($tinygmaps_debug, 'malformed_params');
             return false;
         }
     }
-    // Don't continue with if we are in admin, sometimes there is a slow responce from tr_map_get_place and it always returning in time....
-    if(!is_admin && !empty($attr)){
+    // Don't continue with if we are in admin, sometimes there is a slow response from tr_map_get_place and it always returning in time....
+    if(!is_admin() && !empty($attr)){
         // process the infowindow extras
         $tinygmaps_infowindow_extras = ($tinygmaps_infowindowb64 != '') ? base64_decode($tinygmaps_infowindowb64) : '';
-        // add any content from the basic to the end in its own div
 
+        // add any content from the basic to the end in its own div
         $tinygmaps_infowindow_extras = ($tinygmaps_infowindow != '') ? $tinygmaps_infowindow_extras . '<div>' . $tinygmaps_infowindow . '</div>' : '';
 
         // convert the html special chars
         $tinygmaps_infowindow = htmlspecialchars_decode($tinygmaps_infowindow_extras, ENT_QUOTES);
+
         // pass it through KSES to scrub it from unwanted markup
+        $tinygmaps_infowindow = info_window_sanitize($tinygmaps_infowindow);
 
-        $tinygmaps_infowindow_extras = info_window_sanitize($tinygmaps_infowindow);
         // Assemble the infowindow components
-
         $tinygmaps_infowindow = get_info_bubble($tinygmaps_icon, $attr['name'], $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $tinygmaps_infowindow);
 
         // for external map link
         $linkAddress = $attr['name'] . ' ' . $attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
         $linkAddress_url = urlencode($linkAddress);
+
         // Clean up whitespace and commas
         $remove = array(
             '  ',
@@ -356,208 +362,144 @@ function get_info_bubble($icon, $name, $street, $city, $state, $post, $country, 
 }
 
 /**
- * [tr_map_get_place gets the place information from the appropriate Google API and sets it to a transient]
- * @param  [type] $api_key       [The Client API Key provided by the user.]
- * @param  [type] $placeID      [The optional Google Places Reference if it has been provided]
- * @param  string $address       [An optional address sting]
- * @param  [type] $force_refresh [Set by the "refresh" short code parm, this flushes any transient values associated with this address hash]
- * @param  [type] $debug  [Prints debugging information on to the client end, if the user has admin rights.]
- * @return [type]                [description]
+ * This functions takes care of the fetching of location information through Google's places or gecoding apis.
+ * Stores the results in a transient for later to increase responsiveness and reduce api requests.
+ * Sends all error conditions to tr_map_errors()
+ *
+ * @param $api_key          | The Client API Key provided by the user.
+ * @param $placeID          | The optional Google Places Reference if it has been provided
+ * @param string $address   | An optional address sting
+ * @param $force_refresh    | Set by the "refresh" short code parm, this flushes any transient values associated with this address hash
+ * @param $tinygmaps_debug  | Prints debugging information on to the client end, if the user has admin rights.
+ * @return array|bool       | Returns an array of values, or false if errors were encounterd.
  */
-function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $tinygmaps_debug)
-{
-    global $tinygmaps_debug;
 
-    // Transient hashes need to be less then 45 char long, in case placeID ever gets that big again place ref, used to be very long
+
+function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $debug){
+    if (empty($api_key)) {
+        // notice to admin users that we don't have an api key
+        echo tr_map_errors($debug, 'no_api_key');
+    }
+
+    // Transient hashes need to be less then 45 char long, in case placeID ever gets that big
     $location = ($placeID) ? substr($placeID, 0, 44) : substr(md5($address), 0, 44);
+    // Have we been here before?
     $location = get_transient($location);
 
 
     if ($force_refresh || false === $location) {
-    // We don't have a transient saved
-        if ($placeID != '' && $placeID != null) {
-            // return early now if we don't have an api key
-            if (!$api_key && $tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
-                exit(__("<b>MAP PLUGIN NOTICE:</b> Looks like you've used a Google place_ID, but right now the Google API key has not been set. Because of this we cannot process a place_ID reference without it. See documentation on how to get and set your own key.", 'tinygmaps'));
-                }
+        // We don't have a transient saved or we want to update it
+        if (!empty($placeID) && $api_key) {
             $args = array(
                 'placeid' => $placeID,
                 'key' => $api_key,
                 'sensor' => 'false'
             );
-            $url  = add_query_arg($args, 'https://maps.googleapis.com/maps/api/place/details/json');
-        } elseif ($address != '') { // we must be using the geocode api
+            $url = add_query_arg($args, 'https://maps.googleapis.com/maps/api/place/details/json');
 
-            if ($api_key){
+        } elseif (!empty($address)) {
+            // we must be using the geocode api
+
+            if ($api_key) {
                 $args = array(
                     'address' => urlencode($address),
                     'sensor' => 'false',
                     'key' => $api_key // Google asks for it in the docs, though doesn't expressly require it ... yet
                 );
-            } else {
+            } else { // No api key
                 $args = array(
                     'address' => urlencode($address),
                     'sensor' => 'false'
                 );
             }
-            $url  = add_query_arg($args, 'https://maps.googleapis.com/maps/api/geocode/json');
-        } else {
-            if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
-                echo __("<b>MAP PLUGIN NOTICE:</b> There doesn't seem to be a location place_ID or address parameter, check that the shortcode is formed properly.", 'tinygmaps');
-            }
+            $url = add_query_arg($args, 'https://maps.googleapis.com/maps/api/geocode/json');
+        } elseif (empty($address))  {
+            // we don't have enough information to do the job!
+            echo  tr_map_errors($debug, 'malformed_params');
             return false;
         }
+
+        // Get the data from Google's servers
         $response = wp_remote_get($url);
 
         // Catch any errors from wp_remote_get
         if (is_wp_error($response)) {
-            if ($tinygmaps_debug == true && current_user_can('edit_posts')) {
-                echo __("<b>MAP PLUGIN NOTICE:</b> We received an error in the URL response: </br>", 'tinygmaps');
-                echo "<pre>";
-                print_r($response);
-                echo "</pre>";
-            }
+            echo tr_map_errors($debug, 'wp_error_get', $response);
             return false;
         }
 
+        // retrieve the data from the response
         $data = wp_remote_retrieve_body($response);
 
         if (is_wp_error($data)) {
-            if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
-                echo __("<b>MAP PLUGIN NOTICE:</b> There were problems retrieving the body of the response. ", 'tinygmaps');
-                echo "<pre>";
-                print_r($data);
-                echo "</pre>";
-            }
-            return false; // exit now
+            //Throw any failed results to front end for debugging
+            echo tr_map_errors($debug, 'wp_error_data', $data);
+            return false;
         }
-        if ($response['response']['code'] == 200 && !is_admin()) {
+
+        if ($response['response']['code'] == 200) {
+            // We have received a reply from Google
+
+            // Interpret the response
             $data = json_decode($data);
-            if ($data->status === 'OK' ) {
-                if ($tinygmaps_debug == true && current_user_can('edit_posts')  && !is_admin()) {
-                    echo __("<b>MAP PLUGIN NOTICE:</b> Status OK", 'tinygmaps');
-                    echo "<pre>";
-                    print_r($data);
-                    echo "</pre>";
-                }
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
-                    echo __("<b>Google Responce:</b>", 'tinygmaps');
-                    echo "<pre>";
-                    echo $tinygmaps_debug;
-                    print_r($data);
-                    echo "</pre>";
-                }
+
+            //Throw any failed results to front end for debugging
+            echo tr_map_errors($debug, $data->status, $data);
+
+            if ($data->status !== 'OK') {
+                // We've received a non "OK" Response so lets catch that as well.
+                $responseCode = $response['response']['code'];
+                echo tr_map_errors($debug, $responseCode, $data);
+                return false;
+
+            } elseif ($data->status === 'OK') {
                 /* We've received a positive result, populate the variables */
-                // place_ID vs Geocoding APIs
+
+                // Using place_ID vs Geocoding APIs
                 $result = ($placeID != '' && $placeID != null) ? $data->result : $data->results[0];
-                $coordinates        = $result->geometry->location;
-                $cache_value['lat'] = (string) $coordinates->lat;
-                $cache_value['lng'] = (string) $coordinates->lng;
+                $coordinates = $result->geometry->location;
+                $cache_value['lat'] = (string)$coordinates->lat;
+                $cache_value['lng'] = (string)$coordinates->lng;
                 // top level items
-                $cache_value['name']  = (string) (property_exists($result, 'name')) ? htmlentities((string) $result->name, ENT_QUOTES) : '';
-                $cache_value['icon']  = (string) (property_exists($result, 'icon')) ? ((string) $result->icon) : '';
-                $cache_value['phone'] = (string) (property_exists($result, 'formatted_phone_number')) ? ($result->formatted_phone_number) : '';
-                $cache_value['web']   = (string) (property_exists($result, 'website')) ? ($result->website) : '';
-                // Address components		
-                $premise               = (processObject('premise', $result)) ? processObject('premise', $result) . ', ' : '';
-                $street_number         = processObject('street_number', $result);
-                $route                 = processObject('route', $result);
-                $street_number         = processObject('street_number', $result);
-                $streetAddress         = $premise . ' ' . $street_number . ' ' . $route;
+                $cache_value['name'] = (string)(property_exists($result, 'name')) ? htmlentities((string)$result->name, ENT_QUOTES) : '';
+                $cache_value['icon'] = (string)(property_exists($result, 'icon')) ? ((string)$result->icon) : '';
+                $cache_value['phone'] = (string)(property_exists($result, 'formatted_phone_number')) ? ($result->formatted_phone_number) : '';
+                $cache_value['web'] = (string)(property_exists($result, 'website')) ? ($result->website) : '';
+                // Address components
+                $premise = (processObject('premise', $result)) ? processObject('premise', $result) . ', ' : '';
+                $street_number = processObject('street_number', $result);
+                $route = processObject('route', $result);
+                $street_number = processObject('street_number', $result);
+                $streetAddress = $premise . ' ' . $street_number . ' ' . $route;
                 $cache_value['street'] = htmlentities($streetAddress, ENT_QUOTES);
                 // City
-                $city                = (processObject('administrative_area3', $result)) ? processObject('administrative_area3', $result) : '';
-                $city                = (processObject('locality', $result)) ? processObject('locality', $result) : $city;
-                $city                = (processObject('sublocality', $result)) ? processObject('sublocality', $result) : $city;
-                $city                = (processObject('postal_town', $result)) ? processObject('postal_town', $result) : $city;
+                $city = (processObject('administrative_area3', $result)) ? processObject('administrative_area3', $result) : '';
+                $city = (processObject('locality', $result)) ? processObject('locality', $result) : $city;
+                $city = (processObject('sublocality', $result)) ? processObject('sublocality', $result) : $city;
+                $city = (processObject('postal_town', $result)) ? processObject('postal_town', $result) : $city;
                 $cache_value['city'] = htmlentities($city, ENT_QUOTES);
-                
+
                 // State
-                $region  = (processObject('locality', $result)) ? processObject('locality', $result) : '';
-                $region  = (processObject('administrative_area_level_1', $result)) ? processObject('administrative_area_level_1', $result) : $region;
+                $region = (processObject('locality', $result)) ? processObject('locality', $result) : '';
+                $region = (processObject('administrative_area_level_1', $result)) ? processObject('administrative_area_level_1', $result) : $region;
                 $regionB = (processObject('administrative_area_level_2', $result)) ? processObject('administrative_area_level_2', $result) : '';
                 if (($region == '') && ($regionB != $city))
                     $region = $regionB;
-                $cache_value['region']   = htmlentities($region, ENT_QUOTES);
+                $cache_value['region'] = htmlentities($region, ENT_QUOTES);
                 // Postcode
                 $cache_value['postcode'] = htmlentities(processObject('postal_code', $result), ENT_QUOTES);
                 // Country
-                $cache_value['country']  = htmlentities(processObject('country', $result), ENT_QUOTES);
-                
+                $cache_value['country'] = htmlentities(processObject('country', $result), ENT_QUOTES);
+
                 //cache address details for 3 months
                 set_transient(substr($placeID, 0, 44), $cache_value, 3600 * 24 * 30 * 3);
                 $data = $cache_value;
-                
-            } elseif ($data->status === 'UNKNOWN_ERROR') {
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('<b>MAP PLUGIN NOTICE:</b> Server-side error, please try again in a short while.', 'tinygmaps');
-                echo "<pre>";
-                print_r($data);
-                echo "</pre>";
-
-                return '';
-            } elseif ($data->status === 'ZERO_RESULTS') {
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('<b>MAP PLUGIN NOTICE:</b> No location found for the entered place reference. This may indicate the location may have changed names, or is no longer operating.', 'tinygmaps');
-                    echo "<pre>";
-                    print_r($data);
-                    echo "</pre>";
-                return '';
-            } elseif ($data->status === 'OVER_QUERY_LIMIT') {
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('<b>MAP PLUGIN NOTICE:</b> This API Key is over its quota.', 'tinygmaps');
-                    echo "<pre>";
-                    print_r($data);
-                    echo "</pre>";
-                return '';
-            } elseif ($data->status === 'REQUEST_DENIED') {
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('<b>MAP PLUGIN NOTICE:</b> Request Denied. Usually this is due to the sensor parameter being missing in the search string..', 'tinygmaps');
-                    echo "<pre>";
-                    print_r($data);
-                    echo "</pre>";
-                return '';
-            } elseif ($data->status === 'INVALID_REQUEST') {
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('<b>MAP PLUGIN NOTICE:</b> Invalid request. Did you enter a location reference?', 'tinygmaps');
-                    echo "<pre>";
-                    print_r($data);
-                    echo "</pre>";
-                return '';
-            } elseif ($data->status === 'NOT_FOUND') {
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('<b>MAP PLUGIN NOTICE:</b> Place not found. Usually this is due to an incomplete or corrupted reference string.', 'tinygmaps');
-                    echo "<pre>";
-                    print_r($data);
-                    echo "</pre>";
-                return '';
-            } else {
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('<b>MAP PLUGIN NOTICE:</b> Something went wrong while retrieving your map, please ensure you have entered the short code correctly.', 'tinygmaps');
-                    echo "<pre>";
-                    print_r($data);
-                    echo "</pre>";
-                   return '';
             }
-            } else {
-                $responseCode = $response['response']['code'];
-                if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                    echo __('Unable to contact Google API, service response: ' . $responseCode, 'tinygmaps');
-
-                return '';
-            }
+        }
     } else {
-        // return cached results
         $data = $location;
-
     }
-    if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin()) {
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-    }
-
-    return ($data) ? (array)$data : '';
+    return ($data) ? (array)$data : false;
 }
 
 /**
@@ -604,4 +546,86 @@ function remove_px_percent ($dim){
     $dim = str_ireplace('px', '', $dim);
     $dim = str_replace('%', '', $dim);
     return $dim;
+}
+
+/**
+ * Holds all possible debug reporting and echo's it to the page for logged in admins to use for debugging
+ *
+ * @param $tinygmaps_debug
+ * @param $error
+ * @param string $response
+ * @return bool
+ * @todo when debugging give the results anyway
+ */
+
+function tr_map_errors($debug, $error, $response = ''){
+    // Only show these notices on the front end if debugging is on, and to those who can edit posts
+    if ($debug && current_user_can('edit_posts') && !is_admin()) {
+        $message ='';
+
+        switch ($error):
+            case 'insufficient_address';
+            case 'malformed_params';
+                $message .= __("<b>MAP PLUGIN NOTICE: </b> Whoops! You possibly have conflicting input values.<br>Please check that the shortcode is formed properly. Include either a google <em>placeID</em> <b>OR</b> <em>address</em> line, <b>OR</b> explicit <em>lat, lng</em> values <b>WITH</b> explicit location parameters: <em>name, street, city, state, postcode, country, phone and web.</em></br>", 'tinygmaps');
+                break;
+
+            case 'wp_error_get';
+                $message .= __("<b>MAP PLUGIN NOTICE:</b> We received an error in the URL response: </br>", 'tinygmaps');
+                $message .= "<pre>";
+                $message .= print_r($response, true);
+                $message .= "</pre>";
+                break;
+
+            case 'wp_error_data';
+                $message .= __("<b>MAP PLUGIN NOTICE:</b> There were problems retrieving the body of the response. ", 'tinygmaps');
+                $message .= "<pre>";
+                $message .= print_r($response, true);
+                $message .= "</pre>";
+                break;
+
+            case 'no_api_key';
+                $message .= __("<p><b>MAP PLUGIN NOTICE:</b> Looks like you've used a Google place_ID, but right now the Google API key has not been set. Because of this we cannot process the <b>placeid</b> shortcode parameter. Either add more address details or see the documentation on how to get your own api key.</p>", 'tinygmaps');
+                break;
+
+            case 'NO_CONNECT';
+                $message .= __('<b>MAP PLUGIN NOTICE:</b> Unable to contact Google API, service response: ' . $response, 'tinygmaps');
+                break;
+
+            // GOOGLE API RESPONSES
+            case 'OK';
+            case 'UNKNOWN_ERROR';
+            case 'ZERO_RESULTS';
+            case 'OVER_QUERY_LIMIT';
+            case 'REQUEST_DENIED';
+            case 'INVALID_REQUEST';
+                $message .= __("<b>MAP PLUGIN NOTICE:</b> Google Response: " . $error, 'tinygmaps');
+                $message .= "<pre>";
+                $message .= print_r($response, true);
+                $message .= "</pre>";
+                break;
+
+            case 'NOT_FOUND';
+                echo __('<b>MAP PLUGIN NOTICE:</b> Place not found. Usually this is due to an incomplete or corrupted reference string.', 'tinygmaps');
+                echo "<pre>";
+                $message .= print_r($response, true);
+                echo "</pre>";
+                break;
+
+            case '';
+                $message .= __('<b>MAP PLUGIN NOTICE:</b> Here is the data returned from the query, our error reporter is confused.', 'tinygmaps');
+                $message .= "<pre>";
+                $message .= print_r($response, true);
+                $message .= "</pre>";
+                break;
+
+            default:
+                $message .= __('<b>MAP PLUGIN NOTICE:</b> Something went wrong while retrieving your map, please ensure you have entered the short code correctly formed.', 'tinygmaps');
+                $message .= "<pre>";
+                $message .= "The response message code was: " . $error . "</br></br>";
+                $message .= print_r($response, true);
+                $message .= "</pre>";
+        endswitch;
+
+        return $message;
+    }
 }
