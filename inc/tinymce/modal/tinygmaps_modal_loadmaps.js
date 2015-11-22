@@ -103,7 +103,7 @@ function custom_location(){
 }
 
 /*
- * Initilize the map
+ * Initialize the map
 */
 google.maps.event.addDomListener(window, 'load', initialize);
 function initialize(infowindow) {
