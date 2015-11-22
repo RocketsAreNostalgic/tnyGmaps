@@ -29,7 +29,6 @@ var mapOptions = null;
 var mapCurrCenter = null;
 var markerOutput = null;
 var locPlace = null;
-
 var markerCustom = parent.tinygmaps.pluginURI + 'inc/tinymce/icons/music_folk_map.png';
 
 // populate variables with field values 
