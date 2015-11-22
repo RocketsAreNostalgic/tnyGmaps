@@ -74,9 +74,9 @@ $icons_list = implode(", ", $icons_list);
 				</div>
 		
 			<?php if ($api_test){ ?>						
-				<label class="heading" ><?php _e('Location details', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e('Only use this section if &quot;Address lookup&quot; can&#039;t find, gives incorrect or incomplete results. </br>&quot;Address lookup&quot; gives us a refrence we can use to automatically upadte location details from Google&#039;s servers.</br></br>Results from this section may differ from that of &quot;Address lookup&quot; and may require you provide greater detial to achive correct results.</br> </br>If you just want to add a website or phone number, consider adding these to the &quot;Infowindow extras&quot; section instead.', 'tiny_gmap')?>">?</span></label>
+				<label class="heading" ><?php _e('Location details', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e('Only use this section if &quot;Address lookup&quot; can&#039;t find, gives incorrect or incomplete results. </br>&quot;Address lookup&quot; gives us a reference we can use to automatically update location details from Google&#039;s servers.</br></br>Results from this section may differ from that of &quot;Address lookup&quot; and may require you provide greater detail to achieve correct results.</br> </br>If you just want to add a website or phone number, consider adding these to the &quot;Infowindow extras&quot; section instead.', 'tiny_gmap')?>">?</span></label>
 			<?php } else { ?>
-				<label class="heading" ><?php _e('Location details', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e('Input your location address.', 'tiny_gmap'); ?>" >?</span></label>
+				<label class="heading" ><?php _e('Location details', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e(' This section doesn&#039;t use Google&#039;s servers to validate addresses, or automatically update this information if it changes in future. For this you need an API Key from them. However, we can use the information you provide in the fields below to create a fixed address lookup.</br></br>For best results provide as much Street, City, Postcode information as you can.</br> </br>If you want to add other details, consider adding these to the &quot;Infowindow extras&quot; section instead.', 'tiny_gmap'); ?>" >?</span></label>
 				<?php } ?>
 				<div class="group">
 						<div id="address_extras" class="accordion" style="display:none;">
@@ -141,11 +141,11 @@ $icons_list = implode(", ", $icons_list);
 							</div>
 						</div>
 				</div>
-				<label class="heading" ><?php _e('Infowindow extras', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e('Use this text area to add custom information to the marker info window. Some HTML is allowed here though the field auto corrects malformed or disalowed markup -– so best to copy-paste anything complex.', 'tiny_gmap'); ?>">?</span></label>
+				<label class="heading" ><?php _e('Infowindow extras', 'tiny_gmap'); ?>:<span data-tooltip="<?php _e('Use this text area to add custom information to the marker info window. Some HTML is allowed here, and you will find that field auto corrects any malformed or disalowed markup. This prevents a broken tag inserted here from messing up the rest of your site, but it can be frustrating for anything complex. If you want to try longer bit of additional markup, it is easiest to copy-paste it into the field.', 'tiny_gmap'); ?>">?</span></label>
 				<div class="group">
 					<div class="input">
 						<div id="mapInfoWindowContainer" class="accordion" style="display:none;">
-							<textarea rows="5" cols="60" name="mapInfoWindow" id="mapInfoWindow" class="active" placeholder="<?php _e('Some HTML allowed: &lt;p&gt;, &lt;a&gt;, &lt;span&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;, &lt;em&gt;, &lt;strong&gt;. Atribute styles allowed, use &lt;br/&gt; for line breaks. Single quotes not allowed.', 'tiny_gmap'); ?>"></textarea>
+							<textarea rows="5" cols="60" name="mapInfoWindow" id="mapInfoWindow" class="active" placeholder="<?php _e('Some HTML allowed: &lt;p&gt;, &lt;a&gt;, &lt;span&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;, &lt;em&gt;, &lt;strong&gt;. Attribute styles and classes are allowed i.e. ( &lt;p style=&quot;background-color: blue;&quot; class=&quot;foo bar&quot;&gt;&lt;/p&gt;) Use &lt;br/&gt; for line breaks. Single quotes are NOT allowed.', 'tiny_gmap'); ?>"></textarea>
 						</div>
 					</div>
 				</div>
