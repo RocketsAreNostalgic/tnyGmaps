@@ -88,6 +88,7 @@ function trmap_mapme($attr) {
         'refresh' => 'false', // executes if present and not equal to false
         'debug' => 'false'    // executes if present and not equal to false
     ), $attr);
+
     // clean up array
     array_walk($attr, create_function('&$val', '$val = trim($val);')); //trim white space
     $attr = array_htmlentities($attr); // encode any single quotes that may appear in text
@@ -505,7 +506,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $de
                 // Country
                 $cache_value['country'] = htmlentities(processObject('country', $result), ENT_QUOTES);
 
-                //cache address details for 3 months
+                //cache address or place details for 3 months
                 set_transient(substr($placeID, 0, 44), $cache_value, 3600 * 24 * 30 * 3);
                 $data = $cache_value;
             }
