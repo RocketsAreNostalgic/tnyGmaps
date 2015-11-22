@@ -158,6 +158,7 @@ function initialize(infowindow) {
 				});	
 		     }
 	    });
+		if (parent.tinygmaps.haveGPlaces_key === false) {
                 jQuery('#tinygmaps.haveGPlaces_key').remove();
 				jQuery('#address_extras').show();
 				jQuery('#address_extras').find('input:text, button').prop('disabled', false);
