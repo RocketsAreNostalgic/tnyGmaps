@@ -42,14 +42,18 @@
  */
 
 /* Register scripts */
-wp_register_script('googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&signed_in=true', null, null, 'true');
-wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', array('googelmaps_js', 'jquery'), '0.0.1', 'true');
+add_action('init', 'tinygmaps_register_scripts');
+function tinygmaps_register_scripts(){
+    wp_register_script('googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&signed_in=true', null, null, 'true');
+    wp_register_script('tinygmaps_init', TINYGMAP_URL . '/inc/js/tinygmaps.min.js', array('googelmaps_js', 'jquery'), '0.0.1', 'true');
+}
 
-add_action('wp_enqueue_scripts', 'trmap_mapme');
 add_shortcode('TINYGMAPS', 'trmap_mapme');
+function trmap_mapme($attr) {
+    // Lets enqueue the scripts only if the shortcode has been added
+    wp_enqueue_script('googelmaps_js');
+    wp_enqueue_script('tinygmaps_init');
 
-function trmap_mapme($attr)
-{
     $api_key = (defined('GOOGLE_API_KEY')) ? constant('GOOGLE_API_KEY') : false;
     $tinygmaps_map_id = uniqid('tnygmps_'); // generate a unique map instance for each map displayed
     // default atts
