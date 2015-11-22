@@ -31,10 +31,9 @@ function make_root_relative($url) {
 $local_uri = make_root_relative( TINYGMAP_URL . 'inc/tinymce/' );
 
 // do we have the google places api key?
-if (defined('GOOGLE_API_KEY') && (constant('GOOGLE_API_KEY') != null || constant('GOOGLE_API_KEY') != '')){
+$api_test = false;
+if (defined('GOOGLE_API_KEY') && GOOGLE_API_KEY){
     $api_test = true;
-} else {
-    $api_Test = false;
 }
 
 // Retrieve a list of all the icons in the icons directory 
