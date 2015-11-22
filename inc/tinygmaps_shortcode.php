@@ -143,11 +143,11 @@ function trmap_mapme($attr)
 
         if ($attr['address'] == '' || $attr['address'] == ",") {
             $attr['address'] = null; // Set it or forget it
-            if ($tinygmaps_debug == true && current_user_can('edit_posts') && !is_admin())
-                echo  tr_map_errors($tinygmaps_debug, 'insufficient_address');
+
+            echo  tr_map_errors($tinygmaps_debug, 'insufficient_address');
 
         } else {
-            // here we dont have an place_ID or address, but we've constructed an address string from the other
+            // here we don't have an place_ID or address, but we've constructed an address string from the other
             $hold = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
 
             // put the missing stuff back in if it's there
