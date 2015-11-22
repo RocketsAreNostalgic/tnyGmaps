@@ -173,10 +173,10 @@ function trmap_mapme($attr) {
     // Don't continue with if we are in admin, sometimes there is a slow response from tr_map_get_place and it always returning in time....
     if(!is_admin() && !empty($attr)){
         // process the infowindow extras
-        $tinygmaps_infowindow_extras = ($tinygmaps_infowindowb64 != '') ? base64_decode($tinygmaps_infowindowb64) : '';
+        $tinygmaps_infowindow_extras = (!empty($tinygmaps_infowindowb64)) ? base64_decode($tinygmaps_infowindowb64) : '';
 
-        // add any content from the basic to the end in its own div
-        $tinygmaps_infowindow_extras = ($tinygmaps_infowindow != '') ? $tinygmaps_infowindow_extras . '<div>' . $tinygmaps_infowindow . '</div>' : '';
+        // add any content from the basic infowindow attr to the end in its own div
+        $tinygmaps_infowindow_extras = (!empty($tinygmaps_infowindow)) ? $tinygmaps_infowindow_extras . '<div>' . $tinygmaps_infowindow . '</div>' : $tinygmaps_infowindow_extras;
 
         // convert the html special chars
         $tinygmaps_infowindow = htmlspecialchars_decode($tinygmaps_infowindow_extras, ENT_QUOTES);
