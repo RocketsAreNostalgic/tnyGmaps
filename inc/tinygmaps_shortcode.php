@@ -288,27 +288,34 @@ function info_window_sanitize($string)
             'style' => array(),
             'href' => array(),
             'title' => array(),
-            'target' => array()
+            'target' => array(),
+            'class' => array()
         ),
         'span' => array(
-            'style' => array()
+            'style' => array(),
+            'class' => array()
         ),
         'ul' => array(
-            'style' => array()
+            'style' => array(),
+            'class' => array()
         ),
         'ol' => array(
-            'style' => array()
+            'style' => array(),
+            'class' => array()
         ),
         'li' => array(
-            'style' => array()
+            'style' => array(),
+            'class' => array()
         ),
         'br' => array(),
         'hr' => array(),
         'em' => array(
-            'style' => array()
+            'style' => array(),
+            'class' => array()
         ),
         'strong' => array(
-            'style' => array()
+            'style' => array(),
+            'class' => array()
         )
         
     );
