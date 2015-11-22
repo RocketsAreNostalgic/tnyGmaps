@@ -75,7 +75,7 @@ function seed_vars (){
 	//console.log('mapControlsReturn: ' + mapControlsReturn);
 }
 
-// Retrieve the the marker image
+// Retrieve the marker image
 function get_marker_image(){
 	mapMarkerReturn = jQuery('select[id=mapMarker]').val();
 	switch(mapMarkerReturn)
@@ -93,12 +93,12 @@ function get_marker_image(){
 	//console.log('Marker image: ' + mapMarkerImageReturn);
 	return mapMarkerImageReturn;
 } 
-// User isn't useing auto-complete so clean the inputs fields so we can reverse lookup the address and cache the cordinates
+// User isn't using auto-complete so clean the inputs fields so we can reverse lookup the address and cache the coordinates
 function custom_location(){
-	jQuery('#mapAddress').val(''); 	// empty autocomplete feild
+	jQuery('#mapAddress').val(''); 	// empty autocomplete field
 	jQuery('#locGooglePlaceID').val(''); 	// empty location ref
 	jQuery('#locIconURL').val(''); 	// empty icon
-	jQuery('#mapLat').val(''); 		// empty cordinates
+	jQuery('#mapLat').val(''); 		// empty coordinates
 	jQuery('#mapLng').val('');
 }
 
