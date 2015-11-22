@@ -127,7 +127,8 @@ function trmap_mapme($attr)
         $attr = tr_map_get_place($api_key, null, $attr['address'], $tinygmaps_refresh, $tinygmaps_debug);
 
     } elseif (empty($attr['placeid']) && (!empty($attr['lat']) && !empty($attr['lng'])) && empty($attr['address'])) {
-        // here we have lat and lng so we will assume the individual params are set too  - do nothing	
+        // here we have lat and lng so we will gather any other individual params that are set.
+        // no call to tr_map_get_place as we will not cache these values in a transient, as the user will have provided as much material as possible.
 
     } elseif (empty($attr['placeid']) && (empty($attr['lat']) || empty($attr['lng'])) && empty($attr['address']) && !empty($attr['street']) && !empty($attr['city']) && !empty($attr['region'])) {
         // here we have missing lat lags, and no unified address strings, may have enough address components so build the place query from these attr
@@ -138,7 +139,7 @@ function trmap_mapme($attr)
             ', , , , ',
             ', , , , , '
         );
-        $attr['address'] = str_replace($string, '', $attr['address']); // trim any double commas signs that may be in the string
+        $attr['address'] = str_replace($string, ' ', $attr['address']); // trim any double commas signs that may be in the string
         $attr['address'] = trim($attr['address'], " \t\n\r\0\x0B\,"); // clean any leading whitepasce or commas
 
         if ($attr['address'] == '' || $attr['address'] == ",") {
@@ -158,11 +159,13 @@ function trmap_mapme($attr)
         }
     } else {
 
-        if ($tinygmaps_debug && current_user_can('edit_posts') && !is_admin()) {
+        if (empty($attr['lat']) || empty($attr['lng'])) {
             echo tr_map_errors($tinygmaps_debug, 'malformed_params');
             return false;
         }
     }
+
+
     // Don't continue with if we are in admin, sometimes there is a slow response from tr_map_get_place and it always returning in time....
     if(!is_admin() && !empty($attr)){
         // process the infowindow extras
