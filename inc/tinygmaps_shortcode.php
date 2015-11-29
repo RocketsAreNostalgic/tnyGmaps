@@ -349,6 +349,19 @@ function info_window_sanitize($string)
  */
 function get_info_bubble($icon, $name, $street, $city, $state, $post, $country, $phone, $web, $info)
 {
+//    // Data sanitise
+//    $icon = esc_url($icon);
+//    $name = esc_textarea($name);
+//    $street = esc_textarea($street);
+//    $city = esc_textarea($city);
+//    $state = esc_textarea($state);
+//    $post = esc_textarea($post);
+//    $country = esc_textarea($country);
+//    $phone = esc_textarea($phone);
+//    $web = esc_url($web);
+//    $info = esc_textarea($info);
+
+    // Build the output
     $tinygmaps_infowindowPlace = '<div class="marker inside"  >';
     $tinygmaps_infowindowPlace .= '<b>' . $name . '</b>';
     $tinygmaps_infowindowPlace .= '<table>';
@@ -480,7 +493,6 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $de
                 $cache_value['name'] = (string)(property_exists($result, 'name')) ? htmlentities((string)$result->name, ENT_QUOTES) : '';
                 $cache_value['icon'] = (string)(property_exists($result, 'icon')) ? ((string)$result->icon) : '';
                 $cache_value['phone'] = (string)(property_exists($result, 'formatted_phone_number')) ? ($result->formatted_phone_number) : '';
-                $cache_value['web'] = (string)(property_exists($result, 'website')) ? ($result->website) : '';
                 $cache_value['web'] = (string)(property_exists($result, 'website')) ? (esc_url($result->website)) : '';
                 // Address components
                 $premise = (processObject('premise', $result)) ? processObject('premise', $result) . ', ' : '';
