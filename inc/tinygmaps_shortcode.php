@@ -349,13 +349,13 @@ function info_window_sanitize($string)
  */
 function get_info_bubble($icon, $name, $street, $city, $state, $post, $country, $phone, $web, $info)
 {
-    $iconStyle                 = (($icon != '') ? 'max-width: 150px; ' : 'max-width: 200px; ');
     $tinygmaps_infowindowPlace = '<div class="marker inside"  >';
     $tinygmaps_infowindowPlace .= '<b>' . $name . '</b>';
     $tinygmaps_infowindowPlace .= '<table>';
     $tinygmaps_infowindowPlace .= '<tbody>';
     $tinygmaps_infowindowPlace .= '<tr>';
     $tinygmaps_infowindowPlace .= '<td>';
+    $iconStyle  = (($icon != '') ? 'max-width: 150px; ' : 'max-width: 200px; ');
     $tinygmaps_infowindowPlace .= '<div class="" style="' . $iconStyle . '" >';
     $tinygmaps_infowindowPlace .= ($street != null && $street != '' && $street != '') ? '<div>' . $street . '</div>' : '';
     $tinygmaps_infowindowPlace .= ($city != null && $city != '' && $city !== '') ? '<div>' . $city . ', ' : '<div>';
