@@ -92,7 +92,7 @@ function trmap_mapme($attr) {
 
     // clean up array
     array_walk($attr, create_function('&$val', '$val = trim($val);')); //trim white space
-    $attr = array_htmlentities($attr); // encode any single quotes that may appear in text
+    $attr = array_htmlentities($attr); // encode any double or single quotes that may appear in text
 
     // load map params into variables
     (int)$tinygmaps_z = $attr['z'];
