@@ -481,6 +481,7 @@ function tr_map_get_place($api_key, $placeID, $address = '', $force_refresh, $de
                 $cache_value['icon'] = (string)(property_exists($result, 'icon')) ? ((string)$result->icon) : '';
                 $cache_value['phone'] = (string)(property_exists($result, 'formatted_phone_number')) ? ($result->formatted_phone_number) : '';
                 $cache_value['web'] = (string)(property_exists($result, 'website')) ? ($result->website) : '';
+                $cache_value['web'] = (string)(property_exists($result, 'website')) ? (esc_url($result->website)) : '';
                 // Address components
                 $premise = (processObject('premise', $result)) ? processObject('premise', $result) . ', ' : '';
                 $street_number = processObject('street_number', $result);
