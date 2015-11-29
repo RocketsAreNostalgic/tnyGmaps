@@ -49,6 +49,7 @@ function tinygmaps_register_scripts(){
 }
 
 add_shortcode('TINYGMAPS', 'trmap_mapme');
+add_shortcode('tinygmaps', 'trmap_mapme');
 function trmap_mapme($attr) {
     // Lets enqueue the scripts only if the shortcode has been added
     wp_enqueue_script('googelmaps_js');
