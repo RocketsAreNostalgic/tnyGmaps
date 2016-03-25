@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 Here we will allow users to:
