@@ -1,5 +1,7 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) die();
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 /*
 
 Plugin Name: Tiny Google Maps Plugin
@@ -20,16 +22,16 @@ Map details are saved using the transients api, which are refreshed via Google w
  * Acquire a Google Places API key for your website domain
  * See the README.md file for more information
  * https://developers.google.com/places/documentation/
-/*********************************************************************/
-if (!defined('GOOGLE_API_KEY')){
-    define('GOOGLE_API_KEY', 'AIzaSyBJk9dfvS4WYVVzrPNUOshAUZSgqufNSls');
+ * /*********************************************************************/
+if ( ! defined( 'GOOGLE_API_KEY' ) ) {
+	define( 'GOOGLE_API_KEY', 'AIzaSyBJk9dfvS4WYVVzrPNUOshAUZSgqufNSls' );
 }
 /***********************************************************************
  * Definitions
-/*********************************************************************/
+ * /*********************************************************************/
 
-define('TINYGMAP_PATH', plugin_dir_path( __FILE__ ));
-define('TINYGMAP_URL', plugin_dir_url( __FILE__ ));
+define( 'TINYGMAP_PATH', plugin_dir_path( __FILE__ ) );
+define( 'TINYGMAP_URL', plugin_dir_url( __FILE__ ) );
 
 
 // //Set the debug var as global
@@ -37,7 +39,7 @@ global $tinygmaps_debug;
 //$tinygmaps_debug = true;
 /***********************************************************************
  * Includes
-/*********************************************************************/
+ * /*********************************************************************/
 
 // Translation files
 load_plugin_textdomain( 'tinygmaps', false, TINYGMAP_PATH . '/inc/languages/' );
@@ -46,8 +48,8 @@ load_plugin_textdomain( 'tinygmaps', false, TINYGMAP_PATH . '/inc/languages/' );
 
 
 // Ajax functions, must be in the main plugin file
-require_once ( TINYGMAP_PATH . 'inc/tinygmaps_ajax.php');
+require_once( TINYGMAP_PATH . 'inc/tinygmaps_ajax.php' );
 // Shortcode
-require_once ( TINYGMAP_PATH . 'inc/tinygmaps_shortcode.php');
+require_once( TINYGMAP_PATH . 'inc/tinygmaps_shortcode.php' );
 // GUI via modal and tinyMCE button
-require_once ( TINYGMAP_PATH . 'inc/tinygmaps_tinyMCE.php');
+require_once( TINYGMAP_PATH . 'inc/tinygmaps_tinyMCE.php' );
