@@ -1,4 +1,4 @@
-# Tiny Google Maps Plugin
+# Tiny gMaps Plugin
 ---
 This is a development plugin for integrating google maps into posts and pages using GoogleMaps API v3.
 
