@@ -76,6 +76,7 @@ The plugin seeds each map with a custom identifier so more then one map can be d
 
 ## So much more to do!
 We need to add an admin page to:
+
 * Add google maps api key without hard coding
 * Enable and disable debug mode
 * Set transient expiry 
