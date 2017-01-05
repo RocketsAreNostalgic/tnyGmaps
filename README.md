@@ -1,6 +1,6 @@
 # Tiny Google Maps Plugin
 ---
-This is a development plugin for integrating google maps into posts and pages using GoogleMaps API v 3.
+This is a development plugin for integrating google maps into posts and pages using GoogleMaps API v3.
 
 The plugin requires a Google API key, with the following services enabled: https://console.developers.google.com
     Google Maps JavaScript API
@@ -67,7 +67,7 @@ The plugin seeds each map with a custom identifier so more then one map can be d
      infowindowb64     | Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
      hidecontrols      | (true : false) Hides the zoom, street view and other controls
      scale             | (true : false) Is the map scale drawn?
-     scrollwheel       |  (true : false) Will the map zoom react to mouse scrollwheel?
+     scrollwheel       | (true : false) Will the map zoom react to mouse scrollwheel?
      static            | Dom width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate not map is drawn
      static_w          | Width of static map in pixels
      static_h          | Height of of static map in pixels
@@ -79,4 +79,4 @@ We need to add an admin page to:
 * Add google maps api key without hard coding
 * Enable and disable debug mode
 * Set transient expiry 
-* Also we also aim to add alert messages to admin pages about missing API Keys.
+* Add alert messages to admin pages about missing API Keys
