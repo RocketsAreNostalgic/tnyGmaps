@@ -15,7 +15,7 @@ This button gives a live preview experience of what your map will look like, and
 The plugin seeds each map with a custom identifier so more then one map can be displayed on a page without conflict.
 
 ## The preview features: 
-   - live ajax address lookup - or manual address input. 
+    - live ajax address lookup - or manual address input. 
     Rich set of parameters including: 
     - Map size (pixels and percent)
     - zoom level
@@ -43,41 +43,40 @@ The plugin seeds each map with a custom identifier so more then one map can be d
 		web="https://plus.google.com/113856077276894937079/about" 
 		phone="+1 604-874-4024" marker="/wp-content/plugins/tinier-googlemaps-plugin/inc/tinymce/icons/music_folk_map.png" infowindow=""]
 	
-## Full  parameter list
-     z             | Map zoom level 1 - 22
-     w             | Map width in pixels or percent
-     h             | Map height in pixels or percent
-     maptype       | Map type: ROADMAP, SATELLITE, HYBRID, TERRAIN
-     lat           | Location latitude
-     lng           | Location longitude
-     placeID       | A Google Places API reference if provided one.
-     address       | An address to the location as a string
-     name          | Business or location name
-     street        | Street number and street name
-     city          | City Name
-     region        | State or Provence
-     postcode      | Zip or regional post code
-     country       | Country code, long or short
-     web           | URL inclusive of http://
-     phone         | Phone Number
-     icon          | An image from the maps api for that location
-     marker        | A url full or relative to the plugin (see example) to the icon png 
-     infowindowdefault  | (yes : no) Show the infowindow on page load, or keep it hidden until the map icon is clicked.
-     infowindow    | Additional contents of the infowindow, but must be text only without any markup.
-     infowindowb64 | Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
-     hidecontrols  | (true : false) Hides the zoom, street view and other controls
-     scale         | (true : false) Is the map scale drawn?
-     scrollwheel   |  (true : false) Will the map zoom react to mouse scrollwheel?
-     static        | Dom width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate not map is drawn
-     static_w      | Width of static map in pixels
-     static_h      | Height of of static map in pixels
-     refresh       | (true : false) Will flush any transient data from being cashed for a given location (good for testing results)
-     debug         | (true : false) Will render the return values from the Google Maps API object for debugging.
+## Full  parameter list:
+     z                 | Map zoom level 1 - 22
+     w                 | Map width in pixels or percent
+     h                 | Map height in pixels or percent
+     maptype           | Map type: ROADMAP, SATELLITE, HYBRID, TERRAIN
+     lat               | Location latitude
+     lng               | Location longitude
+     placeID           | A Google Places API reference if provided one.
+     address           | An address to the location as a string
+     name              | Business or location name
+     street            | Street number and street name
+     city              | City Name
+     region            | State or Provence
+     postcode          | Zip or regional post code
+     country           | Country code, long or short
+     web               | URL inclusive of http://
+     phone             | Phone Number
+     icon              | An image from the maps api for that location
+     marker            | A url full or relative to the plugin (see example) to the icon png 
+     infowindowdefault | (yes : no) Show the infowindow on page load, or keep it hidden until the map icon is clicked.
+     infowindow        | Additional contents of the infowindow, but must be text only without any markup.
+     infowindowb64     | Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
+     hidecontrols      | (true : false) Hides the zoom, street view and other controls
+     scale             | (true : false) Is the map scale drawn?
+     scrollwheel       |  (true : false) Will the map zoom react to mouse scrollwheel?
+     static            | Dom width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate not map is drawn
+     static_w          | Width of static map in pixels
+     static_h          | Height of of static map in pixels
+     refresh           | (true : false) Will flush any cashed WP transient data for a given location (good for purging previous results during testing)
+     debug             | (true : false) Will render the return values from the Google Maps API object for debugging.
 
 ## So much more to do!
 We need to add an admin page to:
-- Add google maps api key without hard coding
-- Enable and disable debug mode
-- Set transient expiry 
-- Also we also aim to add alert messages to admin pages about missing API Keys.
-
+* Add google maps api key without hard coding
+* Enable and disable debug mode
+* Set transient expiry 
+* Also we also aim to add alert messages to admin pages about missing API Keys.
