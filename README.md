@@ -68,11 +68,11 @@ The plugin seeds each map with a custom identifier so more then one map can be d
      hidecontrols      | (true : false) Hides the zoom, street view and other controls
      scale             | (true : false) Is the map scale drawn?
      scrollwheel       | (true : false) Will the map zoom react to mouse scrollwheel?
-     static            | Dom width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate not map is drawn
+     static            | DOM width for when a static image map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate no map is drawn
      static_w          | Width of static map in pixels
      static_h          | Height of of static map in pixels
      refresh           | (true : false) Will flush any cashed WP transient data for a given location (good for purging previous results during testing)
-     debug             | (true : false) Will render the return values from the Google Maps API object for debugging.
+     debug             | (true : false) Will render the return values from the Google Maps API object for debugging
 
 ## So much more to do!
 We need to add an admin page to:
