@@ -66,10 +66,9 @@ function tinygmaps_load_js_globals() {
 		$js_globals['ajaxurl']         = admin_url( 'admin-ajax.php' );
 		$js_globals['haveGPlaces_key'] = $have_key;
 		$js_globals['pluginURI']       = TINYGMAP_URL;
-
+        $js_globals['pluginDIR']       = plugin_dir_url( __DIR__ );
 		echo '<script>var tinygmaps =' . json_encode( $js_globals ) . '</script>';
 	}
-
 }
 
 add_action( 'admin_print_scripts', 'tinygmaps_load_js_globals' );
