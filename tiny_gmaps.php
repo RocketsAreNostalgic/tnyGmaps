@@ -45,8 +45,6 @@ global $tinygmaps_debug;
 load_plugin_textdomain( 'tinygmaps', false, TINYGMAP_PATH . '/inc/languages/' );
 // Admin screen
 //require_once ( TINYGMAP_PATH . 'inc/tr_maps_admin.php');
-
-
 // Ajax functions, must be in the main plugin file
 require_once( TINYGMAP_PATH . 'inc/tinygmaps_ajax.php' );
 // Shortcode
