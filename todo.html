@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<h3 id="tnygmapsplugintodo">Tny gMaps Plugin Todo</h3>
+
+<h4 id="0.0.3refactornamespaceremoveprefixes"><em>0.0.3 Refactor Namespace, remove prefixes</em></h4>
+
+<ul>
+<li>apply code style and design patterns established previously
+
+<ul>
+<li>[DONE] Namespace all files and functions</li>
+<li>[DONE] remove any function prefixes</li>
+<li>[DONE] apply directory structure</li>
+<li>[DONE] normalise comments</li>
+<li>[DONE] code formatting</li>
+</ul></li>
+</ul>
+
+<h4 id="0.0.5refactortinymcemodal"><em>0.0.5 Refactor tinymce Modal</em></h4>
+
+<ul>
+<li>Prepare strings for translation.</li>
+<li>Add modal string to js via wp_localize_script()</li>
+<li>Remove the direct dependency on wp by moving constant refs to js vars via wp_localize_script() also</li>
+<li>refactor js scripts to rely on wp_localize_script() globals instead</li>
+</ul>
+
+<h4 id="0.0.4refactorjs"><em>0.0.4 Refactor JS</em></h4>
+
+<ul>
+<li>jQuery removed deprecated functions: load(), live(), ready event,</li>
+<li>Deprecated TinyMCE API call: windowManager.createInstance(..)</li>
+<li>Concat js into single lib?</li>
+<li>Do we need to grey out interface with modal and spinner until js loads?</li>
+</ul>
+
+<h4 id="0.0.6settingspage"><em>0.0.6 Settings Page</em></h4>
+
+<ul>
+<li>Plugin settings page - principally the API Key instructions.</li>
+<li>Add google maps api key without hard coding</li>
+<li>Enable and disable debug mode</li>
+<li>Set transient expiry (for?)</li>
+<li>Add alert messages to admin pages about missing API Keys</li>
+<li>Refactor use of constants, API Key should not be a constant?</li>
+</ul>
+
+<h3 id="0.0.7installuninstall"><em>0.0.7 Install/Uninstall</em></h3>
+
+<ul>
+<li>Lang dir and .pot file</li>
+<li>Add activation/uninstall hooks and PHP checks.</li>
+</ul>
+
+<h4 id="0.0.8"><em>0.0.8</em></h4>
+
+<ul>
+<li>Fix any issues with admin map modal css</li>
+<li>Normalise front end styles with reset, make the style sheet filterable.</li>
+<li>Remove http/s from the marker attribute, so that the protocall is not baked into the request, and post.</li>
+<li>add ability to set custom icon.</li>
+<li>add ability to specify alternative icon folder.</li>
+<li>prevent admin modal from insterting shortcode if placeid or address is blank.</li>
+<li>Disable insert button if the above is blank?</li>
+</ul>
+
+</body>
+</html>

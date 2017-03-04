@@ -4,8 +4,8 @@ if ( ! String.prototype.trim ) {
 		return this.replace( /^\s+|\s+$/g, '' );
 	};
 }
-//var parent.tinygmaps.haveGPlaces_key; // provided global
-//var parent.tinygmaps.pluginURI; // provided global
+//var parent.tnygmaps.haveGPlaces_key; // provided global
+//var parent.tnygmaps.pluginURI; // provided global
 var lat = null;
 var lng = null;
 var mapZoomReturn = null;
@@ -22,14 +22,14 @@ var infowindow = null;
 var infowindowPlace = null;
 var mapInfoWindowReturn = null;
 var combinedInfoWindow = null;
-var tinyGmaps = null;
+var tnyGmaps = null;
 var map = null;
 var marker = null;
 var mapOptions = null;
 var mapCurrCenter = null;
 var markerOutput = null;
 var locPlace = null;
-var markerCustom = parent.tinygmaps.pluginURI + 'inc/tinymce/icons/music_folk_map.png';
+var markerCustom = parent.tnygmaps.pluginURI + 'inc/icons/music_folk_map.png';
 
 // populate variables with field values 
 function seed_vars() {
@@ -160,8 +160,8 @@ function initialize( infowindow ) {
 				} );
 			}
 		} );
-		if ( parent.tinygmaps.haveGPlaces_key === false ) {
-			jQuery( '#tinygmaps.haveGPlaces_key' ).remove();
+		if ( parent.tnygmaps.haveGPlaces_key === false ) {
+			jQuery( '#tnygmaps.haveGPlaces_key' ).remove();
 			jQuery( '#address_extras' ).show();
 			jQuery( '#address_extras' ).find( 'input:text, button' ).prop( 'disabled', false );
 		} else {
@@ -192,7 +192,7 @@ function initialize( infowindow ) {
 		jQuery( '.map-icon' ).click( function ( e ) {
 			e.preventDefault();
 			var icon = jQuery( this ).attr( 'title' );
-			jQuery( 'input#mapMarkerImage' ).val( parent.tinygmaps.pluginURI + 'inc/tinymce/icons/' + icon );
+			jQuery( 'input#mapMarkerImage' ).val( parent.tnygmaps.pluginURI + 'inc/icons/' + icon );
 			update_marker();
 		} );
 		// Notice
@@ -394,7 +394,8 @@ function initialize( infowindow ) {
 			}
 			// add the keystroke timer
 			var timer = null;
-			jQuery( '#mapInfoWindow' ).live( 'keydown', function ( e ) {
+			jQuery(document).on( 'keydown', '#mapInfoWindow', function ( e ) {
+			// jQuery( '#mapInfoWindow' ).live( 'keydown', function ( e ) {
 				if ( timer ) {
 					clearTimeout( timer );
 				}
@@ -490,11 +491,11 @@ function initialize( infowindow ) {
 			// Do the same for nested address_components -- iterate through the array, then set the field value
 
 			// Premise or building name
-			var locPremise = processObject( 'premise', locPlace.address_components );
+			var locPremise = processAddressObject( 'premise', locPlace.address_components );
 			// street number
-			locStreetNum = processObject( 'street_number', locPlace.address_components );
+			locStreetNum = processAddressObject( 'street_number', locPlace.address_components );
 			// Street name
-			locStreet = processObject( 'route', locPlace.address_components );
+			locStreet = processAddressObject( 'route', locPlace.address_components );
 
 			// Set Input
 			(
@@ -506,25 +507,25 @@ function initialize( infowindow ) {
 			jQuery( 'input#locStAdr' ).val( streetCombined );
 
 			// City-Town
-			if ( processObject( 'administrative_area3', locPlace.address_components ) ) {
-				locCity = processObject( 'administrative_area3', locPlace.address_components );
+			if ( processAddressObject( 'administrative_area3', locPlace.address_components ) ) {
+				locCity = processAddressObject( 'administrative_area3', locPlace.address_components );
 			}
-			if ( processObject( 'locality', locPlace.address_components ) ) {
-				locCity = processObject( 'locality', locPlace.address_components );
+			if ( processAddressObject( 'locality', locPlace.address_components ) ) {
+				locCity = processAddressObject( 'locality', locPlace.address_components );
 			}
-			if ( processObject( 'sublocality', locPlace.address_components ) ) {
-				locCity = processObject( 'sublocality', locPlace.address_components );
+			if ( processAddressObject( 'sublocality', locPlace.address_components ) ) {
+				locCity = processAddressObject( 'sublocality', locPlace.address_components );
 			}
-			if ( processObject( 'postal_town', locPlace.address_components ) ) {
-				locCity = processObject( 'postal_town', locPlace.address_components );
+			if ( processAddressObject( 'postal_town', locPlace.address_components ) ) {
+				locCity = processAddressObject( 'postal_town', locPlace.address_components );
 			}
 			// Set Input
 			jQuery( 'input#locCity' ).val( locCity.trim() );
 
 			// state
-			locRegion = processObject( 'administrative_area_level_1', locPlace.address_components );
+			locRegion = processAddressObject( 'administrative_area_level_1', locPlace.address_components );
 			if ( ! locRegion ) {
-				locRegion = processObject( 'administrative_area_level_2', locPlace.address_components );
+				locRegion = processAddressObject( 'administrative_area_level_2', locPlace.address_components );
 			}
 
 			// if we don't have a state but do have a region, use that instead.
@@ -539,10 +540,10 @@ function initialize( infowindow ) {
 			jQuery( '#locRegion' ).val( locRegion.trim() );
 
 			// Postal Code
-			locPostcode = processObject( 'postal_code', locPlace.address_components );
+			locPostcode = processAddressObject( 'postal_code', locPlace.address_components );
 			jQuery( '#locPostcode' ).val( locPostcode );
 
-			locCountry = processObject( 'country', locPlace.address_components );
+			locCountry = processAddressObject( 'country', locPlace.address_components );
 			jQuery( '#locCountry' ).val( locCountry );
 			locAddress = locStreet + ', ' + locCity + ', ' + locRegion + ', ' + locPostcode + ', ' + locCountry;
 
@@ -597,7 +598,7 @@ function initialize( infowindow ) {
 					locGooglePlaceID = '';
 
 					// Name of location
-					locName = processObject( 'point_of_interest', locPlace.address_components );
+					locName = processAddressObject( 'point_of_interest', locPlace.address_components );
 					// have observed this as a return value with geocode api as well
 					// Set Input, we dont want to clear the field if these return null
 					if ( locName !== '' && locName !== null ) {
@@ -605,11 +606,11 @@ function initialize( infowindow ) {
 					}
 
 					// Premise or building name
-					var locPremise = processObject( 'premise', locPlace.address_components );
+					var locPremise = processAddressObject( 'premise', locPlace.address_components );
 					// street number
-					locStreetNum = processObject( 'street_number', locPlace.address_components );
+					locStreetNum = processAddressObject( 'street_number', locPlace.address_components );
 					// Street name
-					locStreet = processObject( 'route', locPlace.address_components );
+					locStreet = processAddressObject( 'route', locPlace.address_components );
 					// Set Input
 					(
 						locPremise
@@ -620,28 +621,28 @@ function initialize( infowindow ) {
 					jQuery( 'input#locStAdr' ).val( streetCombined );
 
 					// City-Town
-					locCity = processObject( 'postal_town', locPlace.address_components );
+					locCity = processAddressObject( 'postal_town', locPlace.address_components );
 					if ( ! locCity ) {
-						locCity = processObject( 'locality', locPlace.address_components );
+						locCity = processAddressObject( 'locality', locPlace.address_components );
 					}
 					// Set Input
 					jQuery( 'input#locCity' ).val( locCity );
 
 					// State - Region
-					locRegion = processObject( 'administrative_area_level_1', locPlace.address_components );
+					locRegion = processAddressObject( 'administrative_area_level_1', locPlace.address_components );
 					if ( ! locRegion ) {
-						locRegion = processObject( 'administrative_area_level_2', locPlace.address_components );
+						locRegion = processAddressObject( 'administrative_area_level_2', locPlace.address_components );
 					}
 					// Set Input
 					jQuery( 'input#locRegion' ).val( locRegion );
 
 					// Postal
-					locPostcode = processObject( 'postal_code', locPlace.address_components );
+					locPostcode = processAddressObject( 'postal_code', locPlace.address_components );
 					// Set Input
 					jQuery( 'input#locPostcode' ).val( locPostcode );
 
 					// Country
-					locCountry = processObject( 'country', locPlace.address_components );
+					locCountry = processAddressObject( 'country', locPlace.address_components );
 					// Set Input
 					jQuery( 'input#locCountry' ).val( locCountry );
 
@@ -664,7 +665,7 @@ function initialize( infowindow ) {
  */
 
 // process Address Components
-function processObject( needle, haystack ) {
+function processAddressObject( needle, haystack ) {
 	var rtrn = '';
 	for ( var i = 0; i < haystack.length; i ++ ) {
 		var addr = haystack[i];
@@ -752,10 +753,10 @@ function get_info_bubble( icon, name, street, city, state, post, country, phone,
 /* 
  * load up our field values and output them as a short code
  */
-tinyGmaps = {
+tnyGmaps = {
 	local_ed: 'ed',
 	init: function ( ed ) {
-		tinyGmaps.local_ed = ed;
+		tnyGmaps.local_ed = ed;
 		tinyMCEPopup.resizeToInnerSize();
 	},
 	insert: function insertButton( ed ) {
@@ -765,7 +766,7 @@ tinyGmaps = {
 		mapInfoWindowReturn = htmlEntities( mapInfoWindowReturn ) // encode html entities
 		mapInfoWindowReturn = jQuery.base64.encode( mapInfoWindowReturn ); // then base64 encode it as a string
 		// output the shortcode
-		markerOutput = '[TINYGMAPS ';
+		markerOutput = '[TNYGMAPS ';
 		markerOutput += 'z="' + mapZoomReturn + '" ';
 		markerOutput += 'w="' + mapWidthReturn + '" ';
 		markerOutput += 'h="' + mapHeightReturn + '" ';
@@ -820,4 +821,4 @@ tinyGmaps = {
 		tinyMCEPopup.close();
 	}
 };
-tinyMCEPopup.onInit.add( tinyGmaps.init, tinyGmaps );
+tinyMCEPopup.onInit.add( tnyGmaps.init, tnyGmaps );
