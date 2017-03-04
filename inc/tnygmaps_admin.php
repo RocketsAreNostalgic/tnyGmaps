@@ -1,4 +1,9 @@
 <?php
+<?php
+namespace OrionRush\Admin;
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 /*
 Here we will allow users to:
