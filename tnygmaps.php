@@ -26,8 +26,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /***********************************************************************
  * Definitions
  * /*********************************************************************/
+define( 'TNYGMAPS_VERSION', '0.0.4' );
+define( 'TNYGMAPS_NAME', __('Tny gMaps', 'orionrush_tnygmaps' ) );
 define( 'TNYGMAPS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'TNYGMAPS_URL', plugin_dir_url( __FILE__ ) );
+
 
 /**********************************************************************
  * Acquire a Google Places API key for your website domain
@@ -49,7 +52,7 @@ global $tnygmaps_debug;
 load_plugin_textdomain( 'orionrush_tnygmaps', false, TNYGMAPS_PATH . '/lang/' );
 
 // Admin screen
-//require_once ( TINYGMAP_PATH . 'inc/tr_maps_admin.php');
+require_once ( TNYGMAPS_PATH . 'inc/tnygmaps_admin.php');
 
 // Ajax functions, must be in the main plugin file
 require_once( TNYGMAPS_PATH . 'inc/tnygmaps_ajax.php' );
@@ -59,3 +62,6 @@ require_once( TNYGMAPS_PATH . 'inc/tnygmaps_shortcode.php' );
 
 // GUI via modal and tinyMCE button
 require_once( TNYGMAPS_PATH . 'inc/tnygmaps_tinyMCE.php' );
+
+// Helper functions
+require_once( TNYGMAPS_PATH . 'inc/tnygmaps_support.php' );
