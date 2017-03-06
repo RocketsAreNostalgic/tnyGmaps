@@ -18,13 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 // Path to the plugin root
-$local_uri = \OrionRush\TnyGmaps\LoadModal\make_root_relative( TNYGMAPS_URL . 'inc/' );
-
+$local_uri = \OrionRush\TnyGmaps\Support\make_root_relative( TNYGMAPS_URL . 'inc/' );
 // do we have the google places api key?
-$api_test = \OrionRush\TnyGmaps\LoadModal\test_google_key();
-
+$api_test = \OrionRush\TnyGmaps\Support\test_google_key();
 // Icon list
-$icons_array  = \OrionRush\TnyGmaps\LoadModal\loaded_tnygmaps_icons();
+$icons_array  = \OrionRush\TnyGmaps\Support\loaded_tnygmaps_icons();
 $icons_list   = $icons_array[0];
 $loaded_icons = $icons_array[1];
 
@@ -41,30 +39,27 @@ $loaded_icons = $icons_array[1];
     </head>
     <body>
         <?php if ( ! $api_test ) { ?>
-            <div class="alert warning fadeout floating"> <?php _e( 'API KEY NOT DEFINED, see documentation for full functionality.', 'tny_gmap' ); ?> </div>
+            <div class="alert warning floating"> <?php echo sprintf( __( 'GOOGLE API KEY NOT SET: Visit the %splugin settings page%s to get one.', 'orionrush_tnygmaps' ), '<a href="' . admin_url() . 'options-general.php?page=tnygmaps" target="_parent">', '</a>' ); ?> </div>
         <?php } ?>
         <div id="button-dialog" class="wrap">
             <form action="/" method="get" accept-charset="utf-8">
 
                 <div class="group <?php echo ( ! $api_test ) ? 'hidden' : '' ?>	" id="mapAddress-group">
-                    <label class="heading" for="mapAddress"> <?php _e( 'Address lookup', 'tny_gmap' ) ?>:</label>
+                    <label class="heading" for="mapAddress"> <?php _e( 'Address lookup:', 'orionrush_tnygmaps' ) ?>
+                        <span data-tooltip="<?php echo sprintf( __( 'This section uses the Google Places API to find details about places of interest on found on Google Maps. The details are auto-updated when owners refresh information using Google‘s services.', 'orionrush_tnygmaps' ), '<br/>', '<br/>', '<br/>', '<br/>', '<br/>' ) ?>">?</span></label>
+                    </label>
                     <div class="autoMapAddress input">
                         <input type="text" name="mapAddressAuto" id="mapAddress" class="noEnterSubmit"/>
                     </div>
                 </div>
-
-                <?php if ( $api_test ) { ?>
-                    <label class="heading"><?php _e( 'Location details', 'tny_gmap' ); ?>:<span
-                                data-tooltip="<?php _e( 'Only use this section if &quot;Address lookup&quot; can&#039;t find, gives incorrect or incomplete results. </br>&quot;Address lookup&quot; gives us a reference we can use to automatically update location details from Google&#039;s servers.</br></br>Results from this section may differ from that of &quot;Address lookup&quot; and may require you provide greater detail to achieve correct results.</br> </br>If you just want to add a website or phone number, consider adding these to the &quot;Infowindow extras&quot; section instead.', 'tny_gmap' ) ?>">?</span></label>
-                <?php } else { ?>
-                    <label class="heading"><?php _e( 'Location details', 'tny_gmap' ); ?>:<span
-                                data-tooltip="<?php _e( ' This section doesn&#039;t use Google&#039;s servers to validate addresses, or automatically update this information if it changes in future. For this you need an API Key from them. However, we can use the information you provide in the fields below to create a fixed address lookup.</br></br>For best results provide as much Street, City, Postcode information as you can.</br> </br>If you want to add other details, consider adding these to the &quot;Infowindow extras&quot; section instead.', 'tny_gmap' ); ?>">?</span></label>
-                <?php } ?>
+                <label class="heading"><?php _e( 'Custom details:', 'orionrush_tnygmaps' ); ?>
+                    <span data-tooltip="<?php echo sprintf( __( 'This section uses Google‘s Gocodng API to validate addresses, and so does not automatically update information about the location the future, (like phone numbers or website addresses). Use this tool if %sAddress lookup%s can‘t find or provides incorrect/incomplete results. %s%s If you just want to add a website or phone number, consider adding these to the %sWindow Extras%s section instead.', 'orionrush_tnygmaps' ), '<strong>', '</strong>', '<br/>', '<br/>', '<strong>', '</strong>' ) ?>">?</span>
+                </label>
                 <div class="group">
                     <div id="address_extras" class="accordion" style="display:none;">
                         <label for="custom_use_address_check">
                             <?php if ( $api_test ) { ?>
-                                <?php _e( 'Use custom address details?', 'tny_gmap' ); ?>
+                                <?php _e( 'Use custom address details?', 'orionrush_tnygmaps' ); ?>
                                 <input type="checkbox" name="custom_use_address_check" value="false">
                             <?php } else { ?>
                                 <input type="hidden" name="custom_use_address_check" value="checked">
@@ -72,56 +67,64 @@ $loaded_icons = $icons_array[1];
                         </label>
 
                         <div class="input ">
-                            <label for="locName"><?php _e( 'Place name', 'tny_gmap' ); ?>:</label>
-                            <input type="text" placeholder="<?php _e( 'Joes Music Emporium', 'tny_gmap' ); ?>" name="locName"
+                            <label for="locName"><?php _e( 'Place name:', 'orionrush_tnygmaps' ); ?></label>
+                            <input type="text" placeholder="<?php _e( 'Joes Music Emporium', 'orionrush_tnygmaps' ); ?>"
+                                   name="locName"
                                    id="locName" class="noEnterSubmit" disabled/>
                         </div>
                         <div class="input float large">
-                            <label for="locStAdr"><?php _e( 'Street', 'tny_gmap' ); ?>:</label>
-                            <input type="text" name="locStAdr" placeholder="<?php _e( '32 Somewhere Drive', 'tny_gmap' ); ?>"
+                            <label for="locStAdr"><?php _e( 'Street', 'orionrush_tnygmaps' ); ?>:</label>
+                            <input type="text" name="locStAdr"
+                                   placeholder="<?php _e( '32 Somewhere Drive', 'orionrush_tnygmaps' ); ?>"
                                    id="locStAdr" class="noEnterSubmit" disabled/>
                         </div>
                         <div class="input float med">
-                            <label for="locCity"><?php _e( 'City', 'tny_gmap' ); ?>:</label><br/>
-                            <input type="text" placeholder="<?php _e( 'Greenville', 'tny_gmap' ); ?>" name="locCity"
+                            <label for="locCity"><?php _e( 'City', 'orionrush_tnygmaps' ); ?>:</label><br/>
+                            <input type="text" placeholder="<?php _e( 'Greenville', 'orionrush_tnygmaps' ); ?>"
+                                   name="locCity"
                                    id="locCity" class="noEnterSubmit" disabled/>
                         </div>
                         <div class="input float thirds">
-                            <label for="locRegion"><?php _e( 'Region/State', 'tny_gmap' ); ?>:</label>
-                            <input type="text" placeholder="<?php _e( 'Our State', 'tny_gmap' ); ?>" name="locRegion"
+                            <label for="locRegion"><?php _e( 'Region/State', 'orionrush_tnygmaps' ); ?>:</label>
+                            <input type="text" placeholder="<?php _e( 'Our State', 'orionrush_tnygmaps' ); ?>"
+                                   name="locRegion"
                                    id="locRegion" class="noEnterSubmit" disabled/>
                         </div>
                         <div class="input float thirds">
-                            <label for="locPostcode"><?php _e( 'Postcode', 'tny_gmap' ); ?>:</label>
-                            <input type="text" placeholder="<?php _e( 'POSTCODE', 'tny_gmap' ); ?>" name="locPostcode"
+                            <label for="locPostcode"><?php _e( 'Postcode', 'orionrush_tnygmaps' ); ?>:</label>
+                            <input type="text" placeholder="<?php _e( 'POSTCODE', 'orionrush_tnygmaps' ); ?>"
+                                   name="locPostcode"
                                    id="locPostcode" class="noEnterSubmit" disabled/>
                         </div>
                         <div class="input float thirds">
-                            <label for="locCountry"><?php _e( 'Country', 'tny_gmap' ); ?>:</label>
-                            <input type="text" placeholder="<?php _e( 'Proud Country', 'tny_gmap' ); ?>" name="locCountry"
+                            <label for="locCountry"><?php _e( 'Country', 'orionrush_tnygmaps' ); ?>:</label>
+                            <input type="text" placeholder="<?php _e( 'Proud Country', 'orionrush_tnygmaps' ); ?>"
+                                   name="locCountry"
                                    id="locCountry" class="noEnterSubmit" disabled/>
                         </div>
                         <div class="input float large">
-                            <label for="locWebsite"><?php _e( 'Website', 'tny_gmap' ); ?>:</label><br/>
+                            <label for="locWebsite"><?php _e( 'Website', 'orionrush_tnygmaps' ); ?>:</label>
+                            <span data-tooltip="<?php _e( 'If you provide a full url (including http://) an outside link will be created. If you provide a page-slug a local link will be rendered ie &quot;about-us&quot;.', 'orionrush_tnygmaps' ); ?>">?</span><br/>
                             <input type="text" name="locWebsite" placeholder="http://www.someplace.com" id="locWebsite"
                                    class="noEnterSubmit" disabled/>
                         </div>
                         <div class="input float med">
-                            <label for="locPhone"><?php _e( 'Primary phone', 'tny_gmap' ); ?>:</label><br/>
-                            <input type="text" placeholder="000-000-0000" name="locPhone" id="locPhone" class="noEnterSubmit"
+                            <label for="locPhone"><?php _e( 'Primary phone', 'orionrush_tnygmaps' ); ?>:</label><br/>
+                            <input type="text" placeholder="000-000-0000" name="locPhone" id="locPhone"
+                                   class="noEnterSubmit"
                                    disabled/>
                         </div>
                         <div class="input float thirds">
                             <button name="lookup" type="submit" class="buttn bttn-submit" id="lookup-detials"
-                                    onclick="return false;"><?php _e( 'Lookup address', 'tny_gmap' ); ?></button>
+                                    onclick="return false;"><?php _e( 'Lookup address', 'orionrush_tnygmaps' ); ?></button>
                         </div>
                         <div class="input float thirds">
                             <button name="update" type="submit" class="buttn" id="map-update"
-                                    onclick="return false;"><?php _e( 'Update info widow', 'tny_gmap' ); ?></button>
+                                    onclick="return false;"><?php _e( 'Update info widow', 'orionrush_tnygmaps' ); ?></button>
                         </div>
                         <div class="input float thirds">
                             <button name="clear-fields" type="submit" class="buttn bttn-warning" id="clear-fields"
-                                    onclick="return false;"><?php _e( 'Clear feilds', 'tny_gmap' ); ?></button>
+                                    onclick="return false;"><?php _e( 'Clear fields', 'orionrush_tnygmaps' ); ?></button>
                         </div>
                         <div class="input">
                             <div onselectstart="return false;" class="hidden floating lookup" id="search-report"></div>
@@ -134,55 +137,57 @@ $loaded_icons = $icons_array[1];
                         </div>
                     </div>
                 </div>
-                <label class="heading"><?php _e( 'Infowindow extras', 'tny_gmap' ); ?>:<span
-                            data-tooltip="<?php _e( 'Use this text area to add custom information to the marker info window. Some HTML is allowed here, and you will find that field auto corrects any malformed or disalowed markup. This prevents a broken tag inserted here from messing up the rest of your site, but it can be frustrating for anything complex. If you want to try longer bit of additional markup, it is easiest to copy-paste it into the field.', 'tny_gmap' ); ?>">?</span></label>
+                <label class="heading"><?php _e( 'Window extras', 'orionrush_tnygmaps' ); ?>:<span
+                            data-tooltip="<?php _e( 'Add custom information to the marker info window. Allowed HTML is auto corrected to prevent malformed markup from breaking your page. Longer blocks of markup should be copy-pasted in.', 'orionrush_tnygmaps' ); ?>">?</span></label>
                 <div class="group">
                     <div class="input">
                         <div id="mapInfoWindowContainer" class="accordion" style="display:none;">
-                                    <textarea rows="5" cols="60" name="mapInfoWindow" id="mapInfoWindow" class="active"
-                                              placeholder="<?php _e( 'Some HTML allowed: &lt;p&gt;, &lt;a&gt;, &lt;span&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;, &lt;em&gt;, &lt;strong&gt;. Attribute styles and classes are allowed i.e. ( &lt;p style=&quot;background-color: blue;&quot; class=&quot;foo bar&quot;&gt;&lt;/p&gt;) Use &lt;br/&gt; for line breaks. Single quotes are NOT allowed.', 'tny_gmap' ); ?>"></textarea>
+                        <textarea rows="5" cols="60" name="mapInfoWindow" id="mapInfoWindow" class="active"
+                                  placeholder="<?php esc_attr_e( 'Some HTML allowed:<p>, <a>, <span>, <ul>, <ol>, <li>, <em>, <strong>. Attribute styles and classes are allowed i.e. ( <p style="background-color: blue;" class="foo bar">Foo</p>) Use <br/> for line breaks. Single quotes are NOT allowed.', 'orionrush_tnygmaps' ); ?>"></textarea>
                         </div>
                     </div>
                 </div>
-                <label class="heading"><?php _e( 'Map attributes', 'tny_gmap' ); ?>:<span
-                            data-tooltip="<?php _e( 'Use these settings to adjust the appearence of your map.', 'tny_gmap' ); ?>">?</span></label>
+                <label class="heading"><?php _e( 'Map attributes', 'orionrush_tnygmaps' ); ?>:<span
+                            data-tooltip="<?php _e( 'Adjust the appearence of your map.', 'orionrush_tnygmaps' ); ?>">?</span></label>
                 <div class="group">
 
                     <div id="map_extras" class="accordion" style="display:none;">
                         <div class="input float half padRight">
-                            <label for="mapHeight"><?php _e( 'Height', 'tny_gmap' ); ?>:</label>
+                            <label for="mapHeight"><?php _e( 'Height', 'orionrush_tnygmaps' ); ?>:</label>
                             <input class="inline" type="text" name="mapHeight" value="500px" id="mapHeight"/>
 
                         </div>
                         <div class="input float half">
-                            <label for="mapWidth"><?php _e( 'Width', 'tny_gmap' ); ?>:</label>
+                            <label for="mapWidth"><?php _e( 'Width', 'orionrush_tnygmaps' ); ?>:</label>
                             <input class="inline" type="text" name="mapWidth" value="100%" id="mapWidth"/>
                         </div>
                         <div class="detial-notice">
                             <small>
-                                <em><b><?php _e( 'Specify size in &#039;px&#039; or &#039;%&#039;.', 'tny_gmap' ); ?></b></em>
-                                <br><em><?php _e( 'Height &amp; width settings are not reflected in map preview.', 'tny_gmap' ); ?></em>
+                                <em><b><?php _e( 'Specify size in &#039;px&#039; or &#039;%&#039;.', 'orionrush_tnygmaps' ); ?></b></em>
+                                <br><em><?php _e( 'Height &amp; width settings are not reflected in map preview.', 'orionrush_tnygmaps' ); ?></em>
                             </small>
                         </div>
                         <div class="input float">
-                            <label for="mapType">Map:</label>
+                            <label for="mapType"><?php _e( 'Map:', 'orionrush_tnygmaps' ); ?></label>
                             <select name="mapType" id="mapType">
-                                <option selected="selected" value="ROADMAP"><?php _e( 'ROADMAP', 'tny_gmap' ); ?></option>
-                                <option value="SATELLITE"><?php _e( 'SATELLITE', 'tny_gmap' ); ?></option>
-                                <option value="HYBRID"><?php _e( 'HYBRID', 'tny_gmap' ); ?></option>
-                                <option value="TERRAIN"><?php _e( 'TERRAIN', 'tny_gmap' ); ?></option>
+                                <option selected="selected"
+                                        value="ROADMAP"><?php _e( 'ROADMAP', 'orionrush_tnygmaps' ); ?></option>
+                                <option value="SATELLITE"><?php _e( 'SATELLITE', 'orionrush_tnygmaps' ); ?></option>
+                                <option value="HYBRID"><?php _e( 'HYBRID', 'orionrush_tnygmaps' ); ?></option>
+                                <option value="TERRAIN"><?php _e( 'TERRAIN', 'orionrush_tnygmaps' ); ?></option>
                             </select>
                         </div>
                         <div class="input float ">
-                            <label for="mapMarker"><?php _e( 'Marker', 'tny_gmap' ); ?>:</label>
+                            <label for="mapMarker"><?php _e( 'Marker', 'orionrush_tnygmaps' ); ?>:</label>
                             <select name="mapMarker" id="mapMarker">
-                                <option selected="selected" value="concert"><?php _e( 'Concert', 'tny_gmap' ); ?></option>
-                                <option value="default"><?php _e( 'Google', 'tny_gmap' ); ?></option>
-                                <option value="custom"><?php _e( 'Custom', 'tny_gmap' ); ?></option>
+                                <option selected="selected"
+                                        value="concert"><?php _e( 'Concert', 'orionrush_tnygmaps' ); ?></option>
+                                <option value="default"><?php _e( 'Google', 'orionrush_tnygmaps' ); ?></option>
+                                <option value="custom"><?php _e( 'Custom', 'orionrush_tnygmaps' ); ?></option>
                             </select>
                         </div>
                         <div class="input float">
-                            <label><?php _e( 'Zoom', 'tny_gmap' ); ?>:</label>
+                            <label><?php _e( 'Zoom', 'orionrush_tnygmaps' ); ?>:</label>
                             <select id="mapZoom" name="mapZoom">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -208,26 +213,35 @@ $loaded_icons = $icons_array[1];
                             </select>
                         </div>
                         <div class="input float">
-                            <label for="mapControls"><?php _e( 'Controls', 'tny_gmap' ); ?>:</label>
+                            <label for="mapControls"><?php _e( 'Controls', 'orionrush_tnygmaps' ); ?>:</label>
                             <select name="mapControls" id="mapControls">
-                                <option selected="selected" value="false"><?php _e( 'on', 'tny_gmap' ); ?></option>
-                                <option value="true"><?php _e( 'off', 'tny_gmap' ); ?></option>
+                                <option selected="selected"
+                                        value="false"><?php _e( 'on', 'orionrush_tnygmaps' ); ?></option>
+                                <option value="true"><?php _e( 'off', 'orionrush_tnygmaps' ); ?></option>
                             </select>
                         </div>
                         <div class="mapMarkerImage_wrap">
                             <div class="input">
-                                <label class="heading" for="mapMarkerImage"><?php _e( 'Custom icon URL', 'tny_gmap' ); ?>:
+                                <label class="heading"
+                                       for="mapMarkerImage"><?php _e( 'Custom icon URL', 'orionrush_tnygmaps' ); ?>:
                                     <span
-                                            data-tooltip="<?php _e( 'List the full (or root realitive) path to your custom icon, or select from the list below. If your custom icon won&#039;t load, then there is probably a typo in your path.', 'tny_gmap' ); ?>">?</span></label>
+                                            data-tooltip="<?php _e( 'List the full (or root realitive) path to your custom icon, or select from the list below. If your custom icon won&#039;t load, then there is probably a typo in your path.', 'orionrush_tnygmaps' ); ?>">?</span></label>
                                 <input type="text" name="mapMarkerImage" placeholder="<?php echo $local_uri; ?>/icons/"
                                        value="<?php echo $local_uri; ?>/icons/<?php echo( $loaded_icons[0] ); ?>"
                                        id="mapMarkerImage"/>
-                                <span class="icon-list alert"><em>Loaded icons:</em> <br/><?php print( $icons_list ) ?>
-                                    <p><em><?php _e( 'Icons courtesy of the', 'tny_gmap' ); ?> <a
-                                                    href="http://mapicons.nicolasmollet.com/"
-                                                    target="_blank"><?php _e( 'Map Icons Collection', 'tny_gmap' ); ?></a></em>
-                                            </p>
-                                        </span>
+                                <span class="icon-list alert">
+                                <em><?php _e( 'Loaded icons', 'orionrush_tnygmaps' ); ?>:</em>
+                                <br/><?php print( $icons_list ) ?>
+                                    <p>
+                                    <em>
+                                        <?php echo sprintf(
+                                            __( 'Icons courtesy of the %sMap Icons Collection%s', 'orionrush_tnygmaps' ),
+                                            '<a href="http://mapicons.nicolasmollet.com/" target="_blank">',
+                                            '</a>' );
+                                        ?>
+                                    </em>
+                                </p>
+                            </span>
                             </div>
                         </div>
 
