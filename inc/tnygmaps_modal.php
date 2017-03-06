@@ -47,6 +47,8 @@ $loaded_icons = $icons_array[1];
         </script>
     </head>
     <body>
+    <div id="overlay" class=""></div>
+
         <?php if ( ! $api_test ) { ?>
             <div class="alert warning floating"> <?php echo sprintf( __( 'GOOGLE API KEY NOT SET: Visit the %splugin settings page%s to get one.', 'orionrush_tnygmaps' ), '<a href="' . admin_url() . 'options-general.php?page=tnygmaps" target="_parent">', '</a>' ); ?> </div>
         <?php } ?>
@@ -266,11 +268,38 @@ $loaded_icons = $icons_array[1];
                    onclick="javascript:tnyGmaps.insert(tnyGmaps.local_ed)"/>
         </div>
     </body>
+    <script src="<?php echo $local_uri ?>js/vendor/spin-js/spin.min.js"></script>
+    <script type="text/javascript">
+        var opts = {
+            lines: 11,
+            length: 40,
+            width: 10,
+            radius: 28,
+            scale: 0.75,
+            corners: 1,
+            color: '#000',
+            opacity: 0.25,
+            rotate: 0,
+            direction: 1,
+            speed: 0.7,
+            trail: 68,
+            fps: 20,
+            zIndex: 2e9,
+            className: 'spinner',
+            top: '50%',
+            left: '50%',
+            shadow: false,
+            hwaccel: false,
+            position: 'absolute'
+        };
+        var target = document.getElementById('overlay');
+        var spinner = new Spinner(opts).spin(target);
+    </script>
     <script src="<?php echo includes_url() ?>js/jquery/jquery.js"></script> <!--should be cached -->
     <script src="<?php echo includes_url() ?>js/tinymce/tiny_mce_popup.js"></script>
     <script src="//maps.google.com/maps/api/js?key=<?php echo GOOGLE_API_KEY ?>&libraries=places"></script>
-    <script src="<?php echo $local_uri; ?>js/tnygmaps_modal_loadmaps.min.js"></script>
+    <script src="<?php echo $local_uri; ?>js/tnygmaps_modal_logic.min.js"></script>
     <script src="<?php echo $local_uri; ?>js/vendor/jquery-base64/jquery.base64.min.js"></script>
     <script src="<?php echo $local_uri; ?>js/vendor/jquery-htmlclean/jquery.htmlClean.min.js"></script>
-    <script src="<?php echo $local_uri; ?>js/vendor/jquery.qtip.custom/jquery.qtip.min.js"></script>
+    <script src="<?php echo $local_uri; ?>js/vendor/jquery-qtip-custom/jquery.qtip.min.js"></script>
 </html>
