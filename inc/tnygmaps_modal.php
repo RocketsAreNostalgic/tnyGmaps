@@ -30,12 +30,12 @@ $loaded_icons = $icons_array[1];
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
         <title><?php echo TNYGMAPS_NAME ?></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>css/tnygmaps_modal.css?; ?>"/>
-        <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>js/vendor/jquery.qtip.custom/jquery.qtip.css"/>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>css/tnygmaps_modal.css"/>
+        <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>js/vendor/jquery-qtip-custom/jquery.qtip.css"/>
     </head>
     <body>
         <?php if ( ! $api_test ) { ?>
