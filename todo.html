@@ -9,18 +9,15 @@
 <h4 id="0.0.3refactornamespaceremoveprefixes"><em>0.0.3 Refactor Namespace, remove prefixes</em></h4>
 
 <ul>
-<li>apply code style and design patterns established previously
-
-<ul>
+<li>[DONE] apply code style and design patterns established previously</li>
 <li>[DONE] Namespace all files and functions</li>
 <li>[DONE] remove any function prefixes</li>
 <li>[DONE] apply directory structure</li>
 <li>[DONE] normalise comments</li>
 <li>[DONE] code formatting</li>
-</ul></li>
 </ul>
 
-<h4 id="0.0.5refactortinymcemodal"><em>0.0.5 Refactor tinymce Modal</em></h4>
+<h4 id="0.0.4refactortinymcemodal"><em>0.0.4 Refactor tinymce Modal</em></h4>
 
 <ul>
 <li>Prepare strings for translation.</li>
@@ -29,11 +26,15 @@
 <li>refactor js scripts to rely on wp_localize_script() globals instead</li>
 </ul>
 
-<h4 id="0.0.4refactorjs"><em>0.0.4 Refactor JS</em></h4>
+<h4 id="0.0.5refactorjs"><em>0.0.5 Refactor JS</em></h4>
 
 <ul>
 <li>jQuery removed deprecated functions: load(), live(), ready event,</li>
-<li>Deprecated TinyMCE API call: windowManager.createInstance(..)</li>
+<li>Deprecated TinyMCE API call: windowManager.createInstance(..)
+
+<ul>
+<li>http://wordpress.stackexchange.com/q/258920/13551</li>
+</ul></li>
 <li>Concat js into single lib?</li>
 <li>Do we need to grey out interface with modal and spinner until js loads?</li>
 </ul>
@@ -62,10 +63,15 @@
 <li>Fix any issues with admin map modal css</li>
 <li>Normalise front end styles with reset, make the style sheet filterable.</li>
 <li>Remove http/s from the marker attribute, so that the protocall is not baked into the request, and post.</li>
-<li>add ability to set custom icon.</li>
-<li>add ability to specify alternative icon folder.</li>
+<li>Admin: add ability to specify alternative icon folder.</li>
+<li>Admin: add ability to set default icon.</li>
 <li>prevent admin modal from insterting shortcode if placeid or address is blank.</li>
 <li>Disable insert button if the above is blank?</li>
+<li>https://developers.google.com/maps/documentation/javascript/localization</li>
+<li>When putting in custom address fields into the admin modal, (without place lookup) the infowindow won&#8217;t populate on &#8220;update info window&#8221; button.
+</li>
+<li>[DONE] Add comment to &#8216;website&#8217; in custom address, about local links.</li>
+<li>Add check in modal logic for API key, and lock fields if no key.</li>
 </ul>
 
 </body>
