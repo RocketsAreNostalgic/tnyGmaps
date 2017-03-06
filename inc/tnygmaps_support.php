@@ -1,5 +1,5 @@
 <?php
-namespace OrionRush\TnyGmaps\LoadModal;
+namespace OrionRush\TnyGmaps\Support;
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
@@ -76,9 +76,8 @@ function loaded_tnygmaps_icons() {
  */
 
 function load_modal() {
-	include_once( TNYGMAPS_PATH . 'inc/tnygmaps_modal.php' );
+	include( TNYGMAPS_PATH . 'inc/tnygmaps_modal.php' );
 }
 
 add_action( 'tnygmaps_modal', __NAMESPACE__ . "\\load_modal", 10 );
-do_action( 'tnygmaps_modal' );
-
+//do_action( 'tnygmaps_modal' );

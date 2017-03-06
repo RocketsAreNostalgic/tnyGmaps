@@ -18,7 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 function modal() {
 	ob_start();
 	header( 'Content-Type: text/html; charset=utf-8' );
-	include( TNYGMAPS_PATH . 'inc/tnygmaps_load_modal.php' );
+	//include( TNYGMAPS_PATH . 'inc/tnygmaps_modal.php' );
+	do_action( 'tnygmaps_modal' );
 	$string = ob_get_clean();
 	exit( $string );
 }
@@ -33,7 +34,7 @@ add_action( 'wp_ajax_tnygmaps_modal', __NAMESPACE__ . '\\modal' );
  * @author:  orionrush
  */
 function loadgmaps() {
-	wp_enqueue_script( 'tnygmaps_modal', TNYGMAPS_PATH . 'inc/js/tnygmaps_modal_loadmaps.min.js', false );
+	wp_enqueue_script( 'tnygmaps_modal', TNYGMAPS_PATH . 'inc/js/tnygmaps_modal_logic.min.js', false );
 }
 
 function enqueue_loadgmaps() {
