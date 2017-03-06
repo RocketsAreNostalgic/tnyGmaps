@@ -36,6 +36,15 @@ $loaded_icons = $icons_array[1];
         <meta charset="utf-8">
         <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>css/tnygmaps_modal.css"/>
         <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>js/vendor/jquery-qtip-custom/jquery.qtip.css"/>
+        <script>
+            /* <![CDATA[ */
+            <?php if ( $api_test ) { ?>
+            var tnygmps_api = true;
+            <?php } else { ?>
+            var tnygmps_api = false;
+            <?php }  ?>
+            /* ]]> */
+        </script>
     </head>
     <body>
         <?php if ( ! $api_test ) { ?>
