@@ -4,6 +4,22 @@ html[xmlns] .float {
 *html .float {
   height: 1%;
 }
+body {
+  padding: 0px;
+  margin: 0px;
+}
+#overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(136, 141, 146, 0.9);
+  z-index: 2147483640;
+  opacity: 0.7;
+  pointer-events: none;
+  padding: 10px;
+}
 label {
   margin-left: 10px;
   margin-bottom: 5px;
@@ -230,6 +246,7 @@ span[data-tooltip],
   border-width: 1px;
   border-style: solid;
   color: #a7a6a6;
+  z-index: 999999;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -241,6 +258,7 @@ span[data-tooltip],
   background-color: #ee7575;
   border-color: #f12e2e;
   color: #0a0909;
+  z-index: 2147483647;
 }
 .alert.confirm {
   background-color: #6bdf5c;
@@ -253,7 +271,7 @@ span[data-tooltip],
   margin: 0 10px;
   width: 90%;
   height: 20px;
-  z-index: 1000;
+  z-index: 2147483647;
   -webkit-box-shadow: 5px 5px 30px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 5px 5px 30px 4px rgba(0, 0, 0, 0.5);
 }
