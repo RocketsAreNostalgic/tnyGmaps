@@ -246,7 +246,7 @@ span[data-tooltip],
   border-width: 1px;
   border-style: solid;
   color: #a7a6a6;
-  z-index: 999999;
+  z-index: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
