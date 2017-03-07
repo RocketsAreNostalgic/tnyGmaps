@@ -851,4 +851,5 @@ tnyGmaps = {
         tinyMCEPopup.close();
     }
 };
-tinyMCEPopup.onInit.add(tnyGmaps.init, tnyGmaps);
+
+tinyMCEPopup.onInit.add(tnyGmapsAssembleShortcode.init, tnyGmapsAssembleShortcode);
