@@ -25,7 +25,21 @@ var markerOutput = null;
 var locPlace = null;
 var markerCustom = parent.tnygmaps.pluginURI + 'inc/icons/music_folk_map.png';
 
-// populate variables with field values 
+/**
+ * Enable trim in older browsers
+ */
+if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    };
+}
+
+/**
+ * Populate script variables with field values
+ *
+ * @author orionrush
+ * @since 0.0.2
+ */
 function seed_vars() {
     lat = jQuery('input#mapLat').val();
     lng = jQuery('input#mapLng').val();
@@ -68,7 +82,14 @@ function seed_vars() {
     //console.log('mapControlsReturn: ' + mapControlsReturn);
 }
 
-// Retrieve the marker image
+/**
+ * Retrieve the marker image
+ *
+ * @author orionrush
+ * @since 0.0.2
+ *
+ * @returns {*}
+ */
 function get_marker_image() {
     mapMarkerReturn = jQuery('select[id=mapMarker]').val();
     switch (mapMarkerReturn) {
@@ -85,7 +106,15 @@ function get_marker_image() {
     //console.log('Marker image: ' + mapMarkerImageReturn);
     return mapMarkerImageReturn;
 }
-// User isn't using auto-complete so clean the inputs fields so we can reverse lookup the address and cache the coordinates
+
+/**
+ * User isn't using auto-complete
+ * so clean the inputs fields so we can reverse lookup the address and cache the coordinates.
+ *
+ * @author orionrush
+ * @since 0.0.2
+ *
+ */
 function custom_location() {
     jQuery('#mapAddress').val(''); 	// empty autocomplete field
     jQuery('#locGooglePlaceID').val(''); 	// empty location ref
@@ -94,10 +123,16 @@ function custom_location() {
     jQuery('#mapLng').val('');
 }
 
-/*
+/**
  * Initialize the map
+ *
+ * @author orionrush
+ * @since 0.0.2
+ *
+ * @param infowindow
  */
 google.maps.event.addDomListener(window, 'load', initialize);
+
 function initialize(infowindow) {
     /*
      * Form UX
@@ -212,12 +247,29 @@ function initialize(infowindow) {
 
     });
 
-    // set focus on first input or text area
+    /**
+     * Set focus on first input or text area.
+     *
+     * @author orionrush
+     * @since 0.0.2
+     *
+     * @param obj
+     */
     function setFocus(obj) {
         jQuery(obj).find('input, textarea').first()
         ;
     }
 
+
+    /**
+     * Updates the alert popup with any new values, and fades it in/out.
+     *
+     * @author orionrush
+     * @since 0.0.2
+     *
+     * @param string
+     * @param alertClass
+     */
     function updateAlert(string, alertClass) {
         alertClass = alertClass + " alert";
         jQuery('#search-report').each(function () {
@@ -235,17 +287,25 @@ function initialize(infowindow) {
     /*
      * MAP Init
      */
-    var input = document.getElementById('mapAddress');
-    var autocomplete = new google.maps.places.Autocomplete(input);
-    var infowindow = new google.maps.InfoWindow();
-    // Draw the map
-    generateMap();
+    var input = document.getElementById('mapAddress'); // Grab the input element
+    var autocomplete = new google.maps.places.Autocomplete(input); // instantiate autocomplete
+    var infowindow = new google.maps.InfoWindow(); // instanitate the info window
 
+    generateMap(); // Draw the map
+
+    /**
+     * Generate a fresh map, and adds event listeners to detect when settings change.
+     *
+     * @author orionrush
+     * @since 0.0.2
+     *
+     * @uses seed_vars()
+     * @uses updateMapType()
+     * @uses get_info_bubble()
+     * @uses addListeners()
+     *
+     */
     function generateMap() {
-
-        var input = document.getElementById('mapAddress');
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        var infowindow = new google.maps.InfoWindow();
 
         seed_vars();
         (
@@ -283,7 +343,23 @@ function initialize(infowindow) {
         //console.log('map created');
     }
 
-    // Set up event listeners
+    /**
+     * Set up event listeners
+     *
+     * @author oronrush
+     * @since 0.0.2
+     *
+     * @uses custom_location()
+     * @uses updateCustomlocation()
+     * @uses updateMapInfoWindow()
+     * @uses generateMap()
+     * @uses openInfoWindow()
+     * @uses updateMapCustomDeets()
+     * @uses update_marker()
+     * @uses upadateMapFromDropdownZoomChange()
+     * @uses updateMapAutocomplete()
+     * @uses addMarkerClickHandler()
+     */
     function addListeners() {
         // Custom Location, here we strip out any refrences to Auto lookup if any of these feilds are modified
         google.maps.event.addDomListener(document.getElementById('locName'), 'change', custom_location);
@@ -294,37 +370,54 @@ function initialize(infowindow) {
         google.maps.event.addDomListener(document.getElementById('locPostcode'), 'change', custom_location);
         google.maps.event.addDomListener(document.getElementById('locCountry'), 'change', custom_location);
         google.maps.event.addDomListener(document.getElementById('locWebsite'), 'change', custom_location);
+
         // Custom location button
         google.maps.event.addDomListener(document.getElementById('lookup-detials'), 'click', updateCustomlocation);
+
         // Custom location update infowindwo
         google.maps.event.addDomListener(document.getElementById('map-update'), 'click', updateMapInfoWindow);
 
         // Controls DOM->MAP
         google.maps.event.addDomListener(document.getElementById('mapControls'), 'change', generateMap);
+
         // Map Type DOM ->MAP
         google.maps.event.addDomListener(document.getElementById('mapType'), 'change', updateMapType);
+
         // Map Type MAP ->DOM
         google.maps.event.addListener(map, 'maptypeid_changed', updateDomMapType);
+
         // Info window DOM->MAP
         google.maps.event.addDomListener(document.getElementById('mapInfoWindow'), 'change', updateMapInfoWindow);
         google.maps.event.addDomListener(document.getElementById('mapInfoWindow'), 'click', openInfoWindow);
         setInterval(function () {
             updateMapCustomDeets(jQuery('#mapInfoWindow').val());
         }, 100);
+
         // Marker selection DOM->MAP
         google.maps.event.addDomListener(document.getElementById('mapMarker'), 'change', update_marker);
+
         // Custom marker image DOM->MAP
         google.maps.event.addDomListener(document.getElementById('mapMarkerImage'), 'change', update_marker);
+
         // Zoom DOM->MAP
-        google.maps.event.addDomListener(document.getElementById('mapZoom'), 'change', upadateMapZoomChange);
+        google.maps.event.addDomListener(document.getElementById('mapZoom'), 'change', upadateMapFromDropdownZoomChange);
+
+        // Zoom MAP->DOM
+        google.maps.event.addListener(map, 'zoom_changed', updateDropdownFromMapZoomChange);
+
         // Place Loop DOM -> MAP
         google.maps.event.addListener(autocomplete, 'place_changed', updateMapAutocomplete);
-        // Zoom MAP->DOM
-        google.maps.event.addListener(map, 'zoom_changed', updateMapZoomChange);
+
         // Click handeler for marker & infowindow
         addMarkerClickHandler();
     }
 
+    /**
+     * Removes the overlay and spinner from the modal
+     *
+     * @author orionrush
+     * @since 0.0.3
+     */
     function removeOverlay() {
         // Overlay
         if (tnygmps_api == false) {
@@ -339,8 +432,12 @@ function initialize(infowindow) {
         }
     }
 
-
-    /* Listener functions */
+    /**
+     * Adds a listener to the marker onclick and opens it only if there is content.
+     *
+     * @author orionrush
+     * @since 0.0.2
+     */
     function addMarkerClickHandler() {
         // open the info window on marker click if there is one
         google.maps.event.addListener(marker, 'click', function () {
@@ -379,6 +476,7 @@ function initialize(infowindow) {
                 jQuery(this).text() == zoomLevel
             );
         }).prop('selected', true);
+        // console.log('update Dropdown from Map Zoom Change');
     }
 
     function updateMapType() {
@@ -386,20 +484,13 @@ function initialize(infowindow) {
         //map.setMapTypeId(mapTypeReturn);
         if (mapTypeReturn == "ROADMAP") {
             map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-        }
-        ;
-        if (mapTypeReturn == "SATELLITE") {
+        } else if (mapTypeReturn == "SATELLITE") {
             map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-        }
-        ;
-        if (mapTypeReturn == "HYBRID") {
+        } else if (mapTypeReturn == "HYBRID") {
             map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-        }
-        ;
-        if (mapTypeReturn == "TERRAIN") {
+        } else if (mapTypeReturn == "TERRAIN") {
             map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
         }
-        ;
     }
 
     function updateDomMapType() {
@@ -465,7 +556,7 @@ function initialize(infowindow) {
     function updateMapAutocomplete() {
         infowindow.close();
         input.className = '';
-        locPlace = autocomplete.getPlace();
+        var locPlace = autocomplete.getPlace();
         console.log(locPlace);
         if (!locPlace.geometry) {
             // Inform the user that the place was not found and return.
@@ -590,6 +681,20 @@ function initialize(infowindow) {
     }
 
     // Here we are not using the places api, but instead geocoding api
+
+    /**
+     * Use the Gecoding API to look up a location and interpret results.
+     *
+     * @author orionush
+     * @since 0.0.2
+     *
+     * @uses custom_location()
+     * @uses seed_vars()
+     * @uses callGeocode()
+     * @uses generateMap()
+     *
+     * @returns {boolean}
+     */
     function updateCustomlocation() {
         if (jQuery('#search-report').is(':animated')) {
             return false;
@@ -609,120 +714,150 @@ function initialize(infowindow) {
 
             });
         }
-        // Process the results
-        function callGeocode(callback) {
-            geocoder.geocode({'address': locAddress}, function (results, status) {
-                if (status !== google.maps.GeocoderStatus.OK) {
-                    var alert = "Sorry, try adding more address details: " + status;
-                    updateAlert(alert, 'warning');
+    }
+
+    /**
+     * Process the results of the Geocode response.
+     *
+     * @author orionrush
+     * @since 0.0.2
+     *
+     * @uses updateAlert()
+     * @uses processAddressObject()
+     * @uses seed_vars()
+     *
+     *
+     * @param callback
+     */
+    function callGeocode(callback) {
+        geocoder.geocode({'address': locAddress}, function (results, status) {
+            if (status !== google.maps.GeocoderStatus.OK) {
+                var alert = "Sorry, try adding more address details: " + status;
+                updateAlert(alert, 'warning');
+            }
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                locPlace = results[0];
+                var locComponents = locPlace.address_components;
+
+                // Flush previous values
+                locName = '';
+                locStreetNum = '';
+                locStreet = '';
+                locCity = '';
+                locRegion = '';
+                locRegion = '';
+                locPostcode = '';
+                locCountry = '';
+                locIcon = '';
+                // lat = '';
+                // lng = '';
+                locGooglePlaceID = '';
+
+                // Name of location
+                locName = processAddressObject('point_of_interest', locPlace.address_components);
+                // have observed this as a return value with geocode api as well
+                // Set Input, we dont want to clear the field if these return null
+                if (locName !== '' && locName !== null) {
+                    jQuery('#locName').val(locName.trim());
                 }
 
-                if (status == google.maps.GeocoderStatus.OK) {
-                    locPlace = results[0];
-                    var locComponents = locPlace.address_components;
+                // Premise or building name
+                var locPremise = processAddressObject('premise', locPlace.address_components);
+                // street number
+                locStreetNum = processAddressObject('street_number', locPlace.address_components);
+                // Street name
+                locStreet = processAddressObject('route', locPlace.address_components);
+                // Set Input
+                (
+                    locPremise
+                ) ? locPremise = locPremise + ', ' : '';
+                var streetCombined = (
+                    locPremise + locStreetNum + ' ' + locStreet
+                ).trim();
+                jQuery('input#locStAdr').val(streetCombined);
 
-                    // Flush previous values
-                    locName = '';
-                    locStreetNum = '';
-                    locStreet = '';
-                    locCity = '';
-                    locRegion = '';
-                    locRegion = '';
-                    locPostcode = '';
-                    locCountry = '';
-                    locIcon = '';
-                    // lat = '';
-                    // lng = '';
-                    locGooglePlaceID = '';
-
-                    // Name of location
-                    locName = processAddressObject('point_of_interest', locPlace.address_components);
-                    // have observed this as a return value with geocode api as well
-                    // Set Input, we dont want to clear the field if these return null
-                    if (locName !== '' && locName !== null) {
-                        jQuery('#locName').val(locName.trim());
-                    }
-
-                    // Premise or building name
-                    var locPremise = processAddressObject('premise', locPlace.address_components);
-                    // street number
-                    locStreetNum = processAddressObject('street_number', locPlace.address_components);
-                    // Street name
-                    locStreet = processAddressObject('route', locPlace.address_components);
-                    // Set Input
-                    (
-                        locPremise
-                    ) ? locPremise = locPremise + ', ' : '';
-                    var streetCombined = (
-                        locPremise + locStreetNum + ' ' + locStreet
-                    ).trim();
-                    jQuery('input#locStAdr').val(streetCombined);
-
-                    // City-Town
-                    locCity = processAddressObject('postal_town', locPlace.address_components);
-                    if (!locCity) {
-                        locCity = processAddressObject('locality', locPlace.address_components);
-                    }
-                    // Set Input
-                    jQuery('input#locCity').val(locCity);
-
-                    // State - Region
-                    locRegion = processAddressObject('administrative_area_level_1', locPlace.address_components);
-                    if (!locRegion) {
-                        locRegion = processAddressObject('administrative_area_level_2', locPlace.address_components);
-                    }
-                    // Set Input
-                    jQuery('input#locRegion').val(locRegion);
-
-                    // Postal
-                    locPostcode = processAddressObject('postal_code', locPlace.address_components);
-                    // Set Input
-                    jQuery('input#locPostcode').val(locPostcode);
-
-                    // Country
-                    locCountry = processAddressObject('country', locPlace.address_components);
-                    // Set Input
-                    jQuery('input#locCountry').val(locCountry);
-
-                    lat = locPlace.geometry.location.lat();
-                    jQuery('input#mapLat').val(lat)
-                    lng = locPlace.geometry.location.lng();
-                    jQuery('input#mapLng').val(lng);
-
-                    var alert = "Geocoding sucessfull,  Lng & Lat status: " + status;
-                    updateAlert(alert, 'confirm');
-                    seed_vars();
-                    callback();
+                // City-Town
+                locCity = processAddressObject('postal_town', locPlace.address_components);
+                if (!locCity) {
+                    locCity = processAddressObject('locality', locPlace.address_components);
                 }
-            });
-        }
+                // Set Input
+                jQuery('input#locCity').val(locCity);
+
+                // State - Region
+                locRegion = processAddressObject('administrative_area_level_1', locPlace.address_components);
+                if (!locRegion) {
+                    locRegion = processAddressObject('administrative_area_level_2', locPlace.address_components);
+                }
+                // Set Input
+                jQuery('input#locRegion').val(locRegion);
+
+                // Postal
+                locPostcode = processAddressObject('postal_code', locPlace.address_components);
+                // Set Input
+                jQuery('input#locPostcode').val(locPostcode);
+
+                // Country
+                locCountry = processAddressObject('country', locPlace.address_components);
+                // Set Input
+                jQuery('input#locCountry').val(locCountry);
+
+                lat = locPlace.geometry.location.lat();
+                jQuery('input#mapLat').val(lat)
+                lng = locPlace.geometry.location.lng();
+                jQuery('input#mapLng').val(lng);
+
+                var alert = "Geocoding sucessfull,  Lng & Lat status: " + status;
+                updateAlert(alert, 'confirm');
+                seed_vars();
+                callback();
+            }
+        });
     }
 }
-/*
- * Helper functions
+/**
+ *  Process Address Components, and retrieve the long_name
+ *
+ * @param needle
+ * @param haystack
+ * @returns {string}
  */
-
-// process Address Components
 function processAddressObject(needle, haystack) {
     var rtrn = '';
     for (var i = 0; i < haystack.length; i++) {
         var addr = haystack[i];
         (
             addr.types[0] == needle
-        ) ? rtrn = addr.long_name : '';
+        ) ? rtrn = addr.long_name : ''; // find long_name atributes
     }
     return rtrn;
 }
 
-// clean input on client side
+/**
+ * Encode entities on the client side
+ *
+ * @author orionrush
+ * @since 0.0.2
+ *
+ * @param str
+ * @returns {string}
+ */
 function htmlEntities(str) {
-    // we also convert script tags to spans - a start but not perfect. - also removes single quotes
-    // return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '');
+    // we  convert script tags to spans - also removes single quotes
     // http://css-tricks.com/snippets/javascript/htmlentities-for-javascript/ (see comment from james)
     return String(str).replace(/&amp;/g, '&').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
-// seeing how this string is going to be encoded, and then 'baked' into the shortcode 
-// lets try to do as much cleaning here as we can - the short code will clean it as well before output
+
+/**
+ * Some preliminary sanitation, before the string is encoded.
+ * The shortcode will of course clean things before output as well.
+ *
+ * @author orionrush
+ * @since 0.0.2
+ *
+ * @param str
+ */
 function clean_html(str) {
     str = String(str).replace(/'/g, '"');
     return jQuery.htmlClean(str, {
@@ -733,9 +868,23 @@ function clean_html(str) {
     });
 }
 
-
-/* 
+/**
  * Assemble the infowindow interior
+ *
+ * @author orionrush
+ * @since 0.0.2
+ *
+ * @param icon
+ * @param name
+ * @param street
+ * @param city
+ * @param state
+ * @param post
+ * @param country
+ * @param phone
+ * @param web
+ * @param info
+ * @returns {*}
  */
 function get_info_bubble(icon, name, street, city, state, post, country, phone, web, info) {
     var iconStyle = (
@@ -788,13 +937,21 @@ function get_info_bubble(icon, name, street, city, state, post, country, phone, 
     return infowindowPlace;
 }
 
-/* 
+/**
  * load up our field values and output them as a short code
+ *
+ * @author orionrush
+ * @since 0.0.2
+ *
+ * @uses seed_vars()
+ * @uses htmlEntities()
+ *
+ * @type {{local_ed: string, init: init, insert: insertButton}}
  */
-tnyGmaps = {
+tnyGmapsAssembleShortcode = {
     local_ed: 'ed',
     init: function (ed) {
-        tnyGmaps.local_ed = ed;
+        tnyGmapsAssembleShortcode.local_ed = ed;
         tinyMCEPopup.resizeToInnerSize();
     },
     insert: function insertButton(ed) {
