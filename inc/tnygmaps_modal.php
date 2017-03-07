@@ -265,7 +265,7 @@ $loaded_icons = $icons_array[1];
                 <div id="map_canvas"></div>
             </div>
             <input name="save" type="submit" class="submit-button" id="insert" value="Insert Map Shortcode"
-                   onclick="javascript:tnyGmaps.insert(tnyGmaps.local_ed)"/>
+                   onclick="javascript:tnyGmapsAssembleShortcode.insert(tnyGmapsAssembleShortcode.local_ed)"/>
         </div>
     </body>
     <script src="<?php echo $local_uri ?>js/vendor/spin-js/spin.min.js"></script>
