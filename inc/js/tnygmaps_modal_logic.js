@@ -1,9 +1,3 @@
-// enable trim in older browsers
-if (!String.prototype.trim) {
-    String.prototype.trim = function () {
-        return this.replace(/^\s+|\s+$/g, '');
-    };
-}
 //var parent.tnygmaps.haveGPlaces_key; // provided global
 //var parent.tnygmaps.pluginURI; // provided global
 var lat = null;
@@ -22,7 +16,7 @@ var infowindow = null;
 var infowindowPlace = null;
 var mapInfoWindowReturn = null;
 var combinedInfoWindow = null;
-var tnyGmaps = null;
+var tnyGmapsAssembleShortcode = null;
 var map = null;
 var marker = null;
 var mapOptions = null;
