@@ -356,14 +356,27 @@ function initialize(infowindow) {
         });
     }
 
-    function upadateMapZoomChange() {
+    /**
+     * Updates the Map zoom based on the dropdown value.
+     *
+     * @author orionrush
+     * @since 0.0.2
+     */
+    function upadateMapFromDropdownZoomChange() {
         mapZoomReturn = parseInt(jQuery('select[id=mapZoom]').val(), 10);
         mapCurrCenter = map.getCenter(); // center on present location
         map.setZoom(mapZoomReturn);
         map.setCenter(mapCurrCenter);
+        // console.log('update Map from Dropdown Zoom Change');
     }
 
-    function updateMapZoomChange() {
+    /**
+     * Update zoom dropdown when map zoom changes
+     *
+     * @author orionrush
+     * @since 0.0.2
+     */
+    function updateDropdownFromMapZoomChange() {
         var zoomLevel = map.getZoom();
         mapCurrCenter = map.getCenter(); // center on present location
         map.setCenter(mapCurrCenter);
