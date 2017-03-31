@@ -36,7 +36,7 @@ function admin_markup() {
 	if ( isset( $_POST['tnygmaps_api_key'] ) ) {
 		$key = esc_attr( $_POST['tnygmaps_api_key'] );
 		if ( $key ) {
-			$updated = update_option( 'tnygmaps_api_key', $key );
+			$updated = update_option( 'tnygmaps_api_key', $key, true );
 		}
 	}
 	if ( $updated ) {
@@ -102,12 +102,14 @@ function admin_markup() {
         </div>
         <form method="post" action="options-general.php?page=tnygmaps">
             <label for="tnygmaps_api_key"><?php _e( 'Google Maps API key', 'orionrush_tnygmaps' ); ?></label>
-            <input title="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>" type="text"
-                   name="tnygmaps_api_key" id="tnygmaps_api_key"
+            <input title="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>"
+                   type="text"
+                   name="tnygmaps_api_key"
+                   id="tnygmaps_api_key"
                    placeholder="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>"
                    style="padding: 6px; width:50%; display: block;"
                    value="<?php echo esc_attr( get_option( 'tnygmaps_api_key' ) ); ?>"/>
-            <p> <?php echo sprintf(__('Make sure to restrict where your key can be used via Google\'s %sAPI Console%s.', 'orionrush_tnygmaps'  ), '<a href="https://console.developers.google.com/apis/credentials/" target="_blank">', '</a>');?></p>
+            <p><?php echo sprintf(__('Make sure to restrict where your key can be used via Google\'s %sAPI Console%s.', 'orionrush_tnygmaps'), '<a href="https://console.developers.google.com/apis/credentials/" target="_blank">', '</a>');?></p>
                 <?php
                 submit_button();
 			    ?>
