@@ -37,9 +37,18 @@ define( 'TNYGMAPS_URL', plugin_dir_url( __FILE__ ) );
  * See the README.md file for details
  * https://developers.google.com/places/documentation/
  * /*********************************************************************/
-if ( ! defined( 'GOOGLE_API_KEY' ) ) {
-	define( 'GOOGLE_API_KEY', 'AIzaSyB3gFO_LJ0GbDFlj2vmZyKM5G0Zge3JBzk' );
+
+$api_key = false;
+if (get_option('tnygmaps_api_key')) {
+	$api_key = get_option( 'tnygmaps_api_key' );
 }
+
+
+if ( ! defined( 'GOOGLE_API_KEY' ) &&  $api_key != false ) {
+	define( 'GOOGLE_API_KEY', $api_key );
+}
+
+
 
 //Set the debug var as a global, $tnygmaps_debug = true;
 global $tnygmaps_debug;
