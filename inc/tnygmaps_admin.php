@@ -40,37 +40,78 @@ function admin_markup() {
 			$updated = update_option( 'tnygmaps', $key );
 		}
 	}
-
 	if ( $updated ) {
 		echo '<div class="updated fade"><p><strong>' . __( 'Settings Updates!', 'orionrush_tnygmaps' ) . '</strong></p></div>';
 	}
 	?>
     <div class="wrap">
 
-        <h2><?php echo TNYGMAPS_NAME ?></h2>
-        <p><?php sprintf( __( 'Setting for the %s plugin.', 'orionrush_tnygmaps' ), TNYGMAPS_NAME ); ?></p>
-        <p>
-            <!--https://developers.google.com/maps/documentation/android-api/signup -->
-            <!-- encoded    https://console.developers.google.com/henhouse/?pb=[%22hh-1%22,%22maps_backend%22,null,[],%22https://developers.google.com%22,null,[%22maps_backend%22,%22geocoding_backend%22,%22directions_backend%22,%22distance_matrix_backend%22,%22elevation_backend%22,%22places_backend%22],null]&TB_iframe=true&width=600&height=400-->
-            <a href='https://console.developers.google.com/henhouse/?pb=["hh-1","maps_backend",null,[],"https://developers.google.com",null,["maps_backend","geocoding_backend","directions_backend","distance_matrix_backend","elevation_backend","places_backend"],null]&TB_iframe=true&width=600&height=400'
-               class="thickbox button-primary"
-               name="<?php _e( 'Generate API Key - ( MUST be logged in to your Google account )', 'orionrush_tnygmaps' ); ?>">
-				<?php _e( 'Generate Google API Key', 'orionrush_tnygmaps' ); ?>
-            </a>
-			<?php echo sprintf( __( 'or %sclick here%s.', 'orionrush_tnygmaps' ), '<a target="_blank" href=\'https://console.developers.google.com/flows/enableapi?apiid=maps_backend,geocoding_backend,directions_backend,distance_matrix_backend,elevation_backend&keyType=CLIENT_SIDE&reusekey=true\'>', '</a>' ) ?>
-        </p>
+    <h2><?php echo TNYGMAPS_NAME ?></h2>
+    <p><?php sprintf( __( 'Setting for the %s plugin.', 'orionrush_tnygmaps' ), TNYGMAPS_NAME ); ?></p>
+    <p>
+        <!--https://developers.google.com/maps/documentation/android-api/signup -->
+        <!-- encoded    https://console.developers.google.com/henhouse/?pb=[%22hh-1%22,%22maps_backend%22,null,[],%22https://developers.google.com%22,null,[%22maps_backend%22,%22geocoding_backend%22,%22directions_backend%22,%22distance_matrix_backend%22,%22elevation_backend%22,%22places_backend%22],null]&TB_iframe=true&width=600&height=400-->
+        <a href="#TB_inline?width=600&height=550&inlineId=tnygmaps_api_modal" id="generate-api-button" class="thickbox button-primary" name="<?php _e( 'Generate Google API Key (Must be logged in)', 'orionrush_tnygmaps' ); ?>">
+            <?php _e( 'Generate Google API Key', 'orionrush_tnygmaps' ); ?>
+        </a>
+    </p>
 
+    <div id="tnygmaps_api_modal" style="display:none;">
+        <style>
+            #TB_ajaxContent {padding:0px;}
+            #TB_window {width: 600px!important;}                                                                                                                                                                                                                                                                                                                                #TB_ajaxContent {padding:0px;}
+        </style>
+        <div id="spinner" class="" style="left: 280px; top: 200px; position: absolute;"></div>
+            <iframe
+                id = "tnygmaps-api-iframe"
+                marginheight = "0"
+                marginwidth = "0"
+                width = "600"
+                height = "400"
+                src = 'https://console.developers.google.com/henhouse/?pb=["hh-1","maps_backend",null,[],"https://developers.google.com",null,["maps_backend","geocoding_backend","directions_backend","distance_matrix_backend","elevation_backend","places_backend","static_maps_backend,"],null]&TB_iframe=true&width=600&height=400'
+                >
+            </iframe>
+                <div class="notice-warning" style="
+                            line-height: 19px;
+                            padding: 11px 15px;
+                            font-size: 14px;
+                            text-align: left;
+                            margin: 25px 20px 0 15px;
+                            background-color: #fff;
+                            border-left: 4px solid #ffba00;
+                            -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+                            box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);"><p><?php echo sprintf(
+                        __( 'Any error above means you need to first sign into a Google account. %s Alternatively follow this link to get your %sapi key%s.', 'orionrush_tnygmaps' ),
+                        '</br>',
+                        '<a id="external-api-key" target="_blank" href=\'https://console.developers.google.com/flows/enableapi?apiid=maps_backend,maps_embed_backend,static_maps_backend,geocoding_backend,directions_backend,distance_matrix_backend,places_backend,elevation_backend&keyType=CLIENT_SIDE&reusekey=true\'>',
+                        '</a>' ); ?></p>
+                </div>
+         <script>
+             jQuery(document).ready(function($) {
+                 jQuery('#generate-api-button').on("click", function(){
+                     jQuery('#spinner').addClass('spinner is-active');
+                     console.log('starting spinning');
+                 });
+                 jQuery('#tnygmaps-api-iframe').on("load", function () {
+                     jQuery('#spinner').removeClass('spinner is-active');
+                 });
+                 jQuery('#external-api-key').on('click', function(){
+                     jQuery('#TB_closeWindowButton').click();
+                 })
+             });
+        </script>
+        </div>
         <form method="post" action="options-general.php?page=tny-gmaps">
-            <label for="rgmk_google_map_api_key"><?php _e( 'Google Maps API KEY', 'orionrush_tnygmaps' ); ?></label>
+            <label for="tnygmaps_api_key"><?php _e( 'Google Maps API KEY', 'orionrush_tnygmaps' ); ?></label>
             <input title="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>" type="text"
                    name="tnygmaps_api_key" id="tnygmaps_api_key"
                    placeholder="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>"
                    style="padding: 6px; width:50%; display: block;"
                    value="<?php echo esc_attr( get_option( 'tnygmaps' ) ); ?>"/>
-
-			<?php
-			submit_button();
-			?>
+            <p> <?php echo sprintf(__('To improve your key\'s security, restrict it\'s usage via Google\'s %sAPI Console%s.', 'orionrush_tnygmaps'  ), '<a href="https://console.developers.google.com/apis/credentials/" target="_blank">', '</a>');?></p>
+                <?php
+                submit_button();
+			    ?>
         </form>
     </div>
 	<?php
