@@ -1,5 +1,8 @@
-//var parent.tnygmaps.haveGPlaces_key; // provided global
-//var parent.tnygmaps.pluginURI; // provided global
+// var parent.tnygmaps.haveGPlaces_key; // provided global
+// var parent.tnygmaps.pluginURI; // provided global
+// var tnygmps_api (bool) // api key test
+// var spinner = new Spinner(opts).spin(target);
+
 var lat = null;
 var lng = null;
 var mapZoomReturn = null;
@@ -27,6 +30,9 @@ var markerCustom = parent.tnygmaps.pluginURI + 'inc/icons/music_folk_map.png';
 
 /**
  * Enable trim in older browsers
+ *
+ * @author orionrush
+ * @since 0.0.2
  */
 if (!String.prototype.trim) {
     String.prototype.trim = function () {
@@ -39,6 +45,8 @@ if (!String.prototype.trim) {
  *
  * @author orionrush
  * @since 0.0.2
+ *
+ * @uses get_marker_image()
  */
 function seed_vars() {
     lat = jQuery('input#mapLat').val();
@@ -88,7 +96,7 @@ function seed_vars() {
  * @author orionrush
  * @since 0.0.2
  *
- * @returns {*}
+ * @returns {default marker, or custom marker as string}
  */
 function get_marker_image() {
     mapMarkerReturn = jQuery('select[id=mapMarker]').val();
@@ -129,6 +137,9 @@ function custom_location() {
  * @author orionrush
  * @since 0.0.2
  *
+ * @uses setFocus()
+ * @uses generateMap();
+ *
  * @param infowindow
  */
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -137,6 +148,11 @@ function initialize(infowindow) {
     /*
      * Form UX
      * We put this here so that we have access to map handlers
+     *
+     * jQuery Document ready
+     * @uses setFocus()
+     * @uses generateMap();
+     *
      */
     jQuery(document).ready(function ($) {
         // Test to see if the api key is loaded.
@@ -352,6 +368,7 @@ function initialize(infowindow) {
      * @uses custom_location()
      * @uses updateCustomlocation()
      * @uses updateMapInfoWindow()
+     * @uses updateDomMapType()
      * @uses generateMap()
      * @uses openInfoWindow()
      * @uses updateMapCustomDeets()
@@ -408,7 +425,7 @@ function initialize(infowindow) {
         // Place Loop DOM -> MAP
         google.maps.event.addListener(autocomplete, 'place_changed', updateMapAutocomplete);
 
-        // Click handeler for marker & infowindow
+        // Click handler for marker & infowindow
         addMarkerClickHandler();
     }
 
@@ -437,6 +454,8 @@ function initialize(infowindow) {
      *
      * @author orionrush
      * @since 0.0.2
+     *
+     * @global google.map
      */
     function addMarkerClickHandler() {
         // open the info window on marker click if there is one
@@ -452,6 +471,8 @@ function initialize(infowindow) {
      *
      * @author orionrush
      * @since 0.0.2
+     *
+     * @global map
      */
     function upadateMapFromDropdownZoomChange() {
         mapZoomReturn = parseInt(jQuery('select[id=mapZoom]').val(), 10);
@@ -466,6 +487,8 @@ function initialize(infowindow) {
      *
      * @author orionrush
      * @since 0.0.2
+     *
+     * @global map
      */
     function updateDropdownFromMapZoomChange() {
         var zoomLevel = map.getZoom();
@@ -479,6 +502,14 @@ function initialize(infowindow) {
         // console.log('update Dropdown from Map Zoom Change');
     }
 
+    /**
+     * Update the map type when the user changes the dropdown menu
+     *
+     * @author orionush
+     * @since 0.0.2
+     *
+     * @global map
+     */
     function updateMapType() {
         mapTypeReturn = jQuery('select[id=mapType]').val();
         //map.setMapTypeId(mapTypeReturn);
@@ -493,6 +524,14 @@ function initialize(infowindow) {
         }
     }
 
+    /**
+     * Updates the map type drop down, when the users changes the map-type from the controls in the map
+     *
+     * @author orionush
+     * @since 0.0.2
+     *
+     * @global map
+     */
     function updateDomMapType() {
         var mapType = map.getMapTypeId();
         mapType = mapType.toUpperCase();
@@ -503,6 +542,22 @@ function initialize(infowindow) {
         }).prop('selected', true);
     }
 
+    /**
+     * Updates the map info window bubble with the loaded data
+     *
+     * @author orionush
+     * @since 0.0.2
+     *
+     * @uses seed_vars()
+     * @uses clean_html()
+     * @uses get_info_bubble()
+     *
+     * @global mapInfoWindowReturn
+     * @global infowindowPlace
+     * @global mapInfoWindowReturn
+     * @global infowindow
+     *
+     */
     function updateMapInfoWindow() {
         seed_vars();
         mapInfoWindowReturn = clean_html(jQuery('textarea#mapInfoWindow').val());
@@ -514,6 +569,21 @@ function initialize(infowindow) {
         });
     }
 
+    /**
+     * Opens the info window, if it isn't empty.
+     *
+     * @author orionush
+     * @since 0.0.2
+     *
+     * @uses seed_vars()
+     * @uses get_info_bubble()
+     * @uses clearTimeout()
+     * @uses setTimeout()
+     * @uses updateMapInfoWindow()
+     *
+     * @global infowindow
+     * @global map
+     */
     function openInfoWindow() {
         if (jQuery('#mapInfoWindow').is(":visible")) {
             // Add marker extras
@@ -536,6 +606,16 @@ function initialize(infowindow) {
         }
     }
 
+    /**
+     * Update the map with custom details supplied in the fields.
+     *
+     * @author orionush
+     * @since 0.0.2
+     *
+     * @uses clean_html()
+     *
+     * @param value
+     */
     function updateMapCustomDeets(value) {
         var content = jQuery('.marker-extras').html();
         if (content !== value) {
@@ -544,17 +624,46 @@ function initialize(infowindow) {
         jQuery('.marker-extras').html(content);
     }
 
+    /**
+     * Updates the map marker pin with a new image.
+     *
+     * @author orionush
+     * @since 0.0.2
+     *
+     * @uses get_marker_image()
+     *
+     * @global marker
+     * @global locPlace
+     * @global geometry
+     * @global map
+     *
+     */
     function update_marker() {
         markerImage = get_marker_image(); // returns URL as string
         marker.setIcon(markerImage);
-        (
-            locPlace !== null
-        ) ? marker.setPosition(locPlace.geometry.location) : '';
+        (locPlace !== null) ? marker.setPosition(locPlace.geometry.location) : '';
         marker.setMap(map);
     }
 
+    /**
+     * Update the map after the user selects a place from autocomplete
+     *
+     * @author orionush
+     * @since 0.0.2
+     *
+     * @uses processAddressObject()
+     * @uses trim()
+     * @uses generateMap()
+     *
+     * @global infowindow
+     * @global input
+     * @global autocomplete
+     * @global geometry
+     * @global map
+     *
+     */
     function updateMapAutocomplete() {
-        infowindow.close();
+        infowindow.close();// close the marker info window
         input.className = '';
         var locPlace = autocomplete.getPlace();
         console.log(locPlace);
@@ -595,9 +704,7 @@ function initialize(infowindow) {
 
 
             // Googles Places Refrence ID
-            (
-                locPlace.place_id
-            ) ? locGooglePlaceID = locPlace.place_id : locGooglePlaceID = '';
+            (locPlace.place_id) ? locGooglePlaceID = locPlace.place_id : locGooglePlaceID = '';
             jQuery('#locGooglePlaceID').val(locGooglePlaceID.trim());
             //Lng & Lat
             lat = locPlace.geometry.location.lat();
@@ -618,7 +725,6 @@ function initialize(infowindow) {
             jQuery('#locWebsite').val(locWeb);
 
             // Do the same for nested address_components -- iterate through the array, then set the field value
-
             // Premise or building name
             var locPremise = processAddressObject('premise', locPlace.address_components);
             // street number
@@ -627,9 +733,7 @@ function initialize(infowindow) {
             locStreet = processAddressObject('route', locPlace.address_components);
 
             // Set Input
-            (
-                locPremise
-            ) ? locPremise = locPremise + ', ' : '';
+            (locPremise) ? locPremise = locPremise + ', ' : '';
             var streetCombined = (
                 locPremise + locStreetNum + ' ' + locStreet
             ).trim();
@@ -728,6 +832,10 @@ function initialize(infowindow) {
      *
      *
      * @param callback
+     *
+     * @global geocoder
+     * @global maps
+     *
      */
     function callGeocode(callback) {
         geocoder.geocode({'address': locAddress}, function (results, status) {
@@ -738,6 +846,8 @@ function initialize(infowindow) {
 
             if (status == google.maps.GeocoderStatus.OK) {
                 locPlace = results[0];
+
+                // what was this for? a global?
                 var locComponents = locPlace.address_components;
 
                 // Flush previous values
