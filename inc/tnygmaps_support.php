@@ -81,3 +81,23 @@ function load_modal() {
 
 add_action( 'tnygmaps_modal', __NAMESPACE__ . "\\load_modal", 10 );
 //do_action( 'tnygmaps_modal' );
+
+/**
+ * A simple logging function good for troubleshooting ajax etc.
+ *
+ * @param $log // the message or array to be printed to the log
+ * @param bool $force // Force a log even if WP_DEBUG_LOG is not enabled
+ *
+ * @since 0.0.3
+ *
+ */
+
+function write_log( $log, $force = false ) {
+	if ( true === WP_DEBUG_LOG || $force ) {
+		if ( is_array( $log ) || is_object( $log ) ) {
+			error_log( print_r( $log, true ) );
+		} else {
+			error_log( $log );
+		}
+	}
+}
