@@ -3,6 +3,7 @@ namespace OrionRush\TnyGmaps\Shortcode;
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
+
 /**
  * Adds the shortcode to WP, outputs markup and enqueues the js just in time.
  *
@@ -205,7 +206,7 @@ function map_me( $attr ) {
 		$linkAddress_url = urlencode( $linkAddress );
 
 		// Clean up whitespace and commas
-		$remove          = array(
+		$remove = array(
 			'  ',
 			' ',
 			', ',
@@ -231,7 +232,6 @@ function map_me( $attr ) {
 		 *
 		 * Also we have set up retina 2x and 3x resolutions
 		 * 3x requires google api key
-		 *
 		 *
 		 * http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
 		 * https://pippinsplugins.com/use-wp_localize_script-it-is-awesome/
@@ -739,7 +739,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
 		endswitch;
-
+		\OrionRush\TnyGmaps\Support\write_log('map_errors');
+		\OrionRush\TnyGmaps\Support\write_log($message);
 		return $message;
 	}
 }
