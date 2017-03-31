@@ -98,7 +98,7 @@ function map_me( $attr ) {
 		'static_w'          => '500',
 		'static_h'          => '500',
 		'refresh'           => 'false', // executes if present and not equal to false
-		'debug'             => 'false'    // executes if present and not equal to false
+		'debug'             => 'false'  // executes if present and not equal to false
 	), $attr );
 
 	// clean up array
