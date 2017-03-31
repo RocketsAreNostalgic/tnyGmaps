@@ -51,6 +51,9 @@ global $tnygmaps_debug;
 // Translation files
 load_plugin_textdomain( 'orionrush_tnygmaps', false, TNYGMAPS_PATH . '/lang/' );
 
+// Helper functions
+require_once( TNYGMAPS_PATH . 'inc/tnygmaps_support.php' );
+
 // Admin screen
 require_once ( TNYGMAPS_PATH . 'inc/tnygmaps_admin.php');
 
@@ -63,5 +66,3 @@ require_once( TNYGMAPS_PATH . 'inc/tnygmaps_shortcode.php' );
 // GUI via modal and tinyMCE button
 require_once( TNYGMAPS_PATH . 'inc/tnygmaps_tinyMCE.php' );
 
-// Helper functions
-require_once( TNYGMAPS_PATH . 'inc/tnygmaps_support.php' );
