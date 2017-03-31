@@ -36,7 +36,7 @@ function admin_markup() {
 	if ( isset( $_POST['tnygmaps_api_key'] ) ) {
 		$key = esc_attr( $_POST['tnygmaps_api_key'] );
 		if ( $key ) {
-			$updated = update_option( 'tnygmaps_api_key', $key, true );
+			$updated = update_option( 'tnygmaps_api_key', trim($key) );
 		}
 	}
 	if ( $updated ) {

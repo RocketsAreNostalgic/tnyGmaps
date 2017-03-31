@@ -40,7 +40,7 @@ define( 'TNYGMAPS_URL', plugin_dir_url( __FILE__ ) );
 
 $api_key = false;
 if (get_option('tnygmaps_api_key')) {
-	$api_key = get_option( 'tnygmaps_api_key' );
+	$api_key = trim(get_option( 'tnygmaps_api_key' ));
 }
 
 
