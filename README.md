@@ -1,20 +1,24 @@
-# Tiny gMaps Plugin
+Tny gMaps Plugin
 ---
-This is a development plugin for integrating google maps into posts and pages using GoogleMaps API v3.
 
-The plugin requires a Google API key, with the following services enabled: https://console.developers.google.com
-    Google Maps JavaScript API
-    Google Static Maps API
-    Google Maps Geocoding API
+This WordPress plugin integrates google maps into your posts and pages using GoogleMaps API v3.
 
-## Short code generator
-The plugin adds a  button to the tinymce editor in posts and pages which gives a pop-up map builder.
-This button gives a live preview experience of what your map will look like, and once satisfied, will add a custom shortcode into your post. 
+The plugin requires a Google API key, with the following Google API services enabled: 
+   - Google Maps JavaScript API
+   - Static Maps API
+   - Geocoding API
+   - Places API
 
-## Support for multiple maps
+https://console.developers.google.com
+
+### Short code generator
+The plugin adds a button to the tinymce editor in posts and pages which provides a pop-up map builder.
+The map builder provides a live preview of what your map will look like, and once satisfied, adds a custom shortcode into your post body. 
+
+### Support for multiple maps
 The plugin seeds each map with a custom identifier so more then one map can be displayed on a page without conflict.
 
-## The preview features: 
+### The preview features:
     - live ajax address lookup - or manual address input. 
     Rich set of parameters including: 
     - Map size (pixels and percent)
@@ -26,11 +30,11 @@ The plugin seeds each map with a custom identifier so more then one map can be d
     - Extensive markup validation for correct syntax in info bubbles
     - Advanced caching prevents repetitive calls to the Google API leveraging the WP transients API 
 
-## Usage
+### Usage
     // With place_ID
     [TINYGMAPS z="15" w="100%" h="450px" 
     placeid="ChIJ8XNL0uFzhlQRPXBQZ66Rfx4"
-    marker="/wp-content/plugins/tinier-googlemaps-plugin/inc/tinymce/icons/music_folk_map.png" ]
+    marker="/wp-content/plugins/tinier-googlemaps-plugin/inc/icons/music_folk_map.png" ]
     
     // Without place_ID
 	[TINYGMAPS z="15" w="100%" h="450px" 
@@ -41,9 +45,9 @@ The plugin seeds each map with a custom identifier so more then one map can be d
 		postcode="V5T 1R7" 
 		country="Canada" 
 		web="https://plus.google.com/113856077276894937079/about" 
-		phone="+1 604-874-4024" marker="/wp-content/plugins/tinier-googlemaps-plugin/inc/tinymce/icons/music_folk_map.png" infowindow=""]
+		phone="+1 604-874-4024" marker="/wp-content/plugins/tinier-googlemaps-plugin/inc/icons/music_folk_map.png" infowindow=""]
 	
-## Full  parameter list:
+### Full  parameter list:
      z                 | Map zoom level 1 - 22
      w                 | Map width in pixels or percent
      h                 | Map height in pixels or percent
@@ -74,7 +78,7 @@ The plugin seeds each map with a custom identifier so more then one map can be d
      refresh           | (true : false) Will flush any cashed WP transient data for a given location (good for purging previous results during testing)
      debug             | (true : false) Will render the return values from the Google Maps API object for debugging
 
-## So much more to do!
+#### So much more to do!
 We need to add an admin page to:
 
 * Add google maps api key without hard coding

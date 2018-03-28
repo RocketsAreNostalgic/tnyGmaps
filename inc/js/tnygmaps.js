@@ -65,7 +65,7 @@ jQuery(document).ready(function(jQuery) {
             jQuery('#' + map_id +'> .tnygmps_static_bubble').hide();
             initialize(map_id, map_loc);
         } else {
-            console.log('scren too small');
+            console.log('screen too small');
             jQuery('#'+map_id).css('height', 'auto');
         }
     });
