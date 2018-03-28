@@ -1,4 +1,5 @@
 <?php
+namespace OrionRush\TnyGmaps\Ajax;
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
@@ -14,15 +15,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author:  orionrush
  *
  */
-function tinygmaps_modal() {
+function modal() {
 	ob_start();
 	header( 'Content-Type: text/html; charset=utf-8' );
-	include( TINYGMAP_PATH . 'inc/tinymce/modal/tinygmaps_modal.php' );
+	//include( TNYGMAPS_PATH . 'inc/tnygmaps_modal.php' );
+	do_action( 'tnygmaps_modal' );
 	$string = ob_get_clean();
 	exit( $string );
 }
 
-add_action( 'wp_ajax_tinygmaps_modal', 'tinygmaps_modal' );
+add_action( 'wp_ajax_tnygmaps_modal', __NAMESPACE__ . '\\modal' );
 
 /*
  * Returns the js that triggers google maps in the modal
@@ -30,17 +32,16 @@ add_action( 'wp_ajax_tinygmaps_modal', 'tinygmaps_modal' );
  * @wp_hook: wp_ajax
  * @since:   0.0.1
  * @author:  orionrush
- *
  */
-function tinygmaps_loadgmaps() {
-	wp_enqueue_script( 'my-js', TINYGMAP_PATH . 'inc/tinymce/modal/tinygmaps_modal_loadmaps.min.js', false );
+function loadgmaps() {
+	wp_enqueue_script( 'tnygmaps_modal', TNYGMAPS_PATH . 'inc/js/tnygmaps_modal_logic.min.js', false );
 }
 
-function load_tinygmaps_loadgmaps() {
-	add_action( 'wp_enqueue_scripts', 'tinygmaps_loadgmaps' );
+function enqueue_loadgmaps() {
+	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\loadgmaps' );
 }
 
-add_action( 'wp_ajax_tinygmaps_loadgmaps', 'load_tinygmaps_loadgmaps' );
+add_action( 'wp_ajax_tnygmaps_loadgmaps', __NAMESPACE__ . '\\enqueue_loadgmaps' );
 
 /*
  * Add needed global vars for js to wp head
@@ -55,7 +56,7 @@ add_action( 'wp_ajax_tinygmaps_loadgmaps', 'load_tinygmaps_loadgmaps' );
  * @author:    orionrush
  *
  */
-function tinygmaps_load_js_globals() {
+function load_js_globals() {
 	global $pagenow;
 	if ( ! empty( $pagenow ) && ( 'post-new.php' === $pagenow || 'post.php' === $pagenow ) ) {
 		if ( defined( 'GOOGLE_API_KEY' ) && ( constant( 'GOOGLE_API_KEY' ) != null || constant( 'GOOGLE_API_KEY' ) != '' ) ) {
@@ -65,10 +66,10 @@ function tinygmaps_load_js_globals() {
 		}
 		$js_globals['ajaxurl']         = admin_url( 'admin-ajax.php' );
 		$js_globals['haveGPlaces_key'] = $have_key;
-		$js_globals['pluginURI']       = TINYGMAP_URL;
-        $js_globals['pluginDIR']       = plugin_dir_url( __DIR__ );
-		echo '<script>var tinygmaps =' . json_encode( $js_globals ) . '</script>';
+		$js_globals['pluginURI']       = TNYGMAPS_URL;
+		$js_globals['pluginDIR']       = plugin_dir_url( __DIR__ );
+		echo '<script>var tnygmaps =' . json_encode( $js_globals ) . '</script>';
 	}
 }
 
-add_action( 'admin_print_scripts', 'tinygmaps_load_js_globals' );
+add_action( 'admin_print_scripts', __NAMESPACE__ . '\\load_js_globals' );
