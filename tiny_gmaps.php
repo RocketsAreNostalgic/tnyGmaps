@@ -14,7 +14,7 @@ Author URI: http://www.orionrush.com
 Inspired by Google Maps v3 Shortcode by yohda, and Pippin's Simple Google Maps Short Code
 Works via a tinyMCE modal window which allows the user to input preferences and preview the result.
 Map details are saved using the transients api, which are refreshed via Google when the transient expires. If an API key is provided the Places API is available for address lookup, alternatively a manual address lookup can be done using Google's Gecoding API.  
-[TINYGMAP id="map" z="10" w="100%" h="300" placeref="" maptype="ROADMAP" marker="path/to/custom/marker.png" infowindow="Some Content"]
+[TINYGMAPS id="map" z="10" w="100%" h="300" placeref="" maptype="ROADMAP" marker="path/to/custom/marker.png" infowindow="Some Content"]
  
 */
 
