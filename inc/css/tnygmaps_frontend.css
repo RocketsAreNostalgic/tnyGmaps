@@ -1,0 +1,11 @@
+.gm-style-iw table,
+.gm-style-iw td,
+.gm-style-iw td {
+  border: none;
+}
+.gm-style-iw table {
+  table-layout: auto;
+}
+.tnygmps_link_wrap a {
+  font-size: 0.7em;
+}
