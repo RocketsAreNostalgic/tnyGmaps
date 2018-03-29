@@ -49,8 +49,8 @@ function admin_markup() {
     <p><?php sprintf( __( 'Setting for the %s plugin.', 'orionrush_tnygmaps' ), TNYGMAPS_NAME ); ?></p>
     <p>
         <!--https://developers.google.com/maps/documentation/android-api/signup -->
-        <!-- encoded    https://console.developers.google.com/henhouse/?pb=[%22hh-1%22,%22maps_backend%22,null,[],%22https://developers.google.com%22,null,[%22maps_backend%22,%22geocoding_backend%22,%22directions_backend%22,%22distance_matrix_backend%22,%22elevation_backend%22,%22places_backend%22],null]&TB_iframe=true&width=600&height=400-->
-        <a href="#TB_inline?width=600&height=550&inlineId=tnygmaps_api_modal" id="generate-api-button" class="thickbox button-primary" name="<?php _e( 'Generate Google API Key (Must be logged in)', 'orionrush_tnygmaps' ); ?>">
+        <!-- encoded    https://console.developers.google.com/henhouse/?pb=%5B%22hh-0%22,%22maps_backend%22,null,%5B%5D,%22https:%2F%2Fdevelopers.google.com%22,null,%5B%22geocoding_backend%22,%22directions_backend%22,%22distance_matrix_backend%22,%22elevation_backend%22,%22places_backend%22%5D,null,null,null,null,%5B%5D%5D-->
+        <a href="#TB_inline?width=600&height=550&inlineId=tnygmaps_api_modal" id="generate-api-button" class="thickbox button-primary" name="<?php _e( 'Generate Google API Key (You must be logged in to a Google account)', 'orionrush_tnygmaps' ); ?>">
             <?php _e( 'Generate Google API Key', 'orionrush_tnygmaps' ); ?>
         </a>
     </p>
@@ -58,7 +58,7 @@ function admin_markup() {
     <div id="tnygmaps_api_modal" style="display:none;">
         <style>
             #TB_ajaxContent {padding:0px;}
-            #TB_window {width: 600px!important;}                                                                                                                                                                                                                                                                                                                                #TB_ajaxContent {padding:0px;}
+            #TB_window {width: 600px!important; height: 470px;}                                                                                                                                                                                                                                                                                                                                #TB_ajaxContent {padding:0px;}
         </style>
         <div id="spinner" class="" style="left: 280px; top: 200px; position: absolute;"></div>
             <iframe
@@ -66,8 +66,8 @@ function admin_markup() {
                 marginheight = "0"
                 marginwidth = "0"
                 width = "600"
-                height = "400"
-                src = 'https://console.developers.google.com/henhouse/?pb=["hh-1","maps_backend",null,[],"https://developers.google.com",null,["maps_backend","geocoding_backend","directions_backend","distance_matrix_backend","elevation_backend","places_backend","static_maps_backend,"],null]&TB_iframe=true&width=600&height=400'
+                height = "300"
+                src = 'https://console.developers.google.com/henhouse/?pb=%5B%22hh-0%22,%22maps_backend%22,null,%5B%5D,%22https:%2F%2Fdevelopers.google.com%22,null,%5B%22geocoding_backend%22,%22directions_backend%22,%22distance_matrix_backend%22,%22elevation_backend%22,%22places_backend%22%5D,null,null,null,null,%5B%5D%5D'
             >
             </iframe>
                 <div class="notice-warning" style="
@@ -80,10 +80,12 @@ function admin_markup() {
                             border-left: 4px solid #ffba00;
                             -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
                             box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);"><p><?php echo sprintf(
-                        __( 'An error above may mean you need to sign into a Google account. %s Alternatively follow this link to get your %sapi key%s.', 'orionrush_tnygmaps' ),
-                        '</br>',
-                        '<a id="external-api-key" target="_blank" href=\'https://console.developers.google.com/flows/enableapi?apiid=maps_backend,maps_embed_backend,static_maps_backend,geocoding_backend,directions_backend,distance_matrix_backend,places_backend,elevation_backend&keyType=CLIENT_SIDE&reusekey=true\'>',
-                        '</a>' ); ?></p>
+                        __( 'An error above likely means you haven&#8217t logged into a %sGoogle account%s. %s Read the docs on how to activate an %sapi key%s.', 'orionrush_tnygmaps' ),
+			                '<a id="external-api-key" target="_blank" href=\'https://accounts.google.com/signin/v2/identifier?service=cloudconsole&passive=1209600&osid=1&continue=https%3A%2F%2Fconsole.developers.google.com%2Fflows%2Fenableapi%3Fapiid%3Dmaps_backend%2Cmaps_embed_backend%2Cstatic_maps_backend%2Cgeocoding_backend%2Cdirections_backend%2Cdistance_matrix_backend%2Cplaces_backend%2Celevation_backend%26keyType%3DCLIENT_SIDE%26reusekey%3Dtrue&followup=https%3A%2F%2Fconsole.developers.google.com%2Fflows%2Fenableapi%3Fapiid%3Dmaps_backend%2Cmaps_embed_backend%2Cstatic_maps_backend%2Cgeocoding_backend%2Cdirections_backend%2Cdistance_matrix_backend%2Cplaces_backend%2Celevation_backend%26keyType%3DCLIENT_SIDE%26reusekey%3Dtrue&flowName=GlifWebSignIn&flowEntry=ServiceLogin\'>',
+			                '</a>',
+                            '</br>',
+                            '<a id="external-api-key" target="_blank" href=\'https://developers.google.com/maps/documentation/javascript/get-api-key\'>',
+                            '</a>' ); ?></p>
                 </div>
          <script>
              jQuery(document).ready(function($) {
