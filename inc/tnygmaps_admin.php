@@ -7,8 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*
 Here we will allow users to:
 Set their GOOGLE API key
-Choose a default map icon from the list of loaded icons
-Give documentation
+todo: Choose a default map icon from the list of loaded icons
+todo: Give documentation
 */
 
 //https://github.com/AyeCode/google-maps-api-key
