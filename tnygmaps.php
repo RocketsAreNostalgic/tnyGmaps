@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Plugin Name: Tny gMaps
  * Description: A Google maps plugin powered Google's places, static maps and geocoding APIs.
- * Version: 0.0.2
+ * Version: 0.0.3
  * Author: Ben Rush
  * Author URI: http://www.orionrush.com
  * Plugin URI: http://www.rocketsarenostalgic.net
