@@ -1,0 +1,16 @@
+// bootstrap-namespaced.less
+
+// This less file is intended to be imported from other less files. 
+// Example usage:
+// my-custom-namespace {
+//  import 'bootstrap-namespaced.less';
+// }
+
+// Import bootstrap.css (but treat it as a less file) to avoid problems 
+// with the way Bootstrap is using the parent operator (&).
+@import (less) 'less/bootstrap';
+
+// Manually include styles using selectors that will not work when namespaced.
+
+@import 'less/variables.less';
+
