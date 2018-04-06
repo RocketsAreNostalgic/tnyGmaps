@@ -155,7 +155,7 @@ function initialize(infowindow) {
      * @uses generateMap();
      *
      */
-    jQuery(document).ready(function ($) {
+    jQuery(function ($) {
         // Test to see if the api key is loaded.
         if (tnygmps_api == false) {
             jQuery(".accordion").hide().prop("disabled", true);
