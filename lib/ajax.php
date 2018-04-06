@@ -1,5 +1,6 @@
 <?php
 namespace OrionRush\TnyGmaps\Ajax;
+use OrionRush\TnyGmaps\Support as Support;
 if ( ! defined( 'ABSPATH' ) ) {	die(); }
 
 /***********************************************************************
@@ -77,7 +78,7 @@ function load_js_globals() {
 		}
 
 		$js_globals['google_icon']    = TNYGMAPS_GOOGLE_ICON_URL;
-		$js_globals['google_icon_name']    = gMapsDefultIconName();
+		$js_globals['google_icon_name']    = Support\gMapsDefultIconName();
 
 		$custom_icon = get_option('tnygmaps_custom_icon');
 		if ($custom_icon && $custom_icon != 'gMaps default pin') {
