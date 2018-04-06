@@ -33,6 +33,21 @@ function test_google_key() {
 	return false;
 }
 
+
+/**
+ * Retrieve the name of the google icon
+ * we need this to be translateable so a constant wont do
+ *  Used in forms and js
+ * @since 0.0.4
+ * @return string
+ *
+ */
+
+function gMapsDefultIconName () {
+	$name = __('gMaps default pin', 'orionrush_tnygmaps');
+	return $name;
+}
+
 /**
  * Retrieve a list of all the icons in the icons directory, as both a list of formatted links, and as an array.
  *
@@ -41,8 +56,6 @@ function test_google_key() {
  *
  * @return array
  */
-
-//		$loaded_icons = plugin_dir_path( __FILE__ ) . "../assets/" . TNYGMAPS_ICONS_DIR_NAME . "/";
 
 function loaded_tnygmaps_icons() {
 

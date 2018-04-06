@@ -77,6 +77,8 @@ function load_js_globals() {
 		}
 
 		$js_globals['google_icon']    = TNYGMAPS_GOOGLE_ICON_URL;
+		$js_globals['google_icon_name']    = gMapsDefultIconName();
+
 		$custom_icon = get_option('tnygmaps_custom_icon');
 		if ($custom_icon && $custom_icon != 'gMaps default pin') {
 			$js_globals['custom_icon']    = $custom_icon;
