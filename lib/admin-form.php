@@ -23,31 +23,33 @@ function admin_markup() {
 	add_thickbox();
 	?>
     <div class="wrap">
-        <h2 class="plugin-title"><?php echo TNYGMAPS_NAME ?></h2>
+        <h2 class="plugin-title"><?php echo TNYGMAPS_NAME ?> Settings</h2>
 
         <form method="post" action="options.php">
 			<?php settings_fields( 'tnygmaps-settings-group' ); ?>
 			<?php do_settings_sections( 'tnygmaps-settings-group' ); ?>
 
             <label for="tnygmaps_api_key"><?php _e( 'Google Maps API key:', 'orionrush_tnygmaps' ); ?></label>
-            <div class="tnygmaps-wrap">
-                <div class="tnygmaps-stretch">
-                    <input title="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>"
-                       type="text"
-                       name="tnygmaps_api_key"
-                       id="tnygmaps_api_key"
-                       placeholder="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>"
-                       value="<?php echo esc_attr( trim(get_option( 'tnygmaps_api_key' ))); ?>"
-                    />
+            <div class="tnygmaps-api-wrap">
+                <div class="tnygmaps-wrap">
+                    <div class="tnygmaps-stretch">
+                        <input title="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>"
+                           type="text"
+                           name="tnygmaps_api_key"
+                           id="tnygmaps_api_key"
+                           placeholder="<?php _e( 'Copy your API key here', 'orionrush_tnygmaps' ); ?>"
+                           value="<?php echo esc_attr( trim(get_option( 'tnygmaps_api_key' ))); ?>"
+                        />
+                    </div>
+                    <div class="tnygmaps-normal">
+                        <a href="#TB_inline?width=600&height=420&inlineId=tnygmaps_api_modal" id="generate-api-button" class="thickbox tnymaps-api-button" title="<?php _e( 'Generate Google API Key (You must be logged in to a Google account)', 'orionrush_tnygmaps' ); ?>">
+                            <?php _e( 'Generate Key', 'orionrush_tnygmaps' ); ?>
+                        </a>
+                    </div>
                 </div>
-                <div class="tnygmaps-normal">
-                    <a href="#TB_inline?width=600&height=420&inlineId=tnygmaps_api_modal" id="generate-api-button" class="thickbox tnymaps-api-button" title="<?php _e( 'Generate Google API Key (You must be logged in to a Google account)', 'orionrush_tnygmaps' ); ?>">
-                        <?php _e( 'Generate Key', 'orionrush_tnygmaps' ); ?>
-                    </a>
+                <div class="bootstrap-tny">
+                    <p class=" alert"><?php echo sprintf(__('%sNote:%s  For better security, be sure to restrict where your key can be used via Google\'s %sAPI Console%s.', 'orionrush_tnygmaps'), '<strong>', '</strong>', '<a href="https://console.developers.google.com/apis/credentials/" target="_blank">', '</a>');?></p>
                 </div>
-            </div>
-            <div class="bootstrap-tny">
-                <p class=" alert"><?php echo sprintf(__('%sNote:%s  For better security, be sure to restrict where your key can be used via Google\'s %sAPI Console%s.', 'orionrush_tnygmaps'), '<strong>', '</strong>', '<a href="https://console.developers.google.com/apis/credentials/" target="_blank">', '</a>');?></p>
             </div>
             <label for="tnygmaps_custom_icon"><?php _e( 'Choose a default map icon:', 'orionrush_tnygmaps' ); ?></label>
 
@@ -73,8 +75,8 @@ function admin_markup() {
                     </select>
                 </div>
             </div>
-            <label for="tnygmaps_custom_icon"><?php _e( 'Default icon URL:', 'orionrush_tnygmaps' ); ?></label>
-            <div class="bootstrap-tny">
+            <label for="tnygmaps_custom_icon"><?php _e( 'Your icon URL:', 'orionrush_tnygmaps' ); ?></label>
+            <div id="tnygmaps_custom_icon_url" class="bootstrap-tny">
 				<?php echo '<pre class="bootstrap-tny">' . $current_icon . '</pre>'; ?>
             </div>
             <?php if ( !file_exists( TNYGMAPS_ICONS_DIR ) ) : ?>
@@ -100,7 +102,7 @@ function admin_markup() {
             </iframe>
             <div class="bootstrap-tny">
                 <div class="alert" style=""><p><?php echo sprintf(
-                            __( 'An error above likely means you haven&#8217t logged into a %sGoogle account%s. %s Read the docs on how %sapi keys%s work.', 'orionrush_tnygmaps' ),
+                            __( 'An error above likely means you haven&#8217t logged into a %sGoogle account%s. %s For more information, read the docs on how %sapi keys%s work.', 'orionrush_tnygmaps' ),
                             '<a id="external-api-key" target="_blank" href=\'http://accounts.google.com/signin/v2/identifier?service=cloudconsole&passive=1209600&osid=1&continue=https%3A%2F%2Fconsole.developers.google.com%2Fflows%2Fenableapi%3Fapiid%3Dmaps_backend%2Cmaps_embed_backend%2Cstatic_maps_backend%2Cgeocoding_backend%2Cdirections_backend%2Cdistance_matrix_backend%2Cplaces_backend%2Celevation_backend%26keyType%3DCLIENT_SIDE%26reusekey%3Dtrue&followup=https%3A%2F%2Fconsole.developers.google.com%2Fflows%2Fenableapi%3Fapiid%3Dmaps_backend%2Cmaps_embed_backend%2Cstatic_maps_backend%2Cgeocoding_backend%2Cdirections_backend%2Cdistance_matrix_backend%2Cplaces_backend%2Celevation_backend%26keyType%3DCLIENT_SIDE%26reusekey%3Dtrue&flowName=GlifWebSignIn&flowEntry=ServiceLogin\'>',
                             '</a>',
                             '</br>',
