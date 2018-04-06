@@ -15,13 +15,13 @@ jQuery(function () {
         var url = jQuery(this).find("img").attr("src");
         var alt = jQuery(this).find("img").attr("alt");
         if (alt === googlePin) {
-            message = current;
+            message = googlePin;
             jQuery("#tnygmaps_custom_icon_url pre").html(message);
         } else if (current !== url && alt !== googlePin) {
             message = url + " [pending save]";
             jQuery("#tnygmaps_custom_icon_url pre").html(message);
         } else if (current === url && alt !== googlePin) {
-            message = current + " [current selection]";
+            message = current;
             jQuery("#tnygmaps_custom_icon_url pre").html(message);
         }
     });

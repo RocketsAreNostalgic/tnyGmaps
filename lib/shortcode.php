@@ -2,9 +2,7 @@
 namespace OrionRush\TnyGmaps\Shortcode;
 use OrionRush\TnyGmaps\Support as Support;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
+if ( ! defined( 'ABSPATH' ) ) {	die(); }
 
 /**
  * Adds the shortcode to WP, outputs markup and enqueues the js just in time.
