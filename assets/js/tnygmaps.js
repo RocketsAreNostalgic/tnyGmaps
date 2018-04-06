@@ -53,7 +53,7 @@ function initialize(map_id, map_loc) {
  * On Dom Ready, test if screen is large enough and init map
  * if not, adjust local css
  */
-jQuery(document).ready(function(jQuery) {
+jQuery(function(jQuery) {
     jQuery('.tnygmps_canvas').each(function () {
         var map_id = jQuery(this).attr('id');
         var map_loc = window[map_id + "_loc"]; // our the global var for the map
