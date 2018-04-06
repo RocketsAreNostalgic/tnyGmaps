@@ -35,6 +35,23 @@ function test_google_key() {
 
 
 /**
+ * Set transient time for how often google places api map data is stored before being checked again for freshness.
+ *
+ * @author orionrush
+ * @since 0.0.4
+ *
+ * @return num
+ */
+
+function getMapTransientExpiry () {
+	//cache address or place details for 3 months (in seconds)
+	$time = 3600 * 24 * 30 * 3;
+	return apply_filter('tnygmaps_expiry', $time);
+}
+
+
+
+/**
  * Retrieve the name of the google icon
  * we need this to be translateable so a constant wont do
  *  Used in forms and js

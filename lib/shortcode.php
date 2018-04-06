@@ -596,8 +596,10 @@ function tr_map_get_place( $api_key, $placeID, $address = '', $force_refresh, $d
 				// Country
 				$cache_value['country'] = htmlentities( processAddressObject( 'country', $result ), ENT_QUOTES );
 
-				//cache address or place details for 3 months
-				set_transient( substr( $placeID, 0, 44 ), $cache_value, 3600 * 24 * 30 * 3 );
+				//cache address or place details for default time
+
+				$time = Support\getMapTransientExpiry();
+				set_transient( substr( $placeID, 0, 44 ), $cache_value, $time );
 				$data = $cache_value;
 			}
 		}
@@ -756,8 +758,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
 		endswitch;
-		\OrionRush\TnyGmaps\Support\write_log('map_errors');
-		\OrionRush\TnyGmaps\Support\write_log($message);
+		Support\write_log('map_errors');
+		Support\write_log($message);
 		return $message;
 	}
 }
