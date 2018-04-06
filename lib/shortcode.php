@@ -1,5 +1,6 @@
 <?php
 namespace OrionRush\TnyGmaps\Shortcode;
+use OrionRush\TnyGmaps\Support as Support;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
@@ -122,7 +123,14 @@ function map_me( $attr ) {
 
 	// Override $marker with the default option if available.
 	if ($default_marker && $default_marker_option ) {
-		$marker = $default_marker_option;
+
+		$name = Support\gMapsDefultIconName();
+
+		if ($default_marker_option != $name) {
+			$marker = $default_marker_option;
+		} else {
+			$marker = '';
+		}
 	}
 	
 	$icon          = $attr['icon'];

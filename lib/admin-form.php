@@ -1,5 +1,7 @@
 <?php
 namespace OrionRush\TnyGmaps\Admin;
+use OrionRush\TnyGmaps\Support as Support;
+
 if ( ! defined( 'ABSPATH' ) ) { die(); }
 
 /**
@@ -11,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
 function admin_markup() {
 	// Loaded icons
 	$icons_array  = \OrionRush\TnyGmaps\Support\loaded_tnygmaps_icons();
+	$gMapsIconName = Support\gMapsDefultIconName();
 
 	if ( !file_exists( TNYGMAPS_ICONS_DIR) ) {
 		$path = TNYGMAPS_URL . "assets/" . TNYGMAPS_ICONS_DIR_NAME . "/";
@@ -61,7 +64,7 @@ function admin_markup() {
                             data-limit="1"
                             name="tnygmaps_custom_icon"
                             id="tnygmaps_custom_icon" >
-                        <option name="tnygmaps_custom_icon_option" value="<?php echo trim(TNYGMAPS_GOOGLE_ICON_NAME) ?>" data-img-src="<?php echo TNYGMAPS_GOOGLE_ICON_URL ?>" data-img-alt="<?php echo trim(TNYGMAPS_GOOGLE_ICON_NAME) ?>">Google Pin</option>
+                        <option name="tnygmaps_custom_icon_option" value="<?php echo $gMapsIconName ?>" data-img-src="<?php echo TNYGMAPS_GOOGLE_ICON_URL ?>" data-img-alt="<?php echo $gMapsIconName ?>">Google Pin</option>
 						<?php foreach ($icons_array[1] as $key=>$value) : ?>
 							<?php $icon_url = $path . $value; ?>
 							<?php   $selected = ($current_icon ==  $icon_url) ? true : false ?>
