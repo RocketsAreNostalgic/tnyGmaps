@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
  */
 function admin_markup() {
 	// Loaded icons
-	$icons_array  = \OrionRush\TnyGmaps\Support\loaded_tnygmaps_icons();
+	$icons_array  = Support\loaded_tnygmaps_icons();
 	$gMapsIconName = Support\gMapsDefultIconName();
 
 	if ( !file_exists( TNYGMAPS_ICONS_DIR) ) {
