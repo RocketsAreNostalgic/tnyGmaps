@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 	<meta charset="utf-8"/>
 </head>
 <body>
+
 <h3 id="tnygmapsplugintodo">Tny gMaps Plugin Todo</h3>
 
-<h4 id="0.0.3refactornamespaceremoveprefixes"><em>0.0.3 Refactor Namespace, remove prefixes</em></h4>
+<p>####<em>0.0.3 Refactor Namespace, remove prefixes</em></p>
 
 <ul>
 <li>[DONE] apply code style and design patterns established previously</li>
@@ -17,62 +18,70 @@
 <li>[DONE] code formatting</li>
 </ul>
 
-<h4 id="0.0.4refactortinymcemodal"><em>0.0.4 Refactor tinymce Modal</em></h4>
+<p>####<em>0.0.4 Refactor tinymce Modal</em></p>
 
 <ul>
-<li>Prepare strings for translation.</li>
-<li>Add modal string to js via wp_localize_script()</li>
-<li>Remove the direct dependency on wp by moving constant refs to js vars via wp_localize_script() also</li>
-<li>refactor js scripts to rely on wp_localize_script() globals instead</li>
+<li>[DONE] Add modal string to js via wp_localize_script()</li>
+<li>[DONE] Remove the direct dependency on wp by moving constant refs to js vars via wp_localize_script() also</li>
+<li>[DONE] refactor js scripts to rely on wp_localize_script() globals instead</li>
 </ul>
 
-<h4 id="0.0.5refactorjs"><em>0.0.5 Refactor JS</em></h4>
+<p>####<em>0.0.5 Refactor JS</em></p>
 
 <ul>
-<li>jQuery removed deprecated functions: load(), live(), ready event,</li>
-<li>Deprecated TinyMCE API call: windowManager.createInstance(..)
+<li>[DONE] jQuery remove deprecated functions: load(), live(), ready event,</li>
+<li>[DONE NA] Deprecated TinyMCE API call: windowManager.createInstance(..)
 
 <ul>
 <li>http://wordpress.stackexchange.com/q/258920/13551</li>
 </ul></li>
-<li>Concat js into single lib?</li>
-<li>Do we need to grey out interface with modal and spinner until js loads?</li>
+<li>[DONE - NO]Concat js into single lib?</li>
+<li>[DONE] Do we need to grey out interface with modal and spinner until js loads?</li>
 </ul>
 
-<h4 id="0.0.6settingspage"><em>0.0.6 Settings Page</em></h4>
+<p>####<em>0.0.6 Settings Page</em></p>
 
 <ul>
-<li>Plugin settings page - principally the API Key instructions.</li>
-<li>Add google maps api key without hard coding</li>
-<li>Enable and disable debug mode</li>
-<li>Set transient expiry (for?)</li>
-<li>Add alert messages to admin pages about missing API Keys</li>
-<li>Refactor use of constants, API Key should not be a constant?</li>
+<li><p>[DONE] Plugin settings page - principally the API Key instructions.</p></li>
+<li><p>[DONE] Add google maps api key without hard coding</p></li>
+<li><p>[DONE] Add alert messages to admin pages about missing API Keys</p></li>
+<li><p>[DONE] Refactor use of constants, API Key should not be a constant?</p></li>
 </ul>
 
-<h3 id="0.0.7installuninstall"><em>0.0.7 Install/Uninstall</em></h3>
+<p>###<em>0.0.7 Install/Uninstall</em></p>
 
 <ul>
-<li>Lang dir and .pot file</li>
-<li>Add activation/uninstall hooks and PHP checks.</li>
+<li>[DONE] Add activation/uninstall hooks and PHP checks.</li>
 </ul>
 
-<h4 id="0.0.8"><em>0.0.8</em></h4>
+<p>####<em>0.0.8</em></p>
 
 <ul>
-<li>Fix any issues with admin map modal css</li>
-<li>Normalise front end styles with reset, make the style sheet filterable.</li>
-<li>Remove http/s from the marker attribute, so that the protocall is not baked into the request, and post.</li>
-<li>Admin: add ability to specify alternative icon folder.</li>
-<li>Admin: add ability to set default icon.</li>
-<li>prevent admin modal from insterting shortcode if placeid or address is blank.</li>
-<li>Disable insert button if the above is blank?</li>
-<li>https://developers.google.com/maps/documentation/javascript/localization</li>
-<li>When putting in custom address fields into the admin modal, (without place lookup) the infowindow won&#8217;t populate on &#8220;update info window&#8221; button.
-</li>
-<li>[DONE] Add comment to &#8216;website&#8217; in custom address, about local links.</li>
-<li>Add check in modal logic for API key, and lock fields if no key.</li>
+<li> [DONE - baked into activation / uploads] Admin: add ability to specify alternative icon folder.</li>
+<li> [DONE] Admin: add ability to set default icon.</li>
+<li> [DONE - PASS] prevent admin modal from insterting shortcode if placeid or address is blank.</li>
+<li> [DONE - PASS] Disable insert button if the above is blank?</li>
+<li> [DONE] When putting in custom address fields into the admin modal, (without place lookup) the infowindow won&#8217;t populate on &#8220;update info window&#8221; button.</li>
+<li> [DONE] Add comment to &#8216;website&#8217; in custom address, about local links.</li>
+<li> [DONE]Add check in modal logic for API key, and lock fields if no key.</li>
+</ul>
+
+<p>####<em>0.0.9</em></p>
+
+<ul>
+<li> [IN PROGRESS] Prepare strings for translation.</li>
+<li> https://developers.google.com/maps/documentation/javascript/localization</li>
+<li> Lang dir and .pot file</li>
+<li> Fix issues with admin map modal css and front end styles not matching</li>
+<li> Normalise front end styles with reset, make the style sheet filterable</li>
+<li> Shortcode - fix debug mode and flush modes - they dont seem to work as expeced.</li>
+<li> Front end does not show icon in icon bubble</li>
+<li> Modal - custom address looses icon</li>
+<li> Remove http/s from the marker attribute, so that the protocall is not baked into the request, and post.</li>
+<li> Settings page: Enable and disable debug mode</li>
+<li> Settings page: Set transient expiry (for?)</li>
 </ul>
 
 </body>
 </html>
+
