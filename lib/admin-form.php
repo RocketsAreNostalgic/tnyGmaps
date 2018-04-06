@@ -61,15 +61,15 @@ function admin_markup() {
                             data-limit="1"
                             name="tnygmaps_custom_icon"
                             id="tnygmaps_custom_icon" >
-                        <option name="tnygmaps_custom_icon_option" value="<?php echo 'gMaps default pin' ?>" data-img-src='<?php echo TNYGMAPS_GOOGLE_ICON_URL ?>' data-img-alt='Google default map pin'>Google Pin</option>
+                        <option name="tnygmaps_custom_icon_option" value="<?php echo trim(TNYGMAPS_GOOGLE_ICON_NAME) ?>" data-img-src="<?php echo TNYGMAPS_GOOGLE_ICON_URL ?>" data-img-alt="<?php echo trim(TNYGMAPS_GOOGLE_ICON_NAME) ?>">Google Pin</option>
 						<?php foreach ($icons_array[1] as $key=>$value) : ?>
 							<?php $icon_url = $path . $value; ?>
 							<?php   $selected = ($current_icon ==  $icon_url) ? true : false ?>
                             <option name="tnygmaps_custom_icon_option"
 								<?php if ($selected) { echo 'selected'; }?>
                                     value="<?php echo $icon_url; ?>"
-                                    data-img-src='<?php echo $icon_url ?>'
-                                    data-img-alt='<?php echo $value ?>' ><?php echo $value?>
+                                    data-img-src="<?php echo $icon_url ?>"
+                                    data-img-alt="<?php echo $value ?>" >
                             </option>
 						<?php endforeach; ?>
                     </select>
