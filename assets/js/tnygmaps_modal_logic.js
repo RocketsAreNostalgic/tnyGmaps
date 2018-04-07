@@ -848,9 +848,6 @@ function initialize(infowindow) {
             if (status == google.maps.GeocoderStatus.OK) {
                 locPlace = results[0];
 
-                // what was this for? a global?
-                var locComponents = locPlace.address_components;
-
                 // Flush previous values
                 locName = "";
                 locStreetNum = "";
@@ -1086,30 +1083,33 @@ tnyGmapsAssembleShortcode = {
             markerOutput += 'lng="' + lng + '" ';
             // assemble the address values
             (
-                locName !== "" && locName !== ""
+                locName !== ""
             ) ? markerOutput += 'name="' + htmlEntities(locName) + '" ' : '';
             (
-                locStreet !== "" && locStreet !== ""
+                locStreet !== ""
             ) ? markerOutput += 'street="' + htmlEntities(locStreet) + '" ' : '';
             (
-                locCity !== "" && locCity !== ""
+                locCity !== ""
             ) ? markerOutput += 'city="' + htmlEntities(locCity) + '" ' : '';
             (
-                locRegion !== "" && locRegion !== ""
+                locRegion !== ""
             ) ? markerOutput += 'region="' + htmlEntities(locRegion) + '" ' : '';
             // (locCounty !== "" && locCounty !== "")		? markerOutput += 'county="' + locCounty + '" ': '' ;
             (
-                locPostcode !== "" && locPostcode !== ""
+                locPostcode !== ""
             ) ? markerOutput += 'postcode="' + htmlEntities(locPostcode) + '" ' : '';
             (
-                locCountry !== "" && locCountry !== ""
+                locCountry !== ""
             ) ? markerOutput += 'country="' + htmlEntities(locCountry) + '" ' : '';
             (
-                locWeb !== "" && locWeb !== ""
+                locWeb !== ""
             ) ? markerOutput += 'website="' + locWeb + '" ' : '';
             (
-                locPhone !== "" && locPhone !== ""
+                locPhone !== ""
             ) ? markerOutput += 'phone="' + htmlEntities(locPhone) + '" ' : '';
+            (
+                locIcon !== ""
+            ) ? markerOutput += 'icon="' + htmlEntities(locIcon) + '" ' : '';
         }
         else {
             markerOutput += 'placeid="' + locGooglePlaceID + '" ';
