@@ -44,6 +44,7 @@ function loaded_icons_url() {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>../assets/css/tnygmaps_frontend.css"/>
         <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>../assets/css/tnygmaps_modal.css"/>
         <link type="text/css" rel="stylesheet" href="<?php echo $local_uri ?>../assets/js/vendor/jquery-qtip-custom/jquery.qtip.css"/>
         <script>
@@ -276,8 +277,9 @@ function loaded_icons_url() {
             </form>
         </div>
         <div class="map-preview">
-            <div class="map-wrap">
-                <div id="map_canvas"></div>
+            <div class="map-wrap tnygmps_wrap">
+                <div id="map_canvas" class="tnygmps_canvas"></div>
+                <div class="tnygmps_link_wrap"><a href="#" class="tnygmps_ext_lnk" onclick="return false;" target="">open map in new window</a></div>
             </div>
             <input name="save" type="submit" class="submit-button" id="insert" value="Insert Map Shortcode"
                    onclick="javascript:tnyGmapsAssembleShortcode.insert(tnyGmapsAssembleShortcode.local_ed)"/>
