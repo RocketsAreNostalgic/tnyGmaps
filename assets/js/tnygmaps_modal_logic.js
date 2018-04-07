@@ -1123,7 +1123,7 @@ tnyGmapsAssembleShortcode = {
             markerOutput += 'placeid="' + locGooglePlaceID + '" ';
         }
         if (parent.tnygmaps.custom_icon == mapMarkerImageReturn) {
-            markerOutput += 'default_marker="true"';
+            markerOutput += 'default_marker="true" ';
         } else {
             (
                 mapMarkerReturn !== "" && mapMarkerImageReturn !== ""
