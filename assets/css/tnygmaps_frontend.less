@@ -1,14 +1,79 @@
-// Normalise appearance on front end.
-.gm-style-iw table,
-.gm-style-iw td,
-.gm-style-iw td {
-	border: none;
+// Variables
+@transBG: 	 			rgba(155, 150, 150, 0.14);
+@transBGdarker:			darken(@transBG, 40%);
+@borderRadLg:           10px;
+@dropshadow: 			rgba(0,0,0,0.2);
+.content-shadow {
+  -webkit-box-shadow: 2px 2px 4px 0px @dropshadow;
+  -moz-box-shadow: 2px 2px 4px 0px @dropshadow;
+  box-shadow: 1px 2px 2px 0px @dropshadow;
 }
 
-.gm-style-iw table {
+// Normalise appearance on front end.
+.tnygmps_wrap .gm-style table,
+.tnygmps_wrap .gm-style td,
+.tnygmps_wrap .gm-style tr {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.tnygmps_wrap .gm-style-iw table {
 	table-layout: auto;
 }
 
-.tnygmps_link_wrap a {
+.tnygmps_wrap .tnygmps_link_wrap a {
 	font-size: 0.7em;
+}
+
+.tnygmps_canvas {
+	hight: auto !important;
+}
+
+.tnygmps_canvas img { // fix for zoom icons etc sbootstrap 2.2 http://goo.gl/GDCx8s
+	max-width: none;
+}
+
+.tnygmps_canvas img.tnygmps_staticimg {
+	max-width: 100%;
+}
+
+img.tnygmps_staticimg {
+	width: 100%;
+	height: auto;
+	padding: 0;
+}
+
+.tnygmps_static_bubble {
+	border: none;
+	border-top: 1px solid #999;
+	box-shadow: none;
+	border-radius: 0;
+}
+
+.tnygmps_static_bubble .well-small {
+	margin-bottom: 0;
+}
+
+img.tnygmps_staticimg,
+.tnygmps_wrap,
+.tnygmps_canvas {
+	// not working in safari
+	border-top-left-radius: @borderRadLg !important;
+	border-top-right-radius: @borderRadLg !important;
+}
+
+.tnygmps_wrap {
+	border-radius: @borderRadLg;
+	background-color: @transBGdarker;
+    border: 1px solid #9090902b;
+	margin: 20px 15px;
+	.content-shadow();
+}
+
+.tnygmps_link_wrap {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding: 5px 10px 5px 5px;
+	text-align: right;
 }
