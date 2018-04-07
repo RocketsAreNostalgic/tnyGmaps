@@ -82,7 +82,8 @@ function seed_vars() {
     //console.log("locCountry: " + locCountry);
     locWeb = jQuery("input#locWebsite").val();
     //console.log("locWeb: " + locWeb);
-    locIcon = jQuery("input#locIconURL").val();
+    locIcon = "";
+    // locIcon = jQuery("input#locIconURL").val();
     //console.log("locIcon: " + locIcon);
     mapMarkerImageReturn = get_marker_image();
     //console.log("mapMarkerImageReturn: " + mapMarkerImageReturn);
@@ -911,6 +912,11 @@ function initialize(infowindow) {
                 // Set Input
                 jQuery("input#locCountry").val(locCountry);
 
+                // Location Icon
+                locIcon = processAddressObject("icon", locPlace.address_components);
+                // Set Input
+                jQuery("input#locCountry").val(locIcon);
+
                 lat = locPlace.geometry.location.lat();
                 jQuery("input#mapLat").val(lat)
                 lng = locPlace.geometry.location.lng();
@@ -1031,9 +1037,11 @@ function get_info_bubble(icon, name, street, city, state, post, country, phone, 
     infowindowPlace += "</div>";
     infowindowPlace += "</td>";
     infowindowPlace += "<td>";
-    infowindowPlace += (
-        icon !== null && icon !== undefined
-    ) ? '<img src="' + icon + '" class="marker-icon" style="margin: 0 5px 15px 5px; width: 60px; height: auto; " />' : '';
+
+    // Im taking location icons out of the mix for now - too much fuss and bother.
+    // infowindowPlace += (
+    //     icon !== null && icon !== undefined
+    // ) ? '<img src="' + icon + '" class="marker-icon" style="margin: 0 5px 15px 5px; width: 60px; height: auto; " />' : '';
     infowindowPlace += "</td>";
     infowindowPlace += "</tr>";
     infowindowPlace += "</tbody>";
