@@ -59,6 +59,9 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
  */
 
 function map_me( $attr ) {
+
+	wp_enqueue_style('tnygmaps_styles');
+
 	// Lets enqueue the scripts only if the shortcode has been added
 	wp_enqueue_script( 'googelmaps_js' );
 	wp_enqueue_script( 'tnygmaps_init' );
@@ -316,6 +319,9 @@ add_shortcode( 'TNYGMAPS',  __NAMESPACE__ . '\\map_me' );   // Legacy
  *
  */
 function register_scripts() {
+
+	wp_register_style('tnygmaps_styles', TNYGMAPS_URL . 'assets/css/tnygmaps_frontend.css');
+
 	wp_register_script( 'googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&key=' . GOOGLE_API_KEY, null, null, 'true' );
 	wp_register_script( 'tnygmaps_init', TNYGMAPS_URL . 'assets/js/tnygmaps.min.js', array(
 		'googelmaps_js',
