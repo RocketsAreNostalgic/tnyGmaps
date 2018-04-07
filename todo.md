@@ -48,11 +48,12 @@
  * [IN PROGRESS] Prepare strings for translation.
  * https://developers.google.com/maps/documentation/javascript/localization
  * Lang dir and .pot file
- * Fix issues with admin map modal css and front end styles not matching
- * Normalise front end styles with reset, make the style sheet filterable
  * Shortcode - fix debug mode and flush modes - they dont seem to work as expeced.
- * Front end does not show icon in icon bubble
- * Modal - custom address looses icon
- * Remove http/s from the marker attribute, so that the protocall is not baked into the request, and post.
- * Settings page: Enable and disable debug mode
- * Settings page: Set transient expiry (for?)
+
+ * [DONE] Fix issues with admin map modal css and front end styles not matching
+ * [DONE] Normalise front end styles with reset, make the style sheet filterable
+ * [DONE - PASS FOR NOW ]Front end does not show icon in icon bubble
+ * [DONE] Modal - custom address looses icon
+ * [DONE] Remove http/s from the marker attribute, so that the protocall is not baked into the request, and post.
+ * [DONE - PASSED]Settings page: Enable and disable debug mode
+ * [DONE] Settings page: Set transient expiry (for?) -- SOLVED by adding a filter to the function instead.
