@@ -304,7 +304,7 @@ function map_me( $attr ) {
 			$markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $infowindow . '</div>';
 		}
 		$markup .= '    </div>';
-		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">open map in new window</a></div>';
+		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . __("open map in new window", "orionrush-tnygmaps" ) . '</a></div>';
 		$markup .= '</div>';
 
 		return $markup;
@@ -705,34 +705,68 @@ function remove_px_percent( $dim ) {
 function map_errors( $debug, $error, $response = '' ) {
 	// Only show these notices on the front end if debugging is on, and only to those who can edit posts
 	if ( $debug && current_user_can( 'edit_posts' ) && ! is_admin() ) {
+
+		$headline = __('MAP PLUGIN NOTICE: ', 'orionrush-tnygmaps' );
 		$message = '';
 
 		switch ( $error ):
 			case 'insufficient_address';
 			case 'malformed_params';
-				$message .= __( "<b>MAP PLUGIN NOTICE: </b> Whoops! You possibly have conflicting input values.<br>Please check that the shortcode is formed properly. Include either a google <em>placeID</em> <b>OR</b> <em>address</em> line, <b>OR</b> explicit <em>lat, lng</em> values <b>WITH</b> explicit location parameters: <em>name, street, city, state, postcode, country, phone and web.</em></br>", 'tnygmaps' );
-				break;
-
+			$message .= sprintf('<p><b>%s</b> %s</p>%s<em>%s</em>%s<b>%s</b> <em>%s</em></br>',
+				$headline,
+				__('Whoops! You possibly have conflicting input values.', 'orionrush-tnygmaps' ),
+				__('Please check that the shortcode is formed properly. Include either a google ', 'orionrush-tnygmaps' ),
+				__('placeID ', 'orionrush-tnygmaps' ),
+				__('OR', 'orionrush-tnygmaps' ),
+				__('address ', 'orionrush-tnygmaps' ),
+				__('line, ', 'orionrush-tnygmaps' ),
+				__('OR, ', 'orionrush-tnygmaps' ),
+				__('explicit, ', 'orionrush-tnygmaps' ),
+				__('lat, lng, ', 'orionrush-tnygmaps' ),
+				__('values ', 'orionrush-tnygmaps' ),
+				__('WITH ', 'orionrush-tnygmaps' ),
+				__('explicit location parameters: ', 'orionrush-tnygmaps' ),
+				__('name, street, city, state, postcode, country.', 'orionrush-tnygmaps' )
+			);
+			break;
 			case 'wp_error_get';
-				$message .= __( "<b>MAP PLUGIN NOTICE:</b> We received an error in the URL response: </br>", 'tnygmaps' );
+				$message .= sprintf('<p><b>%s</b> %s</p>',
+					$headline,
+					__('We received an error in the URL response: ', 'orionrush-tnygmaps' )
+				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
 				break;
 
 			case 'wp_error_data';
-				$message .= __( "<b>MAP PLUGIN NOTICE:</b> There were problems retrieving the body of the response. ", 'tnygmaps' );
+				$message .= sprintf('<p><b>%s</b> %s</p>',
+					$headline,
+					__('There were problems retrieving the body of the response.', 'orionrush-tnygmaps' )
+				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
 				break;
 
 			case 'no_api_key';
-				$message .= __( "<p><b>MAP PLUGIN NOTICE:</b> Looks like you've used a Google place_ID, but you don\'t have Google API key. Because of this we cannot process the <b>placeid</b> shortcode parameter. Either add more address details mannualy, or see the documentation on how to get your own api key.</p>", 'tnygmaps' );
+				$message .= sprintf('<p><b>%s</b> %s <em>%s</em> %s</p>',
+					$headline,
+					__('Looks like you\'ve used a Google place_ID, but you don\'t have Google API key . Because of this we cannot process the, ', 'orionrush-tnygmaps' ),
+					__('placeid', 'orionrush-tnygmaps' ),
+					__('shortcode parameter. Either add address details manually, or see the documentation on how to get your own api key.', 'orionrush-tnygmaps' )
+				);
 				break;
 
 			case 'NO_CONNECT';
-				$message .= __( '<b>MAP PLUGIN NOTICE:</b> Unable to contact Google API, service response: ' . $response, 'tnygmaps' );
+				$message .= sprintf(
+					'<p><b>%s</b>%s</p>',
+					$headline,
+					__('Unable to contact Google API, service response: ', 'orionrush-tnygmaps' )
+				);
+				$message .= "<pre>";
+				$message .= print_r( $response, true );
+				$message .= "</pre>";
 				break;
 
 			// GOOGLE API RESPONSES
@@ -742,30 +776,47 @@ function map_errors( $debug, $error, $response = '' ) {
 			case 'OVER_QUERY_LIMIT';
 			case 'REQUEST_DENIED';
 			case 'INVALID_REQUEST';
-				$message .= __( "<b>MAP PLUGIN NOTICE:</b> Google Response: " . $error, 'tnygmaps' );
+				$message .= sprintf(
+					'<p><b>%s</b>%s</p>',
+					$headline,
+					__('Google Response: ', 'orionrush-tnygmaps' ) . $error
+				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
 				break;
 
 			case 'NOT_FOUND';
-				echo __( '<b>MAP PLUGIN NOTICE:</b> Place not found. Usually this is due to an incomplete or corrupted reference string.', 'tnygmaps' );
-				echo "<pre>";
+				$message .= sprintf(
+					'<p><b>%s</b>%s</p>',
+					$headline,
+					__('Place not found. Usually this is due to an incomplete or corrupted reference string.', 'orionrush-tnygmaps' )
+				);
+				$message .= "<pre>";
 				$message .= print_r( $response, true );
-				echo "</pre>";
+				$message .= "</pre>";
 				break;
 
 			case '';
-				$message .= __( '<b>MAP PLUGIN NOTICE:</b> Here is the data returned from the query, our error reporter is confused.', 'tnygmaps' );
+				$message .= sprintf(
+					'<p><b>%s</b>%s</p>',
+					$headline,
+					__('Here is the data returned from the query, our error reporter is confused.', 'orionrush-tnygmaps' )
+				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
 				break;
 
 			default:
-				$message .= __( '<b>MAP PLUGIN NOTICE:</b> Something went wrong while retrieving your map, please ensure you have entered the short code correctly formed.', 'tnygmaps' );
+				$message .= sprintf(
+					'<p><b>%s</b>%s</p>',
+					$headline,
+					__('Something went wrong while retrieving your map, please ensure you have entered the short code parameters correctly.', 'orionrush-tnygmaps' )
+				);
 				$message .= "<pre>";
-				$message .= "The response message code was: " . $error . "</br></br>";
+				$message .= printf(__('Google\'s response message code is: %s', 'orionrush-tnygmaps'), $error);
+				$message .= '</br></br>';
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
 		endswitch;

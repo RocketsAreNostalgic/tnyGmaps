@@ -37,9 +37,21 @@ function activate( $blah = null, $phpv = "5.6", $wpv = "4.7" ) {
 	if ( $flag !== null ) {
 
 		$name   = TNYGMAPS_NAME;
-		$format = __( 'Sorry, <strong>%s</strong> requires %s version %s or greater. <br/> You are currently running version: %s' );
+		$message = sprintf(
+			'%ss<strong>%s</strong>%s<br/>%s',
+			__('Sorry, ', 'orionrush-tnygmaps' ),
+			$name,
+			_x(' requires ', 'WordPress or plugin minimum php requirements.', 'orionrush-tnygmaps'),
+			$flag,
+			__(' version ', 'orionrush-tnygmaps'),
+			$target_version,
+			__(' or greater.', 'orionrush-tnygmaps'),
+			__(' You are currently running version: ', 'orionrush-tnygmaps'),
+			$current_version
+		);
+		$error_string =  __('Plugin Activation Error', 'orionrush-tnygmaps');
 
-		wp_die( sprintf( $format, $name, $flag, $target_version, $current_version ), 'Plugin Activation Error', array(
+		wp_die( $message, $error_string, array(
 			'response'  => 500,
 			'back_link' => true
 		) );

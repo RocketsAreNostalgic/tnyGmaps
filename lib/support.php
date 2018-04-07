@@ -61,7 +61,7 @@ function getMapTransientExpiry () {
  */
 
 function gMapsDefultIconName () {
-	$name = __('gMaps default pin', 'orionrush_tnygmaps');
+	$name = __('gMaps default pin', 'orionrush-tnygmaps');
 	return $name;
 }
 
