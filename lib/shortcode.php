@@ -119,6 +119,11 @@ function map_me( $attr ) {
 	$maptype = $attr['maptype'];
 
 	$marker         = ( filter_var( $attr['marker'], FILTER_VALIDATE_URL ) != false ) ? $attr['marker'] : null;
+
+	$marker         = preg_replace("(^https?)", "", $attr['icon'] ); // make the link  http/s agnostic
+
+	error_log($marker);
+
 	$default_marker = ( $attr['default_marker'] == 'true' ) ? true : false;
 	$default_marker_option = ( esc_attr( get_option( 'tnygmaps_custom_icon' ) ) );
 
