@@ -147,7 +147,7 @@ function plugin_add_settings_link( $links = array() ) {
  * @since 0.0.3
  *
  */
-function write_log( mixed $log, $force = false ) {
+function write_log( $log, $force = false ) {
 	if ( true === WP_DEBUG_LOG || $force ) {
 		if ( is_array( $log ) || is_object( $log ) ) {
 			error_log( print_r( $log, true ) );
