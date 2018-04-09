@@ -1,7 +1,6 @@
 <?php
 namespace OrionRush\TnyGmaps\Shortcode;
 use OrionRush\TnyGmaps\Support as Support;
-
 if ( ! defined( 'ABSPATH' ) ) {	die(); }
 
 /**
@@ -326,7 +325,7 @@ function map_me( $attr ) {
 			$markup .= '        <img class="tnygmps_staticimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:' . $static_w . '; height:' . $static_h . ';">';
 		}
 		$markup .= '    </div>';
-		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . __("open map in new window", "orionrush-tnygmaps" ) . '</a></div>';
+		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . Support\openMapInNewWin() . '</a></div>';
 		$markup .= '</div>';
 
 		return $markup;

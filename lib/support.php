@@ -50,6 +50,19 @@ function getMapTransientExpiry () {
 }
 
 
+/**
+ * Filterable function to return 'Open map in new window' link
+ *
+ * @author orionrush
+ * @since 0.0.4
+ *
+ * @return string
+ */
+function openMapInNewWin (){
+	$string = __('open map in new window', 'orionrush-tnygmaps');
+	return apply_filters('tnygmaps_mapInNewWindow', $string);
+}
+
 
 /**
  * Retrieve the name of the google icon
