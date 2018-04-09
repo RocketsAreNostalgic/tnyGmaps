@@ -47,7 +47,10 @@ define( 'TNYGMAPS_ICONS_DIR_URL', $upload_dir_URL );        // The URL to map ic
 define( 'TNYGMAPS_ICONS_DIR_CREATED', file_exists( TNYGMAPS_ICONS_DIR ) ); // Bool: Check of the directory was successfully created.
 
 // GOOGLE Maps default pin icon
-define( 'TNYGMAPS_GOOGLE_ICON_URL', TNYGMAPS_URL . 'assets/ic_map_marker.png' );       // URL to default icon
+define( 'TNYGMAPS_GOOGLE_ICON_URL', TNYGMAPS_URL . 'assets/img/ic_map_marker.png' );       // URL to default icon
+
+// GOOGLE Maps default pin icon
+define( 'TNYGMAPS_STATIC_DOM_WIDTH', (int)767 );       // The DOM width below which a static map would be triggered (if enabled)
 
 /**********************************************************************
  * Acquire a Google Places API key for your website domain
