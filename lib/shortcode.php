@@ -98,7 +98,7 @@ function map_me( $attr ) {
 		'hidecontrols'      => 'false',
 		'scale'             => 'false',
 		'scrollwheel'       => 'false',
-		'static'            => TNYGMAPS_STATIC_DOM_WIDTH,
+		'static'            => '',
 		'static_w'          => '500',
 		'static_h'          => '500',
 		'refresh'           => 'false', // executes if present and not equal to false
@@ -137,7 +137,6 @@ function map_me( $attr ) {
 			$marker = '';
 		}
 	}
-	
 	$icon          = $attr['icon'];
 	$infowindow    = $attr['infowindow'];
 	$infowindowb64 = $attr['infowindowb64'];
@@ -148,6 +147,18 @@ function map_me( $attr ) {
 	$scrollwheel       = ( $attr['scrollwheel'] == 'true' ) ? true : false;
 
 	$static_DOM_width = remove_px_percent( $attr['static'] );
+
+	// If it hasn't been specified, test it against the global setting.
+	if (!$static_DOM_width) {
+
+		$static_DOM_width = remove_px_percent(get_option('tnygmaps_mobile_width'));
+
+		// If no option set for some reason, use baked in constant
+		if (!$static_DOM_width){
+			$static_DOM_width = TNYGMAPS_STATIC_DOM_WIDTH;
+		}
+	}
+
 	$static_w     = remove_px_percent( $attr['static_w'] );
 	$static_h     = remove_px_percent( $attr['static_h'] );
 
