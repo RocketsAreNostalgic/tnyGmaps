@@ -34,6 +34,9 @@ function tnygmaps_delete_all_options( $blog_id = null ) {
 	// Plugin options
 	delete_option( 'tnygmaps_api_key' );
 	delete_option( 'tnygmaps_custom_icon' );
+	delete_option( 'tnygmaps_mobile' );
+	delete_option( 'tnygmaps_mobile_width' );
+	delete_option( 'tnygmaps_debug' );
 	delete_option( 'orionrush_tnygmaps_options' );  // Legacy
 
 }
