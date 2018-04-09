@@ -1,8 +1,8 @@
 <?php
 namespace OrionRush\TnyGmaps\Modal;
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
+use OrionRush\TnyGmaps\Support as Support;
+if ( ! defined( 'ABSPATH' ) ) { die(); }
+
 /************************************************************************
  * Markup for modal window for _tr_gmaps tinyMCE editor
  * This modal is a shortcode builder with preview functionality for the TnyGmaps plugin.
@@ -279,7 +279,7 @@ function loaded_icons_url() {
         <div class="map-preview">
             <div class="map-wrap tnygmps_wrap">
                 <div id="map_canvas" class="tnygmps_canvas"></div>
-                <div class="tnygmps_link_wrap"><a href="#" class="tnygmps_ext_lnk" onclick="return false;" target=""><?php _e('open map in new window', 'orionrush-tnygmaps'); ?></a></div>
+                <div class="tnygmps_link_wrap"><a href="#" class="tnygmps_ext_lnk" onclick="return false;" target=""><?php echo Support\openMapInNewWin(); ?></a></div>
             </div>
             <input name="save" type="submit" class="submit-button" id="insert" value="Insert Map Shortcode"
                    onclick="javascript:tnyGmapsAssembleShortcode.insert(tnyGmapsAssembleShortcode.local_ed)"/>
