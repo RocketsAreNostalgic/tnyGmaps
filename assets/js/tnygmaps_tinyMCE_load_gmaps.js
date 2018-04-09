@@ -15,7 +15,7 @@
             // Register buttons
             ed.addButton('TNYGMAPS', {
                 title: 'Insert Google Map',
-                image: url + '/../app_icon.png',
+                image: url + '/../img/app_icon.png',
                 cmd: 'TNYGMAPS'
             });
         },
