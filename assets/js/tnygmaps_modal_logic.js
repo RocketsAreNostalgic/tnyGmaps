@@ -643,7 +643,7 @@ function initialize(infowindow) {
     function update_marker() {
         markerImage = get_marker_image(); // returns URL as string
         marker.setIcon(markerImage);
-        (locPlace !== null) ? marker.setPosition(locPlace.geometry.location) : '';
+        (locPlace !== null) ? marker.setPosition(locPlace.geometry.location) : "";
         marker.setMap(map);
     }
 
@@ -735,7 +735,7 @@ function initialize(infowindow) {
             locStreet = processAddressObject("route", locPlace.address_components);
 
             // Set Input
-            (locPremise) ? locPremise = locPremise + ", " : '';
+            (locPremise) ? locPremise = locPremise + ", " : "";
             var streetCombined = (
                 locPremise + locStreetNum + " " + locStreet
             ).trim();
@@ -765,9 +765,9 @@ function initialize(infowindow) {
 
             // if we don't have a state but do have a region, use that instead.
             if ((
-                    locRegion !== '' || locRegion !== null
+                    locRegion !== "" || locRegion !== null
                 ) && (
-                    locRegion === '' || locRegion === null
+                    locRegion === "" || locRegion === null
                 )) {
                 locRegion = locRegion;
             }
@@ -880,7 +880,7 @@ function initialize(infowindow) {
                 // Set Input
                 (
                     locPremise
-                ) ? locPremise = locPremise + ", " : '';
+                ) ? locPremise = locPremise + ", " : "";
                 var streetCombined = (
                     locPremise + locStreetNum + " " + locStreet
                 ).trim();
@@ -938,12 +938,12 @@ function initialize(infowindow) {
  * @returns {string}
  */
 function processAddressObject(needle, haystack) {
-    var rtrn = '';
+    var rtrn = "";
     for (var i = 0; i < haystack.length; i++) {
         var addr = haystack[i];
         (
             addr.types[0] == needle
-        ) ? rtrn = addr.long_name : ''; // find long_name atributes
+        ) ? rtrn = addr.long_name : ""; // find long_name atributes
     }
     return rtrn;
 }
@@ -1003,7 +1003,7 @@ function clean_html(str) {
 function get_info_bubble(icon, name, street, city, state, post, country, phone, web, info) {
     var iconStyle = (
         (
-            icon !== ''
+            icon !== ""
         ) ? "max-width: 150px; " : "max-width: 200px; "
     );
     infowindowPlace = '<div class="marker-inside"  style="hight:auto;" >';
@@ -1033,7 +1033,7 @@ function get_info_bubble(icon, name, street, city, state, post, country, phone, 
     ) ? "<div>" + phone + "</div>" : "";
     infowindowPlace += (
         web !== null && web !== undefined && web !== ""
-    ) ? '<div style="max-width: 100%; white-space: nowrap; width: 100%; overflow: hidden;  -o-text-overflow: ellipsis;  text-overflow: ellipsis;"><a href="' + web + '" class="gmap_link" target="_blank" style="">' + web + '</a></div>' : '';
+    ) ? '<div style="max-width: 100%; white-space: nowrap; width: 100%; overflow: hidden;  -o-text-overflow: ellipsis;  text-overflow: ellipsis;"><a href="' + web + '" class="gmap_link" target="_blank" style="">' + web + '</a></div>' : "";
     infowindowPlace += "</div>";
     infowindowPlace += "</td>";
     infowindowPlace += "<td>";
@@ -1041,15 +1041,15 @@ function get_info_bubble(icon, name, street, city, state, post, country, phone, 
     // Im taking location icons out of the mix for now - too much fuss and bother.
     // infowindowPlace += (
     //     icon !== null && icon !== undefined
-    // ) ? '<img src="' + icon + '" class="marker-icon" style="margin: 0 5px 15px 5px; width: 60px; height: auto; " />' : '';
+    // ) ? '<img src="' + icon + '" class="marker-icon" style="margin: 0 5px 15px 5px; width: 60px; height: auto; " />' : "";
     infowindowPlace += "</td>";
     infowindowPlace += "</tr>";
     infowindowPlace += "</tbody>";
     infowindowPlace += "</table>";
     infowindowPlace += "</div>";
     infowindowPlace += (
-        info !== null && info !== undefined && info !== ''
-    ) ? '<div class="marker-extras" style="border-top: 1px dotted #949494; margin-top: 5px; max-width: 265px; min-height: 40px; overflow: hidden; white-space: pre-wrap;" >' + mapInfoWindowReturn + '</div>' : '';
+        info !== null && info !== undefined && info !== ""
+    ) ? '<div class="marker-extras" style="border-top: 1px dotted #949494; margin-top: 5px; max-width: 265px; min-height: 40px; overflow: hidden; white-space: pre-wrap;" >' + mapInfoWindowReturn + '</div>' : "";
     return infowindowPlace;
 }
 
@@ -1074,7 +1074,7 @@ tnyGmapsAssembleShortcode = {
         // load our input values
         seed_vars();
         // clean user input
-        mapInfoWindowReturn = htmlEntities(mapInfoWindowReturn) // encode html entities
+        mapInfoWindowReturn = htmlEntities(mapInfoWindowReturn); // encode html entities
         mapInfoWindowReturn = jQuery.base64.encode(mapInfoWindowReturn); // then base64 encode it as a string
         // output the shortcode
         markerOutput = '[tnygmaps ';
@@ -1083,41 +1083,41 @@ tnyGmapsAssembleShortcode = {
         markerOutput += 'h="' + mapHeightReturn + '" ';
         (
             mapControlsReturn == true
-        ) ? markerOutput += 'hidecontrols="true" ' : '';
+        ) ? markerOutput += 'hidecontrols="true" ' : "";
 
 
-        if (locGooglePlaceID == null || locGooglePlaceID == '') {
+        if (locGooglePlaceID == null || locGooglePlaceID == "") {
             markerOutput += 'lat="' + lat + '" ';
             markerOutput += 'lng="' + lng + '" ';
             // assemble the address values
             (
                 locName !== ""
-            ) ? markerOutput += 'name="' + htmlEntities(locName) + '" ' : '';
+            ) ? markerOutput += 'name="' + htmlEntities(locName) + '" ' : "";
             (
                 locStreet !== ""
-            ) ? markerOutput += 'street="' + htmlEntities(locStreet) + '" ' : '';
+            ) ? markerOutput += 'street="' + htmlEntities(locStreet) + '" ' : "";
             (
                 locCity !== ""
-            ) ? markerOutput += 'city="' + htmlEntities(locCity) + '" ' : '';
+            ) ? markerOutput += 'city="' + htmlEntities(locCity) + '" ' : "";
             (
                 locRegion !== ""
-            ) ? markerOutput += 'region="' + htmlEntities(locRegion) + '" ' : '';
-            // (locCounty !== "" && locCounty !== "")		? markerOutput += 'county="' + locCounty + '" ': '' ;
+            ) ? markerOutput += 'region="' + htmlEntities(locRegion) + '" ' : "";
+            // (locCounty !== "" && locCounty !== "")		? markerOutput += 'county="' + locCounty + '" ': "" ;
             (
                 locPostcode !== ""
-            ) ? markerOutput += 'postcode="' + htmlEntities(locPostcode) + '" ' : '';
+            ) ? markerOutput += 'postcode="' + htmlEntities(locPostcode) + '" ' : "";
             (
                 locCountry !== ""
-            ) ? markerOutput += 'country="' + htmlEntities(locCountry) + '" ' : '';
+            ) ? markerOutput += 'country="' + htmlEntities(locCountry) + '" ' : "";
             (
                 locWeb !== ""
-            ) ? markerOutput += 'website="' + locWeb + '" ' : '';
+            ) ? markerOutput += 'website="' + locWeb + '" ' : "";
             (
                 locPhone !== ""
-            ) ? markerOutput += 'phone="' + htmlEntities(locPhone) + '" ' : '';
+            ) ? markerOutput += 'phone="' + htmlEntities(locPhone) + '" ' : "";
             (
                 locIcon !== ""
-            ) ? markerOutput += 'icon="' + htmlEntities(locIcon) + '" ' : '';
+            ) ? markerOutput += 'icon="' + htmlEntities(locIcon) + '" ' : "";
         }
         else {
             markerOutput += 'placeid="' + locGooglePlaceID + '" ';
@@ -1127,11 +1127,11 @@ tnyGmapsAssembleShortcode = {
         } else {
             (
                 mapMarkerReturn !== "" && mapMarkerImageReturn !== ""
-            ) ? markerOutput += 'marker="' + mapMarkerImageReturn + '" ' : '';
+            ) ? markerOutput += 'marker="' + mapMarkerImageReturn + '" ' : "";
         }
         (
             mapMarkerReturn !== "" && mapInfoWindowReturn !== ""
-        ) ? markerOutput += 'infowindowb64="' + mapInfoWindowReturn + '" ' : '';
+        ) ? markerOutput += 'infowindowb64="' + mapInfoWindowReturn + '" ' : "";
         markerOutput += ']';
         tinyMCEPopup.execCommand('mceReplaceContent', false, markerOutput);
         // Return
