@@ -55,9 +55,89 @@ function register_tnygmaps_settings() {
 	    'sanitize_callback' => 'sanitize_text_field',
 	    'default' => NULL,
     );
+	$args_checkbox = array(
+		'type' => 'int',
+		'sanitize_callback' => 'boolval',
+		'default' => true,
+	);
+	$args_int_width = array(
+		'type' => 'int',
+		'sanitize_callback' => 'absint',
+//		'sanitize_callback' => __NAMESPACE__ . 'postive_int',
+		'default' => TNYGMAPS_STATIC_DOM_WIDTH,
+	);
+
 	//register our options
 	register_setting( 'tnygmaps-settings-group', 'tnygmaps_api_key', $args);
 	register_setting( 'tnygmaps-settings-group', 'tnygmaps_custom_icon', $args );
+	register_setting( 'tnygmaps-settings-group', 'tnygmaps_mobile', $args_checkbox  );
+	register_setting( 'tnygmaps-settings-group', 'tnygmaps_mobile_width', $args_int_width  );
+	register_setting( 'tnygmaps-settings-group', 'tnygmaps_debug', $args_checkbox  );
+
+	// Add the areas to the options page
+	add_settings_section(
+		'tnygmaps-settings-group',
+		__( 'Tny gMaps Settings', 'tnygmaps-settings-group' ),
+		'__return_false',
+		'tnygmaps-settings-group'
+	);
+
+	add_settings_field(
+		'tnygmaps-settings-group-api-key',
+		__( 'Google API Key:', 'orionrush_tnysig' ),
+		__NAMESPACE__ . '\\api_key',
+		'tnygmaps-settings-group',
+		'tnygmaps-settings-group'
+	);
+
+	add_settings_field(
+		'tnygmaps-settings-group-default-icon',
+		__( 'Choose a default map icon:', 'orionrush_tnysig' ),
+		__NAMESPACE__ . '\\default_icon',
+		'tnygmaps-settings-group',
+		'tnygmaps-settings-group'
+	);
+
+	add_settings_field(
+		'tnygmaps-settings-group-mobile-devices',
+		__( 'Optimise for mobile:', 'orionrush_tnysig' ),
+		__NAMESPACE__ . '\\static_maps',
+		'tnygmaps-settings-group',
+		'tnygmaps-settings-group'
+	);
+	add_settings_field(
+		'tnygmaps-settings-group-debug',
+		__( 'Enable Debugging:', 'orionrush_tnysig' ),
+		__NAMESPACE__ . '\\debugging',
+		'tnygmaps-settings-group',
+		'tnygmaps-settings-group'
+	);
+}
+
+/**
+ * Sanitize the settings array
+ *
+ * @param $input
+ *
+ * @return array
+ *
+ * @since 0.0.2
+ * @author orionrush
+ */
+function settings_sanitize( $input ) {
+	$output = array(
+		'mobile' => array()
+	);
+	if ( isset( $input['post_types'] ) ) {
+		$post_types = get_post_types();
+		foreach ( (array) $input['post_types'] as $post_type ) {
+			if ( array_key_exists( $post_type, $post_types ) ) {
+				$output['post_types'][] = $post_type;
+			}
+		}
+	}
+
+	return $output;
 }
 
 /**
@@ -79,7 +159,6 @@ function load_admin_assets() {
  * @package TNYGMAPS
  */
 function enqueue_admin_assets() {
-
 	wp_enqueue_style('orionrush-tnygmaps-admin', plugins_url('../assets/css/tnygmaps_admin.css', __FILE__), array('imagepicker-css'));
 	wp_enqueue_script('orionrush-tnygmaps-admin-js',  plugins_url('../assets/js/tnygmaps-admin.min.js', __FILE__), array('jquery'),'','');
 
@@ -87,3 +166,8 @@ function enqueue_admin_assets() {
 	wp_enqueue_script('imagepicker-js',  plugins_url('../assets/js/vendor/image-picker-master/image-picker/image-picker.min.js', __FILE__), array('jquery'),'0.3.0','true');
 }
 
+function postive_int ($int) {
+	if (!absint($int)) {
+		return TNYGMAPS_STATIC_DOM_WIDTH;
+	}
+}

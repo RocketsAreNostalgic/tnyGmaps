@@ -50,9 +50,9 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
  * @type string $hidecontrols       | (true : false) Hides the zoom, street view and other controls
  * @type boolean $scale             | (true : false) Is the map scale drawn?
  * @type boolean $scrollwheel       | (true : false) Will the map zoom react to mouse scrollwheel?
- * @type string $static             | DOM width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate not map is drawn
+ * @type string $static             | DOM width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate static map is not drawn
  * @type int $static_w              | Width of static map in pixels
- * @type int $static_h              | Height of of static map in pixels
+ * @type int $static_h              | Height of static map in pixels
  * @type boolean $refresh           | (true : false) Will flush any transient data from being cashed for a given location (good for testing results)
  * @type boolean $debug             | (true : false) Will render the return values from the Google Maps API object for debugging.
  *
@@ -99,7 +99,7 @@ function map_me( $attr ) {
 		'hidecontrols'      => 'false',
 		'scale'             => 'false',
 		'scrollwheel'       => 'false',
-		'static'            => '767',
+		'static'            => TNYGMAPS_STATIC_DOM_WIDTH,
 		'static_w'          => '500',
 		'static_h'          => '500',
 		'refresh'           => 'false', // executes if present and not equal to false
@@ -148,12 +148,17 @@ function map_me( $attr ) {
 	$scalecontrol      = ( $attr['scale'] == 'true' ) ? true : false;
 	$scrollwheel       = ( $attr['scrollwheel'] == 'true' ) ? true : false;
 
-	$static_width = remove_px_percent( $attr['static'] );
+	$static_DOM_width = remove_px_percent( $attr['static'] );
 	$static_w     = remove_px_percent( $attr['static_w'] );
 	$static_h     = remove_px_percent( $attr['static_h'] );
 
 	$refresh = ( ( $attr['refresh'] != 'false' ) ? true : false );
 	$debug   = ( ( $attr['debug'] != 'false' ) ? true : false );
+
+	// Override with global debugging values set in options page.
+	if(get_option('tnygmaps_debug')){
+		$debug = true;
+	}
 
 	// setup the incoming values
 	if ( ! empty( $attr['placeid'] ) ) {
@@ -266,6 +271,13 @@ function map_me( $attr ) {
 		 *
 		 * Example js http://codepen.io/anon/pen/zGxxaQ
 		 */
+		// todo: add get_option('tnygmaps_mobile') && a check to see if static == 0
+
+		$mobile_static_maps = get_option('tnygmaps_mobile');
+
+		if (!$mobile_static_maps) {
+			$static_DOM_width = '0';
+		}
 
 		// Load all the  variables into array for js global var
 		$init_array = array(
@@ -281,9 +293,10 @@ function map_me( $attr ) {
 			'hidecontrols'      => (boolean) $hidecontrols,
 			'scale'             => (boolean) $scalecontrol,
 			'scrollwheel'       => (boolean) $scrollwheel,
-			'static'            => (string) $static_width,
-			'static_h'          => (int) $static_w,
-			'static_w'          => (int) $static_h
+			'static_DOM_width'  => (string) $static_DOM_width,
+			'static_h'          => (int) $static_h,
+			'static_w'          => (int) $static_w,
+			'debug'             => (boolean) $debug
 		);
 		// Add the params to the page as js global vars via wp_localize_script
 		wp_localize_script( 'tnygmaps_init', $map_id . '_loc', $init_array );
@@ -298,10 +311,19 @@ function map_me( $attr ) {
 		$static_src_2x = $static_src . "&scale=2 2x,";
 		// output the map wrappers and links
 		$markup = '<div class="tnygmps_wrap" id="' . $map_id . '_wrap">';
-		$markup .= '    <div class="tnygmps_canvas" id="' . $map_id . '" style="width:' . $w . '; height:auto;">'; //height will be set by js for googlemaps api
-		$markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $static_w . '; height:' . $static_h . ';" alt="Google Map for ' . $attr['name'] . '">';
-		if ( $infowindow ) { // if we have an infowindow
-			$markup .= '        <div class="tnygmps_static_bubble well well-small" >' . $infowindow . '</div>';
+		$markup .= '    <div class="tnygmps_canvas" id="' . $map_id . '" style="width:' . $w . '; height:' . $static_h . ';">'; //height will be reset by js for googlemaps api
+
+		// Only show this if the plugin option is enabled
+		if ($static_DOM_width !== '0' ){
+			$alt_text = __("Google Map for", "orionrush-tyngmaps") . ' ' . $attr['name'];
+			$markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $static_w . '; height:' . $static_h . ';" alt="' . __("Google Map for", 'orionrush-tyngmaps') . ' ' . $attr['name'] . '">';
+
+			if ( $infowindow ) { // if we have an infowindow
+				$markup .= '        <div class="tnygmps_static_bubble well well-small" >' . wp_specialchars_decode($infowindow) . '</div>';
+			}
+		} else {
+			// Base 64 Encoded 1x1 px transparent gif
+			$markup .= '        <img class="tnygmps_staticimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:' . $static_w . '; height:' . $static_h . ';">';
 		}
 		$markup .= '    </div>';
 		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . __("open map in new window", "orionrush-tnygmaps" ) . '</a></div>';
@@ -712,7 +734,7 @@ function map_errors( $debug, $error, $response = '' ) {
 		switch ( $error ):
 			case 'insufficient_address';
 			case 'malformed_params';
-			$message .= sprintf('<p><b>%s</b> %s</p>%s<em>%s</em>%s<b>%s</b> <em>%s</em></br>',
+			$message .= sprintf('<p><b>%s</b><br/> %s</p>%s<em>%s</em>%s<b>%s</b> <em>%s</em></br>',
 				$headline,
 				__('Whoops! You possibly have conflicting input values.', 'orionrush-tnygmaps' ),
 				__('Please check that the shortcode is formed properly. Include either a google ', 'orionrush-tnygmaps' ),
@@ -730,7 +752,7 @@ function map_errors( $debug, $error, $response = '' ) {
 			);
 			break;
 			case 'wp_error_get';
-				$message .= sprintf('<p><b>%s</b> %s</p>',
+				$message .= sprintf('<p><b>%s</b><br/> %s</p>',
 					$headline,
 					__('We received an error in the URL response: ', 'orionrush-tnygmaps' )
 				);
@@ -740,7 +762,7 @@ function map_errors( $debug, $error, $response = '' ) {
 				break;
 
 			case 'wp_error_data';
-				$message .= sprintf('<p><b>%s</b> %s</p>',
+				$message .= sprintf('<p><b>%s</b><br/>%s</p>',
 					$headline,
 					__('There were problems retrieving the body of the response.', 'orionrush-tnygmaps' )
 				);
@@ -750,7 +772,7 @@ function map_errors( $debug, $error, $response = '' ) {
 				break;
 
 			case 'no_api_key';
-				$message .= sprintf('<p><b>%s</b> %s <em>%s</em> %s</p>',
+				$message .= sprintf('<p><b>%s</b><br/>%s <em>%s</em> %s</p>',
 					$headline,
 					__('Looks like you\'ve used a Google place_ID, but you don\'t have Google API key . Because of this we cannot process the, ', 'orionrush-tnygmaps' ),
 					__('placeid', 'orionrush-tnygmaps' ),
@@ -777,7 +799,7 @@ function map_errors( $debug, $error, $response = '' ) {
 			case 'REQUEST_DENIED';
 			case 'INVALID_REQUEST';
 				$message .= sprintf(
-					'<p><b>%s</b>%s</p>',
+					'<p><b>%s</b><br/>%s</p>',
 					$headline,
 					__('Google Response: ', 'orionrush-tnygmaps' ) . $error
 				);
@@ -799,7 +821,7 @@ function map_errors( $debug, $error, $response = '' ) {
 
 			case '';
 				$message .= sprintf(
-					'<p><b>%s</b>%s</p>',
+					'<p><b>%s</b><br/>%s</p>',
 					$headline,
 					__('Here is the data returned from the query, our error reporter is confused.', 'orionrush-tnygmaps' )
 				);
@@ -810,13 +832,12 @@ function map_errors( $debug, $error, $response = '' ) {
 
 			default:
 				$message .= sprintf(
-					'<p><b>%s</b>%s</p>',
+					'<p><b>%s</b><br/>%s</p>',
 					$headline,
 					__('Something went wrong while retrieving your map, please ensure you have entered the short code parameters correctly.', 'orionrush-tnygmaps' )
 				);
+				$message .= __('Google\'s response message code is:', 'orionrush-tnygmaps') . ' ' . $error;
 				$message .= "<pre>";
-				$message .= printf(__('Google\'s response message code is: %s', 'orionrush-tnygmaps'), $error);
-				$message .= '</br></br>';
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
 		endswitch;
