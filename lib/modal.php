@@ -4,13 +4,13 @@ use OrionRush\TnyGmaps\Support as Support;
 if ( ! defined( 'ABSPATH' ) ) { die(); }
 
 /************************************************************************
- * Markup for modal window for _tr_gmaps tinyMCE editor
+ * Markup for modal window for tny gMaps tinyMCE editor
  * This modal is a shortcode builder with preview functionality for the TnyGmaps plugin.
  * @link http://www.orionrush.com
  * @since 0.0.1
  *
  * @package WordPress
- * @subpackage TinyGmaps
+ * @subpackage TnygMaps
  *
  * @copyright (c) 2012-`date "+%Y"` orionrush. All rights reserved.
  * @license GPL
@@ -18,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
  */
 
 // Path to the plugin root
-$local_uri = \OrionRush\TnyGmaps\Support\make_root_relative( TNYGMAPS_URL . 'assets/' );
+$local_uri = Support\make_root_relative( TNYGMAPS_URL . 'assets/' );
 // do we have the google places api key?
-$api_test = \OrionRush\TnyGmaps\Support\test_google_key();
+$api_test = Support\test_google_key();
 // Icon list
-$icons_array  = \OrionRush\TnyGmaps\Support\loaded_tnygmaps_icons();
+$icons_array  = Support\loaded_tnygmaps_icons();
 $icons_list   = $icons_array[0];
 $loaded_icons = $icons_array[1];
 
