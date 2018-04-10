@@ -251,14 +251,17 @@ function map_me( $attr ) {
 	}
 
 
-	// Don't continue with if we are in admin, sometimes there is a slow response from tr_map_get_place and it always returning in time....
+	// Don't continue with if we are in admin, sometimes there is a slow response from map_get_place and it always returning in time....
 	if ( ! is_admin() && ! empty( $attr ) ) {
+
 		// process the infowindow extras
-		$infowindow_extras = ( ! empty( $infowindowb64 ) ) ? base64_decode( $infowindowb64 ) : '';
+		$infowindow_extras = '';
+		if ( $infowindowb64 != 'bnVsbA=='){ // base64 for null
+			$infowindow_extras = ( ! empty( $infowindowb64 ) ) ? base64_decode( $infowindowb64 ) : '';
 
-		// add any content from the basic infowindow attr to the end in its own div
-		$infowindow_extras = ( ! empty( $infowindow ) ) ? $infowindow_extras . '<div>' . $infowindow . '</div>' : $infowindow_extras;
-
+			// add any content from the basic infowindow attr to the end in its own div
+			$infowindow_extras = ( ! empty( $infowindow ) ) ? $infowindow_extras . '<div>' . $infowindow . '</div>' : $infowindow_extras;
+		}
 		// convert the html special chars
 		$infowindow = htmlspecialchars_decode( $infowindow_extras, ENT_QUOTES );
 
