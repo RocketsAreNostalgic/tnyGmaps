@@ -50,9 +50,9 @@ function loaded_icons_url() {
         <script>
             /* <![CDATA[ */
             <?php if ( $api_test ) { ?>
-            var tnygmps_api = true;
+            var tnygmaps_api = true;
             <?php } else { ?>
-            var tnygmps_api = false;
+            var tnygmaps_api = false;
             <?php }  ?>
             /* ]]> */
         </script>
