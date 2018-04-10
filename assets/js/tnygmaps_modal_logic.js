@@ -1,8 +1,8 @@
 // var parent.tnygmaps.haveGPlaces_key;     // provided global
 // var parent.tnygmaps.pluginURI;           // provided global
 // var parent.tnygmaps.plugin_icons_URL;    // provided global
-// var tnygmps_api (bool) // api key test
-// var spinner = new Spinner(opts).spin(target);
+// var tnygmaps_api (bool) // api key test   // provided global
+// var spinner = new Spinner(opts).spin(target); // provided global
 
 var lat = null;
 var lng = null;
