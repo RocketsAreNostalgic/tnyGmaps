@@ -77,14 +77,14 @@ function register_tnygmaps_settings() {
 	// Add the areas to the options page
 	add_settings_section(
 		'tnygmaps-settings-group',
-		__( 'Tny gMaps Settings', 'tnygmaps-settings-group' ),
+		__( 'Tny gMaps Settings', 'orionrush-tnygmaps' ),
 		'__return_false',
 		'tnygmaps-settings-group'
 	);
 
 	add_settings_field(
 		'tnygmaps-settings-group-api-key',
-		__( 'Google API Key:', 'orionrush_tnysig' ),
+		__( 'Google API Key:', 'orionrush-tnygmaps' ),
 		__NAMESPACE__ . '\\api_key',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
@@ -92,7 +92,7 @@ function register_tnygmaps_settings() {
 
 	add_settings_field(
 		'tnygmaps-settings-group-default-icon',
-		__( 'Choose a default map icon:', 'orionrush_tnysig' ),
+		__( 'Choose a default map icon:', 'orionrush-tnygmaps' ),
 		__NAMESPACE__ . '\\default_icon',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
@@ -100,14 +100,14 @@ function register_tnygmaps_settings() {
 
 	add_settings_field(
 		'tnygmaps-settings-group-mobile-devices',
-		__( 'Optimise for mobile:', 'orionrush_tnysig' ),
+		__( 'Optimise for mobile:', 'orionrush-tnygmaps' ),
 		__NAMESPACE__ . '\\static_maps',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
 	);
 	add_settings_field(
 		'tnygmaps-settings-group-debug',
-		__( 'Enable Debugging:', 'orionrush_tnysig' ),
+		__( 'Enable Debugging:', 'orionrush-tnygmaps' ),
 		__NAMESPACE__ . '\\debugging',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
