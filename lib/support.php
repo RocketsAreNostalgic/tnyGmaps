@@ -46,7 +46,7 @@ function test_google_key() {
 function getMapTransientExpiry () {
 	//cache address or place details for 3 months (in seconds)
 	$time = 3600 * 24 * 30 * 3;
-	return apply_filter('tnygmaps_expiry', $time);
+	return apply_filters('tnygmaps_expiry', $time);
 }
 
 
