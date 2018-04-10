@@ -12,22 +12,35 @@ var mapHeightReturn = null;
 var mapTypeReturn = null;
 var mapControlsReturn = null;
 var mapAddressReturn = null;
-var mapAddressElement = null;
+// var mapAddressElement = null;
 var locGooglePlaceID = null;
 var mapMarkerReturn = null;
 var mapMarkerImageReturn = null;
-var infowindow = null;
+// var infowindow = null;
 var infowindowPlace = null;
 var mapInfoWindowReturn = null;
-var combinedInfoWindow = null;
+// var combinedInfoWindow = null;
 var tnyGmapsAssembleShortcode = null;
 var map = null;
 var marker = null;
+var markerImage = null;
 var mapOptions = null;
 var mapCurrCenter = null;
 var markerOutput = null;
 var locPlace = null;
 var markerCustom = parent.tnygmaps.custom_icon;
+var locName = null;
+var locStreet = null;
+var locStreetNum = null;
+var locCity = null;
+var locRegion = null;
+var locPostcode = null;
+var locCountry = null;
+var locWeb = null;
+var locPhone = null;
+var locIcon = null;
+var locAddress = null;
+var geocoder = null;
 
 /**
  * Enable trim in older browsers
@@ -40,6 +53,31 @@ if (!String.prototype.trim) {
         "use strict";
         return this.replace(/^\s+|\s+$/g,"");
     };
+}
+
+/**
+ * Retrieve the marker image
+ *
+ * @author orionrush
+ * @since 0.0.2
+ *
+ * @returns {default marker, or custom marker as string}
+ */
+function get_marker_image() {
+    mapMarkerReturn = jQuery("select[id=mapMarker]").val();
+    switch (mapMarkerReturn) {
+        case "default":
+            mapMarkerImageReturn = markerCustom;
+            break;
+        case "google":
+            mapMarkerImageReturn = ""; // will fallback to Google marker icon
+            break;
+        case "custom":
+            mapMarkerImageReturn = jQuery("#mapMarkerImage").val();
+            break;
+    }
+    //console.log("Marker image: " + mapMarkerImageReturn);
+    return mapMarkerImageReturn;
 }
 
 /**
@@ -83,39 +121,51 @@ function seed_vars() {
     locWeb = jQuery("input#locWebsite").val();
     //console.log("locWeb: " + locWeb);
     locIcon = "";
-    // locIcon = jQuery("input#locIconURL").val();
+    locIcon = jQuery("input#locIconURL").val();
     //console.log("locIcon: " + locIcon);
     mapMarkerImageReturn = get_marker_image();
     //console.log("mapMarkerImageReturn: " + mapMarkerImageReturn);
     //console.log("mapInfoWindowReturn: " + mapInfoWindowReturn);
-    mapControlsReturn = jQuery("select[id=mapControls]").val() == "true";
+    mapControlsReturn = jQuery("select[id=mapControls]").val() === "true";
     //console.log("mapControlsReturn: " + mapControlsReturn);
 }
 
 /**
- * Retrieve the marker image
+ * Some preliminary sanitation, before the string is encoded.
+ * The shortcode will of course clean things before output as well.
  *
  * @author orionrush
  * @since 0.0.2
  *
- * @returns {default marker, or custom marker as string}
+ * @param str
  */
-function get_marker_image() {
-    mapMarkerReturn = jQuery("select[id=mapMarker]").val();
-    switch (mapMarkerReturn) {
-        case "default":
-            mapMarkerImageReturn = markerCustom;
-            break;
-        case "google":
-            mapMarkerImageReturn = ""; // will fallback to Google marker icon
-            break;
-        case "custom":
-            mapMarkerImageReturn = jQuery("#mapMarkerImage").val();
-            break;
-    }
-    //console.log("Marker image: " + mapMarkerImageReturn);
-    return mapMarkerImageReturn;
+function clean_html(str) {
+    str = String(str).replace(/'/g, '"');
+    return jQuery.htmlClean(str, {
+        removeTags: ["script"],
+        allowedAttributes: [["style"], ["href", ["a"]], ["target", ["a"]], ["title", ["a"]]],
+        allowedTags: ["p", "a", "span", "ul", "ol", "li", "br", "hr", "em", "strong"],
+        format: false
+    });
 }
+
+/**
+ *  Process Address Components, and retrieve the long_name
+ *
+ * @param needle
+ * @param haystack
+ * @returns {string}
+ */
+function processAddressObject(needle, haystack) {
+    var rtrn = "";
+    for (var i = 0; i < haystack.length; i++) {
+        var addr = haystack[i];
+        rtrn += (addr.types[0] === needle ? addr.long_name : '');
+    }
+    return rtrn;
+}
+
+
 
 /**
  * User isn"t using auto-complete
@@ -144,8 +194,6 @@ function custom_location() {
  *
  * @param infowindow
  */
-google.maps.event.addDomListener(window, "load", initialize);
-
 function initialize(infowindow) {
     /*
      * Form UX
@@ -158,14 +206,14 @@ function initialize(infowindow) {
      */
     jQuery(function ($) {
         // Test to see if the api key is loaded.
-        if (tnygmps_api == false) {
+        if (tnygmaps_api === false) {
             jQuery(".accordion").hide().prop("disabled", true);
             return; // nope it isn't, so don't bother with the rest.
         }
 
         // Prevent the return key from submitting the form too soon
         jQuery(".noEnterSubmit").keypress(function (e) {
-            if (e.which == 13) {
+            if (e.which === 13) {
                 return false;
             }
         });
@@ -203,10 +251,10 @@ function initialize(infowindow) {
                     jQuery("#locName").trigger("focus");
                 });
             }
-            if (jQuery(this).is(":checked") == false) {
+            if (jQuery(this).is(":checked") === false) {
                 jQuery("#mapAddress-group").slideDown();
                 jQuery("#address_extras").find("input:text, button").prop("disabled", true).val("").removeClass("active");
-                ; // disable and clear
+                // disable and clear
                 jQuery(".autoMapAddress").parent().slideDown(400, function () {
                     setFocus(jQuery(this));
                     generateMap();
@@ -299,17 +347,80 @@ function initialize(infowindow) {
             jQuery("#search-report").fadeIn(800).delay(300).fadeOut(800, function () {
                 jQuery(this).removeClass(alertClass).empty();
             });
-        })
-    };
+        });
+    }
 
-    /*
-     * MAP Init
+    /**
+     * Assemble the infowindow interior
+     *
+     * @author orionrush
+     * @since 0.0.2
+     *
+     * @param icon
+     * @param name
+     * @param street
+     * @param city
+     * @param state
+     * @param post
+     * @param country
+     * @param phone
+     * @param web
+     * @param info
+     * @returns {*}
      */
-    var input = document.getElementById("mapAddress"); // Grab the input element
-    var autocomplete = new google.maps.places.Autocomplete(input); // instantiate autocomplete
-    var infowindow = new google.maps.InfoWindow(); // instanitate the info window
+    function get_info_bubble(icon, name, street, city, state, post, country, phone, web, info) {
+        var iconStyle = (
+            (
+                icon !== ""
+            ) ? "max-width: 150px; " : "max-width: 200px; "
+        );
+        infowindowPlace = '<div class="marker-inside"  style="hight:auto;" >';
+        infowindowPlace += "<b>" + name + "</b>";
+        infowindowPlace += "<table>";
+        infowindowPlace += "<tbody>";
+        infowindowPlace += "<tr>";
+        infowindowPlace += "<td>";
+        infowindowPlace += '<div class="infowidow-address" style="' + iconStyle + '" >';
+        infowindowPlace += (
+            street !== null && street !== undefined && street !== ""
+        ) ? "<div>" + street + "</div>" : "";
+        infowindowPlace += (
+            city !== null && city !== undefined && city !== ""
+        ) ? "<div>" + city + ", " : "<div>";
+        infowindowPlace += (
+            state !== null && state !== undefined && state !== ""
+        ) ? state + "</div>" : "</div>";
+        infowindowPlace += (
+            post !== null && post !== undefined && post !== ""
+        ) ? "<div>" + post + "</div>" : "</div>";
+        infowindowPlace += (
+            country !== null && country !== undefined && country !== ""
+        ) ? "<div>" + country + "</div>" : "</div>";
+        infowindowPlace += (
+            phone !== null && phone !== undefined && phone !== ""
+        ) ? "<div>" + phone + "</div>" : "";
+        infowindowPlace += (
+            web !== null && web !== undefined && web !== ""
+        ) ? '<div style="max-width: 100%; white-space: nowrap; width: 100%; overflow: hidden;  -o-text-overflow: ellipsis;  text-overflow: ellipsis;"><a href="' + web + '" class="gmap_link" target="_blank" style="">' + web + '</a></div>' : "";
+        infowindowPlace += "</div>";
+        infowindowPlace += "</td>";
+        infowindowPlace += "<td>";
 
-    generateMap(); // Draw the map
+        // Im taking location icons out of the mix for now - too much fuss and bother.
+        // infowindowPlace += (
+        //     icon !== null && icon !== undefined
+        // ) ? '<img src="' + icon + '" class="marker-icon" style="margin: 0 5px 15px 5px; width: 60px; height: auto; " />' : "";
+        infowindowPlace += "</td>";
+        infowindowPlace += "</tr>";
+        infowindowPlace += "</tbody>";
+        infowindowPlace += "</table>";
+        infowindowPlace += "</div>";
+        infowindowPlace += (
+            info !== null && info !== undefined && info !== ""
+        ) ? '<div class="marker-extras" style="border-top: 1px dotted #949494; margin-top: 5px; max-width: 265px; min-height: 40px; overflow: hidden; white-space: pre-wrap;" >' + mapInfoWindowReturn + '</div>' : "";
+        return infowindowPlace;
+    }
+
 
     /**
      * Generate a fresh map, and adds event listeners to detect when settings change.
@@ -324,11 +435,9 @@ function initialize(infowindow) {
      *
      */
     function generateMap() {
-
+        var initCenter;
         seed_vars();
-        (
-            lat !== "" && lng !== ""
-        ) ? initCenter = new google.maps.LatLng(lat, lng) : initCenter = new google.maps.LatLng(43.703793, -72.326187);
+        initCenter =  ( lat !== "" && lng !== "" ? new google.maps.LatLng(lat, lng) : new google.maps.LatLng(43.703793, -72.326187) );
         mapOptions = {
             center: initCenter,
             zoom: mapZoomReturn,
@@ -393,7 +502,7 @@ function initialize(infowindow) {
         // Custom location button
         google.maps.event.addDomListener(document.getElementById("lookup-detials"), "click", updateCustomlocation);
 
-        // Custom location update infowindwo
+        // Custom location update infowindow
         google.maps.event.addDomListener(document.getElementById("map-update"), "click", updateMapInfoWindow);
 
         // Controls DOM->MAP
@@ -439,7 +548,7 @@ function initialize(infowindow) {
      */
     function removeOverlay() {
         // Overlay
-        if (tnygmps_api == false) {
+        if (tnygmaps_api === false) {
             // Remove spinner, leave overlay
             spinner.stop();
         } else {
@@ -498,7 +607,7 @@ function initialize(infowindow) {
         map.setCenter(mapCurrCenter);
         jQuery("select[id=mapZoom] option").filter(function () {
             return (
-                jQuery(this).text() == zoomLevel
+                jQuery(this).text() === zoomLevel
             );
         }).prop("selected", true);
         // console.log("update Dropdown from Map Zoom Change");
@@ -515,13 +624,13 @@ function initialize(infowindow) {
     function updateMapType() {
         mapTypeReturn = jQuery("select[id=mapType]").val();
         //map.setMapTypeId(mapTypeReturn);
-        if (mapTypeReturn == "ROADMAP") {
+        if (mapTypeReturn === "ROADMAP") {
             map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-        } else if (mapTypeReturn == "SATELLITE") {
+        } else if (mapTypeReturn === "SATELLITE") {
             map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-        } else if (mapTypeReturn == "HYBRID") {
+        } else if (mapTypeReturn === "HYBRID") {
             map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-        } else if (mapTypeReturn == "TERRAIN") {
+        } else if (mapTypeReturn === "TERRAIN") {
             map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
         }
     }
@@ -539,7 +648,7 @@ function initialize(infowindow) {
         mapType = mapType.toUpperCase();
         jQuery("select[id=mapType] option").filter(function () {
             return (
-                jQuery(this).text() == mapType
+                jQuery(this).text() === mapType
             );
         }).prop("selected", true);
     }
@@ -562,13 +671,19 @@ function initialize(infowindow) {
      */
     function updateMapInfoWindow() {
         seed_vars();
-        mapInfoWindowReturn = clean_html(jQuery("textarea#mapInfoWindow").val());
+        mapInfoWindowReturn = jQuery("textarea#mapInfoWindow").val();
+        if (mapInfoWindowReturn !== "null" && mapInfoWindowReturn !== "" && mapInfoWindowReturn !== null){
+            mapInfoWindowReturn = clean_html(mapInfoWindowReturn);
+        } else {
+            mapInfoWindowReturn = "";
+        }
         infowindowPlace = get_info_bubble(locIcon, locName, locStreet, locCity, locRegion, locPostcode, locCountry, locPhone, locWeb, mapInfoWindowReturn);
         infowindow.setContent(infowindowPlace);
         jQuery("textarea#mapInfoWindow").prop("disabled", true).addClass("highlight alert").delay(700).show(1, function () {
             jQuery(this).val(mapInfoWindowReturn).removeClass("highlight alert").prop("disabled", false);
             jQuery(this)[0].selectionStart = jQuery(this)[0].selectionEnd = jQuery(this).val().length; // reset the cursor
         });
+        infowindow.open(map, marker);
     }
 
     /**
@@ -589,14 +704,16 @@ function initialize(infowindow) {
     function openInfoWindow() {
         if (jQuery("#mapInfoWindow").is(":visible")) {
             // Add marker extras
-            if (!jQuery(".marker-extras").length > 0) {
+
+            var markerExtras = jQuery(".marker-extras").length > 0;
+            if (!markerExtras) {
                 seed_vars();
                 infowindowPlace = get_info_bubble(locIcon, locName, locStreet, locCity, locRegion, locPostcode, locCountry, locPhone, locWeb, "...");
                 infowindow.setContent(infowindowPlace);
             }
             // add the keystroke timer
             var timer = null;
-            jQuery(document).on("keydown", "#mapInfoWindow", function (e) {
+            jQuery(document).on("keydown", "#mapInfoWindow", function () {
                 if (timer) {
                     clearTimeout(timer);
                 }
@@ -643,7 +760,10 @@ function initialize(infowindow) {
     function update_marker() {
         markerImage = get_marker_image(); // returns URL as string
         marker.setIcon(markerImage);
-        (locPlace !== null) ? marker.setPosition(locPlace.geometry.location) : "";
+
+        if (locPlace !== null) {
+            marker.setPosition(locPlace.geometry.location);
+        }
         marker.setMap(map);
     }
 
@@ -668,7 +788,7 @@ function initialize(infowindow) {
         infowindow.close();// close the marker info window
         input.className = "";
         var locPlace = autocomplete.getPlace();
-        console.log(locPlace);
+        //console.log(locPlace);
         if (!locPlace.geometry) {
             // Inform the user that the place was not found and return.
             input.className = "notfound";
@@ -705,8 +825,8 @@ function initialize(infowindow) {
             // get the information and set the text field if it exsists, else clear the varriable and the associated field
 
 
-            // Googles Places Refrence ID
-            (locPlace.place_id) ? locGooglePlaceID = locPlace.place_id : locGooglePlaceID = "";
+            // Google's Places Reference ID
+            locGooglePlaceID = (locPlace.place_id ? locPlace.place_id : "");
             jQuery("#locGooglePlaceID").val(locGooglePlaceID.trim());
             //Lng & Lat
             lat = locPlace.geometry.location.lat();
@@ -735,7 +855,7 @@ function initialize(infowindow) {
             locStreet = processAddressObject("route", locPlace.address_components);
 
             // Set Input
-            (locPremise) ? locPremise = locPremise + ", " : "";
+            locPremise = (locPremise ? locPremise + ", " : "");
             var streetCombined = (
                 locPremise + locStreetNum + " " + locStreet
             ).trim();
@@ -817,7 +937,7 @@ function initialize(infowindow) {
             callGeocode(function () {
                 // update the map and marker
                 generateMap();
-
+                infowindow.open(map, marker);
             });
         }
     }
@@ -840,13 +960,16 @@ function initialize(infowindow) {
      *
      */
     function callGeocode(callback) {
+
+        var alert = "";
+
         geocoder.geocode({"address": locAddress}, function (results, status) {
             if (status !== google.maps.GeocoderStatus.OK) {
-                var alert = "Sorry, try adding more address details: " + status;
+                alert = "Sorry, try adding more address details: " + status;
                 updateAlert(alert, "warning");
             }
 
-            if (status == google.maps.GeocoderStatus.OK) {
+            if (status === google.maps.GeocoderStatus.OK) {
                 locPlace = results[0];
 
                 // Flush previous values
@@ -866,7 +989,7 @@ function initialize(infowindow) {
                 // Name of location
                 locName = processAddressObject("point_of_interest", locPlace.address_components);
                 // have observed this as a return value with geocode api as well
-                // Set Input, we dont want to clear the field if these return null
+                // Set Input, we don't want to clear the field if these return null
                 if (locName !== "" && locName !== null) {
                     jQuery("#locName").val(locName.trim());
                 }
@@ -877,10 +1000,10 @@ function initialize(infowindow) {
                 locStreetNum = processAddressObject("street_number", locPlace.address_components);
                 // Street name
                 locStreet = processAddressObject("route", locPlace.address_components);
+
                 // Set Input
-                (
-                    locPremise
-                ) ? locPremise = locPremise + ", " : "";
+                locPremise = (locPremise ? locPremise + ", " : "");
+
                 var streetCombined = (
                     locPremise + locStreetNum + " " + locStreet
                 ).trim();
@@ -917,36 +1040,37 @@ function initialize(infowindow) {
                 // Set Input
                 jQuery("input#locCountry").val(locIcon);
 
+                // Set latitude
                 lat = locPlace.geometry.location.lat();
-                jQuery("input#mapLat").val(lat)
+                // Set Input
+                jQuery("input#mapLat").val(lat);
+
+                // Set longitude
                 lng = locPlace.geometry.location.lng();
+                // Set Input
                 jQuery("input#mapLng").val(lng);
 
-                var alert = "Geocoding sucessfull,  Lng & Lat status: " + status;
+                alert = "Geocoding successful,  Lng & Lat status: " + status;
                 updateAlert(alert, "confirm");
                 seed_vars();
                 callback();
             }
         });
     }
+
+
+    /*
+     * MAP Init
+     */
+    var input = document.getElementById("mapAddress"); // Grab the input element
+    var autocomplete = new google.maps.places.Autocomplete(input); // instantiate autocomplete
+    infowindow = new google.maps.InfoWindow(); // instanitate the info window
+
+    generateMap(); // Draw the map
+
 }
-/**
- *  Process Address Components, and retrieve the long_name
- *
- * @param needle
- * @param haystack
- * @returns {string}
- */
-function processAddressObject(needle, haystack) {
-    var rtrn = "";
-    for (var i = 0; i < haystack.length; i++) {
-        var addr = haystack[i];
-        (
-            addr.types[0] == needle
-        ) ? rtrn = addr.long_name : ""; // find long_name atributes
-    }
-    return rtrn;
-}
+
+google.maps.event.addDomListener(window, "load", initialize);
 
 /**
  * Encode entities on the client side
@@ -963,95 +1087,7 @@ function htmlEntities(str) {
     return String(str).replace(/&amp;/g, "&").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-/**
- * Some preliminary sanitation, before the string is encoded.
- * The shortcode will of course clean things before output as well.
- *
- * @author orionrush
- * @since 0.0.2
- *
- * @param str
- */
-function clean_html(str) {
-    str = String(str).replace(/'/g, '"');
-    return jQuery.htmlClean(str, {
-        removeTags: ["script"],
-        allowedAttributes: [["style"], ["href", ["a"]], ["target", ["a"]], ["title", ["a"]]],
-        allowedTags: ["p", "a", "span", "ul", "ol", "li", "br", "hr", "em", "strong"],
-        format: false
-    });
-}
 
-/**
- * Assemble the infowindow interior
- *
- * @author orionrush
- * @since 0.0.2
- *
- * @param icon
- * @param name
- * @param street
- * @param city
- * @param state
- * @param post
- * @param country
- * @param phone
- * @param web
- * @param info
- * @returns {*}
- */
-function get_info_bubble(icon, name, street, city, state, post, country, phone, web, info) {
-    var iconStyle = (
-        (
-            icon !== ""
-        ) ? "max-width: 150px; " : "max-width: 200px; "
-    );
-    infowindowPlace = '<div class="marker-inside"  style="hight:auto;" >';
-    infowindowPlace += "<b>" + name + "</b>";
-    infowindowPlace += "<table>";
-    infowindowPlace += "<tbody>";
-    infowindowPlace += "<tr>";
-    infowindowPlace += "<td>";
-    infowindowPlace += '<div class="infowidow-address" style="' + iconStyle + '" >';
-    infowindowPlace += (
-        street !== null && street !== undefined && street !== ""
-    ) ? "<div>" + street + "</div>" : "";
-    infowindowPlace += (
-        city !== null && city !== undefined && city !== ""
-    ) ? "<div>" + city + ", " : "<div>";
-    infowindowPlace += (
-        state !== null && state !== undefined && state !== ""
-    ) ? state + "</div>" : "</div>";
-    infowindowPlace += (
-        post !== null && post !== undefined && post !== ""
-    ) ? "<div>" + post + "</div>" : "</div>";
-    infowindowPlace += (
-        country !== null && country !== undefined && country !== ""
-    ) ? "<div>" + country + "</div>" : "</div>";
-    infowindowPlace += (
-        phone !== null && phone !== undefined && phone !== ""
-    ) ? "<div>" + phone + "</div>" : "";
-    infowindowPlace += (
-        web !== null && web !== undefined && web !== ""
-    ) ? '<div style="max-width: 100%; white-space: nowrap; width: 100%; overflow: hidden;  -o-text-overflow: ellipsis;  text-overflow: ellipsis;"><a href="' + web + '" class="gmap_link" target="_blank" style="">' + web + '</a></div>' : "";
-    infowindowPlace += "</div>";
-    infowindowPlace += "</td>";
-    infowindowPlace += "<td>";
-
-    // Im taking location icons out of the mix for now - too much fuss and bother.
-    // infowindowPlace += (
-    //     icon !== null && icon !== undefined
-    // ) ? '<img src="' + icon + '" class="marker-icon" style="margin: 0 5px 15px 5px; width: 60px; height: auto; " />' : "";
-    infowindowPlace += "</td>";
-    infowindowPlace += "</tr>";
-    infowindowPlace += "</tbody>";
-    infowindowPlace += "</table>";
-    infowindowPlace += "</div>";
-    infowindowPlace += (
-        info !== null && info !== undefined && info !== ""
-    ) ? '<div class="marker-extras" style="border-top: 1px dotted #949494; margin-top: 5px; max-width: 265px; min-height: 40px; overflow: hidden; white-space: pre-wrap;" >' + mapInfoWindowReturn + '</div>' : "";
-    return infowindowPlace;
-}
 
 /**
  * load up our field values and output them as a short code
@@ -1081,57 +1117,32 @@ tnyGmapsAssembleShortcode = {
         markerOutput += 'z="' + mapZoomReturn + '" ';
         markerOutput += 'w="' + mapWidthReturn + '" ';
         markerOutput += 'h="' + mapHeightReturn + '" ';
-        (
-            mapControlsReturn == true
-        ) ? markerOutput += 'hidecontrols="true" ' : "";
+        markerOutput += (mapControlsReturn === true ? markerOutput += 'hidecontrols="true" ' : "");
 
-
-        if (locGooglePlaceID == null || locGooglePlaceID == "") {
+        if (locGooglePlaceID === null || locGooglePlaceID === "") {
             markerOutput += 'lat="' + lat + '" ';
             markerOutput += 'lng="' + lng + '" ';
             // assemble the address values
-            (
-                locName !== ""
-            ) ? markerOutput += 'name="' + htmlEntities(locName) + '" ' : "";
-            (
-                locStreet !== ""
-            ) ? markerOutput += 'street="' + htmlEntities(locStreet) + '" ' : "";
-            (
-                locCity !== ""
-            ) ? markerOutput += 'city="' + htmlEntities(locCity) + '" ' : "";
-            (
-                locRegion !== ""
-            ) ? markerOutput += 'region="' + htmlEntities(locRegion) + '" ' : "";
-            // (locCounty !== "" && locCounty !== "")		? markerOutput += 'county="' + locCounty + '" ': "" ;
-            (
-                locPostcode !== ""
-            ) ? markerOutput += 'postcode="' + htmlEntities(locPostcode) + '" ' : "";
-            (
-                locCountry !== ""
-            ) ? markerOutput += 'country="' + htmlEntities(locCountry) + '" ' : "";
-            (
-                locWeb !== ""
-            ) ? markerOutput += 'website="' + locWeb + '" ' : "";
-            (
-                locPhone !== ""
-            ) ? markerOutput += 'phone="' + htmlEntities(locPhone) + '" ' : "";
-            (
-                locIcon !== ""
-            ) ? markerOutput += 'icon="' + htmlEntities(locIcon) + '" ' : "";
-        }
-        else {
+            markerOutput += (locName !== "" ? 'name="' + htmlEntities(locName) + '" ' : "");
+            markerOutput += (locStreet !== "" ? 'street="' + htmlEntities(locStreet) + '" ' : "");
+            markerOutput += (locCity !== "" ? 'city="' + htmlEntities(locCity) + '" ' : "");
+            markerOutput += (locRegion !== "" ? 'region="' + htmlEntities(locRegion) + '" ' : "");
+            markerOutput += (locPostcode !== "" ? 'postcode="' + htmlEntities(locPostcode) + '" ' : "");
+            markerOutput += (locCountry !== "" ? 'country="' + htmlEntities(locCountry) + '" ' : "");
+            markerOutput += (locWeb !== "" ? 'website="' + locWeb + '" ' : "");
+            markerOutput += (locPhone !== "" ? 'phone="' + htmlEntities(locPhone) + '" ' : "");
+            markerOutput += (locIcon !== "" ? 'icon="' + htmlEntities(locIcon) + '" ' : "");
+        } else {
             markerOutput += 'placeid="' + locGooglePlaceID + '" ';
         }
-        if (parent.tnygmaps.custom_icon == mapMarkerImageReturn) {
+
+        if (parent.tnygmaps.custom_icon === mapMarkerImageReturn) {
             markerOutput += 'default_marker="true" ';
         } else {
-            (
-                mapMarkerReturn !== "" && mapMarkerImageReturn !== ""
-            ) ? markerOutput += 'marker="' + mapMarkerImageReturn + '" ' : "";
+            markerOutput += (mapMarkerReturn !== "" && mapMarkerImageReturn !== "" ? 'marker="' + mapMarkerImageReturn + '" ' : "");
         }
-        (
-            mapMarkerReturn !== "" && mapInfoWindowReturn !== ""
-        ) ? markerOutput += 'infowindowb64="' + mapInfoWindowReturn + '" ' : "";
+        markerOutput += (mapMarkerReturn !== "" && mapInfoWindowReturn !== "" ? 'infowindowb64="' + mapInfoWindowReturn + '" ' : "");
+
         markerOutput += ']';
         tinyMCEPopup.execCommand('mceReplaceContent', false, markerOutput);
         // Return
