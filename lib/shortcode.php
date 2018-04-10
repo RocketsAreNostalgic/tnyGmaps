@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
  * @wp_hook add_shortcode
  * @uses remomanuallyrcent()
  * @uses array_htmlentities()
- * @uses tr_map_get_place()
+ * @uses map_get_place()
  * @uses map_errors()
  * @uses info_window_sanitize()
  * @uses get_info_bubble()
@@ -176,16 +176,16 @@ function map_me( $attr ) {
 		// strip address out as we will want to refer to google's cashed values instead
 		$attr['address'] = null;
 		// here we have a place_ID so get/set transient with fetched values
-		$attr = tr_map_get_place( $api_key, $attr['placeid'], null, $refresh, $debug );
+		$attr = map_get_place( $api_key, $attr['placeid'], null, $refresh, $debug );
 
 	} elseif ( empty( $attr['placeid'] ) && ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) && ! empty( $attr['address'] ) ) {
 
 		// here we have a address so get/set transient with fetched values
-		$attr = tr_map_get_place( $api_key, null, $attr['address'], $refresh, $debug );
+		$attr = map_get_place( $api_key, null, $attr['address'], $refresh, $debug );
 
 	} elseif ( empty( $attr['placeid'] ) && ( ! empty( $attr['lat'] ) && ! empty( $attr['lng'] ) ) && empty( $attr['address'] ) ) {
 		// here we have lat and lng so we will gather any other individual params that are set.
-		// no call to tr_map_get_place as we will not cache these values in a transient, as the user will have provided as much material as possible.
+		// no call to map_get_place as we will not cache these values in a transient, as the user will have provided as much material as possible.
 
 	} elseif ( empty( $attr['placeid'] ) && ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) && empty( $attr['address'] ) && ! empty( $attr['street'] ) && ! empty( $attr['city'] ) && ! empty( $attr['region'] ) ) {
 		// here we have missing lat lags, and no unified address strings, may have enough address components so build the place query from these attr
@@ -206,7 +206,7 @@ function map_me( $attr ) {
 
 		} else {
 			// here we don't have an place_ID or address, but we've constructed an address string from the other
-			$hold = tr_map_get_place( $api_key, null, $attr['address'], $refresh, $debug );
+			$hold = map_get_place( $api_key, null, $attr['address'], $refresh, $debug );
 
 			// put the missing stuff back in if it's there
 			$hold['name']  = $attr['name'];
@@ -517,7 +517,7 @@ function get_info_bubble( $icon, $name, $street, $city, $state, $post, $country,
  * @return array|bool       | Returns an array of values, or false if errors were encounterd.
  */
 
-function tr_map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debug ) {
+function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debug ) {
 	if ( empty( $api_key ) ) {
 		// notice to admin users that we don't have an api key
 		echo map_errors( $debug, 'no_api_key' );
