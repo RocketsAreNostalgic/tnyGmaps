@@ -200,7 +200,8 @@ function map_me( $attr ) {
 		// here we have lat and lng so we will gather any other individual params that are set.
 		// no call to map_get_place as we will not cache these values in a transient, as the user will have provided as much material as possible.
 
-	} elseif ( empty( $attr['placeid'] ) && ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) && empty( $attr['address'] ) && ! empty( $attr['street'] ) && ! empty( $attr['city'] ) && ! empty( $attr['region'] ) ) {
+	} elseif ( empty( $attr['placeid'] ) && ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) && empty( $attr['address'] ) ) {
+
 		// here we have missing lat lags, and no unified address strings, may have enough address components so build the place query from these attr
 		$attr['address'] = $attr['street'] . ', ' . $attr['city'] . ', ' . $attr['region'] . ', ' . $attr['postcode'] . '+' . $attr['country'];
 		$string          = array(
