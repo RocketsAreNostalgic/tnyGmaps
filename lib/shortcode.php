@@ -59,6 +59,8 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
 
 function map_me( $attr ) {
 
+	$map_errors = '';
+
 	wp_enqueue_style('tnygmaps_styles');
 
 	// Lets enqueue the scripts only if the shortcode has been added
@@ -177,11 +179,22 @@ function map_me( $attr ) {
 		$attr['address'] = null;
 		// here we have a place_ID so get/set transient with fetched values
 		$attr = map_get_place( $api_key, $attr['placeid'], null, $refresh, $debug );
+		if (array_key_exists('errors', $attr)){
+			Support\write_log('garbled place id');
+			$map_errors .= $attr['errors'];
+			return $map_errors;
+		}
 
 	} elseif ( empty( $attr['placeid'] ) && ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) && ! empty( $attr['address'] ) ) {
 
 		// here we have a address so get/set transient with fetched values
 		$attr = map_get_place( $api_key, null, $attr['address'], $refresh, $debug );
+
+
+		if (array_key_exists('errors', $attr)){
+			$map_errors .= $attr['errors'];
+			return $map_errors;
+		}
 
 	} elseif ( empty( $attr['placeid'] ) && ( ! empty( $attr['lat'] ) && ! empty( $attr['lng'] ) ) && empty( $attr['address'] ) ) {
 		// here we have lat and lng so we will gather any other individual params that are set.
@@ -196,30 +209,43 @@ function map_me( $attr ) {
 			', , , , ',
 			', , , , , '
 		);
+
 		$attr['address'] = str_replace( $string, ' ', $attr['address'] ); // trim any double commas signs that may be in the string
 		$attr['address'] = trim( $attr['address'], " \t\n\r\0\x0B\," ); // clean any leading whitepasce or commas
 
 		if ( $attr['address'] == '' || $attr['address'] == "," ) {
 			$attr['address'] = null; // Set it or forget it
-
-			echo map_errors( $debug, 'insufficient_address' );
+			Support\write_log('could not assemble a sufficient address string');
+			$map_errors .= map_errors( $debug, 'insufficient_address' );
 
 		} else {
+
 			// here we don't have an place_ID or address, but we've constructed an address string from the other
 			$hold = map_get_place( $api_key, null, $attr['address'], $refresh, $debug );
 
-			// put the missing stuff back in if it's there
-			$hold['name']  = $attr['name'];
-			$hold['web']   = $attr['web'];
-			$hold['phone'] = $attr['phone'];
-			$attr          = $hold; // shove it back into the attributes array
+			if (array_key_exists('errors', $hold) ){
+				$map_errors .= $hold['errors'];
+
+				Support\write_log('insufficient address components');
+				$map_errors .=  map_errors( $debug, 'insufficient_address' );
+				return $map_errors;
+
+			} else {
+
+				// put the missing stuff back in if it's there
+				$hold['name']  = $attr['name'];
+				$hold['web']   = $attr['web'];
+				$hold['phone'] = $attr['phone'];
+				$attr          = $hold; // shove it back into the attributes array
+			}
 		}
 	} else {
 
 		if ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) {
-			echo map_errors( $debug, 'malformed_params' );
+			Support\write_log('No lat or lag params');
+			$map_errors .= map_errors( $debug, 'malformed_params' );
 
-			return false;
+
 		}
 	}
 
@@ -339,6 +365,10 @@ function map_me( $attr ) {
 		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . Support\openMapInNewWin() . '</a></div>';
 		$markup .= '</div>';
 
+		if ($map_errors){
+
+			return $map_errors;
+		}
 		return $markup;
 	}
 }
@@ -518,9 +548,13 @@ function get_info_bubble( $icon, $name, $street, $city, $state, $post, $country,
  */
 
 function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debug ) {
+	$map_errors = '';
 	if ( empty( $api_key ) ) {
 		// notice to admin users that we don't have an api key
-		echo map_errors( $debug, 'no_api_key' );
+		$map_errors .=  map_errors( $debug, 'no_api_key' );
+		Support\write_log('no google api key');
+
+		return false;
 	}
 
 	// We are using our placeID for as our transient hash,
@@ -557,10 +591,9 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 			}
 			$url = add_query_arg( $args, 'https://maps.googleapis.com/maps/api/geocode/json' );
 		} elseif ( empty( $address ) ) {
-			// we don't have enough information to finish the job!
-			echo map_errors( $debug, 'malformed_params' );
+			Support\write_log('we don\'t have enough information to finish the job!');
+			$map_errors .=  map_errors( $debug, 'malformed_params' );
 
-			return false;
 		}
 
 		// Get the data from Google's servers
@@ -568,19 +601,16 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 
 		// Catch any errors from wp_remote_get
 		if ( is_wp_error( $response ) ) {
-			echo map_errors( $debug, 'wp_error_get', $response );
-
-			return false;
+			Support\write_log('Error in wp_remote_get');
+			$map_errors .=  map_errors( $debug, 'wp_error_get', $response );
 		}
 
 		// retrieve the data from the response
 		$data = wp_remote_retrieve_body( $response );
 
 		if ( is_wp_error( $data ) ) {
-			//Throw any failed results to front end for debugging
-			echo map_errors( $debug, 'wp_error_data', $data );
-
-			return false;
+			Support\write_log('Failed results from wp_remote_retrieve_body');
+			$map_errors .= map_errors( $debug, 'wp_error_data', $data );
 		}
 
 		if ( $response['response']['code'] == 200 ) {
@@ -588,16 +618,12 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 
 			// Interpret the response
 			$data = json_decode( $data );
-
-			//Throw any failed results to front end for debugging
-			echo map_errors( $debug, $data->status, $data );
+			Support\write_log('Google Replied: 200');
 
 			if ( $data->status !== 'OK' ) {
-				// We've received a non "OK" Response so lets catch that as well.
+				Support\write_log('We\'ve received a non "OK" response from Google');
 				$responseCode = $response['response']['code'];
-				echo map_errors( $debug, $responseCode, $data );
-
-				return false;
+				$map_errors .= map_errors( $debug, $responseCode, $data );
 
 			} elseif ( $data->status === 'OK' ) {
 				/* We've received a positive result, populate the variables */
@@ -650,6 +676,13 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 		$data = $location;
 	}
 
+	if ($map_errors){
+
+		$errors = [
+			"errors" => $map_errors,
+		];
+		return $errors;
+	}
 	return ( $data ) ? (array) $data : false;
 }
 
