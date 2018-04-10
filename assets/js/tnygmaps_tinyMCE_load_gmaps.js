@@ -25,7 +25,6 @@
                 author: 'Ben Rush',
                 authorurl: 'http://www.orionrush.com',
                 infourl: 'http://www.orionrush.com',
-                version: '1.0',
                 version: tinymce.majorVersion + '.' + tinymce.minorVersion
             };
         }
