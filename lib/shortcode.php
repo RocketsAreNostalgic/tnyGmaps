@@ -781,19 +781,20 @@ function map_errors( $debug, $error, $response = '' ) {
 		switch ( $error ):
 			case 'insufficient_address';
 			case 'malformed_params';
-			$message .= sprintf('<p><b>%s</b><br/> %s</p>%s<em>%s</em>%s<b>%s</b> <em>%s</em></br>',
+			$message .= sprintf('<p><b>%s</b><br/> %s</p><p>%s<b>%s</b><em>%s</em><b>%s</b><em>%s</em> %s <b>%s %s</b> <em>%s</em> %s <b>%s %s</b> <em>%s</em></p>',
 				$headline,
-				__('Whoops! You possibly have conflicting input values.', 'orionrush-tnygmaps' ),
-				__('Please check that the shortcode is formed properly. Include either a google ', 'orionrush-tnygmaps' ),
+				__('Whoops! You have conflicting or insufficient address values.', 'orionrush-tnygmaps' ),
+				__('Please check that the shortcode is formed properly. Include either a ', 'orionrush-tnygmaps' ),
+				__('Google ', 'orionrush-tnygmaps' ),
 				__('placeID ', 'orionrush-tnygmaps' ),
-				__('OR', 'orionrush-tnygmaps' ),
+				__('OR ', 'orionrush-tnygmaps' ),
 				__('address ', 'orionrush-tnygmaps' ),
 				__('line, ', 'orionrush-tnygmaps' ),
-				__('OR, ', 'orionrush-tnygmaps' ),
+				__('OR ', 'orionrush-tnygmaps' ),
 				__('explicit, ', 'orionrush-tnygmaps' ),
 				__('lat, lng, ', 'orionrush-tnygmaps' ),
 				__('values ', 'orionrush-tnygmaps' ),
-				__('WITH ', 'orionrush-tnygmaps' ),
+				__('OR ', 'orionrush-tnygmaps' ),
 				__('explicit location parameters: ', 'orionrush-tnygmaps' ),
 				__('name, street, city, state, postcode, country.', 'orionrush-tnygmaps' )
 			);
@@ -879,11 +880,12 @@ function map_errors( $debug, $error, $response = '' ) {
 
 			default:
 				$message .= sprintf(
-					'<p><b>%s</b><br/>%s</p>',
+					'<p><b>%s</b><br/>%s <br/><b>%s %s</b></p>',
 					$headline,
-					__('Something went wrong while retrieving your map, please ensure you have entered the short code parameters correctly.', 'orionrush-tnygmaps' )
+					__('Something went wrong while retrieving your map, please ensure you have entered the short code parameters correctly.', 'orionrush-tnygmaps' ),
+					__('Google\'s response message code is: ', 'orionrush-tnygmaps'),
+					$error
 				);
-				$message .= __('Google\'s response message code is:', 'orionrush-tnygmaps') . ' ' . $error;
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
 				$message .= "</pre>";
