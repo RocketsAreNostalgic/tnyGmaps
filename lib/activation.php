@@ -41,7 +41,7 @@ function activate( $blah = null, $phpv = "5.6", $wpv = "4.7" ) {
 			'%ss<strong>%s</strong>%s<br/>%s',
 			__('Sorry, ', 'orionrush-tnygmaps' ),
 			$name,
-			_x(' requires ', 'WordPress or plugin minimum php requirements.', 'orionrush-tnygmaps'),
+			_x(' requires ', 'This section is about the plugin\'s  WordPress and PHP minimum version requirements.', 'orionrush-tnygmaps'),
 			$flag,
 			__(' version ', 'orionrush-tnygmaps'),
 			$target_version,
