@@ -1,7 +1,5 @@
-//http://codepen.io/anon/pen/zGxxaQ
-
 /**
- * Common logging function
+ * Logging function
  *
  * @param debug
  * @param message
@@ -11,7 +9,6 @@ function tnygmaps_debug (debug, message){
         console.log(message);
     }
 }
-
 
 /** 
  * Initialize map from jquery ready event, or google dom resize event listeners.
@@ -66,48 +63,34 @@ function initialize(map_id, map_loc) {
     }
 }
 
-// Initialise on dom ready
 /**
- * On Dom Ready, test if screen is large enough and init map
- * if not, adjust local css
+ *
+ * On Dom Ready init the map, if both the screen is large enough and we're not on a mobile device
+ * If we're not big enough and on mobile, adjust the container css
  */
-jQuery(function(jQuery) {
+jQuery(function() {
+    var isMobile = /Mobi/i.test(navigator.userAgent) || /Anroid/i.test(navigator.userAgent);
+    // https://stackoverflow.com/a/10364620
+
     jQuery('.tnygmps_canvas').each(function () {
         var map_id = jQuery(this).attr("id");
         var map_loc = window[map_id + "_loc"]; // our global var array for this map
+        var isSmallScreen = window.matchMedia("only screen and (max-width: " + map_loc.static_DOM_width + "px)");
+
+        tnygmaps_debug(map_loc.debug, "Tny gMaps: isSmallScreen ='" + isSmallScreen.matches + "'");
+        tnygmaps_debug(map_loc.debug, "Tny gMaps: isMobile ='" + isMobile + "'");
+        tnygmaps_debug(map_loc.debug, "Tny gMaps: DOM breakpoint: " + map_loc.static_DOM_width + "' .");
         tnygmaps_debug(map_loc.debug, "map found");
 
-        if (document.documentElement.clientWidth > map_loc.static_DOM_width) {
-            tnygmaps_debug(map_loc.debug, "dom loaded & large enough so init map");
+        if (!isSmallScreen.matches && !isMobile ) {
+            tnygmaps_debug(map_loc.debug, "Tny gMaps: DOM width larger then '" + map_loc.static_DOM_width +"' so initialize map");
             jQuery("#" + map_id).css("height", map_loc.h); // set the map height
             jQuery("#" + map_id + "> .tnygmps_staticimg").hide();
             jQuery("#" + map_id + "> .tnygmps_static_bubble").hide();
             initialize(map_id, map_loc);
         } else {
-            tnygmaps_debug(map_loc.debug, "jQuery: screen too small");
-            tnygmaps_debug(map_loc.debug, map_loc.static_DOM_width);
+            tnygmaps_debug(map_loc.debug, "Tny gMaps: DOM current width: '" + document.documentElement.clientWidth + "px'.");
             jQuery("#" + map_id).css("height", "auto");
         }
     });
 });
-
-/**
- * On resize, load map if screen is large enough, also set container height for googlemaps api
- */
-google.maps.event.addDomListener(window, "resize", function(){
-    jQuery('.tnygmps_canvas').each(function () {
-        var map_id = jQuery(this).attr("id");
-        var map_loc = window[map_id + "_loc"]; // our the global var array for this map
-        if (document.documentElement.clientWidth > map_loc.static_DOM_width) {
-            jQuery("#" + map_id).css("height", map_loc.h); // set the map height
-            initialize(map_id, map_loc);
-            tnygmaps_debug(map_loc.debug, "dom resize and large enough so init map");
-        } else {
-            tnygmaps_debug(map_loc.debug, "GOOGLE: dom resize too small to init map");
-            tnygmaps_debug(map_loc.debug, "GOOGLE: map_loc.static_DOM_width:");
-            tnygmaps_debug(map_loc.debug, "document.documentElement.clientWidth");
-            tnygmaps_debug(map_loc.debug, document.documentElement.clientWidth);
-        }
-    });
-});
-
