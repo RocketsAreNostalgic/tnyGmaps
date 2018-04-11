@@ -376,8 +376,8 @@ function map_me( $attr ) {
 		return $markup;
 	}
 }
-add_shortcode('tnygmaps',   __NAMESPACE__ . '\\map_me');
-add_shortcode('tinygmaps',  __NAMESPACE__ . '\\map_me');    // Legacy
+add_shortcode( 'tnygmaps',  __NAMESPACE__ . '\\map_me' );
+add_shortcode( 'tinygmaps', __NAMESPACE__ . '\\map_me' );   // Legacy
 add_shortcode( 'TINYGMAPS', __NAMESPACE__ . '\\map_me' );   // Legacy
 add_shortcode( 'TNYGMAPS',  __NAMESPACE__ . '\\map_me' );   // Legacy
 
