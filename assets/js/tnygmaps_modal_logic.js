@@ -125,6 +125,7 @@ function seed_vars() {
     //console.log("locIcon: " + locIcon);
     mapMarkerImageReturn = get_marker_image();
     //console.log("mapMarkerImageReturn: " + mapMarkerImageReturn);
+
     //console.log("mapInfoWindowReturn: " + mapInfoWindowReturn);
     mapControlsReturn = jQuery("select[id=mapControls]").val() === "true";
     //console.log("mapControlsReturn: " + mapControlsReturn);
@@ -405,11 +406,7 @@ function initialize(infowindow) {
         infowindowPlace += "</div>";
         infowindowPlace += "</td>";
         infowindowPlace += "<td>";
-
-        // Im taking location icons out of the mix for now - too much fuss and bother.
-        // infowindowPlace += (
-        //     icon !== null && icon !== undefined
-        // ) ? '<img src="' + icon + '" class="marker-icon" style="margin: 0 5px 15px 5px; width: 60px; height: auto; " />' : "";
+        infowindowPlace += ((icon !== null && icon !== undefined) ? '<img src="' + icon + '" class="marker-icon" style="margin: 0 5px 15px 5px; width: 60px; height: auto; " />' : "");
         infowindowPlace += "</td>";
         infowindowPlace += "</tr>";
         infowindowPlace += "</tbody>";
@@ -665,7 +662,6 @@ function initialize(infowindow) {
      *
      * @global mapInfoWindowReturn
      * @global infowindowPlace
-     * @global mapInfoWindowReturn
      * @global infowindow
      *
      */
@@ -1110,8 +1106,10 @@ tnyGmapsAssembleShortcode = {
         // load our input values
         seed_vars();
         // clean user input
-        mapInfoWindowReturn = htmlEntities(mapInfoWindowReturn); // encode html entities
-        mapInfoWindowReturn = jQuery.base64.encode(mapInfoWindowReturn); // then base64 encode it as a string
+        if (mapInfoWindowReturn){
+            mapInfoWindowReturn = htmlEntities(mapInfoWindowReturn); // encode html entities
+            mapInfoWindowReturn = jQuery.base64.encode(mapInfoWindowReturn); // then base64 encode it as a string
+        }
         // output the shortcode
         markerOutput = '[tnygmaps ';
         markerOutput += 'z="' + mapZoomReturn + '" ';
