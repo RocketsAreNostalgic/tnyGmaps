@@ -135,13 +135,13 @@ function default_icon () {
 function static_maps (){?>
         <br/>
         <fieldset>
-           <input type="checkbox" name="tnygmaps_mobile" value="1" <?php checked(1, get_option('tnygmaps_mobile'), true);?> /> Use Static Maps on small screens
+           <input type="checkbox" name="tnygmaps_mobile" value="1" <?php checked(1, get_option('tnygmaps_mobile'), true);?> /> <?php _e('Use Static Maps on mobile devices', 'orionrush-tnygmaps'); ?>
         </fieldset>
     <div class="bootstrap-tny">
     <br/>
     </div>
     <div class="bootstrap-tny">
-        <p class=" alert"><?php echo sprintf(__('%sNote:%s  This produces a %s"static map"%s rather then a fully interactive map on small screens, thus decreasing load times and bandwidth.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>');?></p>
+        <p class=" alert"><?php echo sprintf(__('%sNote:%s  This option produces a %s"static map"%s or image rather then a fully interactive map for %smobile devices%s in order to decrease load times and bandwidth.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>', '<em><strong>', '</strong></em>');?></p>
     </div>
             <br/>
            <fieldset>
@@ -151,12 +151,12 @@ function static_maps (){?>
                        id="tnygmaps_mobile_width"
                        placeholder="<?php echo  TNYGMAPS_STATIC_DOM_WIDTH; ?>"
                        value="<?php echo esc_attr( trim(get_option( 'tnygmaps_mobile_width' ))); ?>"
-                /> Max viewport width (in px) for small screens.
+                /> <?php __('Max viewport width (in px) for small screens.', 'orionrush-tnygmaps'); ?>
            </fieldset>
     </div>
     <div class="bootstrap-tny">
         <br/>
-        <p class=" alert"><?php echo sprintf(__('%sNote:%s  The screen width below which a static map will be served. %s A with of %s0%s is the equivalent of disabling static maps.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<br />','<strong>', '</strong>');?></p>
+        <p class=" alert"><?php echo sprintf(__('%sNote:%s The break-point or screen width below which a static map will be served. %s A with of %s0%s is the equivalent of disabling static maps.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<br />','<strong>', '</strong>');?></p>
     </div>
 <?php
 }
@@ -170,7 +170,7 @@ function debugging () {?>
         <br/>
     </div>
     <div class="bootstrap-tny">
-        <p class=" alert"><?php echo sprintf(__('%sNote:%s  This option enables both JS Console debugging, and front end Google Maps query debugging notices. Front end notices are only appear to admin users.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>');?></p>
+        <p class=" alert"><?php echo sprintf(__('%sNote:%s  This option enables both JS Console debugging, and front end Google Maps query debugging notices. Front end notices will only appear to logged in admin users.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>');?></p>
     </div>
 	<?php
 }
