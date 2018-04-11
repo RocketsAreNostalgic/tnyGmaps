@@ -773,7 +773,7 @@ function remove_px_percent( $dim ) {
 
 function map_errors( $debug, $error, $response = '' ) {
 	// Only show these notices on the front end if debugging is on, and only to those who can edit posts
-	if ( $debug && current_user_can( 'edit_posts' ) && ! is_admin() ) {
+	if ( $debug && current_user_can( 'administrator' ) && ! is_admin() ) {
 
 		$headline = __('MAP PLUGIN NOTICE: ', 'orionrush-tnygmaps' );
 		$message = '';
