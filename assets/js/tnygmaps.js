@@ -82,8 +82,14 @@ jQuery(function() {
         tnygmaps_debug(map_loc.debug, "Tny gMaps: DOM breakpoint: " + map_loc.static_DOM_width + "' .");
         tnygmaps_debug(map_loc.debug, "map found");
 
-        if (!isSmallScreen.matches && !isMobile ) {
+        if ( !isMobile ) {
             tnygmaps_debug(map_loc.debug, "Tny gMaps: DOM width larger then '" + map_loc.static_DOM_width +"' so initialize map");
+            jQuery("#" + map_id).css("height", map_loc.h); // set the map height
+            jQuery("#" + map_id + "> .tnygmps_staticimg").hide();
+            jQuery("#" + map_id + "> .tnygmps_static_bubble").hide();
+            initialize(map_id, map_loc);
+        } else if (!isSmallScreen.matches && isMobile ){
+            // if it is mobile, but is a large enough screen run it anyway
             jQuery("#" + map_id).css("height", map_loc.h); // set the map height
             jQuery("#" + map_id + "> .tnygmps_staticimg").hide();
             jQuery("#" + map_id + "> .tnygmps_static_bubble").hide();
