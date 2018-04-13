@@ -109,7 +109,6 @@ function map_me( $attr ) {
 
 	$attr_place = "";
 
-
 	// setup the incoming values with either cached API response or assemble query and get response
 	if ( ! empty( $attr['placeid'] ) ) {
 		// Here we have a place ref so get/set transient with fetched values
@@ -130,10 +129,13 @@ function map_me( $attr ) {
 
 		if (array_key_exists('errors', $attr_place)){
 			$map_errors .= $attr_place['errors'];
+
 			return $map_errors;
+
 		}
 
 	} elseif ( empty( $attr['placeid'] ) && ( ! empty( $attr['lat'] ) && ! empty( $attr['lng'] ) ) && empty( $attr['address'] ) ) {
+
 		// here we have lat and lng so we will gather any other individual params that are set.
 		// no call to map_get_place as we will not cache these values in a transient, as the user will have provided as much material as possible.
 
@@ -167,7 +169,7 @@ function map_me( $attr ) {
 	}
 	if (is_array($attr_place)){
 		// Combine the two arrays into one
-		$attr = array_replace($attr ,$attr_place);
+		$attr = array_replace($attr, $attr_place);
 	}
 
 	// Don't continue if we are not in the admin. Sometimes there is a slow response from map_get_place and it doesn't always returning in time....
@@ -224,8 +226,11 @@ function map_me( $attr ) {
 		if ($map_errors){
 
 			return $map_errors;
+
 		}
+
 		return $markup;
+
 	}
 }
 add_shortcode( 'tnygmaps',  __NAMESPACE__ . '\\map_me' );
@@ -253,7 +258,6 @@ function enqueueJsGlobals ($map_id, $attr) {
 //	 http://wordpress.stackexchange.com/questions/114807/localize-variable-for-multiple-shortcodes
 //	 Example: http://codepen.io/anon/pen/zGxxaQ
 
-
 	// Load all the  variables into array for js global var
 	$init_array = array(
 		'z'                 =>	$attr['z'],
@@ -280,7 +284,6 @@ function enqueueJsGlobals ($map_id, $attr) {
 	wp_localize_script( 'tnygmaps_init', $map_id . '_loc',  $init_array );
 	wp_enqueue_script( 'tnygmaps_init' ); // will appear in footer
 }
-
 
 /**
  * Cleans up the address string by removing double commas and whitespace.
@@ -427,6 +430,7 @@ function sanitise_atributes_array ($attr){
 	return (array) $attr;
 }
 
+/**
  * Register scripts
  *
  * @wp_hook: init
@@ -941,8 +945,11 @@ function map_errors( $debug, $error, $response = '' ) {
 				$message .= "</pre>
 				";
 		endswitch;
-		Support\write_log('Mapping call errors:');
+
+		Support\write_log('Google API call errors:');
 		Support\write_log($message);
+
 		return $message;
+
 	}
 }
