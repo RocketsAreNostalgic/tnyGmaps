@@ -1115,7 +1115,8 @@ tnyGmapsAssembleShortcode = {
         markerOutput += 'z="' + mapZoomReturn + '" ';
         markerOutput += 'w="' + mapWidthReturn + '" ';
         markerOutput += 'h="' + mapHeightReturn + '" ';
-        markerOutput += (mapControlsReturn === true ? markerOutput += 'hidecontrols="true" ' : "");
+        markerOutput +=  'maptype="' + mapTypeReturn + '" ';
+        markerOutput += (mapControlsReturn === true ? 'hidecontrols="true" ' : "");
 
         if (locGooglePlaceID === null || locGooglePlaceID === "") {
             markerOutput += 'lat="' + lat + '" ';
