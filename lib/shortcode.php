@@ -160,7 +160,7 @@ function map_me( $attr ) {
 	} else {
 
 		if ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) {
-			$map_errors .= map_errors( $debug, 'malformed_params' );
+			$map_errors .= map_errors( $attr['debug'], 'malformed_params' );
 
 		}
 	}
