@@ -192,29 +192,6 @@ function map_me( $attr ) {
 
 		// for external map link
 		$linkAddress     = $attr['name'] . ' ' . $attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
-		$linkAddress_url = urlencode( $linkAddress );
-
-		// Clean up whitespace and commas
-		$remove = array(
-			'  ',
-			' ',
-			', ',
-			',',
-			'%2C', // commas
-			'\t',
-			'\t\t',
-			'\n',
-			'\n\n',
-			'\r',
-			'\r\r',
-			'\0',
-			'\0\0',
-			'\x0B',
-			'\x0B\x0B'
-		);
-		$linkAddress_url = str_replace( $remove, '+', $linkAddress_url );
-		$linkAddress_url = str_replace( '++', '', $linkAddress_url ); // remove double plus from an empty attribute string
-
 		/**
 		 * We enqueue the js properly and now can pass the vars as globals through wp_localize_script, sweet.
 		 * We are able to have multiple maps too - nice!
@@ -237,6 +214,7 @@ function map_me( $attr ) {
 		if (!$mobile_static_maps) {
 			$static_DOM_width = '0';
 		}
+		$linkAddress_url = clean_linkAddress_url($linkAddress);
 
 		// Load all the  variables into array for js global var
 		$init_array = array(
@@ -261,6 +239,7 @@ function map_me( $attr ) {
 		wp_localize_script( 'tnygmaps_init', $map_id . '_loc', $init_array );
 
 		wp_enqueue_script( 'tnygmaps_init' ); // will appear in footer
+		$linkAddress_url = cleanLinkAddress_url($linkAddress);
 
 		// Build the 'view map on its own' link
 		$static_src = "https://maps.google.com/maps/api/staticmap?key=" . GOOGLE_API_KEY . "&size=" . $attr['static_w'] . "x" . $attr['static_h'] . "&zoom=" . $attr['z'];
@@ -325,6 +304,45 @@ function cleanCommasAddressString ($address){
 	return $address;
 
 }
+/**
+ * Cleans up the Google map address link by stripping disallowed characters.
+ *
+ * @since:   0.0.4
+ * @author: orionrush
+ *
+ * @param $url
+ *
+ * @return mixed
+ */
+function cleanLinkAddress_url($url){
+	// Clean up whitespace, commas, new lines etc.
+	$remove = array(
+		'  ',
+		' ',
+		', ',
+		',',
+		'%2C', // commas
+		'\t',
+		'\t\t',
+		'\n',
+		'\n\n',
+		'\r',
+		'\r\r',
+		'\0',
+		'\0\0',
+		'\x0B',
+		'\x0B\x0B'
+	);
+
+	// replace disallowed characters with '+'
+	$url = str_replace( $remove, '+', $url );
+	// Remove any inadvertent double '++'
+	$url = str_replace( '++', '', $url );
+	// Encode it just in case
+	$url = urlencode( $url );
+	return $url;
+}
+
 /**
  * Sanitises the attributes array
  *
