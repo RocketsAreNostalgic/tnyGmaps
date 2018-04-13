@@ -170,8 +170,7 @@ function map_me( $attr ) {
 		$attr = array_replace($attr ,$attr_place);
 	}
 
-
-	// Don't continue with if we are in admin, sometimes there is a slow response from map_get_place and it always returning in time....
+	// Don't continue if we are not in the admin. Sometimes there is a slow response from map_get_place and it doesn't always returning in time....
 	if ( ! is_admin() && ! empty( $attr ) ) {
 
 		// process the infowindow extras
