@@ -140,7 +140,7 @@ add_action( 'tnygmaps_modal', __NAMESPACE__ . "\\load_modal", 10 );
 
 
 /**
- * Adds a settings link to the plugin instance in the plugins managment list.
+ * Adds a settings link to the plugin instance in the plugins management list.
  *
  * @param $links
  *
