@@ -6,7 +6,7 @@
                  ed.windowManager.open({
                      url: ajaxurl + '?action=tnygmaps_modal', // modal window
                      width: 520 + parseInt(ed.getLang('button.delta_width', 0)), // size of our window
-                     height: 620 + parseInt(ed.getLang('button.delta_height', 0)),
+                     height: 640 + parseInt(ed.getLang('button.delta_height', 0)),
                      inline: 1
                  }, {
                      plugin_url: url
