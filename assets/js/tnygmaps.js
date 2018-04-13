@@ -31,7 +31,7 @@ function initialize(map_id, map_loc) {
             center: latlng,
             scrollwheel: map_loc.scrollwheel,
             scaleControl: map_loc.scaleControl,
-            disableDefaultUI: map_loc.disableDefaultUI
+            disableDefaultUI: map_loc.hidecontrols
         };
         // Start the map
         map_id = new google.maps.Map(document.getElementById(map_id), mapOptions);
