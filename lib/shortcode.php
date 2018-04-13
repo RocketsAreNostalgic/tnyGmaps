@@ -162,7 +162,12 @@ function map_me( $attr ) {
 		if ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) {
 			$map_errors .= map_errors( $attr['debug'], 'malformed_params' );
 
+			return $map_errors;
 		}
+	}
+	if (is_array($attr_place)){
+		// Combine the two arrays into one
+		$attr = array_replace($attr ,$attr_place);
 	}
 
 
