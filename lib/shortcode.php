@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
  *
  * @param $attr
  *
-*@return string
+ * @return string
  *
  * // Shortcode attributes array
  * @type string $z                  | Map zoom level 1 - 22
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
  * @type string $infowindowb64      | Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
  * @type string $hidecontrols       | (true : false) Hides the zoom, street view and other controls
  * @type boolean $scale             | (true : false) Is the map scale drawn?
- * @type boolean $scrollwheel       | (true : false) Will the map zoom react to mouse scrollwheel?
+ * @type boolean $attr['scrollwheel']       | (true : false) Will the map zoom react to mouse scrollwheel?
  * @type string $static             | DOM width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate static map is not drawn
  * @type int $static_w              | Width of static map in pixels
  * @type int $static_h              | Height of static map in pixels
@@ -58,11 +58,8 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
  */
 
 function map_me( $attr ) {
-
 	$map_errors = '';
-
 	wp_enqueue_style('tnygmaps_styles');
-
 	// Lets enqueue the scripts only if the shortcode has been added
 	wp_enqueue_script( 'googelmaps_js' );
 	wp_enqueue_script( 'tnygmaps_init' );
