@@ -66,16 +66,15 @@ function loaded_icons_url() {
             <form action="/" method="get" accept-charset="utf-8">
 
                 <div class="group <?php echo ( ! $api_test ) ? 'hidden' : '' ?>	" id="mapAddress-group">
-                    <label class="heading" for="mapAddress"> <?php _e( 'Address lookup:', 'orionrush-tnygmaps' ) ?>
-                        <span data-tooltip="<?php echo sprintf( __( 'This section uses the Google Places API to find details about places of interest on found on Google Maps. The details are auto-updated when owners refresh information using Google‘s services.', 'orionrush-tnygmaps' ), '<br/>', '<br/>', '<br/>', '<br/>', '<br/>' ) ?>">?</span></label>
+                    <label class="heading" for="mapAddress"> <?php _e( 'Address lookup', 'orionrush-tnygmaps' ) ?>: <span data-tooltip="<?php echo sprintf( __( 'This section uses the Google Places API to find details about places of interest on found on Google Maps. The details are auto-updated when owners refresh information using Google‘s services.', 'orionrush-tnygmaps' ), '<br/>', '<br/>', '<br/>', '<br/>', '<br/>' ) ?>">?</span>
                     </label>
                     <div class="autoMapAddress input">
                         <input type="text" name="mapAddressAuto" id="mapAddress" class="noEnterSubmit"/>
                     </div>
                 </div>
-                <label class="heading"><?php _e( 'Custom details:', 'orionrush-tnygmaps' ); ?>
-                    <span data-tooltip="<?php echo sprintf( __( 'This section uses Google‘s Gocodng API to validate addresses, and so does not automatically update information about the location the future, (like phone numbers or website addresses). Use this tool if %sAddress lookup%s can‘t find or provides incorrect/incomplete results. %s%s If you just want to add a website or phone number, consider adding these to the %sWindow Extras%s section instead.', 'orionrush-tnygmaps' ), '<strong>', '</strong>', '<br/>', '<br/>', '<strong>', '</strong>' ) ?>">?</span>
+                <label class="heading"><?php _e( 'Custom details', 'orionrush-tnygmaps' ); ?>: <span data-tooltip="<?php echo sprintf( __( 'This section uses Google‘s Gocodng API to validate addresses, and so does not automatically update information about the location the future, (like phone numbers or website addresses). Use this tool if %sAddress lookup%s can‘t find or provides incorrect/incomplete results. %s%s If you just want to add a website or phone number, consider adding these to the %sWindow Extras%s section instead.', 'orionrush-tnygmaps' ), '<strong>', '</strong>', '<br/>', '<br/>', '<strong>', '</strong>' ) ?>">?</span>
                 </label>
+
                 <div class="group">
                     <div id="address_extras" class="accordion" style="display:none;">
                         <label for="custom_use_address_check">
@@ -88,7 +87,7 @@ function loaded_icons_url() {
                         </label>
 
                         <div class="input ">
-                            <label for="locName"><?php _e( 'Place name:', 'orionrush-tnygmaps' ); ?></label>
+                            <label for="locName"><?php _e( 'Place name', 'orionrush-tnygmaps' ); ?>:</label>
                             <input type="text" placeholder="<?php _e( 'Joes Music Emporium', 'orionrush-tnygmaps' ); ?>"
                                    name="locName"
                                    id="locName" class="noEnterSubmit" disabled/>
@@ -124,8 +123,8 @@ function loaded_icons_url() {
                                    id="locCountry" class="noEnterSubmit" disabled/>
                         </div>
                         <div class="input float large">
-                            <label for="locWebsite"><?php _e( 'Website', 'orionrush-tnygmaps' ); ?>:</label>
-                            <span data-tooltip="<?php _e( 'If you provide a full url (including http://) an outside link will be created. If you provide a page-slug a local link will be rendered ie &quot;about-us&quot;.', 'orionrush-tnygmaps' ); ?>">?</span><br/>
+                            <label for="locWebsite"><?php _e( 'Website', 'orionrush-tnygmaps' ); ?>: <span data-tooltip="<?php _e( 'If you provide a full url (including http://) an outside link will be created. If you provide a page-slug a local link will be rendered ie &quot;about-us&quot;.', 'orionrush-tnygmaps' ); ?>">?</span><br/>
+                            </label>
                             <input type="text" name="locWebsite" placeholder="http://www.someplace.com" id="locWebsite"
                                    class="noEnterSubmit" disabled/>
                         </div>
@@ -136,7 +135,7 @@ function loaded_icons_url() {
                                    disabled/>
                         </div>
                         <div class="input float thirds">
-                            <button name="lookup" type="submit" class="buttn bttn-submit" id="lookup-detials"
+                            <button name="lookup" type="submit" class="buttn bttn-check" id="lookup-detials"
                                     onclick="return false;"><?php _e( 'Lookup address', 'orionrush-tnygmaps' ); ?></button>
                         </div>
                         <div class="input float thirds">
@@ -158,8 +157,8 @@ function loaded_icons_url() {
                         </div>
                     </div>
                 </div>
-                <label class="heading"><?php _e( 'Window extras', 'orionrush-tnygmaps' ); ?>:<span
-                            data-tooltip="<?php _e( 'Add custom information to the marker info window. Allowed HTML is auto corrected to prevent malformed markup from breaking your page. Longer blocks of markup should be copy-pasted in.', 'orionrush-tnygmaps' ); ?>">?</span></label>
+                <label class="heading"><?php _e( 'Window extras', 'orionrush-tnygmaps' ); ?>: <span data-tooltip="<?php _e( 'Add custom information to the marker info window. Allowed HTML is auto corrected to prevent malformed markup from breaking your page. Longer blocks of markup should be copy-pasted in.', 'orionrush-tnygmaps' ); ?>">?</span>
+                </label>
                 <div class="group">
                     <div class="input">
                         <div id="mapInfoWindowContainer" class="accordion" style="display:none;">
@@ -168,15 +167,13 @@ function loaded_icons_url() {
                         </div>
                     </div>
                 </div>
-                <label class="heading"><?php _e( 'Map attributes', 'orionrush-tnygmaps' ); ?>:<span
-                            data-tooltip="<?php _e( 'Adjust the appearence of your map.', 'orionrush-tnygmaps' ); ?>">?</span></label>
+                <label class="heading"><?php _e( 'Map attributes', 'orionrush-tnygmaps' ); ?>: <span data-tooltip="<?php _e( 'Adjust the appearence of your map.', 'orionrush-tnygmaps' ); ?>">?</span></label>
                 <div class="group">
 
                     <div id="map_extras" class="accordion" style="display:none;">
                         <div class="input float half padRight">
                             <label for="mapHeight"><?php _e( 'Height', 'orionrush-tnygmaps' ); ?>:</label>
                             <input class="inline" type="text" name="mapHeight" value="500px" id="mapHeight"/>
-
                         </div>
                         <div class="input float half">
                             <label for="mapWidth"><?php _e( 'Width', 'orionrush-tnygmaps' ); ?>:</label>
@@ -246,10 +243,8 @@ function loaded_icons_url() {
                         </div>
                         <div class="mapMarkerImage_wrap">
                             <div class="input">
-                                <label class="heading"
-                                       for="mapMarkerImage"><?php _e( 'Custom icon URL', 'orionrush-tnygmaps' ); ?>:
-                                    <span
-                                            data-tooltip="<?php _e( 'List the full (or root realitive) path to your custom icon, or select from the list below. If your custom icon won&#039;t load, then there is probably a typo in your path.', 'orionrush-tnygmaps' ); ?>">?</span></label>
+                                <label class="heading" for="mapMarkerImage"><?php _e( 'Custom icon URL', 'orionrush-tnygmaps' ); ?>: <span data-tooltip="<?php _e( 'List the full (or root realitive) path to your custom icon, or select from the list below. If your custom icon won&#039;t load, then there is probably a typo in your path.', 'orionrush-tnygmaps' ); ?>">?</span>
+                                </label>
                                 <input type="text"
                                        name="mapMarkerImage"
                                        placeholder="<?php echo loaded_icons_url(); ?>/"
