@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) die();
 
 /**
  * Plugin Name: Tny gMaps
- * Description: A Google maps plugin powered by Google's places, static maps and geocoding APIs.
+ * Description: A Google Maps plugin, powered by Google's Places, Static Maps and Geocoding APIs.
  * Version: 0.0.4
  * Author: Ben Rush
  * Author URI: http://www.orionrush.com
@@ -100,8 +100,6 @@ register_activation_hook( TNYGMAPS_PLUGIN, __NAMESPACE__ . '\\Activation\\activa
 
 // Languages
 function load_textdomain() {
-	load_plugin_textdomain( 'orionrush-tnygmaps', FALSE, basename( dirname( __FILE__ ) ) . '/lang/' );
-
-//	load_plugin_textdomain( 'orionrush-tnygmaps', false, TNYGMAPS_PATH . '/lang/' );
+	load_plugin_textdomain( 'orionrush-tnygmaps', FALSE, basename( dirname( TNYGMAPS_PLUGIN ) ) . '/lang/' );
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_textdomain' );
