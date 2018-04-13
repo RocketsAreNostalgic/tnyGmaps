@@ -69,20 +69,23 @@ function initialize(map_id, map_loc) {
  * If we're not big enough and on mobile, adjust the container css
  */
 jQuery(function() {
-    var isMobile = /Mobi/i.test(navigator.userAgent) || /Anroid/i.test(navigator.userAgent);
     // https://stackoverflow.com/a/10364620
+    var isMobile = /Mobi/i.test(navigator.userAgent) || /Anroid/i.test(navigator.userAgent);
 
     jQuery('.tnygmps_canvas').each(function () {
         var map_id = jQuery(this).attr("id");
         var map_loc = window[map_id + "_loc"]; // our global var array for this map
         var isSmallScreen = window.matchMedia("only screen and (max-width: " + map_loc.static_DOM_width + "px)");
-
+        var load_maps = false;
+        if (isSmallScreen) {
+            load_maps =  (!isMobile ? true : false);
+        }
         tnygmaps_debug(map_loc.debug, "Tny gMaps: isSmallScreen ='" + isSmallScreen.matches + "'");
         tnygmaps_debug(map_loc.debug, "Tny gMaps: isMobile ='" + isMobile + "'");
         tnygmaps_debug(map_loc.debug, "Tny gMaps: DOM breakpoint: " + map_loc.static_DOM_width + "' .");
         tnygmaps_debug(map_loc.debug, "map found");
 
-        if ( !isMobile ) {
+        if ( load_maps ) {
             tnygmaps_debug(map_loc.debug, "Tny gMaps: DOM width larger then '" + map_loc.static_DOM_width +"' so initialize map");
             jQuery("#" + map_id).css("height", map_loc.h); // set the map height
             jQuery("#" + map_id + "> .tnygmps_staticimg").hide();
