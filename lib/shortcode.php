@@ -97,99 +97,39 @@ function map_me( $attr ) {
 		'hidecontrols'      => 'false',
 		'scale'             => 'false',
 		'scrollwheel'       => 'false',
-		'static'            => '',
+		'static_DOM_width'  => '',
 		'static_w'          => '500',
 		'static_h'          => '500',
 		'refresh'           => 'false', // executes if present and not equal to false
 		'debug'             => 'false'  // executes if present and not equal to false
 	), $attr );
 
-	// clean up array
-	array_walk( $attr, create_function( '&$val', '$val = trim($val);' ) ); //trim white space
-	$attr = array_htmlentities( $attr ); // encode any double or single quotes that may appear in text
+	// Sanitise the incoming values
+	$attr =  sanitise_atributes_array ($attr);
 
-	// load map params into variables
-	(int) $z = $attr['z'];
+	$attr_place = "";
 
-	// make sure h&w have at least px values if nothing is specified
-	$w       = ( ( substr( $attr['w'], - 2 ) != 'px' ) && ( substr( $attr['w'], - 1 ) != '%' ) ) ? $attr['w'] . 'px' : $attr['w'];
-	$h       = ( ( substr( $attr['h'], - 2 ) != 'px' ) && ( substr( $attr['h'], - 1 ) != '%' ) ) ? $attr['h'] . 'px' : $attr['h'];
-	$maptype = $attr['maptype'];
 
-	$marker         = ( filter_var( $attr['marker'], FILTER_VALIDATE_URL ) != false ) ? $attr['marker'] : null;
-
-	$marker         = preg_replace("(^https?)", "", $attr['icon'] ); // make the link  http/s agnostic
-
-	error_log($marker);
-
-	$default_marker = ( $attr['default_marker'] == 'true' ) ? true : false;
-	$default_marker_option = ( esc_attr( get_option( 'tnygmaps_custom_icon' ) ) );
-
-	// Override $marker with the default option if available.
-	if ($default_marker && $default_marker_option ) {
-
-		$name = Support\gMapsDefultIconName();
-
-		if ($default_marker_option != $name) {
-			$marker = $default_marker_option;
-		} else {
-			$marker = '';
-		}
-	}
-	$icon          = $attr['icon'];
-	$infowindow    = $attr['infowindow'];
-	$infowindowb64 = $attr['infowindowb64'];
-
-	$infowindowdefault = ( $attr['infowindowdefault'] == 'true' || $attr['infowindowdefault'] == 'yes' ) ? 'yes' : 'no';
-	$hidecontrols      = ( $attr['hidecontrols'] == 'true' ) ? true : false;
-	$scalecontrol      = ( $attr['scale'] == 'true' ) ? true : false;
-	$scrollwheel       = ( $attr['scrollwheel'] == 'true' ) ? true : false;
-
-	$static_DOM_width = remove_px_percent( $attr['static'] );
-
-	// If it hasn't been specified, test it against the global setting.
-	if (!$static_DOM_width) {
-
-		$static_DOM_width = remove_px_percent(get_option('tnygmaps_mobile_width'));
-
-		// If no option set for some reason, use baked in constant
-		if (!$static_DOM_width){
-			$static_DOM_width = TNYGMAPS_STATIC_DOM_WIDTH;
-		}
-	}
-
-	$static_w     = remove_px_percent( $attr['static_w'] );
-	$static_h     = remove_px_percent( $attr['static_h'] );
-
-	$refresh = ( ( $attr['refresh'] != 'false' ) ? true : false );
-	$debug   = ( ( $attr['debug'] != 'false' ) ? true : false );
-
-	// Override with global debugging values set in options page.
-	if(get_option('tnygmaps_debug')){
-		$debug = true;
-	}
-
-	// setup the incoming values
+	// setup the incoming values with either cached API response or assemble query and get response
 	if ( ! empty( $attr['placeid'] ) ) {
 		// Here we have a place ref so get/set transient with fetched values
 		// strip address out as we will want to refer to google's cashed values instead
 		$attr['address'] = null;
 		// here we have a place_ID so get/set transient with fetched values
-		$attr = map_get_place( $api_key, $attr['placeid'], null, $refresh, $debug );
-		if (array_key_exists('errors', $attr)){
-			Support\write_log('garbled place id');
-			$map_errors .= $attr['errors'];
+		$attr_place = map_get_place( $api_key, $attr['placeid'], null, $attr['refresh'], $attr['debug'] );
+		if (array_key_exists('errors', $attr_place)){
+			$map_errors .= $attr_place['errors'];
+
 			return $map_errors;
 		}
 
 	} elseif ( empty( $attr['placeid'] ) && ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) && ! empty( $attr['address'] ) ) {
 
 		// here we have a address so get/set transient with fetched values
-		$attr = map_get_place( $api_key, null, $attr['address'], $refresh, $debug );
+		$attr_place = map_get_place( $api_key, null, $attr['address'], $attr['refresh'], $attr['debug'] );
 
-
-		if (array_key_exists('errors', $attr)){
-			$map_errors .= $attr['errors'];
+		if (array_key_exists('errors', $attr_place)){
+			$map_errors .= $attr_place['errors'];
 			return $map_errors;
 		}
 
@@ -214,26 +154,19 @@ function map_me( $attr ) {
 		if ( $attr['address'] == '' || $attr['address'] == "," ) {
 			$attr['address'] = null; // Set it or forget it
 			Support\write_log('could not assemble a sufficient address string');
-			$map_errors .= map_errors( $debug, 'insufficient_address' );
+			$map_errors .= map_errors( $attr['debug'], 'insufficient_address' );
 
 		} else {
 
 			// here we don't have an place_ID or address, but we've constructed an address string from the other
-			$hold = map_get_place( $api_key, null, $attr['address'], $refresh, $debug );
+			$attr_place = map_get_place( $api_key, null, $attr['address'], $attr['refresh'], $attr['debug'] );
 
-			if (array_key_exists('errors', $hold) ){
-				$map_errors .= $hold['errors'];
+			if (array_key_exists('errors', $attr_place) ){
+				$map_errors .= $attr_place['errors'];
+				$map_errors .=  map_errors( $attr['debug'], 'insufficient_address' );
 
-				$map_errors .=  map_errors( $debug, 'insufficient_address' );
 				return $map_errors;
 
-			} else {
-
-				// put the missing stuff back in if it's there
-				$hold['name']  = $attr['name'];
-				$hold['web']   = $attr['web'];
-				$hold['phone'] = $attr['phone'];
-				$attr          = $hold; // shove it back into the attributes array
 			}
 		}
 	} else {
@@ -250,20 +183,19 @@ function map_me( $attr ) {
 
 		// process the infowindow extras
 		$infowindow_extras = '';
-		if ( $infowindowb64 != 'bnVsbA=='){ // base64 for null
-			$infowindow_extras = ( ! empty( $infowindowb64 ) ) ? base64_decode( $infowindowb64 ) : '';
+		if ( $attr['infowindowb64'] != 'bnVsbA=='){ // base64 for null
+			$infowindow_extras = ( ! empty( $attr['infowindowb64'] ) ) ? base64_decode( $attr['infowindowb64'] ) : '';
 
 			// add any content from the basic infowindow attr to the end in its own div
-			$infowindow_extras = ( ! empty( $infowindow ) ) ? $infowindow_extras . '<div>' . $infowindow . '</div>' : $infowindow_extras;
+			$infowindow_extras = ( ! empty( $attr['infowindow']) ) ? $infowindow_extras . '<div>' . $attr['infowindow']. '</div>' : $infowindow_extras;
 		}
 		// convert the html special chars
-		$infowindow = htmlspecialchars_decode( $infowindow_extras, ENT_QUOTES );
-
+		$attr['infowindow']= htmlspecialchars_decode( $infowindow_extras, ENT_QUOTES );
 		// pass it through KSES to scrub it from unwanted markup
-		$infowindow = info_window_sanitize( $infowindow );
+		$attr['infowindow'] = info_window_sanitize( $attr['infowindow'] );
 
 		// Assemble the infowindow components
-		$infowindow = get_info_bubble( $icon, $attr['name'], $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $infowindow );
+		$attr['infowindow'] = get_info_bubble( $attr['icon'], $attr['name'], $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $attr['infowindow'] );
 
 		// for external map link
 		$linkAddress     = $attr['name'] . ' ' . $attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
@@ -338,26 +270,26 @@ function map_me( $attr ) {
 		wp_enqueue_script( 'tnygmaps_init' ); // will appear in footer
 
 		// Build the 'view map on its own' link
-		$static_src = "https://maps.google.com/maps/api/staticmap?key=" . GOOGLE_API_KEY . "&size=" . $static_w . "x" . $static_h . "&zoom=" . $z;
+		$static_src = "https://maps.google.com/maps/api/staticmap?key=" . GOOGLE_API_KEY . "&size=" . $attr['static_w'] . "x" . $attr['static_h'] . "&zoom=" . $attr['z'];
 		$static_src .= "&center=" . $linkAddress_url;
-		$static_src .= "&markers=label:m" . "%257C" . "icon:" . $marker . "%7C" . $linkAddress_url . "&maptype=" . $maptype;
+		$static_src .= "&markers=label:m" . "%257C" . "icon:" . $attr['marker'] . "%7C" . $linkAddress_url . "&maptype=" . $attr['maptype'];
 		$static_src .= "format=jpg";
 		$static_src_2x = $static_src . "&scale=2 2x,";
 		// output the map wrappers and links
 		$markup = '<div class="tnygmps_wrap" id="' . $map_id . '_wrap">';
-		$markup .= '    <div class="tnygmps_canvas" id="' . $map_id . '" style="width:' . $w . '; height:' . $static_h . ';">'; //height will be reset by js for googlemaps api
+		$markup .= '    <div class="tnygmps_canvas" id="' . $map_id . '" style="width:' . $attr['static_w'] . '; height:' . $attr['static_h'] . ';">'; //height will be reset by js for googlemaps api
 
 		// Only show this if the plugin option is enabled
-		if ($static_DOM_width !== '0' ){
+		if ($attr['static_DOM_width'] !== '0' ){
 			$alt_text = __("Google Map for", "orionrush-tyngmaps") . ' ' . $attr['name'];
-			$markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $static_w . '; height:' . $static_h . ';" alt="' . __("Google Map for", 'orionrush-tyngmaps') . ' ' . $attr['name'] . '">';
+			$markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $attr['static_w'] . '; height:' . $attr['static_h'] . ';" alt="' . __("Google Map for", 'orionrush-tyngmaps') . ' ' . $attr['name'] . '">';
 
-			if ( $infowindow ) { // if we have an infowindow
-				$markup .= '        <div class="tnygmps_static_bubble well well-small" >' . wp_specialchars_decode($infowindow) . '</div>';
+			if ( $attr['infowindow'] ) { // if we have an infowindow
+				$markup .= '        <div class="tnygmps_static_bubble well well-small" >' . wp_specialchars_decode($attr['infowindow']) . '</div>';
 			}
 		} else {
-			// Base 64 Encoded 1x1 px transparent gif
-			$markup .= '        <img class="tnygmps_staticimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:' . $static_w . '; height:' . $static_h . ';">';
+			// Base 64 Encoded 1x1 px transparent gif as placeholder.
+			$markup .= '        <img class="tnygmps_staticimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:' . $attr['static_w'] . '; height:' . $attr['static_h'] . ';">';
 		}
 		$markup .= '    </div>';
 		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . Support\openMapInNewWin() . '</a></div>';
@@ -376,6 +308,89 @@ add_shortcode( 'TINYGMAPS', __NAMESPACE__ . '\\map_me' );   // Legacy
 add_shortcode( 'TNYGMAPS',  __NAMESPACE__ . '\\map_me' );   // Legacy
 
 /**
+/**
+ * Sanitises the attributes array
+ *
+ * @since:   0.0.4
+ * @author: orionrush
+ *
+ * @param $attr
+ *
+ * @return array
+ */
+function sanitise_atributes_array ($attr){
+
+	// Override with global debugging values set in options page.
+	if(get_option('tnygmaps_debug')){
+		$attr['debug'] = true;
+	}
+
+	array_walk( $attr, create_function( '&$val', '$val = trim($val);' ) ); //trim white space
+	// Sanitize array elements whole stock with htmlentities encoding entities and double and single quotes
+	$attr                       = array_htmlentities( $attr );
+	// load map params into variables
+	$attr['z']                  = filter_var( $attr['z'], FILTER_SANITIZE_NUMBER_INT, array('default' => '11') );
+	// make sure h&w have at least px values if nothing is specified
+	$attr['w']                  = ( ( substr( $attr['w'], - 2 ) != 'px' ) && ( substr( $attr['w'], - 1 ) != '%' ) ) ? $attr['w'] . 'px' : $attr['w'];
+	$attr['h']                  = ( ( substr( $attr['h'], - 2 ) != 'px' ) && ( substr( $attr['h'], - 1 ) != '%' ) ) ? $attr['h'] . 'px' : $attr['h'];
+	// Sanitize map type, default to ROADMAP
+	$maptypes = array ('ROADMAP', 'SATELLITE',  'HYBRID', 'TERRAIN');
+	if (!in_array($attr['maptype'], $maptypes)){
+		$attr['maptype'] = 'ROADMAP';
+	}
+	$attr['lat']                = (is_numeric($attr['lat']) ? $attr['lat'] : "");
+	$attr['lng']                = (is_numeric($attr['lng']) ? $attr['lng'] : "");
+	$attr['placeid']            = filter_var($attr['placeid'], FILTER_SANITIZE_STRIPPED);
+	$attr['address']            = filter_var($attr['address'], FILTER_SANITIZE_STRIPPED);
+	$attr['name']               = filter_var($attr['name'], FILTER_SANITIZE_STRIPPED);
+	$attr['street']             = filter_var($attr['street'], FILTER_SANITIZE_STRIPPED);
+	$attr['city']               = filter_var($attr['city'], FILTER_SANITIZE_STRIPPED);
+	$attr['region']             = filter_var($attr['region'], FILTER_SANITIZE_STRIPPED);
+	$attr['postcode']           = filter_var($attr['postcode'], FILTER_SANITIZE_STRIPPED);
+	$attr['country']            = filter_var($attr['country'], FILTER_SANITIZE_STRIPPED);
+	$attr['web']                = filter_var($attr['web'], FILTER_SANITIZE_STRIPPED);
+	$attr['phone']              = filter_var($attr['phone'], FILTER_SANITIZE_STRIPPED);
+	$attr['marker']             = ( filter_var( $attr['marker'], FILTER_VALIDATE_URL ) != false ) ? $attr['marker'] : null;
+	$attr['default_marker']     = ( $attr['default_marker'] == 'true' ) ? true : false;
+	// Populate the default marker image
+	$default_marker_option  = ( filter_var( get_option( 'tnygmaps_custom_icon' ), FILTER_VALIDATE_URL ) );
+	// Override $attr['marker'] with the default option if available.
+	if ($attr['default_marker'] && $default_marker_option ) {
+		$name = Support\gMapsDefultIconName();
+		if ($default_marker_option != $name) {
+			$attr['marker']     = $default_marker_option;
+		} else {
+			$attr['marker']     = '';
+		}
+	}
+	$attr['icon']               = ( filter_var( $attr['icon'], FILTER_VALIDATE_URL ) != false ) ? $attr['icon'] : null;
+	//  $attr['infowindow'];    // sanitized in $infowindow_extras
+	//  $attr['infowindowb64']; // sanitized in $infowindow_extras
+	$attr['infowindowdefault']  = ( $attr['infowindowdefault'] == 'true' || $attr['infowindowdefault'] == 'yes' ) ? 'yes' : 'no';
+	$attr['hidecontrols']       = ( $attr['hidecontrols'] == 'true' ) ? true : false;
+	$attr['scale']              = ( $attr['scale'] == 'true' ) ? true : false;
+	$attr['scrollwheel']        = ( $attr['scrollwheel'] == 'true' ) ? true : false;
+	// See if static maps have been enabled. If not, setting 'static_DOM_width' to 0 will disable the feature
+	$attr['static_DOM_width']   = remove_px_percent( $attr['static_DOM_width'] );
+	if (!get_option('tnygmaps_mobile')) {
+		$attr['static_DOM_width'] = '0';
+	}
+	// If it hasn't been specified, test it against the global setting.
+	if (!$attr['static_DOM_width']) {
+		$attr['static_DOM_width'] = remove_px_percent(get_option('tnygmaps_mobile_width'));
+		// If no option set for some reason, use baked in constant
+		if (!$attr['static_DOM_width']){
+			$attr['static_DOM_width'] = TNYGMAPS_STATIC_DOM_WIDTH;
+		}
+	}
+	$attr['static_w']           = remove_px_percent( $attr['static_w'] );
+	$attr['static_h']           = remove_px_percent( $attr['static_h'] );
+	$attr['refresh']            = ( ( $attr['refresh'] != 'false' ) ? true : false );
+	$attr['debug']              = ( ( $attr['debug'] != 'false' ) ? true : false );
+
+	return (array) $attr;
+}
+
  * Register scripts
  *
  * @wp_hook: init
