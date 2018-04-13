@@ -224,7 +224,6 @@ function map_me( $attr ) {
 			if (array_key_exists('errors', $hold) ){
 				$map_errors .= $hold['errors'];
 
-				Support\write_log('insufficient address components');
 				$map_errors .=  map_errors( $debug, 'insufficient_address' );
 				return $map_errors;
 
@@ -240,9 +239,7 @@ function map_me( $attr ) {
 	} else {
 
 		if ( empty( $attr['lat'] ) || empty( $attr['lng'] ) ) {
-			Support\write_log('No lat or lag params');
 			$map_errors .= map_errors( $debug, 'malformed_params' );
-
 
 		}
 	}
@@ -545,7 +542,7 @@ function get_info_bubble( $icon, $name, $street, $city, $state, $post, $country,
  * @param $force_refresh    | Set by the "refresh" short code parm, this flushes any transient values associated with this address hash
  * @param $debug            | Prints debugging information on to the client end, if the user has admin rights.
  *
- * @return array|bool       | Returns an array of values, or false if errors were encounterd.
+ * @return array|bool       | Returns an array of values, or false if errors were encountered.
  */
 
 function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debug ) {
@@ -553,7 +550,6 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 	if ( empty( $api_key ) ) {
 		// notice to admin users that we don't have an api key
 		$map_errors .=  map_errors( $debug, 'no_api_key' );
-		Support\write_log('no google api key');
 
 		return false;
 	}
@@ -582,7 +578,7 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 				$args = array(
 					'address' => urlencode( $address ),
 					'sensor'  => 'false',
-					'key'     => $api_key // Future proofing, Google asks for it in the docs, though doesn't yet seem to actually require it yet.
+					'key'     => $api_key
 				);
 			} else { // No api key
 				$args = array(
@@ -594,7 +590,6 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 		} elseif ( empty( $address ) ) {
 			Support\write_log('we don\'t have enough information to finish the job!');
 			$map_errors .=  map_errors( $debug, 'malformed_params' );
-
 		}
 
 		// Get the data from Google's servers
@@ -756,7 +751,6 @@ function remove_px_percent( $dim ) {
 
 /**
  * All possible debug reports, Echos results to front end map pages for logged-in post editors.
- * @todo when debugging return the results anyway
  *
  * @since:   0.0.2
  * @author:  orionrush
@@ -795,6 +789,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				__('explicit location parameters: ', 'orionrush-tnygmaps' ),
 				__('name, street, city, state, postcode, country.', 'orionrush-tnygmaps' )
 			);
+			$message .= "
+				";
 			break;
 			case 'wp_error_get';
 				$message .= sprintf('<p><b>%s</b><br/> %s</p>',
@@ -803,7 +799,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
-				$message .= "</pre>";
+				$message .= "</pre>
+				";
 				break;
 
 			case 'wp_error_data';
@@ -813,7 +810,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
-				$message .= "</pre>";
+				$message .= "</pre>
+				";
 				break;
 
 			case 'no_api_key';
@@ -833,7 +831,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
-				$message .= "</pre>";
+				$message .= "</pre>
+				";
 				break;
 
 			// GOOGLE API RESPONSES
@@ -850,7 +849,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
-				$message .= "</pre>";
+				$message .= "</pre>
+				";
 				break;
 
 			case 'NOT_FOUND';
@@ -861,7 +861,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
-				$message .= "</pre>";
+				$message .= "</pre>
+				";
 				break;
 
 			case '';
@@ -872,7 +873,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
-				$message .= "</pre>";
+				$message .= "</pre>
+				";
 				break;
 
 			default:
@@ -885,9 +887,10 @@ function map_errors( $debug, $error, $response = '' ) {
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
-				$message .= "</pre>";
+				$message .= "</pre>
+				";
 		endswitch;
-		Support\write_log('map_errors');
+		Support\write_log('Mapping call errors:');
 		Support\write_log($message);
 		return $message;
 	}
