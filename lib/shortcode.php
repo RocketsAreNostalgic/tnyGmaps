@@ -192,54 +192,9 @@ function map_me( $attr ) {
 
 		// for external map link
 		$linkAddress     = $attr['name'] . ' ' . $attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
-		/**
-		 * We enqueue the js properly and now can pass the vars as globals through wp_localize_script, sweet.
-		 * We are able to have multiple maps too - nice!
-		 *
-		 * Also we have set up retina 2x and 3x resolutions
-		 * 3x requires google api key
-		 *
-		 * http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
-		 * https://pippinsplugins.com/use-wp_localize_script-it-is-awesome/
-		 * http://wordpress.stackexchange.com/questions/91546/pass-custom-fields-values-to-google-maps
-		 * http://wordpress.stackexchange.com/questions/135821/creating-multiple-wp-localize-script-for-shortcode
-		 * http://wordpress.stackexchange.com/questions/114807/localize-variable-for-multiple-shortcodes
-		 *
-		 * Example js http://codepen.io/anon/pen/zGxxaQ
-		 */
-		// todo: add get_option('tnygmaps_mobile') && a check to see if static == 0
-
-		$mobile_static_maps = get_option('tnygmaps_mobile');
-
-		if (!$mobile_static_maps) {
-			$static_DOM_width = '0';
-		}
-		$linkAddress_url = clean_linkAddress_url($linkAddress);
-
-		// Load all the  variables into array for js global var
-		$init_array = array(
-			'z'                 => (int) $z,
-			'h'                 => $h,
-			'maptype'           => $maptype,
-			'lat'               => $attr['lat'],
-			'lng'               => $attr['lng'],
-			'marker'            => $marker,
-			'icon'              => $icon,
-			'infowindow'        => $infowindow,
-			'infowindowdefault' => (boolean) $infowindowdefault,
-			'hidecontrols'      => (boolean) $hidecontrols,
-			'scale'             => (boolean) $scalecontrol,
-			'scrollwheel'       => (boolean) $scrollwheel,
-			'static_DOM_width'  => (string) $static_DOM_width,
-			'static_h'          => (int) $static_h,
-			'static_w'          => (int) $static_w,
-			'debug'             => (boolean) $debug
-		);
-		// Add the params to the page as js global vars via wp_localize_script
-		wp_localize_script( 'tnygmaps_init', $map_id . '_loc', $init_array );
-
-		wp_enqueue_script( 'tnygmaps_init' ); // will appear in footer
 		$linkAddress_url = cleanLinkAddress_url($linkAddress);
+
+		enqueueJsGlobals ($map_id, $attr);
 
 		// Build the 'view map on its own' link
 		$static_src = "https://maps.google.com/maps/api/staticmap?key=" . GOOGLE_API_KEY . "&size=" . $attr['static_w'] . "x" . $attr['static_h'] . "&zoom=" . $attr['z'];
@@ -280,6 +235,53 @@ add_shortcode( 'TINYGMAPS', __NAMESPACE__ . '\\map_me' );   // Legacy
 add_shortcode( 'TNYGMAPS',  __NAMESPACE__ . '\\map_me' );   // Legacy
 
 /**
+ * Pass the vars as globals through wp_localize_script, each map recieves it's own ID string
+ *
+ * @since:   0.0.4
+ *
+ * @author: orionrush
+ * @param $map_id
+ * @param $attr
+ *
+ * TODO: Set up retina 2x and 3x resolutions
+ */
+function enqueueJsGlobals ($map_id, $attr) {
+
+//	 http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
+//	 https://pippinsplugins.com/use-wp_localize_script-it-is-awesome/
+//	 http://wordpress.stackexchange.com/questions/91546/pass-custom-fields-values-to-google-maps
+//	 http://wordpress.stackexchange.com/questions/135821/creating-multiple-wp-localize-script-for-shortcode
+//	 http://wordpress.stackexchange.com/questions/114807/localize-variable-for-multiple-shortcodes
+//	 Example: http://codepen.io/anon/pen/zGxxaQ
+
+
+	// Load all the  variables into array for js global var
+	$init_array = array(
+		'z'                 =>	$attr['z'],
+		'w'                 =>	$attr['w'],
+		'h'                 =>	$attr['h'],
+		'maptype'           =>	$attr['maptype'],
+		'lat'               =>	$attr['lat'],
+		'lng'               =>	$attr['lng'],
+		'marker'            =>	$attr['marker'],
+		'default_marker'    =>	$attr['default_marker'],
+		'infowindow'        =>	$attr['infowindow'],
+		'infowindowb64'     =>	$attr['infowindowb64'],
+		'infowindowdefault' =>	$attr['infowindowdefault'],
+		'hidecontrols'      =>	$attr['hidecontrols'],
+		'scale'             =>	$attr['scale'],
+		'scrollwheel'       =>	$attr['scrollwheel'],
+		'static_DOM_width'  =>	$attr['static_DOM_width'],
+		'static_w'          =>	$attr['static_w'],
+		'static_h'          =>	$attr['static_h'],
+		'debug'             =>	$attr['debug'],
+	);
+
+	// Add the params to the page as js global vars via wp_localize_script
+	wp_localize_script( 'tnygmaps_init', $map_id . '_loc',  $init_array );
+	wp_enqueue_script( 'tnygmaps_init' ); // will appear in footer
+}
+
 
 /**
  * Cleans up the address string by removing double commas and whitespace.
