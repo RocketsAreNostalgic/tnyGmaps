@@ -141,23 +141,11 @@ function map_me( $attr ) {
 
 		// here we have missing lat lags, and no unified address strings, may have enough address components so build the place query from these attr
 		$attr['address'] = $attr['street'] . ', ' . $attr['city'] . ', ' . $attr['region'] . ', ' . $attr['postcode'] . '+' . $attr['country'];
-		$string          = array(
-			', , ',
-			', , , ',
-			', , , , ',
-			', , , , , '
-		);
+		$attr['address'] = cleanCommasAddressString ($attr['address']);
 
-		$attr['address'] = str_replace( $string, ' ', $attr['address'] ); // trim any double commas signs that may be in the string
-		$attr['address'] = trim( $attr['address'], " \t\n\r\0\x0B\," ); // clean any leading whitepasce or commas
-
-		if ( $attr['address'] == '' || $attr['address'] == "," ) {
-			$attr['address'] = null; // Set it or forget it
-			Support\write_log('could not assemble a sufficient address string');
+		if ( $attr['address'] === null ) {
 			$map_errors .= map_errors( $attr['debug'], 'insufficient_address' );
-
 		} else {
-
 			// here we don't have an place_ID or address, but we've constructed an address string from the other
 			$attr_place = map_get_place( $api_key, null, $attr['address'], $attr['refresh'], $attr['debug'] );
 
@@ -308,6 +296,30 @@ add_shortcode( 'TINYGMAPS', __NAMESPACE__ . '\\map_me' );   // Legacy
 add_shortcode( 'TNYGMAPS',  __NAMESPACE__ . '\\map_me' );   // Legacy
 
 /**
+
+/**
+ * Cleans up the address string by removing double commas and whitespace.
+ *
+ * @since:   0.0.4
+ * @author: orionrush
+ *
+ * @param $address
+ *
+ * @return mixed|string
+ */
+function cleanCommasAddressString ($address){
+	$string = array(
+		', , ',
+		', , , ',
+		', , , , ',
+		', , , , , '
+	);
+	$address = str_replace($string, '  ',  $address); // trim any double commas signs that may be in the string
+	$address = trim( $address, " \t\n\r\0\x0B\," ); // clean any leading whitespace or commas
+	$address = (( $address == '' || $address == "," ) ? null : $address ); // Set it or forget it
+	return $address;
+
+}
 /**
  * Sanitises the attributes array
  *
