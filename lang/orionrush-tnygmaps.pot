@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Tny gMaps\n"
-"POT-Creation-Date: 2018-04-13 19:29+0100\n"
+"POT-Creation-Date: 2018-04-14 17:54+0100\n"
 "PO-Revision-Date: 2018-04-10 18:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Plugin Activation Error"
 msgstr ""
 
-#: lib/admin-form.php:30 lib/admin-form.php:34 lib/admin-form.php:148
+#: lib/admin-form.php:30 lib/admin-form.php:34 lib/admin-form.php:137
 msgid "Copy your API key here"
 msgstr ""
 
@@ -67,22 +67,22 @@ msgid ""
 "used via Google's %sAPI Console%s."
 msgstr ""
 
-#: lib/admin-form.php:62
+#: lib/admin-form.php:60
 #, php-format
 msgid ""
 "An error above likely means you haven&#8217t logged into a %sGoogle account"
 "%s. %s For more information, read the docs on how %sapi keys%s work."
 msgstr ""
 
-#: lib/admin-form.php:109
+#: lib/admin-form.php:107
 msgid "Google Pin"
 msgstr ""
 
-#: lib/admin-form.php:123
+#: lib/admin-form.php:121
 msgid "Your icon URL:"
 msgstr ""
 
-#: lib/admin-form.php:129
+#: lib/admin-form.php:127
 #, php-format
 msgid ""
 "%sNote:%s  It looks like we haven't been able to move our icons to your "
@@ -92,38 +92,35 @@ msgid ""
 msgstr ""
 
 #: lib/admin-form.php:138
-msgid "Use Static Maps on mobile devices"
+#, php-format
+msgid "%s Use Static Maps on mobile devices below %s pixels wide."
 msgstr ""
 
-#: lib/admin-form.php:144
+#: lib/admin-form.php:143
 #, php-format
 msgid ""
-"%sNote:%s  This option produces a %s\"static map\"%s or image rather then a "
-"fully interactive map for %smobile devices%s in order to decrease load times "
-"and bandwidth."
+"%sNote:%s This option produces a %s\"static map\"%s image rather then a "
+"fully interactive map. This wil reduce load times and bandwidth on small "
+"%smobile devices%s. %s A with of %s0%spx is equivalent to disabling the "
+"feature.%s"
+msgstr ""
+
+#: lib/admin-form.php:150
+msgid "Enable Debugging"
 msgstr ""
 
 #: lib/admin-form.php:154
-msgid "Max viewport width (in px) for small screens."
-msgstr ""
-
-#: lib/admin-form.php:159
 #, php-format
 msgid ""
-"%sNote:%s The break-point or screen width below which a static map will be "
-"served. %s A with of %s0%s is the equivalent of disabling static maps."
-msgstr ""
-
-#: lib/admin-form.php:173
-#, php-format
-msgid ""
-"%sNote:%s  This option enables both JS Console debugging, and front end "
-"Google Maps query debugging notices. Front end notices will only appear to "
-"logged in admin users."
+"%sNote:%s  This option enables front end debugging notices on failed Google "
+"API queries, as well as Java Script console messages in your browser's "
+"developer tools panel. Don't worry, front end notices only appear to logged "
+"in admin users."
 msgstr ""
 
 #: lib/admin.php:80
-msgid "Tny gMaps Settings"
+#, php-format
+msgid "%s Tny gMaps Settings"
 msgstr ""
 
 #: lib/admin.php:87
@@ -148,21 +145,21 @@ msgid "GOOGLE API KEY NOT SET: Visit the %splugin settings page%s to get one."
 msgstr ""
 
 #: lib/modal.php:69
-msgid "Address lookup:"
+msgid "Address lookup"
 msgstr ""
 
-#: lib/modal.php:70
+#: lib/modal.php:69
 msgid ""
 "This section uses the Google Places API to find details about places of "
 "interest on found on Google Maps. The details are auto-updated when owners "
 "refresh information using Google‘s services."
 msgstr ""
 
-#: lib/modal.php:76
-msgid "Custom details:"
+#: lib/modal.php:75
+msgid "Custom details"
 msgstr ""
 
-#: lib/modal.php:77
+#: lib/modal.php:75
 #, php-format
 msgid ""
 "This section uses Google‘s Gocodng API to validate addresses, and so does "
@@ -173,196 +170,196 @@ msgid ""
 "Extras%s section instead."
 msgstr ""
 
-#: lib/modal.php:83
+#: lib/modal.php:82
 msgid "Use custom address details?"
 msgstr ""
 
-#: lib/modal.php:91
-msgid "Place name:"
+#: lib/modal.php:90
+msgid "Place name"
 msgstr ""
 
-#: lib/modal.php:92
+#: lib/modal.php:91
 msgid "Joes Music Emporium"
 msgstr ""
 
-#: lib/modal.php:97
+#: lib/modal.php:96
 msgid "Street"
 msgstr ""
 
-#: lib/modal.php:99
+#: lib/modal.php:98
 msgid "32 Somewhere Drive"
 msgstr ""
 
-#: lib/modal.php:103
+#: lib/modal.php:102
 msgid "City"
 msgstr ""
 
-#: lib/modal.php:104
+#: lib/modal.php:103
 msgid "Greenville"
 msgstr ""
 
-#: lib/modal.php:109
+#: lib/modal.php:108
 msgid "Region/State"
 msgstr ""
 
-#: lib/modal.php:110
+#: lib/modal.php:109
 msgid "Our State"
 msgstr ""
 
-#: lib/modal.php:115
+#: lib/modal.php:114
 msgid "Postcode"
 msgstr ""
 
-#: lib/modal.php:116
+#: lib/modal.php:115
 msgid "POSTCODE"
 msgstr ""
 
-#: lib/modal.php:121
+#: lib/modal.php:120
 msgid "Country"
 msgstr ""
 
-#: lib/modal.php:122
+#: lib/modal.php:121
 msgid "Proud Country"
 msgstr ""
 
-#: lib/modal.php:127
+#: lib/modal.php:126
 msgid "Website"
 msgstr ""
 
-#: lib/modal.php:128
+#: lib/modal.php:126
 msgid ""
 "If you provide a full url (including http://) an outside link will be "
 "created. If you provide a page-slug a local link will be rendered ie &quot;"
 "about-us&quot;."
 msgstr ""
 
-#: lib/modal.php:133
+#: lib/modal.php:132
 msgid "Primary phone"
 msgstr ""
 
-#: lib/modal.php:140
+#: lib/modal.php:139
 msgid "Lookup address"
 msgstr ""
 
-#: lib/modal.php:144
+#: lib/modal.php:143
 msgid "Update info widow"
 msgstr ""
 
-#: lib/modal.php:148
+#: lib/modal.php:147
 msgid "Clear fields"
 msgstr ""
 
-#: lib/modal.php:161
+#: lib/modal.php:160
 msgid "Window extras"
 msgstr ""
 
-#: lib/modal.php:162
+#: lib/modal.php:160
 msgid ""
 "Add custom information to the marker info window. Allowed HTML is auto "
 "corrected to prevent malformed markup from breaking your page. Longer blocks "
 "of markup should be copy-pasted in."
 msgstr ""
 
-#: lib/modal.php:167
+#: lib/modal.php:166
+#, php-format
 msgid ""
-"Some HTML allowed:<p>, <a>, <span>, <ul>, <ol>, <li>, <em>, <strong>. "
-"Attribute styles and classes are allowed i.e. ( <p style=\"background-color: "
-"blue;\" class=\"foo bar\">Foo</p>) Use <br/> for line breaks. Single quotes "
-"are NOT allowed."
+"Some HTML allowed: , %s, %s, %s, %s, %s, %s, %s, %s. Attribute styles and "
+"classes are allowed i.e. ( %s style=\"background-color: blue;\" class=\"foo "
+"bar\">Foo%s) Use %s for line breaks. Single quotes are NOT allowed."
 msgstr ""
 
-#: lib/modal.php:171
+#: lib/modal.php:170
 msgid "Map attributes"
 msgstr ""
 
-#: lib/modal.php:172
+#: lib/modal.php:170
 msgid "Adjust the appearence of your map."
 msgstr ""
 
-#: lib/modal.php:177
+#: lib/modal.php:175
 msgid "Height"
 msgstr ""
 
-#: lib/modal.php:182
+#: lib/modal.php:179
 msgid "Width"
 msgstr ""
 
-#: lib/modal.php:187
+#: lib/modal.php:184
 msgid "Specify size in &#039;px&#039; or &#039;%&#039;."
 msgstr ""
 
-#: lib/modal.php:188
+#: lib/modal.php:185
 msgid "Height &amp; width settings are not reflected in map preview."
 msgstr ""
 
-#: lib/modal.php:192
+#: lib/modal.php:189
 msgid "Map:"
 msgstr ""
 
-#: lib/modal.php:195
+#: lib/modal.php:192
 msgid "ROADMAP"
 msgstr ""
 
-#: lib/modal.php:196
+#: lib/modal.php:193
 msgid "SATELLITE"
 msgstr ""
 
-#: lib/modal.php:197
+#: lib/modal.php:194
 msgid "HYBRID"
 msgstr ""
 
-#: lib/modal.php:198
+#: lib/modal.php:195
 msgid "TERRAIN"
 msgstr ""
 
-#: lib/modal.php:202
+#: lib/modal.php:199
 msgid "Marker"
 msgstr ""
 
-#: lib/modal.php:207
+#: lib/modal.php:204
 msgid "Default"
 msgstr ""
 
-#: lib/modal.php:209
+#: lib/modal.php:206
 msgid "Google"
 msgstr ""
 
-#: lib/modal.php:210
+#: lib/modal.php:207
 msgid "Custom"
 msgstr ""
 
-#: lib/modal.php:214
+#: lib/modal.php:211
 msgid "Zoom"
 msgstr ""
 
-#: lib/modal.php:240
+#: lib/modal.php:237
 msgid "Controls"
 msgstr ""
 
-#: lib/modal.php:243
+#: lib/modal.php:240
 msgid "on"
 msgstr ""
 
-#: lib/modal.php:244
+#: lib/modal.php:241
 msgid "off"
 msgstr ""
 
-#: lib/modal.php:250
+#: lib/modal.php:246
 msgid "Custom icon URL"
 msgstr ""
 
-#: lib/modal.php:252
+#: lib/modal.php:246
 msgid ""
 "List the full (or root realitive) path to your custom icon, or select from "
 "the list below. If your custom icon won&#039;t load, then there is probably "
 "a typo in your path."
 msgstr ""
 
-#: lib/modal.php:260
+#: lib/modal.php:255
 msgid "Loaded icons"
 msgstr ""
 
-#: lib/modal.php:265
+#: lib/modal.php:260
 #, php-format
 msgid "Icons courtesy of the %sMap Icons Collection%s"
 msgstr ""
