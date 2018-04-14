@@ -133,44 +133,27 @@ function default_icon () {
 }
 
 function static_maps (){?>
-        <br/>
-        <fieldset>
-           <input type="checkbox" name="tnygmaps_mobile" value="1" <?php checked(1, get_option('tnygmaps_mobile'), true);?> /> <?php _e('Use Static Maps on mobile devices', 'orionrush-tnygmaps'); ?>
-        </fieldset>
-    <div class="bootstrap-tny">
+    <fieldset>
+        <?php
+        $input1 = '<input type="checkbox" name="tnygmaps_mobile" value="1"' .  checked(1, get_option('tnygmaps_mobile'), false) . ' />';
+        $input2 = '<input title="' . __( 'Copy your API key here', 'orionrush-tnygmaps' ) . '" type="text" name="tnygmaps_mobile_width" id="tnygmaps_mobile_width" placeholder="' .  TNYGMAPS_STATIC_DOM_WIDTH . '" value="' .  esc_attr( trim(get_option( 'tnygmaps_mobile_width' ))) . '" />';
+        printf(__( '%s Use Static Maps on mobile devices below %s pixels wide.', 'orionrush-tnygmaps'), $input1, $input2); ?>
+   </fieldset>
+    </div>
     <br/>
-    </div>
     <div class="bootstrap-tny">
-        <p class=" alert"><?php echo sprintf(__('%sNote:%s  This option produces a %s"static map"%s or image rather then a fully interactive map for %smobile devices%s in order to decrease load times and bandwidth.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>', '<em><strong>', '</strong></em>');?></p>
+        <p class=" alert"><?php echo sprintf(__('%sNote:%s This option produces a %s"static map"%s image rather then a fully interactive map. This wil reduce load times and bandwidth on small %smobile devices%s. %s A with of %s0%spx is equivalent to disabling the feature.%s', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>', '<em><strong>', '</strong></em>', '<br /><em>','<strong>', '</strong>', '</em>');?></p>
     </div>
-            <br/>
-           <fieldset>
-                <input title="<?php _e( 'Copy your API key here', 'orionrush-tnygmaps' ); ?>"
-                       type="text"
-                       name="tnygmaps_mobile_width"
-                       id="tnygmaps_mobile_width"
-                       placeholder="<?php echo  TNYGMAPS_STATIC_DOM_WIDTH; ?>"
-                       value="<?php echo esc_attr( trim(get_option( 'tnygmaps_mobile_width' ))); ?>"
-                /> <?php __('Max viewport width (in px) for small screens.', 'orionrush-tnygmaps'); ?>
-           </fieldset>
-    </div>
-    <div class="bootstrap-tny">
-        <br/>
-        <p class=" alert"><?php echo sprintf(__('%sNote:%s The break-point or screen width below which a static map will be served. %s A with of %s0%s is the equivalent of disabling static maps.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<br />','<strong>', '</strong>');?></p>
-    </div>
-<?php
+    <?php
 }
 
 function debugging () {?>
-    <br/>
     <fieldset>
         <input type="checkbox" name="tnygmaps_debug" value="1" <?php checked(1, get_option('tnygmaps_debug'), true);?> /> Enable Debugging
     </fieldset>
+    <br/>
     <div class="bootstrap-tny">
-        <br/>
+        <p class=" alert"><?php echo sprintf(__('%sNote:%s  This option enables front end debugging notices on failed Google API queries, as well as Java Script console messages in your browser\'s developer tools panel. Don\'t worry, front end notices only appear to logged in admin users.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>');?></p>
     </div>
-    <div class="bootstrap-tny">
-        <p class=" alert"><?php echo sprintf(__('%sNote:%s  This option enables both JS Console debugging, and front end Google Maps query debugging notices. Front end notices will only appear to logged in admin users.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>');?></p>
-    </div>
-	<?php
+    <?php
 }
