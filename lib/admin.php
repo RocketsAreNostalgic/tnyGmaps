@@ -62,8 +62,7 @@ function register_tnygmaps_settings() {
 	);
 	$args_int_width = array(
 		'type' => 'int',
-		'sanitize_callback' => 'absint',
-//		'sanitize_callback' => __NAMESPACE__ . 'postive_int',
+		'sanitize_callback' => __NAMESPACE__ . '\\sanitizeStaticDomWidth',
 		'default' => TNYGMAPS_STATIC_DOM_WIDTH,
 	);
 
@@ -166,8 +165,20 @@ function enqueue_admin_assets() {
 	wp_enqueue_script('imagepicker-js',  plugins_url('../assets/js/vendor/image-picker-master/image-picker/image-picker.min.js', __FILE__), array('jquery'),'0.3.0','true');
 }
 
-function postive_int ($int) {
-	if (!absint($int)) {
+/**
+ * Returns either a positive int, or the preset value for DOM width.
+ *
+ * @param $int
+ *
+ * @return int
+ */
+function sanitizeStaticDomWidth ($int) {
+	if (!is_numeric($int)) {
+		$int = absint($int);
+	}
+	if ($int == null || $int == "") {
 		return TNYGMAPS_STATIC_DOM_WIDTH;
+	} else {
+	return $int;
 	}
 }
