@@ -73,10 +73,11 @@ function register_tnygmaps_settings() {
 	register_setting( 'tnygmaps-settings-group', 'tnygmaps_mobile_width', $args_int_width  );
 	register_setting( 'tnygmaps-settings-group', 'tnygmaps_debug', $args_checkbox  );
 
+	$icon = '<img id="plugin-icon" src="' . TNYGMAPS_URL . 'assets/img/app_icon_filled.png" >';
 	// Add the areas to the options page
 	add_settings_section(
 		'tnygmaps-settings-group',
-		__( 'Tny gMaps Settings', 'orionrush-tnygmaps' ),
+		sprintf(__( '%s Tny gMaps Settings', 'orionrush-tnygmaps' ), $icon),
 		'__return_false',
 		'tnygmaps-settings-group'
 	);
