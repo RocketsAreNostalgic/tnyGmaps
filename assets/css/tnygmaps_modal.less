@@ -143,6 +143,14 @@ input[type=text]:focus, textarea:focus {
 	border: 1px solid rgba(81, 203, 238, 1);
 }
 
+#address_extras input[type=text]::placeholder{ color: #dfdcdc; }
+#address_extras input[type=text]:-ms-input-placeholder{ color: #d2cfcf; }
+#address_extras input[type=text]::-ms-input-placeholder { color: #d2cfcf; }
+
+input[type=text].noEnterSubmit:disabled {
+	background-color: #ebebeb;
+}
+
 #mapInfoWindow,
 input[type=text] {
 	padding: 10px;
@@ -179,7 +187,7 @@ input[type=checkbox] {
 	background: #74a1b3;
 	background: -webkit-gradient(linear, left top, left bottom, from(#84b7cb), to(#74a1b3));
 	background: -webkit-linear-gradient(top, #84b7cb 0%,#74a1b3 100%);
-	background: linear-gradient(top, #84b7cb 0%,#74a1b3 100%);
+	background: linear-gradient(#84b7cb 0%,#74a1b3 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84b7cb', endColorstr='#74a1b3',GradientType=0 );
 	border-color: #709cae;
 	//-webkit-box-shadow: inset 0 1px 0 rgba(9, 143, 179, 0.5);
@@ -188,6 +196,14 @@ input[type=checkbox] {
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(9, 143, 179, 0.5);
 
+}
+
+#address_extras .buttn:disabled {
+	background: transparent;
+	color: transparent;
+	border-color: transparent;
+	text-shadow: none;
+	cursor: default;
 }
 
 .buttn:hover.active,
@@ -201,7 +217,7 @@ input[type=checkbox] {
 
 	background: -webkit-gradient(linear, left top, left bottom, from(#eb9579), to(#da776e));
 	background: -webkit-linear-gradient(top, #eb9579 0%,#da776e 100%);
-	background: linear-gradient(top, #eb9579 0%,#da776e 100%);
+	background: linear-gradient(#eb9579 0%,#da776e 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eb9579', endColorstr='#da776e',GradientType=0 );
 	border-color: #db766e;
 	//-webkit-box-shadow: inset 0 1px 0 rgba(235, 86, 92, 0.5);
@@ -217,7 +233,7 @@ input[type=checkbox] {
 
 	background: -webkit-gradient(linear, left top, left bottom, from(#7ed38b), to(#66b372));
 	background: -webkit-linear-gradient(top, #7ed38b 0%,#66b372 100%);
-	background: linear-gradient(top, #7ed38b 0%,#66b372 100%);
+	background: linear-gradient(#7ed38b 0%,#66b372 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7ed38b', endColorstr='#66b372',GradientType=0 );
 	border-color: #60ac6c;
 	//-webkit-box-shadow: inset 0 1px 0 rgba(118, 211, 133, 0.5);
