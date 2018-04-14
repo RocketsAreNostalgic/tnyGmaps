@@ -27,17 +27,17 @@ function api_key () {
     <div class="tnygmaps-api-wrap">
         <div class="tnygmaps-wrap">
             <div class="tnygmaps-stretch">
-                <input title="<?php _e( 'Copy your API key here', 'orionrush-tnygmaps' ); ?>"
+                <input title="<?php echo esc_attr(__( 'Copy your API key here', 'orionrush-tnygmaps' )); ?>"
                        type="text"
                        name="tnygmaps_api_key"
                        id="tnygmaps_api_key"
-                       placeholder="<?php _e( 'Copy your API key here', 'orionrush-tnygmaps' ); ?>"
+                       placeholder="<?php echo esc_attr(__( 'Copy your API key here', 'orionrush-tnygmaps' )); ?>"
                        value="<?php echo esc_attr( trim(get_option( 'tnygmaps_api_key' ))); ?>"
                 />
             </div>
             <div class="tnygmaps-normal">
                 <a href="#TB_inline?width=600&height=420&inlineId=tnygmaps_api_modal" id="generate-api-button" class="thickbox tnymaps-api-button" title="<?php _e( 'Generate Google API Key (You must be logged in to a Google account)', 'orionrush-tnygmaps' ); ?>">
-					<?php _e( 'Generate Key', 'orionrush-tnygmaps' ); ?>
+					<?php echo esc_attr(__( 'Generate Key', 'orionrush-tnygmaps' )); ?>
                 </a>
             </div>
         </div>
@@ -53,10 +53,8 @@ function api_key () {
         <iframe
 			<?php // use http rather then https to prevent errors Failed to execute postMessage on 'DOMWindow' ?>
                 id = "tnygmaps-api-iframe"
-
                 src = 'http://console.developers.google.com/henhouse/?pb=%5B%22hh-0%22,%22maps_backend%22,null,%5B%5D,%22https:%2F%2Fdevelopers.google.com%22,null,%5B%22geocoding_backend%22,%22directions_backend%22,%22distance_matrix_backend%22,%22elevation_backend%22,%22places_backend%22%5D,null,null,null,null,%5B%5D%5D'
-        >
-        </iframe>
+                ></iframe>
         <div class="bootstrap-tny">
             <div class="alert" style=""><p><?php echo sprintf(
 						__( 'An error above likely means you haven&#8217t logged into a %sGoogle account%s. %s For more information, read the docs on how %sapi keys%s work.', 'orionrush-tnygmaps' ),
@@ -106,15 +104,15 @@ function default_icon () {
                     data-limit="1"
                     name="tnygmaps_custom_icon"
                     id="tnygmaps_custom_icon" >
-                <option name="tnygmaps_custom_icon_option" value="<?php echo $gMapsIconName ?>" data-img-src="<?php echo TNYGMAPS_GOOGLE_ICON_URL ?>" data-img-alt="<?php echo $gMapsIconName ?>"><?php _e('Google Pin', 'orionrush-tnygmaps');?></option>
+                <option name="tnygmaps_custom_icon_option" value="<?php echo esc_attr($gMapsIconName) ?>" data-img-src="<?php echo esc_attr(TNYGMAPS_GOOGLE_ICON_URL); ?>" data-img-alt="<?php echo esc_attr($gMapsIconName) ?>"><?php echo esc_html(__('Google Pin', 'orionrush-tnygmaps'));?></option>
 				<?php foreach ($icons_array[1] as $key=>$value) : ?>
 					<?php $icon_url = $path . $value; ?>
 					<?php   $selected = ($current_icon ==  $icon_url) ? true : false ?>
                     <option name="tnygmaps_custom_icon_option"
 						<?php if ($selected) { echo 'selected'; }?>
-                            value="<?php echo $icon_url; ?>"
-                            data-img-src="<?php echo $icon_url ?>"
-                            data-img-alt="<?php echo $value ?>" >
+                            value="<?php echo esc_url($icon_url); ?>"
+                            data-img-src="<?php echo esc_url($icon_url); ?>"
+                            data-img-alt="<?php echo esc_attr($value); ?>" >
                     </option>
 				<?php endforeach; ?>
             </select>
@@ -122,7 +120,7 @@ function default_icon () {
     </div>
     <strong><?php _e( 'Your icon URL:', 'orionrush-tnygmaps' ); ?></strong>
     <div id="tnygmaps_custom_icon_url" class="bootstrap-tny">
-		<?php echo '<pre class="bootstrap-tny">' . $current_icon . '</pre>'; ?>
+		<?php echo '<pre class="bootstrap-tny">' . esc_url($current_icon) . '</pre>'; ?>
     </div>
 	<?php if ( !file_exists( TNYGMAPS_ICONS_DIR ) ) : ?>
         <div class="bootstrap-tny">
@@ -137,7 +135,7 @@ function static_maps (){?>
         <?php
         $input1 = '<input type="checkbox" name="tnygmaps_mobile" value="1"' .  checked(1, get_option('tnygmaps_mobile'), false) . ' />';
         $input2 = '<input title="' . __( 'Copy your API key here', 'orionrush-tnygmaps' ) . '" type="text" name="tnygmaps_mobile_width" id="tnygmaps_mobile_width" placeholder="' .  TNYGMAPS_STATIC_DOM_WIDTH . '" value="' .  esc_attr( trim(get_option( 'tnygmaps_mobile_width' ))) . '" />';
-        printf(__( '%s Use Static Maps on mobile devices below %s pixels wide.', 'orionrush-tnygmaps'), $input1, $input2); ?>
+        echo sprintf(__( '%s Use Static Maps on mobile devices below %s pixels wide.', 'orionrush-tnygmaps'), $input1, $input2); ?>
    </fieldset>
     </div>
     <br/>
@@ -149,7 +147,7 @@ function static_maps (){?>
 
 function debugging () {?>
     <fieldset>
-        <input type="checkbox" name="tnygmaps_debug" value="1" <?php checked(1, get_option('tnygmaps_debug'), true);?> /> Enable Debugging
+        <input type="checkbox" name="tnygmaps_debug" value="1" <?php checked(1, get_option('tnygmaps_debug'), true);?> /> <?php esc_html_e('Enable Debugging', 'orionrush-tnygmaps'); ?>
     </fieldset>
     <br/>
     <div class="bootstrap-tny">
