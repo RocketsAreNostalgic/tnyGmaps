@@ -4,43 +4,13 @@
 // var tnygmaps_api (bool) // api key test   // provided global
 // var spinner = new Spinner(opts).spin(target); // provided global
 
-var lat = null;
-var lng = null;
-var mapZoomReturn = null;
-var mapWidthReturn = null;
-var mapHeightReturn = null;
-var mapTypeReturn = null;
-var mapControlsReturn = null;
-var mapAddressReturn = null;
-// var mapAddressElement = null;
-var locGooglePlaceID = null;
-var mapMarkerReturn = null;
-var mapMarkerImageReturn = null;
-// var infowindow = null;
-var infowindowPlace = null;
-var mapInfoWindowReturn = null;
-// var combinedInfoWindow = null;
-var tnyGmapsAssembleShortcode = null;
-var map = null;
-var marker = null;
-var markerImage = null;
-var mapOptions = null;
-var mapCurrCenter = null;
-var markerOutput = null;
-var locPlace = null;
+var lat, lng, mapZoomReturn, mapWidthReturn, mapHeightReturn, mapTypeReturn,
+    mapControlsReturn, mapAddressReturn, locGooglePlaceID, mapMarkerReturn, mapMarkerImageReturn,
+    infowindowPlace, mapInfoWindowReturn, tnyGmapsAssembleShortcode,
+    map, marker, markerImage, mapOptions, mapCurrCenter, markerOutput,
+    locPlace, locName, locStreet, locStreetNum, locCity, locRegion, locPostcode,
+    locCountry, locWeb, locPhone, locIcon, locAddress, geocoder;
 var markerCustom = parent.tnygmaps.custom_icon;
-var locName = null;
-var locStreet = null;
-var locStreetNum = null;
-var locCity = null;
-var locRegion = null;
-var locPostcode = null;
-var locCountry = null;
-var locWeb = null;
-var locPhone = null;
-var locIcon = null;
-var locAddress = null;
-var geocoder = null;
 
 /**
  * Enable trim in older browsers
@@ -206,6 +176,7 @@ function initialize(infowindow) {
      *
      */
     jQuery(function ($) {
+        var selected, icon;
         // Test to see if the api key is loaded.
         if (tnygmaps_api === false) {
             jQuery(".accordion").hide().prop("disabled", true);
@@ -272,7 +243,7 @@ function initialize(infowindow) {
         // Conditional display of custom map icon url
         jQuery(".mapMarkerImage_wrap").hide();
         jQuery("#mapMarker").change(function () {
-            var selected = $("#mapMarker option:selected").text();
+            selected = $("#mapMarker option:selected").text();
             if (selected === "Custom") {
                 jQuery(".mapMarkerImage_wrap").slideDown();
                 setFocus(jQuery(this));
@@ -293,7 +264,7 @@ function initialize(infowindow) {
         // Icon list interaction
         jQuery(".map-icon").click(function (e) {
             e.preventDefault();
-            var icon = jQuery(this).attr("title");
+            icon = jQuery(this).attr("title");
             jQuery("input#mapMarkerImage").val(parent.tnygmaps.plugin_icons_URL + icon);
             update_marker();
         });
@@ -699,17 +670,17 @@ function initialize(infowindow) {
      * @global map
      */
     function openInfoWindow() {
+        var markerExtras, timer;
         if (jQuery("#mapInfoWindow").is(":visible")) {
             // Add marker extras
 
-            var markerExtras = jQuery(".marker-extras").length > 0;
+            markerExtras = jQuery(".marker-extras").length > 0;
             if (!markerExtras) {
                 seed_vars();
                 infowindowPlace = get_info_bubble(locIcon, locName, locStreet, locCity, locRegion, locPostcode, locCountry, locPhone, locWeb, "...");
                 infowindow.setContent(infowindowPlace);
             }
             // add the keystroke timer
-            var timer = null;
             jQuery(document).on("keydown", "#mapInfoWindow", function () {
                 if (timer) {
                     clearTimeout(timer);
@@ -782,10 +753,12 @@ function initialize(infowindow) {
      *
      */
     function updateMapAutocomplete() {
+        var locPlace, locPremise, streetCombined;
         infowindow.close();// close the marker info window
         input.className = "";
-        var locPlace = autocomplete.getPlace();
+        locPlace = autocomplete.getPlace();
         //console.log(locPlace);
+
         if (!locPlace.geometry) {
             // Inform the user that the place was not found and return.
             input.className = "notfound";
@@ -845,7 +818,7 @@ function initialize(infowindow) {
 
             // Do the same for nested address_components -- iterate through the array, then set the field value
             // Premise or building name
-            var locPremise = processAddressObject("premise", locPlace.address_components);
+            locPremise = processAddressObject("premise", locPlace.address_components);
             // street number
             locStreetNum = processAddressObject("street_number", locPlace.address_components);
             // Street name
@@ -853,7 +826,7 @@ function initialize(infowindow) {
 
             // Set Input
             locPremise = (locPremise ? locPremise + ", " : "");
-            var streetCombined = (
+            streetCombined = (
                 locPremise + locStreetNum + " " + locStreet
             ).trim();
             jQuery("input#locStAdr").val(streetCombined);
@@ -1149,5 +1122,4 @@ tnyGmapsAssembleShortcode = {
         tinyMCEPopup.close();
     }
 };
-
 tinyMCEPopup.onInit.add(tnyGmapsAssembleShortcode.init, tnyGmapsAssembleShortcode);
