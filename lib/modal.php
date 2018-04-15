@@ -62,7 +62,7 @@ function loaded_icons_url() {
         <?php if ( ! $api_test ) { ?>
             <div class="alert warning floating"> <?php echo sprintf( __( 'GOOGLE API KEY NOT SET: Visit the %splugin settings page%s to get one.', 'orionrush-tnygmaps' ), '<a href="' . admin_url() . 'options-general.php?page=tnygmaps" target="_parent">', '</a>' ); ?> </div>
         <?php } ?>
-        <div id="button-dialog" class="wrap">
+        <div id="tnygmaps" class="wrap">
             <form action="/" method="get" accept-charset="utf-8">
 
                 <div class="group <?php echo ( ! $api_test ) ? 'hidden' : '' ?>	" id="mapAddress-group">
