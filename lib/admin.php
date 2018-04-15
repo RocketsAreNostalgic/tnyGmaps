@@ -92,7 +92,7 @@ function register_tnygmaps_settings() {
 
 	add_settings_field(
 		'tnygmaps-settings-group-default-icon',
-		__( 'Choose a default map icon:', 'orionrush-tnygmaps' ),
+		__( 'Default map icon:', 'orionrush-tnygmaps' ),
 		__NAMESPACE__ . '\\default_icon',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
