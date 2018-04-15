@@ -525,7 +525,7 @@ function initialize(infowindow) {
         google.maps.event.addDomListener(document.getElementById("mapMarkerImage"), "change", update_marker);
 
         // Zoom DOM->MAP
-        google.maps.event.addDomListener(document.getElementById("mapZoom"), "change", upadateMapFromDropdownZoomChange);
+        google.maps.event.addDomListener(document.getElementById("mapZoom"), "change", updateMapFromDropdownZoomChange);
 
         // Zoom MAP->DOM
         google.maps.event.addListener(map, "zoom_changed", updateDropdownFromMapZoomChange);
@@ -582,12 +582,12 @@ function initialize(infowindow) {
      *
      * @global map
      */
-    function upadateMapFromDropdownZoomChange() {
+    function updateMapFromDropdownZoomChange() {
         mapZoomReturn = parseInt(jQuery("select[id=mapZoom]").val(), 10);
         mapCurrCenter = map.getCenter(); // center on present location
         map.setZoom(mapZoomReturn);
         map.setCenter(mapCurrCenter);
-        // console.log("update Map from Dropdown Zoom Change");
+        console.log("update Map from Dropdown Zoom Change");
     }
 
     /**
@@ -600,14 +600,15 @@ function initialize(infowindow) {
      */
     function updateDropdownFromMapZoomChange() {
         var zoomLevel = map.getZoom();
+        zoomLevel = zoomLevel.toString();
         mapCurrCenter = map.getCenter(); // center on present location
         map.setCenter(mapCurrCenter);
         jQuery("select[id=mapZoom] option").filter(function () {
+            console.log("update Dropdown from Map Zoom Change");
             return (
                 jQuery(this).text() === zoomLevel
             );
         }).prop("selected", true);
-        // console.log("update Dropdown from Map Zoom Change");
     }
 
     /**
