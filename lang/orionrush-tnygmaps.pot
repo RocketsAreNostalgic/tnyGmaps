@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Tny gMaps\n"
-"POT-Creation-Date: 2018-04-15 17:50+0100\n"
+"POT-Creation-Date: 2018-04-17 14:46+0100\n"
 "PO-Revision-Date: 2018-04-10 18:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -48,41 +48,41 @@ msgstr ""
 msgid "Plugin Activation Error"
 msgstr ""
 
-#: lib/admin-form.php:30 lib/admin-form.php:34 lib/admin-form.php:137
+#: lib/admin-form.php:33 lib/admin-form.php:37 lib/admin-form.php:160
 msgid "Copy your API key here"
 msgstr ""
 
-#: lib/admin-form.php:39
+#: lib/admin-form.php:44
 msgid "Generate Google API Key (You must be logged in to a Google account)"
 msgstr ""
 
-#: lib/admin-form.php:40
+#: lib/admin-form.php:45
 msgid "Generate Key"
 msgstr ""
 
-#: lib/admin-form.php:45
+#: lib/admin-form.php:50
 #, php-format
 msgid ""
 "%sNote:%s  For better security, be sure to restrict where your key can be "
 "used via Google's %sAPI Console%s."
 msgstr ""
 
-#: lib/admin-form.php:60
+#: lib/admin-form.php:65
 #, php-format
 msgid ""
 "An error above likely means you haven&#8217t logged into a %sGoogle account"
 "%s. %s For more information, read the docs on how %sapi keys%s work."
 msgstr ""
 
-#: lib/admin-form.php:107
+#: lib/admin-form.php:120
 msgid "Google Pin"
 msgstr ""
 
-#: lib/admin-form.php:121
+#: lib/admin-form.php:136
 msgid "Your icon URL:"
 msgstr ""
 
-#: lib/admin-form.php:127
+#: lib/admin-form.php:142
 #, php-format
 msgid ""
 "%sNote:%s  It looks like we haven't been able to move our icons to your "
@@ -91,25 +91,25 @@ msgid ""
 "icons wont be overwritten with a plugin update."
 msgstr ""
 
-#: lib/admin-form.php:138
+#: lib/admin-form.php:161
 #, php-format
-msgid "%s Use Static Maps on mobile devices below %s pixels wide."
+msgid "%s Use Static Maps on mobile screens smaller than %s pixels wide."
 msgstr ""
 
-#: lib/admin-form.php:143
+#: lib/admin-form.php:166
 #, php-format
 msgid ""
-"%sNote:%s This option produces a %s\"static map\"%s image rather then a "
+"%sNote:%s This option produces a %s\"static map\"%s image rather than a "
 "fully interactive map. This wil reduce load times and bandwidth on small "
-"%smobile devices%s. %s A with of %s0%spx is equivalent to disabling the "
+"%smobile devices%s. %s A width of %s0%spx is equivalent to disabling the "
 "feature.%s"
 msgstr ""
 
-#: lib/admin-form.php:150
+#: lib/admin-form.php:180
 msgid "Enable Debugging"
 msgstr ""
 
-#: lib/admin-form.php:154
+#: lib/admin-form.php:184
 #, php-format
 msgid ""
 "%sNote:%s  This option enables front end debugging notices on failed Google "
@@ -118,48 +118,43 @@ msgid ""
 "in admin users."
 msgstr ""
 
-#: lib/admin.php:80
+#: lib/admin.php:85
 #, php-format
 msgid "%s Tny gMaps Settings"
 msgstr ""
 
-#: lib/admin.php:87
+#: lib/admin.php:92
 msgid "Google API Key:"
 msgstr ""
 
-#: lib/admin.php:95
+#: lib/admin.php:100
 msgid "Default map icon:"
 msgstr ""
 
-#: lib/admin.php:103
+#: lib/admin.php:108
 msgid "Optimise for mobile:"
 msgstr ""
 
-#: lib/admin.php:110
+#: lib/admin.php:115
 msgid "Enable Debugging:"
 msgstr ""
 
-#: lib/modal.php:63
-#, php-format
-msgid "GOOGLE API KEY NOT SET: Visit the %splugin settings page%s to get one."
-msgstr ""
-
-#: lib/modal.php:69
+#: lib/modal-support.php:58
 msgid "Address lookup"
 msgstr ""
 
-#: lib/modal.php:69
+#: lib/modal-support.php:59
 msgid ""
 "This section uses the Google Places API to find details about places of "
 "interest on found on Google Maps. The details are auto-updated when owners "
 "refresh information using Google‘s services."
 msgstr ""
 
-#: lib/modal.php:75
+#: lib/modal-support.php:83
 msgid "Custom details"
 msgstr ""
 
-#: lib/modal.php:75
+#: lib/modal-support.php:84
 #, php-format
 msgid ""
 "This section uses Google‘s Gocodng API to validate addresses, and so does "
@@ -170,97 +165,97 @@ msgid ""
 "Extras%s section instead."
 msgstr ""
 
-#: lib/modal.php:82
+#: lib/modal-support.php:90
 msgid "Use custom address details?"
 msgstr ""
 
-#: lib/modal.php:90
+#: lib/modal-support.php:98
 msgid "Place name"
 msgstr ""
 
-#: lib/modal.php:91
+#: lib/modal-support.php:100
 msgid "Joes Music Emporium"
 msgstr ""
 
-#: lib/modal.php:96
+#: lib/modal-support.php:105
 msgid "Street"
 msgstr ""
 
-#: lib/modal.php:98
+#: lib/modal-support.php:107
 msgid "32 Somewhere Drive"
 msgstr ""
 
-#: lib/modal.php:102
+#: lib/modal-support.php:111
 msgid "City"
 msgstr ""
 
-#: lib/modal.php:103
+#: lib/modal-support.php:112
 msgid "Greenville"
 msgstr ""
 
-#: lib/modal.php:108
+#: lib/modal-support.php:117
 msgid "Region/State"
 msgstr ""
 
-#: lib/modal.php:109
+#: lib/modal-support.php:118
 msgid "Our State"
 msgstr ""
 
-#: lib/modal.php:114
+#: lib/modal-support.php:123
 msgid "Postcode"
 msgstr ""
 
-#: lib/modal.php:115
+#: lib/modal-support.php:124
 msgid "POSTCODE"
 msgstr ""
 
-#: lib/modal.php:120
+#: lib/modal-support.php:129
 msgid "Country"
 msgstr ""
 
-#: lib/modal.php:121
+#: lib/modal-support.php:130
 msgid "Proud Country"
 msgstr ""
 
-#: lib/modal.php:126
+#: lib/modal-support.php:135
 msgid "Website"
 msgstr ""
 
-#: lib/modal.php:126
+#: lib/modal-support.php:136
 msgid ""
 "If you provide a full url (including http://) an outside link will be "
 "created. If you provide a page-slug a local link will be rendered ie &quot;"
 "about-us&quot;."
 msgstr ""
 
-#: lib/modal.php:132
+#: lib/modal-support.php:142
 msgid "Primary phone"
 msgstr ""
 
-#: lib/modal.php:139
+#: lib/modal-support.php:150
 msgid "Lookup address"
 msgstr ""
 
-#: lib/modal.php:143
+#: lib/modal-support.php:154
 msgid "Update info widow"
 msgstr ""
 
-#: lib/modal.php:147
+#: lib/modal-support.php:158
 msgid "Clear fields"
 msgstr ""
 
-#: lib/modal.php:160
+#: lib/modal-support.php:190
 msgid "Window extras"
 msgstr ""
 
-#: lib/modal.php:160
+#: lib/modal-support.php:191
 msgid ""
 "Add custom information to the marker info window. Allowed HTML is auto "
 "corrected to prevent malformed markup from breaking your page. Longer blocks "
 "of markup should be copy-pasted in."
 msgstr ""
 
-#: lib/modal.php:166
+#: lib/modal-support.php:197
 #, php-format
 msgid ""
 "Some HTML allowed: , %s, %s, %s, %s, %s, %s, %s, %s. Attribute styles and "
@@ -268,208 +263,221 @@ msgid ""
 "bar\">Foo%s) Use %s for line breaks. Single quotes are NOT allowed."
 msgstr ""
 
-#: lib/modal.php:170
+#: lib/modal-support.php:224
 msgid "Map attributes"
 msgstr ""
 
-#: lib/modal.php:170
+#: lib/modal-support.php:225
 msgid "Adjust the appearence of your map."
 msgstr ""
 
-#: lib/modal.php:175
+#: lib/modal-support.php:230
 msgid "Height"
 msgstr ""
 
-#: lib/modal.php:179
+#: lib/modal-support.php:234
 msgid "Width"
 msgstr ""
 
-#: lib/modal.php:184
+#: lib/modal-support.php:239
 msgid "Specify size in &#039;px&#039; or &#039;%&#039;."
 msgstr ""
 
-#: lib/modal.php:185
+#: lib/modal-support.php:240
 msgid "Height &amp; width settings are not reflected in map preview."
 msgstr ""
 
-#: lib/modal.php:189
+#: lib/modal-support.php:244
 msgid "Map:"
 msgstr ""
 
-#: lib/modal.php:192
+#: lib/modal-support.php:247
 msgid "ROADMAP"
 msgstr ""
 
-#: lib/modal.php:193
+#: lib/modal-support.php:248
 msgid "SATELLITE"
 msgstr ""
 
-#: lib/modal.php:194
+#: lib/modal-support.php:249
 msgid "HYBRID"
 msgstr ""
 
-#: lib/modal.php:195
+#: lib/modal-support.php:250
 msgid "TERRAIN"
 msgstr ""
 
-#: lib/modal.php:199
+#: lib/modal-support.php:254
 msgid "Marker"
 msgstr ""
 
-#: lib/modal.php:204
+#: lib/modal-support.php:259
 msgid "Default"
 msgstr ""
 
-#: lib/modal.php:206
+#: lib/modal-support.php:261
 msgid "Google"
 msgstr ""
 
-#: lib/modal.php:207
+#: lib/modal-support.php:262
 msgid "Custom"
 msgstr ""
 
-#: lib/modal.php:211
+#: lib/modal-support.php:266
 msgid "Zoom"
 msgstr ""
 
-#: lib/modal.php:237
+#: lib/modal-support.php:294
 msgid "Controls"
 msgstr ""
 
-#: lib/modal.php:240
+#: lib/modal-support.php:297
 msgid "on"
 msgstr ""
 
-#: lib/modal.php:241
+#: lib/modal-support.php:298
 msgid "off"
 msgstr ""
 
-#: lib/modal.php:246
+#: lib/modal-support.php:304
 msgid "Custom icon URL"
 msgstr ""
 
-#: lib/modal.php:246
+#: lib/modal-support.php:305
 msgid ""
 "List the full (or root realitive) path to your custom icon, or select from "
 "the list below. If your custom icon won&#039;t load, then there is probably "
 "a typo in your path."
 msgstr ""
 
-#: lib/modal.php:255
+#: lib/modal-support.php:314
 msgid "Loaded icons"
 msgstr ""
 
-#: lib/modal.php:260
+#: lib/modal-support.php:319
 #, php-format
 msgid "Icons courtesy of the %sMap Icons Collection%s"
 msgstr ""
 
-#: lib/shortcode.php:212 lib/shortcode.php:213
+#: lib/modal.php:39
+#, php-format
+msgid "GOOGLE API KEY NOT SET: Visit the %splugin settings page%s to get one."
+msgstr ""
+
+#: lib/shortcode.php:217
 msgid "Google Map for"
 msgstr ""
 
-#: lib/shortcode.php:824
+#: lib/shortcode.php:840
 msgid "MAP PLUGIN NOTICE: "
 msgstr ""
 
-#: lib/shortcode.php:832
-msgid "Whoops! You have conflicting or insufficient address values."
+#: lib/shortcode.php:846
+msgid "Google replied: 200, lets see if we get location results."
 msgstr ""
 
-#: lib/shortcode.php:833
-msgid "Please check that the shortcode is formed properly. Include either a "
-msgstr ""
-
-#: lib/shortcode.php:834
-msgid "Google "
-msgstr ""
-
-#: lib/shortcode.php:835
-msgid "placeID "
-msgstr ""
-
-#: lib/shortcode.php:836 lib/shortcode.php:839 lib/shortcode.php:843
-msgid "OR "
-msgstr ""
-
-#: lib/shortcode.php:837
-msgid "address "
-msgstr ""
-
-#: lib/shortcode.php:838
-msgid "line, "
-msgstr ""
-
-#: lib/shortcode.php:840
-msgid "explicit, "
-msgstr ""
-
-#: lib/shortcode.php:841
-msgid "lat, lng, "
-msgstr ""
-
-#: lib/shortcode.php:842
-msgid "values "
-msgstr ""
-
-#: lib/shortcode.php:844
-msgid "explicit location parameters: "
-msgstr ""
-
-#: lib/shortcode.php:845
-msgid "name, street, city, state, postcode, country."
+#: lib/shortcode.php:852
+msgid ""
+"Whoops! We don't have enough information, or there are  conflicting address "
+"values."
 msgstr ""
 
 #: lib/shortcode.php:853
-msgid "We received an error in the URL response: "
+msgid "Please check that the shortcode is formed properly. Include either a "
+msgstr ""
+
+#: lib/shortcode.php:854
+msgid "Google "
+msgstr ""
+
+#: lib/shortcode.php:855
+msgid "placeID "
+msgstr ""
+
+#: lib/shortcode.php:856 lib/shortcode.php:859 lib/shortcode.php:863
+msgid "OR "
+msgstr ""
+
+#: lib/shortcode.php:857
+msgid "address "
+msgstr ""
+
+#: lib/shortcode.php:858
+msgid "line, "
+msgstr ""
+
+#: lib/shortcode.php:860
+msgid "explicit, "
+msgstr ""
+
+#: lib/shortcode.php:861
+msgid "lat, lng, "
+msgstr ""
+
+#: lib/shortcode.php:862
+msgid "values "
 msgstr ""
 
 #: lib/shortcode.php:864
-msgid "There were problems retrieving the body of the response."
+msgid "explicit location parameters: "
 msgstr ""
 
-#: lib/shortcode.php:875
+#: lib/shortcode.php:865
+msgid "name, street, city, state, postcode, country."
+msgstr ""
+
+#: lib/shortcode.php:873
+msgid "We received an error in the wp_remote_get URL response: "
+msgstr ""
+
+#: lib/shortcode.php:884
+msgid ""
+"There were problems retrieving the body of the response from "
+"wp_remote_retrieve_body."
+msgstr ""
+
+#: lib/shortcode.php:895
 msgid ""
 "Looks like you've used a Google place_ID, but you don't have Google API "
 "key . Because of this we cannot process the, "
 msgstr ""
 
-#: lib/shortcode.php:876
+#: lib/shortcode.php:896
 msgid "placeid"
 msgstr ""
 
-#: lib/shortcode.php:877
+#: lib/shortcode.php:897
 msgid ""
 "shortcode parameter. Either add address details manually, or see the "
 "documentation on how to get your own api key."
 msgstr ""
 
-#: lib/shortcode.php:885
+#: lib/shortcode.php:905
 msgid "Unable to contact Google API, service response: "
 msgstr ""
 
-#: lib/shortcode.php:903
+#: lib/shortcode.php:923
 msgid "Google Response: "
 msgstr ""
 
-#: lib/shortcode.php:915
+#: lib/shortcode.php:935
 msgid ""
 "Place not found. Usually this is due to an incomplete or corrupted reference "
 "string."
 msgstr ""
 
-#: lib/shortcode.php:927
+#: lib/shortcode.php:947
 msgid ""
 "Here is the data returned from the query, our error reporter is confused."
 msgstr ""
 
-#: lib/shortcode.php:939
+#: lib/shortcode.php:959
 msgid ""
 "Something went wrong while retrieving your map, please ensure you have "
 "entered the short code parameters correctly."
 msgstr ""
 
-#: lib/shortcode.php:940
+#: lib/shortcode.php:960
 msgid "Google's response message code is: "
 msgstr ""
 
