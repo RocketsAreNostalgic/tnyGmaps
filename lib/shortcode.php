@@ -120,7 +120,7 @@ function map_me( $attr ) {
 		$attr['address'] = null;
 		// here we have a place_ID so get/set transient with fetched values
 		$attr_place = map_get_place( $api_key, $attr['placeid'], null, $attr['refresh'], $attr['debug'] );
-		if (array_key_exists('errors', $attr_place)){
+		if ( is_array( $attr_place ) && array_key_exists( 'errors', $attr_place ) ) {
 			$map_errors .= $attr_place['errors'];
 
 			return $map_errors;
@@ -155,7 +155,7 @@ function map_me( $attr ) {
 			// here we don't have an place_ID or address, but we've constructed an address string from the other
 			$attr_place = map_get_place( $api_key, null, $attr['address'], $attr['refresh'], $attr['debug'] );
 
-			if (array_key_exists('errors', $attr_place) ){
+			if ( is_array( $attr_place ) && array_key_exists( 'errors', $attr_place ) ) {
 				$map_errors .= $attr_place['errors'];
 				$map_errors .= map_errors( $attr['debug'], 'insufficient_address' );
 
