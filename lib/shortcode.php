@@ -185,7 +185,7 @@ function map_me( $attr ) {
 			$infowindow_extras = ( ! empty( $attr['infowindowb64'] ) ) ? base64_decode( $attr['infowindowb64'] ) : '';
 
 			// add any content from the basic infowindow attr to the end in its own div
-			$infowindow_extras = ( ! empty( $attr['infowindow']) ) ? $infowindow_extras . '<div>' . $attr['infowindow']. '</div>' : $infowindow_extras;
+			$infowindow_extras = ( ! empty( $attr['infowindow'] ) ) ? $infowindow_extras . '<div>' . $attr['infowindow'] . '</div>' : $infowindow_extras;
 		}
 		// convert the html special chars
 		$attr['infowindow'] = htmlspecialchars_decode( $infowindow_extras, ENT_QUOTES );
@@ -196,15 +196,13 @@ function map_me( $attr ) {
 		$attr['infowindow'] = get_info_bubble( $attr['icon'], $attr['name'], $attr['street'], $attr['city'], $attr['region'], $attr['postcode'], $attr['country'], $attr['phone'], $attr['web'], $attr['infowindow'] );
 
 		// for external map link
-		$linkAddress     = $attr['name'] . ' ' . $attr['street'] . ' ' . $attr['city'] . ' ' . $attr['region'] . ' ' . $attr['postcode'] . ' ' . $attr['country'];
-		$linkAddress_url = cleanLinkAddress_url($linkAddress);
-
-		enqueueJsGlobals ($map_id, $attr);
+		$Address            = $attr['name'] . '+' . $attr['street'] . '+' . $attr['city'] . '+' . $attr['region'] . '+' . $attr['postcode'] . '+' . $attr['country'];
+		$link_address_query = cleanLinkAddressQuery( $Address );
 
 		// Build the 'view map on its own' link
 		$static_src = "https://maps.google.com/maps/api/staticmap?key=" . GOOGLE_API_KEY . "&size=" . $attr['static_w'] . "x" . $attr['static_h'] . "&zoom=" . $attr['z'];
-		$static_src .= "&center=" . $linkAddress_url;
-		$static_src .= "&markers=label:m" . "%257C" . "icon:" . $attr['marker'] . "%7C" . $linkAddress_url . "&maptype=" . $attr['maptype'];
+		$static_src .= "&center=" . $link_address_query;
+		$static_src .= "&markers=label:m" . "%257C" . "icon:" . $attr['marker'] . "%7C" . $link_address_query . "&maptype=" . $attr['maptype'];
 		$static_src .= "format=jpg";
 		$static_src_2x = $static_src . "&scale=2 2x,";
 		// output the map wrappers and links
