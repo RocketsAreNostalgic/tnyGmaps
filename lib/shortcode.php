@@ -373,7 +373,6 @@ function sanitise_attributes_array( $attr ) {
 	if ( get_option( 'tnygmaps_debug' ) ) {
 		$attr['debug'] = true;
 	}
-
 	array_walk( $attr, create_function( '&$val', '$val = (!is_array($val) ? trim($val) : "");' ) ); //trim white space
 	// Sanitize array elements whole stock with htmlentities encoding entities and double and single quotes
 	$attr = array_htmlentities( $attr );
@@ -420,17 +419,18 @@ function sanitise_attributes_array( $attr ) {
 	$attr['scale']             = ( $attr['scale'] == 'true' ) ? true : false;
 	$attr['scrollwheel']       = ( $attr['scrollwheel'] == 'true' ) ? true : false;
 	// See if static maps have been enabled. If not, setting 'static_DOM_width' to 0 will disable the feature
-	$attr['static_DOM_width']   = remove_px_percent( $attr['static_DOM_width'] );
-	if (!get_option('tnygmaps_mobile')) {
-		$attr['static_DOM_width'] = '0';
-	}
-	// If it hasn't been specified, test it against the global setting.
-	if (!$attr['static_DOM_width']) {
-		$attr['static_DOM_width'] = remove_px_percent(get_option('tnygmaps_mobile_width'));
+	$attr['static_DOM_width'] = remove_px_percent( $attr['static_DOM_width'] );
+		// If it hasn't been specified, test it against the global setting.
+	if ( ! $attr['static_DOM_width'] ) {
+		$attr['static_DOM_width'] = remove_px_percent( get_option( 'tnygmaps_mobile_width' ) );
 		// If no option set for some reason, use baked in constant
-		if (!$attr['static_DOM_width']){
+		if ( ! $attr['static_DOM_width'] ) {
 			$attr['static_DOM_width'] = TNYGMAPS_STATIC_DOM_WIDTH;
 		}
+	}
+	// Set it to 0 if the user has chosen to disable the feature.
+	if ( ! get_option( 'tnygmaps_mobile' ) ) {
+		$attr['static_DOM_width'] = 0;
 	}
 	$attr['static_w'] = remove_px_percent( $attr['static_w'] );
 	$attr['static_h'] = remove_px_percent( $attr['static_h'] );
