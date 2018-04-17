@@ -654,8 +654,7 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 			}
 			$url = add_query_arg( $args, 'https://maps.googleapis.com/maps/api/geocode/json' );
 		} elseif ( empty( $address ) ) {
-			Support\write_log('we don\'t have enough information to finish the job!');
-			$map_errors .=  map_errors( $debug, 'malformed_params' );
+			$map_errors .= map_errors( $debug, 'malformed_params' );
 		}
 
 		// Get the data from Google's servers
@@ -663,29 +662,30 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 
 		// Catch any errors from wp_remote_get
 		if ( is_wp_error( $response ) ) {
-			Support\write_log('Error in wp_remote_get');
-			$map_errors .=  map_errors( $debug, 'wp_error_get', $response );
+
+			$map_errors .= map_errors( $debug, 'wp_error_get', $response );
+
 		}
 
 		// retrieve the data from the response
 		$data = wp_remote_retrieve_body( $response );
 
 		if ( is_wp_error( $data ) ) {
-			Support\write_log('Failed results from wp_remote_retrieve_body');
 			$map_errors .= map_errors( $debug, 'wp_error_data', $data );
 		}
-
-		if ( $response['response']['code'] == 200 ) {
+		// Make sure we're not getting a WP_error object
+		if ( is_array( $response ) && $response['response']['code'] == 200 ) {
 			// We have received a reply from Google
+			$responseCode = $response['response']['code'];
+			$map_errors .= map_errors( $debug, $responseCode, $data );
 
 			// Interpret the response
 			$data = json_decode( $data );
-			Support\write_log('Google Replied: 200');
 
+			// non-positive Response
 			if ( $data->status !== 'OK' ) {
-				Support\write_log('We\'ve received a non "OK" response from Google');
-				$responseCode = $response['response']['code'];
-				$map_errors .= map_errors( $debug, $responseCode, $data );
+				$response = $data->status;
+				$map_errors .= map_errors( $debug, $response, $data );
 
 			} elseif ( $data->status === 'OK' ) {
 				/* We've received a positive result, populate the variables */
@@ -841,6 +841,10 @@ function map_errors( $debug, $error, $response = '' ) {
 		$message  = '';
 
 		switch ( $error ):
+			case '200';
+				// we wont print to screen, but we can spit out a log.
+				Support\write_log( __('Google replied: 200, lets see if we get location results.', 'orionrush-tnygmaps') );
+			break;
 			case 'insufficient_address';
 			case 'malformed_params';
 				$message .= sprintf( '<p><b>%s</b><br/> %s</p><p>%s<b>%s</b><em>%s</em><b>%s</b><em>%s</em> %s <b>%s %s</b> <em>%s</em> %s <b>%s %s</b> <em>%s</em></p>',
@@ -866,7 +870,7 @@ function map_errors( $debug, $error, $response = '' ) {
 			case 'wp_error_get';
 				$message .= sprintf( '<p><b>%s</b><br/> %s</p>',
 					$headline,
-					__('We received an error in the URL response: ', 'orionrush-tnygmaps' )
+					__( 'We received an error in the wp_remote_get URL response: ', 'orionrush-tnygmaps' )
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
@@ -877,7 +881,7 @@ function map_errors( $debug, $error, $response = '' ) {
 			case 'wp_error_data';
 				$message .= sprintf( '<p><b>%s</b><br/>%s</p>',
 					$headline,
-					__('There were problems retrieving the body of the response.', 'orionrush-tnygmaps' )
+					__( 'There were problems retrieving the body of the response from wp_remote_retrieve_body.', 'orionrush-tnygmaps' )
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
