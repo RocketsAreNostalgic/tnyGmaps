@@ -228,7 +228,10 @@ function map_me( $attr ) {
 		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . wp_specialchars_decode( $link_address_query ) . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . Support\openMapInNewWin() . '</a></div>';
 		$markup .= '</div>';
 
-		if ($map_errors){
+		// Enqueue the js at the last minute now that we have all the attributes assembled.
+		enqueueJsGlobals( $map_id, $attr );
+
+		if ( $map_errors ) {
 
 			return $map_errors;
 
