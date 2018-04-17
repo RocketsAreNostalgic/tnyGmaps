@@ -374,7 +374,7 @@ function sanitise_attributes_array( $attr ) {
 		$attr['debug'] = true;
 	}
 
-	array_walk( $attr, create_function( '&$val', '$val = trim($val);' ) ); //trim white space
+	array_walk( $attr, create_function( '&$val', '$val = (!is_array($val) ? trim($val) : "");' ) ); //trim white space
 	// Sanitize array elements whole stock with htmlentities encoding entities and double and single quotes
 	$attr = array_htmlentities( $attr );
 	// load map params into variables
