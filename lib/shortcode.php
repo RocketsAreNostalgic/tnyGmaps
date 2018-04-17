@@ -367,10 +367,10 @@ function cleanLinkAddressQuery( $address ) {
  *
  * @return array
  */
-function sanitise_atributes_array ($attr){
+function sanitise_attributes_array( $attr ) {
 
 	// Override with global debugging values set in options page.
-	if(get_option('tnygmaps_debug')){
+	if ( get_option( 'tnygmaps_debug' ) ) {
 		$attr['debug'] = true;
 	}
 
@@ -432,10 +432,10 @@ function sanitise_atributes_array ($attr){
 			$attr['static_DOM_width'] = TNYGMAPS_STATIC_DOM_WIDTH;
 		}
 	}
-	$attr['static_w']           = remove_px_percent( $attr['static_w'] );
-	$attr['static_h']           = remove_px_percent( $attr['static_h'] );
-	$attr['refresh']            = ( ( $attr['refresh'] != 'false' ) ? true : false );
-	$attr['debug']              = ( ( $attr['debug'] != 'false' ) ? true : false );
+	$attr['static_w'] = remove_px_percent( $attr['static_w'] );
+	$attr['static_h'] = remove_px_percent( $attr['static_h'] );
+	$attr['refresh']  = ( ( $attr['refresh'] != 'false' ) ? true : false );
+	$attr['debug']    = ( ( $attr['debug'] != 'false' ) ? true : false );
 
 	return (array) $attr;
 }
