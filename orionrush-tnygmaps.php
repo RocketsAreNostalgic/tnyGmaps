@@ -81,6 +81,7 @@ require_once( TNYGMAPS_PATH . 'lib/activation.php' );
 
 // Helper functions
 require_once( TNYGMAPS_PATH . 'lib/support.php' );
+require_once( TNYGMAPS_PATH . 'lib/modal-support.php' );
 
 // Admin screen
 require_once( TNYGMAPS_PATH . 'lib/admin.php' );
