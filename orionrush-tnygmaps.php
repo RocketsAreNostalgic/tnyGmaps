@@ -105,4 +105,5 @@ register_activation_hook( TNYGMAPS_PLUGIN, __NAMESPACE__ . '\\Activation\\activa
 function load_textdomain() {
 	load_plugin_textdomain( 'orionrush-tnygmaps', false, basename( dirname( TNYGMAPS_PLUGIN ) ) . '/lang/' );
 }
+
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_textdomain' );

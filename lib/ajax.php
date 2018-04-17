@@ -9,6 +9,21 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
  * /*********************************************************************/
 
 /**
+ * A filterable function which loads the modal.
+ *
+ * @author orionrush
+ * @since 0.0.3
+ *
+ */
+
+function load_modal() {
+	require_once( TNYGMAPS_PATH . 'lib/modal.php' );
+}
+
+add_action( 'tnygmaps_modal', __NAMESPACE__ . "\\load_modal", 10 );
+
+
+/**
  * Returns the modal html content
  *
  * @wp_hook: wp_ajax
