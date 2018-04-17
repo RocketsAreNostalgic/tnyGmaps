@@ -325,11 +325,11 @@ function cleanCommasAddressString( $address ) {
  * @since:   0.0.4
  * @author: orionrush
  *
- * @param $url
+ * @param $address
  *
  * @return mixed
  */
-function cleanLinkAddress_url($url){
+function cleanLinkAddressQuery( $address ) {
 	// Clean up whitespace, commas, new lines etc.
 	$remove = array(
 		'  ',
@@ -350,12 +350,11 @@ function cleanLinkAddress_url($url){
 	);
 
 	// replace disallowed characters with '+'
-	$url = str_replace( $remove, '+', $url );
+	$address = str_replace( $remove, '+', $address );
 	// Remove any inadvertent double '++'
-	$url = str_replace( '++', '', $url );
-	// Encode it just in case
-	$url = urlencode( $url );
-	return $url;
+	$address = str_replace( '++', '', $address );
+	$address = trim( $address, '+' ); // remove trailing or leading '+'
+	return $address;
 }
 
 /**
