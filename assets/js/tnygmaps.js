@@ -4,7 +4,7 @@
  * @param debug
  * @param message
  */
-function tnygmaps_debug( debug, message ) {
+function tnygmapsDebug( debug, message ) {
 	if ( debug === "1" ) {
 		console.log( message );
 	}
@@ -13,56 +13,56 @@ function tnygmaps_debug( debug, message ) {
 /**
  * Initialize map from jquery ready event, or google dom resize event listeners.
  *
- * @param map_id
- * @param map_loc
+ * @param mapID
+ * @param mapLocation
  */
-function initialize( map_id, map_loc ) {
+function initialize( mapID, mapLocation ) {
 	var attr, latlng, mapTypeId, mapOptions;
 
 
 	// an attribute added by google api after init has already been called
-	attr = jQuery( "#" + map_id ).attr( "jstcache" );
+	attr = jQuery( "#" + mapID ).attr( "jstcache" );
 	// prevent init from being called on maps already drawn
 	if ( typeof attr === typeof undefined || attr === false || attr === "" ) {
-		tnygmaps_debug( map_loc.debug, "init" );
+		tnygmapsDebug( mapLocation.debug, "init" );
 
-		 latlng = new google.maps.LatLng( map_loc.lat, map_loc.lng );
-		 mapTypeId = map_loc.maptype;
+		 latlng = new google.maps.LatLng( mapLocation.lat, mapLocation.lng );
+		 mapTypeId = mapLocation.maptype;
 		 mapOptions = {
-			zoom: parseInt( map_loc.z ),
+			zoom: parseInt( mapLocation.z ),
 			mapTypeId: google.maps.MapTypeId[mapTypeId],
 			center: latlng,
-			scrollwheel: map_loc.scrollwheel,
-			scaleControl: map_loc.scaleControl,
-			disableDefaultUI: map_loc.hidecontrols,
+			scrollwheel: mapLocation.scrollwheel,
+			scaleControl: mapLocation.scaleControl,
+			disableDefaultUI: mapLocation.hidecontrols,
 			gestureHandling: 'cooperative'
 		};
 		// Start the map
-		map_id = new google.maps.Map( document.getElementById( map_id ), mapOptions );
+		mapID = new google.maps.Map( document.getElementById( mapID ), mapOptions );
 
 		// Load the icon and bubble
-		google.maps.event.addListenerOnce( map_id, "tilesloaded", function () {
+		google.maps.event.addListenerOnce( mapID, "tilesloaded", function () {
 			var marker = new google.maps.Marker( {
-				map: map_id,
-				position: map_id.getCenter(),
-				icon: map_loc.marker
+				map: mapID,
+				position: mapID.getCenter(),
+				icon: mapLocation.marker
 			} );
 			var infowindow = new google.maps.InfoWindow( {
-				content: map_loc.infowindow,
+				content: mapLocation.infowindow,
 				position: latlng
 			} );
-			infowindow.open( map_id, marker );
+			infowindow.open( mapID, marker );
 			google.maps.event.addListener( marker, "click", function () {
-				infowindow.open( map_id, marker );
+				infowindow.open( mapID, marker );
 			} );
 		} );
 
 		google.maps.event.addDomListener( window, "resize", function () {
 			// Centering on window resize
-			var center = map_id.getCenter();
-			google.maps.event.trigger( map_id, "resize" );
-			map_id.setCenter( center );
-			tnygmaps_debug( map_loc.debug, "resize center" );
+			var center = mapID.getCenter();
+			google.maps.event.trigger( mapID, "resize" );
+			mapID.setCenter( center );
+			tnygmapsDebug( mapLocation.debug, "resize center" );
 		} );
 	}
 }
@@ -77,36 +77,36 @@ jQuery( function () {
 	var isMobile = /Mobi/i.test( navigator.userAgent ) || /Anroid/i.test( navigator.userAgent );
 
 	jQuery( '.tnygmps_canvas' ).each( function () {
-		var map_id, map_loc, isSmallScreen, load_maps;
-		 map_id = jQuery( this ).attr( "id" );
-		 map_loc = window[map_id + "_loc"]; // our global var array for this map
-		 isSmallScreen = window.matchMedia( "only screen and (max-width: " + map_loc.static_DOM_width + "px)" );
+		var mapID, mapLocation, isSmallScreen, load_maps;
+		 mapID = jQuery( this ).attr( "id" );
+		 mapLocation = window[mapID + "_loc"]; // our global var array for this map
+		 isSmallScreen = window.matchMedia( "only screen and (max-width: " + mapLocation.static_DOM_width + "px)" );
 		 load_maps = false;
 		if ( isSmallScreen ) {
 			load_maps = (
 				! isMobile ? true : false
 			);
 		}
-		tnygmaps_debug( map_loc.debug, "Tny gMaps: isSmallScreen ='" + isSmallScreen.matches + "'" );
-		tnygmaps_debug( map_loc.debug, "Tny gMaps: isMobile ='" + isMobile + "'" );
-		tnygmaps_debug( map_loc.debug, "Tny gMaps: DOM breakpoint: " + map_loc.static_DOM_width + "' ." );
-		tnygmaps_debug( map_loc.debug, "map found" );
+		tnygmapsDebug( mapLocation.debug, "Tny gMaps: isSmallScreen ='" + isSmallScreen.matches + "'" );
+		tnygmapsDebug( mapLocation.debug, "Tny gMaps: isMobile ='" + isMobile + "'" );
+		tnygmapsDebug( mapLocation.debug, "Tny gMaps: DOM breakpoint: " + mapLocation.static_DOM_width + "' ." );
+		tnygmapsDebug( mapLocation.debug, "map found" );
 
 		if ( load_maps ) {
-			tnygmaps_debug( map_loc.debug, "Tny gMaps: DOM width larger than '" + map_loc.static_DOM_width + "' so initialize map" );
-			jQuery( "#" + map_id ).css( "height", map_loc.h ); // set the map height
-			jQuery( "#" + map_id + "> .tnygmps_staticimg" ).hide();
-			jQuery( "#" + map_id + "> .tnygmps_static_bubble" ).hide();
-			initialize( map_id, map_loc );
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: DOM width larger than '" + mapLocation.static_DOM_width + "' so initialize map" );
+			jQuery( "#" + mapID ).css( "height", mapLocation.h ); // set the map height
+			jQuery( "#" + mapID + "> .tnygmps_staticimg" ).hide();
+			jQuery( "#" + mapID + "> .tnygmps_static_bubble" ).hide();
+			initialize( mapID, mapLocation );
 		} else if ( ! isSmallScreen.matches && isMobile ) {
 			// if it is mobile, but is a large enough screen run it anyway
-			jQuery( "#" + map_id ).css( "height", map_loc.h ); // set the map height
-			jQuery( "#" + map_id + "> .tnygmps_staticimg" ).hide();
-			jQuery( "#" + map_id + "> .tnygmps_static_bubble" ).hide();
-			initialize( map_id, map_loc );
+			jQuery( "#" + mapID ).css( "height", mapLocation.h ); // set the map height
+			jQuery( "#" + mapID + "> .tnygmps_staticimg" ).hide();
+			jQuery( "#" + mapID + "> .tnygmps_static_bubble" ).hide();
+			initialize( mapID, mapLocation );
 		} else {
-			tnygmaps_debug( map_loc.debug, "Tny gMaps: DOM current width: '" + document.documentElement.clientWidth + "px'." );
-			jQuery( "#" + map_id ).css( "height", "auto" );
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: DOM current width: '" + document.documentElement.clientWidth + "px'." );
+			jQuery( "#" + mapID ).css( "height", "auto" );
 		}
 	} );
 } );
