@@ -206,23 +206,23 @@ function map_me( $attr ) {
 		$static_src .= "format=jpg";
 		$static_src_2x = $static_src . "&scale=2 2x,";
 		// output the map wrappers and links
-		$markup = '<div class="tnygmps_wrap" id="' . $map_id . '_wrap">';
-		$markup .= '    <div class="tnygmps_canvas" id="' . $map_id . '" style="width:' . $attr['static_w'] . '; height:' . $attr['static_h'] . ';">'; //height will be reset by js for googlemaps api
+		$markup = '<div class="tnygmps_wrap" id="' . esc_attr( $map_id ) . '_wrap">';
+		$markup .= '    <div class="tnygmps_canvas" id="' . esc_attr( $map_id ) . '" style="width:' . esc_attr( $attr['static_w'] ) . '; height:' . esc_attr( $attr['static_h'] ) . ';">'; //height will be reset by js for googlemaps api
 
 		// Only show this if the plugin option is enabled
-		if ($attr['static_DOM_width'] !== '0' ){
-			$alt_text = __("Google Map for", "orionrush-tyngmaps") . ' ' . $attr['name'];
-			$markup .= '        <img class="tnygmps_staticimg" src="' . $static_src . '" srcset="' . $static_src_2x . '" style="width:' . $attr['static_w'] . '; height:' . $attr['static_h'] . ';" alt="' . __("Google Map for", 'orionrush-tyngmaps') . ' ' . $attr['name'] . '">';
+		if ( $attr['static_DOM_width'] !== '0' ) {
+			$alt_text = __( "Google Map for", "orionrush-tyngmaps" ) . ' ' . $attr['name'];
+			$markup .= '        <img class="tnygmps_staticimg" src="' . esc_url( $static_src ) . '" srcset="' . esc_url( $static_src_2x ) . '" style="width:' . esc_attr( $attr['static_w'] ) . '; height:' . esc_attr( $attr['static_h'] ) . ';" alt="' . esc_attr( $alt_text ) . '">';
 
 			if ( $attr['infowindow'] ) { // if we have an infowindow
-				$markup .= '        <div class="tnygmps_static_bubble well well-small" >' . wp_specialchars_decode($attr['infowindow']) . '</div>';
+				$markup .= '        <div class="tnygmps_static_bubble well well-small" >' . wp_specialchars_decode( $attr['infowindow'] ) . '</div>';
 			}
 		} else {
 			// Base 64 Encoded 1x1 px transparent gif as placeholder.
 			$markup .= '        <img class="tnygmps_staticimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:' . $attr['static_w'] . '; height:' . $attr['static_h'] . ';">';
 		}
 		$markup .= '    </div>';
-		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . $linkAddress_url . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . Support\openMapInNewWin() . '</a></div>';
+		$markup .= '    <div class="tnygmps_link_wrap"><a href="https://maps.google.com/?q=' . wp_specialchars_decode( $link_address_query ) . '&t=m"  class="tnygmps_ext_lnk" target="_blank">' . Support\openMapInNewWin() . '</a></div>';
 		$markup .= '</div>';
 
 		if ($map_errors){
