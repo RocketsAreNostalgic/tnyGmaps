@@ -174,6 +174,9 @@ function map_me( $attr ) {
 	if ( is_array( $attr_place ) ) {
 		// Combine the two arrays into one
 		$attr = array_replace( $attr, $attr_place );
+		// Re-sanitise
+		$attr = sanitise_attributes_array( $attr );
+
 	}
 
 	// Don't continue if we are not in the admin. Sometimes there is a slow response from map_get_place and it doesn't always returning in time....
