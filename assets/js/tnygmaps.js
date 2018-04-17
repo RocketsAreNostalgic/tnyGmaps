@@ -9,6 +9,8 @@ function tnygmapsDebug( debug, message ) {
 		console.log( message );
 	}
 }
+// https://stackoverflow.com/a/10364620
+var tnyGmapsIsMobile = /Mobi/i.test( navigator.userAgent ) || /Anroid/i.test( navigator.userAgent );
 
 /**
  * Initialize map from jquery ready event, or google dom resize event listeners.
@@ -26,9 +28,9 @@ function initialize( mapID, mapLocation ) {
 	if ( typeof attr === typeof undefined || attr === false || attr === "" ) {
 		tnygmapsDebug( mapLocation.debug, "init" );
 
-		 latlng = new google.maps.LatLng( mapLocation.lat, mapLocation.lng );
-		 mapTypeId = mapLocation.maptype;
-		 mapOptions = {
+		latlng = new google.maps.LatLng( mapLocation.lat, mapLocation.lng );
+		mapTypeId = mapLocation.maptype;
+		mapOptions = {
 			zoom: parseInt( mapLocation.z ),
 			mapTypeId: google.maps.MapTypeId[mapTypeId],
 			center: latlng,
@@ -69,19 +71,24 @@ function initialize( mapID, mapLocation ) {
 
 /**
  *
- * On Dom Ready init the map, if both the screen is large enough and we're not on a mobile device
- * If we're not big enough and on mobile, adjust the container css
+ *
+ * @param isMobile
  */
-jQuery( function () {
-	// https://stackoverflow.com/a/10364620
-	var isMobile = /Mobi/i.test( navigator.userAgent ) || /Anroid/i.test( navigator.userAgent );
+function initTest (isMobile){
 
 	jQuery( '.tnygmps_canvas' ).each( function () {
-		var mapID, mapLocation, isSmallScreen, load_maps;
-		 mapID = jQuery( this ).attr( "id" );
-		 mapLocation = window[mapID + "_loc"]; // our global var array for this map
-		 isSmallScreen = window.matchMedia( "only screen and (max-width: " + mapLocation.static_DOM_width + "px)" );
-		 load_maps = false;
+		var mapID, mapLocation, isSmallScreen, load_maps, mapLoaded;
+
+		mapID = jQuery( this ).attr( "id" );
+
+		// Check flag to see if we have already init the map
+		mapLoaded = jQuery( this ).hasClass( 'mapLoaded' );
+		if ( mapLoaded ) {
+			return false;
+		}
+		mapLocation = window[mapID + "_loc"]; // our global var array for this map
+		isSmallScreen = window.matchMedia( "only screen and (max-width: " + mapLocation.static_DOM_width + "px)" );
+		load_maps = false;
 		if ( isSmallScreen ) {
 			load_maps = (
 				! isMobile ? true : false
@@ -92,21 +99,39 @@ jQuery( function () {
 		tnygmapsDebug( mapLocation.debug, "Tny gMaps: DOM breakpoint: " + mapLocation.static_DOM_width + "' ." );
 		tnygmapsDebug( mapLocation.debug, "map found" );
 
-		if ( load_maps ) {
-			tnygmapsDebug( mapLocation.debug, "Tny gMaps: DOM width larger than '" + mapLocation.static_DOM_width + "' so initialize map" );
+		if ( (load_maps && ! mapLoaded) || (! isSmallScreen.matches && tnyGmapsIsMobile && ! mapLoaded ) ) {
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: initialize map" );
 			jQuery( "#" + mapID ).css( "height", mapLocation.h ); // set the map height
 			jQuery( "#" + mapID + "> .tnygmps_staticimg" ).hide();
 			jQuery( "#" + mapID + "> .tnygmps_static_bubble" ).hide();
+			// Set map loaded class
+			jQuery( this ).addClass( 'mapLoaded' );
 			initialize( mapID, mapLocation );
-		} else if ( ! isSmallScreen.matches && isMobile ) {
-			// if it is mobile, but is a large enough screen run it anyway
-			jQuery( "#" + mapID ).css( "height", mapLocation.h ); // set the map height
-			jQuery( "#" + mapID + "> .tnygmps_staticimg" ).hide();
-			jQuery( "#" + mapID + "> .tnygmps_static_bubble" ).hide();
-			initialize( mapID, mapLocation );
-		} else {
+		}  else {
 			tnygmapsDebug( mapLocation.debug, "Tny gMaps: DOM current width: '" + document.documentElement.clientWidth + "px'." );
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: isSmallScreen flag: '" + isSmallScreen  + "'");
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: tnyGmapsIsMobile flag: '" + tnyGmapsIsMobile  + "'");
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: mapLoaded flag: '" + mapLoaded  + "'");
 			jQuery( "#" + mapID ).css( "height", "auto" );
 		}
 	} );
+}
+
+/**
+ * On DOM Ready, init the map.
+ *
+ * @global jQuery
+ * @global tnyGmapsIsMobile
+ */
+jQuery( function () {
+	initTest(tnyGmapsIsMobile);
 } );
+/**
+ * On Screen Orientation Change, init the map.
+ *
+ * @global tnyGmapsIsMobile
+ *
+ */
+window.addEventListener( "orientationchange", function () {
+	initTest(tnyGmapsIsMobile);
+}, false );
