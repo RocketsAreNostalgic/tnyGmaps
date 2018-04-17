@@ -1,12 +1,15 @@
 <?php
 namespace OrionRush\TnyGmaps\Admin;
+
 use OrionRush\TnyGmaps\Support as Support;
 
-if ( ! defined( 'ABSPATH' ) ) { die(); }
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 /**
  * The html output for the settings page.
- *
+ * @author orionrush
  * @since   0.0.4
  * @package TNYGMAPS
  */
@@ -14,35 +17,37 @@ function admin_markup() {
 	add_thickbox();
 	?>
     <div class="wrap">
-        <form method="post" action="options.php">
-			<?php do_settings_sections( 'tnygmaps-settings-group' ); ?>
-	        <?php settings_fields( 'tnygmaps-settings-group' ); ?>
-			<?php submit_button(); ?>
-        </form>
+    <form method="post" action="options.php">
+		<?php do_settings_sections( 'tnygmaps-settings-group' ); ?>
+		<?php settings_fields( 'tnygmaps-settings-group' ); ?>
+		<?php submit_button(); ?>
+    </form>
 	<?php
 }
 
-function api_key () {
-    ?>
+function api_key() {
+	?>
     <div class="tnygmaps-api-wrap">
         <div class="tnygmaps-wrap">
             <div class="tnygmaps-stretch">
-                <input title="<?php echo esc_attr(__( 'Copy your API key here', 'orionrush-tnygmaps' )); ?>"
+                <input title="<?php echo esc_attr( __( 'Copy your API key here', 'orionrush-tnygmaps' ) ); ?>"
                        type="text"
                        name="tnygmaps_api_key"
                        id="tnygmaps_api_key"
-                       placeholder="<?php echo esc_attr(__( 'Copy your API key here', 'orionrush-tnygmaps' )); ?>"
-                       value="<?php echo esc_attr( trim(get_option( 'tnygmaps_api_key' ))); ?>"
+                       placeholder="<?php echo esc_attr( __( 'Copy your API key here', 'orionrush-tnygmaps' ) ); ?>"
+                       value="<?php echo esc_attr( trim( get_option( 'tnygmaps_api_key' ) ) ); ?>"
                 />
             </div>
             <div class="tnygmaps-normal">
-                <a href="#TB_inline?width=600&height=420&inlineId=tnygmaps_api_modal" id="generate-api-button" class="thickbox tnymaps-api-button" title="<?php _e( 'Generate Google API Key (You must be logged in to a Google account)', 'orionrush-tnygmaps' ); ?>">
-					<?php echo esc_attr(__( 'Generate Key', 'orionrush-tnygmaps' )); ?>
+                <a href="#TB_inline?width=600&height=420&inlineId=tnygmaps_api_modal" id="generate-api-button"
+                   class="thickbox tnymaps-api-button"
+                   title="<?php _e( 'Generate Google API Key (You must be logged in to a Google account)', 'orionrush-tnygmaps' ); ?>">
+					<?php echo esc_attr( __( 'Generate Key', 'orionrush-tnygmaps' ) ); ?>
                 </a>
             </div>
         </div>
         <div class="bootstrap-tny">
-            <p class=" alert"><?php echo sprintf(__('%sNote:%s  For better security, be sure to restrict where your key can be used via Google\'s %sAPI Console%s.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://console.developers.google.com/apis/credentials/" target="_blank">', '</a>');?></p>
+            <p class=" alert"><?php echo sprintf( __( '%sNote:%s  For better security, be sure to restrict where your key can be used via Google\'s %sAPI Console%s.', 'orionrush-tnygmaps' ), '<strong>', '</strong>', '<a href="https://console.developers.google.com/apis/credentials/" target="_blank">', '</a>' ); ?></p>
         </div>
     </div>
     <!-- API key modal -->
@@ -51,10 +56,10 @@ function api_key () {
     <div id="tnygmaps_api_modal" class="bootstrap-tny" style="display:none;">
         <div id="spinner" class="" style="left: 280px; top: 200px; position: absolute;"></div>
         <iframe
-			<?php // use http rather then https to prevent errors Failed to execute postMessage on 'DOMWindow' ?>
-                id = "tnygmaps-api-iframe"
-                src = 'http://console.developers.google.com/henhouse/?pb=%5B%22hh-0%22,%22maps_backend%22,null,%5B%5D,%22https:%2F%2Fdevelopers.google.com%22,null,%5B%22geocoding_backend%22,%22directions_backend%22,%22distance_matrix_backend%22,%22elevation_backend%22,%22places_backend%22%5D,null,null,null,null,%5B%5D%5D'
-                ></iframe>
+			<?php // use http rather than https to prevent errors Failed to execute postMessage on 'DOMWindow' ?>
+                id="tnygmaps-api-iframe"
+                src='http://console.developers.google.com/henhouse/?pb=%5B%22hh-0%22,%22maps_backend%22,null,%5B%5D,%22https:%2F%2Fdevelopers.google.com%22,null,%5B%22geocoding_backend%22,%22directions_backend%22,%22distance_matrix_backend%22,%22elevation_backend%22,%22places_backend%22%5D,null,null,null,null,%5B%5D%5D'
+        ></iframe>
         <div class="bootstrap-tny">
             <div class="alert" style=""><p><?php echo sprintf(
 						__( 'An error above likely means you haven&#8217t logged into a %sGoogle account%s. %s For more information, read the docs on how %sapi keys%s work.', 'orionrush-tnygmaps' ),
@@ -66,28 +71,34 @@ function api_key () {
             </div>
         </div>
         <script>
-            jQuery(document).ready(function($) {
-                console.log('load');
+			jQuery( document ).ready( function ( $ ) {
+				console.log( 'load' );
 
-                jQuery('#generate-api-button').on("click", function(){
-                    jQuery('#spinner').addClass('spinner is-active');
-                    console.log('starting spinning');
-                });
-                jQuery('#tnygmaps-api-iframe').on("load", function () {
-                    jQuery('#spinner').removeClass('spinner is-active');
-                });
-            });
+				jQuery( '#generate-api-button' ).on( "click", function () {
+					jQuery( '#spinner' ).addClass( 'spinner is-active' );
+					console.log( 'starting spinning' );
+				} );
+				jQuery( '#tnygmaps-api-iframe' ).on( "load", function () {
+					jQuery( '#spinner' ).removeClass( 'spinner is-active' );
+				} );
+			} );
         </script>
     </div>
-<?php
+	<?php
 }
 
-function default_icon () {
+/**
+ * Add default icon settings section to admin options
+ * @author orionrush
+ * @since   0.0.4
+ * @package TNYGMAPS
+ */
+function default_icon() {
 	// Loaded icons
-	$icons_array  = Support\loaded_tnygmaps_icons();
+	$icons_array   = Support\loaded_tnygmaps_icons();
 	$gMapsIconName = Support\gMapsDefultIconName();
 
-	if ( !file_exists( TNYGMAPS_ICONS_DIR) ) {
+	if ( ! file_exists( TNYGMAPS_ICONS_DIR ) ) {
 		$path = TNYGMAPS_URL . "assets/" . TNYGMAPS_ICONS_DIR_NAME . "/";
 	} else {
 		$path = TNYGMAPS_ICONS_DIR_URL;
@@ -95,7 +106,7 @@ function default_icon () {
 
 	$current_icon = esc_attr( get_option( 'tnygmaps_custom_icon' ) );
 
-    ?>
+	?>
     <!-- Selection grid of icons -->
     <!-- https://rvera.github.io/image-picker/-->
     <div class="bootstrap-tny">
@@ -103,16 +114,20 @@ function default_icon () {
             <select class="tnygmaps_custom_icon image-picker show-html"
                     data-limit="1"
                     name="tnygmaps_custom_icon"
-                    id="tnygmaps_custom_icon" >
-                <option name="tnygmaps_custom_icon_option" value="<?php echo esc_attr($gMapsIconName) ?>" data-img-src="<?php echo esc_attr(TNYGMAPS_GOOGLE_ICON_URL); ?>" data-img-alt="<?php echo esc_attr($gMapsIconName) ?>"><?php echo esc_html(__('Google Pin', 'orionrush-tnygmaps'));?></option>
-				<?php foreach ($icons_array[1] as $key=>$value) : ?>
+                    id="tnygmaps_custom_icon">
+                <option name="tnygmaps_custom_icon_option" value="<?php echo esc_attr( $gMapsIconName ) ?>"
+                        data-img-src="<?php echo esc_attr( TNYGMAPS_GOOGLE_ICON_URL ); ?>"
+                        data-img-alt="<?php echo esc_attr( $gMapsIconName ) ?>"><?php echo esc_html( __( 'Google Pin', 'orionrush-tnygmaps' ) ); ?></option>
+				<?php foreach ( $icons_array[1] as $key => $value ) : ?>
 					<?php $icon_url = $path . $value; ?>
-					<?php   $selected = ($current_icon ==  $icon_url) ? true : false ?>
+					<?php $selected = ( $current_icon == $icon_url ) ? true : false ?>
                     <option name="tnygmaps_custom_icon_option"
-						<?php if ($selected) { echo 'selected'; }?>
-                            value="<?php echo esc_url($icon_url); ?>"
-                            data-img-src="<?php echo esc_url($icon_url); ?>"
-                            data-img-alt="<?php echo esc_attr($value); ?>" >
+						<?php if ( $selected ) {
+							echo 'selected';
+						} ?>
+                            value="<?php echo esc_url( $icon_url ); ?>"
+                            data-img-src="<?php echo esc_url( $icon_url ); ?>"
+                            data-img-alt="<?php echo esc_attr( $value ); ?>">
                     </option>
 				<?php endforeach; ?>
             </select>
@@ -120,38 +135,53 @@ function default_icon () {
     </div>
     <strong><?php _e( 'Your icon URL:', 'orionrush-tnygmaps' ); ?></strong>
     <div id="tnygmaps_custom_icon_url" class="bootstrap-tny">
-		<?php echo '<pre class="bootstrap-tny">' . esc_url($current_icon) . '</pre>'; ?>
+		<?php echo '<pre class="bootstrap-tny">' . esc_html( $current_icon ) . '</pre>'; ?>
     </div>
-	<?php if ( !file_exists( TNYGMAPS_ICONS_DIR ) ) : ?>
+	<?php if ( ! file_exists( TNYGMAPS_ICONS_DIR ) ) : ?>
         <div class="bootstrap-tny">
-            <p class=" alert"><?php echo sprintf(__('%sNote:%s  It looks like we haven\'t been able to move our icons to your uploads folder. This isn\'t a big deal unless you want to use custom icons. If so copy the "%s" directory into your uploads folder. This way your icons wont be overwritten with a plugin update.', 'orionrush-tnygmaps'), '<strong>', '</strong>', TNYGMAPS_ICONS_DIR_NAME);?></p>
+            <p class=" alert"><?php echo sprintf( __( '%sNote:%s  It looks like we haven\'t been able to move our icons to your uploads folder. This isn\'t a big deal unless you want to use custom icons. If so copy the "%s" directory into your uploads folder. This way your icons wont be overwritten with a plugin update.', 'orionrush-tnygmaps' ), '<strong>', '</strong>', esc_html( TNYGMAPS_ICONS_DIR_NAME ) ); ?></p>
         </div>
 	<?php endif; ?>
-<?php
+	<?php
 }
 
-function static_maps (){?>
+
+/**
+ * Add static map options for mobile devices to admin options
+ * @author orionrush
+ * @since   0.0.4
+ * @package TNYGMAPS
+ */
+function static_maps() {
+	?>
     <fieldset>
-        <?php
-        $input1 = '<input type="checkbox" name="tnygmaps_mobile" value="1"' .  checked(1, get_option('tnygmaps_mobile'), false) . ' />';
-        $input2 = '<input title="' . __( 'Copy your API key here', 'orionrush-tnygmaps' ) . '" type="text" name="tnygmaps_mobile_width" id="tnygmaps_mobile_width" placeholder="' .  TNYGMAPS_STATIC_DOM_WIDTH . '" value="' .  esc_attr( trim(get_option( 'tnygmaps_mobile_width' ))) . '" />';
-        echo sprintf(__( '%s Use Static Maps on mobile devices below %s pixels wide.', 'orionrush-tnygmaps'), $input1, $input2); ?>
-   </fieldset>
+		<?php
+		$input1 = '<input type="checkbox" name="tnygmaps_mobile" value="1"' . checked( 1, get_option( 'tnygmaps_mobile' ), false ) . ' />';
+		$input2 = '<input title="' . __( 'Copy your API key here', 'orionrush-tnygmaps' ) . '" type="text" name="tnygmaps_mobile_width" id="tnygmaps_mobile_width" placeholder="' . esc_attr( TNYGMAPS_STATIC_DOM_WIDTH ) . '" value="' . esc_attr( trim( get_option( 'tnygmaps_mobile_width' ) ) ) . '" />';
+		echo sprintf( __( '%s Use Static Maps on mobile screens smaller than %s pixels wide.', 'orionrush-tnygmaps' ), $input1, $input2 ); ?>
+    </fieldset>
     </div>
     <br/>
     <div class="bootstrap-tny">
-        <p class=" alert"><?php echo sprintf(__('%sNote:%s This option produces a %s"static map"%s image rather then a fully interactive map. This wil reduce load times and bandwidth on small %smobile devices%s. %s A with of %s0%spx is equivalent to disabling the feature.%s', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>', '<em><strong>', '</strong></em>', '<br /><em>','<strong>', '</strong>', '</em>');?></p>
+        <p class=" alert"><?php echo sprintf( __( '%sNote:%s This option produces a %s"static map"%s image rather than a fully interactive map. This wil reduce load times and bandwidth on small %smobile devices%s. %s A width of %s0%spx is equivalent to disabling the feature.%s', 'orionrush-tnygmaps' ), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>', '<em><strong>', '</strong></em>', '<br /><em>', '<strong>', '</strong>', '</em>' ); ?></p>
     </div>
-    <?php
+	<?php
 }
 
-function debugging () {?>
+/**
+ * Add debugging section to admin options
+ * @author orionrush
+ * @since   0.0.4
+ * @package TNYGMAPS
+ */
+function debugging() { ?>
     <fieldset>
-        <input type="checkbox" name="tnygmaps_debug" value="1" <?php checked(1, get_option('tnygmaps_debug'), true);?> /> <?php esc_html_e('Enable Debugging', 'orionrush-tnygmaps'); ?>
+        <input type="checkbox" name="tnygmaps_debug"
+               value="1" <?php checked( 1, get_option( 'tnygmaps_debug' ), true ); ?> /> <?php esc_html_e( 'Enable Debugging', 'orionrush-tnygmaps' ); ?>
     </fieldset>
     <br/>
     <div class="bootstrap-tny">
-        <p class=" alert"><?php echo sprintf(__('%sNote:%s  This option enables front end debugging notices on failed Google API queries, as well as Java Script console messages in your browser\'s developer tools panel. Don\'t worry, front end notices only appear to logged in admin users.', 'orionrush-tnygmaps'), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>');?></p>
+        <p class=" alert"><?php echo sprintf( __( '%sNote:%s  This option enables front end debugging notices on failed Google API queries, as well as Java Script console messages in your browser\'s developer tools panel. Don\'t worry, front end notices only appear to logged in admin users.', 'orionrush-tnygmaps' ), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>' ); ?></p>
     </div>
-    <?php
+	<?php
 }

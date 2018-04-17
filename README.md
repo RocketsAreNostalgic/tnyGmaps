@@ -16,7 +16,7 @@ The plugin adds a button to the tinymce editor in posts and pages which provides
 The map builder provides a live preview of what your map will look like, and once satisfied, adds a custom shortcode into your post body. 
 
 ### Support for multiple maps
-The plugin seeds each map with a custom identifier so more then one map can be displayed on a page without conflict.
+The plugin seeds each map with a custom identifier so more than one map can be displayed on a page without conflict.
 
 ### The preview features:
     - live ajax address lookup - or manual address input. 

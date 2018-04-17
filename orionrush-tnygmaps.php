@@ -1,6 +1,8 @@
 <?php
 namespace OrionRush\TnyGmaps;
-if ( ! defined( 'ABSPATH' ) ) die();
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 /**
  * Plugin Name: Tny gMaps
@@ -25,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) die();
  * Definitions
  * /*********************************************************************/
 define( 'TNYGMAPS_VERSION', '0.0.3' );
-define( 'TNYGMAPS_NAME', 'Tny gMaps');
+define( 'TNYGMAPS_NAME', 'Tny gMaps' );
 define( 'TNYGMAPS_PLUGIN', __FILE__ );                      // Plugin location
 define( 'TNYGMAPS_PATH', plugin_dir_path( __FILE__ ) );     // File path to the plugin directory
 define( 'TNYGMAPS_URL', plugin_dir_url( __FILE__ ) );       // URL to the plugin
@@ -34,7 +36,7 @@ define( 'TNYGMAPS_URL', plugin_dir_url( __FILE__ ) );       // URL to the plugin
 // Icons Directory
 define( 'TNYGMAPS_ICONS_DIR_NAME', 'tny_gMaps_icons' );     // Name of the icons directory
 
-$upload_dir = wp_upload_dir();                              // WP uploads directory array
+$upload_dir      = wp_upload_dir();                              // WP uploads directory array
 $upload_dir_base = trailingslashit( $upload_dir['basedir'] );    //as path with trailing slash
 $upload_dir_base = $upload_dir_base . TNYGMAPS_ICONS_DIR_NAME . '/';     // Assembled path uploads icon directory
 define( 'TNYGMAPS_ICONS_DIR', $upload_dir_base );             // The file path to map icons directory in your uploads directory
@@ -50,7 +52,7 @@ define( 'TNYGMAPS_ICONS_DIR_CREATED', file_exists( TNYGMAPS_ICONS_DIR ) ); // Bo
 define( 'TNYGMAPS_GOOGLE_ICON_URL', TNYGMAPS_URL . 'assets/img/ic_map_marker.png' );       // URL to default icon
 
 // GOOGLE Maps default pin icon
-define( 'TNYGMAPS_STATIC_DOM_WIDTH', (int)767 );       // The DOM width below which a static map would be triggered (if enabled)
+define( 'TNYGMAPS_STATIC_DOM_WIDTH', (int) 767 );       // The DOM width below which a static map would be triggered (if enabled)
 
 /**********************************************************************
  * Acquire a Google Places API key for your website domain
@@ -59,11 +61,11 @@ define( 'TNYGMAPS_STATIC_DOM_WIDTH', (int)767 );       // The DOM width below wh
  * /*********************************************************************/
 
 $api_key = false;
-if (get_option('tnygmaps_api_key')) {
-	$api_key = trim(get_option( 'tnygmaps_api_key' ));
+if ( get_option( 'tnygmaps_api_key' ) ) {
+	$api_key = trim( get_option( 'tnygmaps_api_key' ) );
 }
 
-if ( ! defined( 'GOOGLE_API_KEY' ) &&  $api_key != false ) {
+if ( ! defined( 'GOOGLE_API_KEY' ) && $api_key != false ) {
 	define( 'GOOGLE_API_KEY', $api_key );
 }
 
@@ -75,13 +77,13 @@ global $tnygmaps_debug;
  * *********************************************************************/
 
 // Activation
-require_once (TNYGMAPS_PATH . 'lib/activation.php');
+require_once( TNYGMAPS_PATH . 'lib/activation.php' );
 
 // Helper functions
 require_once( TNYGMAPS_PATH . 'lib/support.php' );
 
 // Admin screen
-require_once ( TNYGMAPS_PATH . 'lib/admin.php');
+require_once( TNYGMAPS_PATH . 'lib/admin.php' );
 
 // Ajax functions (must be included on the main plugin file)
 require_once( TNYGMAPS_PATH . 'lib/ajax.php' );
@@ -93,13 +95,13 @@ require_once( TNYGMAPS_PATH . 'lib/shortcode.php' );
 require_once( TNYGMAPS_PATH . 'lib/tinyMCE.php' );
 
 // Plugin setting link
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), __NAMESPACE__ . '\\Support\\plugin_add_settings_link');
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), __NAMESPACE__ . '\\Support\\plugin_add_settings_link' );
 
 // Activation
 register_activation_hook( TNYGMAPS_PLUGIN, __NAMESPACE__ . '\\Activation\\activate' );
 
 // Languages
 function load_textdomain() {
-	load_plugin_textdomain( 'orionrush-tnygmaps', FALSE, basename( dirname( TNYGMAPS_PLUGIN ) ) . '/lang/' );
+	load_plugin_textdomain( 'orionrush-tnygmaps', false, basename( dirname( TNYGMAPS_PLUGIN ) ) . '/lang/' );
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_textdomain' );

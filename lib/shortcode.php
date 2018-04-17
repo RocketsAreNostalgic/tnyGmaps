@@ -1,7 +1,11 @@
 <?php
 namespace OrionRush\TnyGmaps\Shortcode;
+
 use OrionRush\TnyGmaps\Support as Support;
-if ( ! defined( 'ABSPATH' ) ) {	die(); }
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 /**
  * Adds the shortcode to WP, outputs markup and enqueues the js just in time.
@@ -59,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
 
 function map_me( $attr ) {
 	$map_errors = '';
-	wp_enqueue_style('tnygmaps_styles');
+	wp_enqueue_style( 'tnygmaps_styles' );
 	// Lets enqueue the scripts only if the shortcode has been added
 	wp_enqueue_script( 'googelmaps_js' );
 	wp_enqueue_script( 'tnygmaps_init' );
@@ -105,7 +109,7 @@ function map_me( $attr ) {
 	), $attr );
 
 	// Sanitise the incoming values
-	$attr =  sanitise_atributes_array ($attr);
+	$attr = sanitise_attributes_array( $attr );
 
 	$attr_place = "";
 
@@ -127,7 +131,7 @@ function map_me( $attr ) {
 		// here we have a address so get/set transient with fetched values
 		$attr_place = map_get_place( $api_key, null, $attr['address'], $attr['refresh'], $attr['debug'] );
 
-		if (array_key_exists('errors', $attr_place)){
+		if ( array_key_exists( 'errors', $attr_place ) ) {
 			$map_errors .= $attr_place['errors'];
 
 			return $map_errors;
@@ -143,7 +147,7 @@ function map_me( $attr ) {
 
 		// here we have missing lat lags, and no unified address strings, may have enough address components so build the place query from these attr
 		$attr['address'] = $attr['street'] . ', ' . $attr['city'] . ', ' . $attr['region'] . ', ' . $attr['postcode'] . '+' . $attr['country'];
-		$attr['address'] = cleanCommasAddressString ($attr['address']);
+		$attr['address'] = cleanCommasAddressString( $attr['address'] );
 
 		if ( $attr['address'] === null ) {
 			$map_errors .= map_errors( $attr['debug'], 'insufficient_address' );
@@ -153,7 +157,7 @@ function map_me( $attr ) {
 
 			if (array_key_exists('errors', $attr_place) ){
 				$map_errors .= $attr_place['errors'];
-				$map_errors .=  map_errors( $attr['debug'], 'insufficient_address' );
+				$map_errors .= map_errors( $attr['debug'], 'insufficient_address' );
 
 				return $map_errors;
 
@@ -167,9 +171,9 @@ function map_me( $attr ) {
 			return $map_errors;
 		}
 	}
-	if (is_array($attr_place)){
+	if ( is_array( $attr_place ) ) {
 		// Combine the two arrays into one
-		$attr = array_replace($attr, $attr_place);
+		$attr = array_replace( $attr, $attr_place );
 	}
 
 	// Don't continue if we are not in the admin. Sometimes there is a slow response from map_get_place and it doesn't always returning in time....
@@ -177,14 +181,14 @@ function map_me( $attr ) {
 
 		// process the infowindow extras
 		$infowindow_extras = '';
-		if ( $attr['infowindowb64'] != 'bnVsbA=='){ // base64 for null
+		if ( $attr['infowindowb64'] != 'bnVsbA==' ) { // base64 for null
 			$infowindow_extras = ( ! empty( $attr['infowindowb64'] ) ) ? base64_decode( $attr['infowindowb64'] ) : '';
 
 			// add any content from the basic infowindow attr to the end in its own div
 			$infowindow_extras = ( ! empty( $attr['infowindow']) ) ? $infowindow_extras . '<div>' . $attr['infowindow']. '</div>' : $infowindow_extras;
 		}
 		// convert the html special chars
-		$attr['infowindow']= htmlspecialchars_decode( $infowindow_extras, ENT_QUOTES );
+		$attr['infowindow'] = htmlspecialchars_decode( $infowindow_extras, ENT_QUOTES );
 		// pass it through KSES to scrub it from unwanted markup
 		$attr['infowindow'] = info_window_sanitize( $attr['infowindow'] );
 
@@ -233,10 +237,11 @@ function map_me( $attr ) {
 
 	}
 }
-add_shortcode( 'tnygmaps',  __NAMESPACE__ . '\\map_me' );
+
+add_shortcode( 'tnygmaps', __NAMESPACE__ . '\\map_me' );
 add_shortcode( 'tinygmaps', __NAMESPACE__ . '\\map_me' );   // Legacy
 add_shortcode( 'TINYGMAPS', __NAMESPACE__ . '\\map_me' );   // Legacy
-add_shortcode( 'TNYGMAPS',  __NAMESPACE__ . '\\map_me' );   // Legacy
+add_shortcode( 'TNYGMAPS', __NAMESPACE__ . '\\map_me' );   // Legacy
 
 /**
  * Pass the vars as globals through wp_localize_script, each map recieves it's own ID string
@@ -244,12 +249,13 @@ add_shortcode( 'TNYGMAPS',  __NAMESPACE__ . '\\map_me' );   // Legacy
  * @since:   0.0.4
  *
  * @author: orionrush
+ *
  * @param $map_id
  * @param $attr
  *
  * TODO: Set up retina 2x and 3x resolutions
  */
-function enqueueJsGlobals ($map_id, $attr) {
+function enqueueJsGlobals( $map_id, $attr ) {
 
 //	 http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
 //	 https://pippinsplugins.com/use-wp_localize_script-it-is-awesome/
@@ -260,28 +266,28 @@ function enqueueJsGlobals ($map_id, $attr) {
 
 	// Load all the  variables into array for js global var
 	$init_array = array(
-		'z'                 =>	$attr['z'],
-		'w'                 =>	$attr['w'],
-		'h'                 =>	$attr['h'],
-		'maptype'           =>	$attr['maptype'],
-		'lat'               =>	$attr['lat'],
-		'lng'               =>	$attr['lng'],
-		'marker'            =>	$attr['marker'],
-		'default_marker'    =>	$attr['default_marker'],
-		'infowindow'        =>	$attr['infowindow'],
-		'infowindowb64'     =>	$attr['infowindowb64'],
-		'infowindowdefault' =>	$attr['infowindowdefault'],
-		'hidecontrols'      =>	$attr['hidecontrols'],
-		'scale'             =>	$attr['scale'],
-		'scrollwheel'       =>	$attr['scrollwheel'],
-		'static_DOM_width'  =>	$attr['static_DOM_width'],
-		'static_w'          =>	$attr['static_w'],
-		'static_h'          =>	$attr['static_h'],
-		'debug'             =>	$attr['debug'],
+		'z'                 => $attr['z'],
+		'w'                 => $attr['w'],
+		'h'                 => $attr['h'],
+		'maptype'           => $attr['maptype'],
+		'lat'               => $attr['lat'],
+		'lng'               => $attr['lng'],
+		'marker'            => $attr['marker'],
+		'default_marker'    => $attr['default_marker'],
+		'infowindow'        => $attr['infowindow'],
+		'infowindowb64'     => $attr['infowindowb64'],
+		'infowindowdefault' => $attr['infowindowdefault'],
+		'hidecontrols'      => $attr['hidecontrols'],
+		'scale'             => $attr['scale'],
+		'scrollwheel'       => $attr['scrollwheel'],
+		'static_DOM_width'  => $attr['static_DOM_width'],
+		'static_w'          => $attr['static_w'],
+		'static_h'          => $attr['static_h'],
+		'debug'             => $attr['debug'],
 	);
 
 	// Add the params to the page as js global vars via wp_localize_script
-	wp_localize_script( 'tnygmaps_init', $map_id . '_loc',  $init_array );
+	wp_localize_script( 'tnygmaps_init', $map_id . '_loc', $init_array );
 	wp_enqueue_script( 'tnygmaps_init' ); // will appear in footer
 }
 
@@ -295,19 +301,20 @@ function enqueueJsGlobals ($map_id, $attr) {
  *
  * @return mixed|string
  */
-function cleanCommasAddressString ($address){
-	$string = array(
+function cleanCommasAddressString( $address ) {
+	$string  = array(
 		', , ',
 		', , , ',
 		', , , , ',
 		', , , , , '
 	);
-	$address = str_replace($string, '  ',  $address); // trim any double commas signs that may be in the string
+	$address = str_replace( $string, '  ', $address ); // trim any double commas signs that may be in the string
 	$address = trim( $address, " \t\n\r\0\x0B\," ); // clean any leading whitespace or commas
-	$address = (( $address == '' || $address == "," ) ? null : $address ); // Set it or forget it
+	$address = ( ( $address == '' || $address == "," ) ? null : $address ); // Set it or forget it
 	return $address;
 
 }
+
 /**
  * Cleans up the Google map address link by stripping disallowed characters.
  *
@@ -440,7 +447,7 @@ function sanitise_atributes_array ($attr){
  */
 function register_scripts() {
 
-	wp_register_style('tnygmaps_styles', TNYGMAPS_URL . 'assets/css/tnygmaps_frontend.css');
+	wp_register_style( 'tnygmaps_styles', TNYGMAPS_URL . 'assets/css/tnygmaps_frontend.css' );
 
 	wp_register_script( 'googelmaps_js', 'http://maps.google.com/maps/api/js?libraries=places&key=' . GOOGLE_API_KEY, null, null, 'true' );
 	wp_register_script( 'tnygmaps_init', TNYGMAPS_URL . 'assets/js/tnygmaps.min.js', array(
@@ -604,14 +611,14 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 	$map_errors = '';
 	if ( empty( $api_key ) ) {
 		// notice to admin users that we don't have an api key
-		$map_errors .=  map_errors( $debug, 'no_api_key' );
+		$map_errors .= map_errors( $debug, 'no_api_key' );
 
 		return false;
 	}
 
 	// We are using our placeID for as our transient hash,
-	// however transient hashes need to be less then 45 char long, so we trim them,
-	// just in case Google's placeID ever get longer then this
+	// however transient hashes need to be less than 45 char long, so we trim them,
+	// just in case Google's placeID ever get longer than this
 	$location = ( $placeID ) ? substr( $placeID, 0, 44 ) : substr( md5( $address ), 0, 44 );
 	// Have we been here before?
 	$location = get_transient( $location );
@@ -727,13 +734,15 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
 		$data = $location;
 	}
 
-	if ($map_errors){
+	if ( $map_errors ) {
 
 		$errors = [
 			"errors" => $map_errors,
 		];
+
 		return $errors;
 	}
+
 	return ( $data ) ? (array) $data : false;
 }
 
@@ -743,8 +752,9 @@ function map_get_place( $api_key, $placeID, $address = '', $force_refresh, $debu
  * @since:   0.0.2
  * @author:  orionrush
  *
- * @param string $needle  | The google address element being searched for
+ * @param string $needle | The google address element being searched for
  * @param array $haystack | The Google place results as an array
+ *
  * @return string         | The information held in the array at the "needle" position sought after, such as "city" or "postcode"
  *
  */
@@ -766,7 +776,8 @@ function processAddressObject( $needle, $haystack ) {
  * @since:   0.0.2
  * @author:  orionrush
  *
- * @param  array $elem  | An array of strings. We use & to pass the array by reference, so we don't want to change the original values
+ * @param  array $elem | An array of strings. We use & to pass the array by reference, so we don't want to change the original values
+ *
  * @return array        | An array of strings with all quotes encoded
  *
  */
@@ -789,6 +800,7 @@ function array_htmlentities( &$elem ) {
  * @author:  orionrush
  *
  * @param $dim
+ *
  * @return numeric
  */
 function remove_px_percent( $dim ) {
@@ -821,34 +833,34 @@ function map_errors( $debug, $error, $response = '' ) {
 	// Only show these notices on the front end if debugging is on, and only to those who can edit posts
 	if ( $debug && current_user_can( 'administrator' ) && ! is_admin() ) {
 
-		$headline = __('MAP PLUGIN NOTICE: ', 'orionrush-tnygmaps' );
-		$message = '';
+		$headline = __( 'MAP PLUGIN NOTICE: ', 'orionrush-tnygmaps' );
+		$message  = '';
 
 		switch ( $error ):
 			case 'insufficient_address';
 			case 'malformed_params';
-			$message .= sprintf('<p><b>%s</b><br/> %s</p><p>%s<b>%s</b><em>%s</em><b>%s</b><em>%s</em> %s <b>%s %s</b> <em>%s</em> %s <b>%s %s</b> <em>%s</em></p>',
-				$headline,
-				__('Whoops! You have conflicting or insufficient address values.', 'orionrush-tnygmaps' ),
-				__('Please check that the shortcode is formed properly. Include either a ', 'orionrush-tnygmaps' ),
-				__('Google ', 'orionrush-tnygmaps' ),
-				__('placeID ', 'orionrush-tnygmaps' ),
-				__('OR ', 'orionrush-tnygmaps' ),
-				__('address ', 'orionrush-tnygmaps' ),
-				__('line, ', 'orionrush-tnygmaps' ),
-				__('OR ', 'orionrush-tnygmaps' ),
-				__('explicit, ', 'orionrush-tnygmaps' ),
-				__('lat, lng, ', 'orionrush-tnygmaps' ),
-				__('values ', 'orionrush-tnygmaps' ),
-				__('OR ', 'orionrush-tnygmaps' ),
-				__('explicit location parameters: ', 'orionrush-tnygmaps' ),
-				__('name, street, city, state, postcode, country.', 'orionrush-tnygmaps' )
-			);
+				$message .= sprintf( '<p><b>%s</b><br/> %s</p><p>%s<b>%s</b><em>%s</em><b>%s</b><em>%s</em> %s <b>%s %s</b> <em>%s</em> %s <b>%s %s</b> <em>%s</em></p>',
+					$headline,
+					__( 'Whoops! We don\'t have enough information, or there are  conflicting address values.', 'orionrush-tnygmaps' ),
+					__( 'Please check that the shortcode is formed properly. Include either a ', 'orionrush-tnygmaps' ),
+					__( 'Google ', 'orionrush-tnygmaps' ),
+					__( 'placeID ', 'orionrush-tnygmaps' ),
+					__( 'OR ', 'orionrush-tnygmaps' ),
+					__( 'address ', 'orionrush-tnygmaps' ),
+					__( 'line, ', 'orionrush-tnygmaps' ),
+					__( 'OR ', 'orionrush-tnygmaps' ),
+					__( 'explicit, ', 'orionrush-tnygmaps' ),
+					__( 'lat, lng, ', 'orionrush-tnygmaps' ),
+					__( 'values ', 'orionrush-tnygmaps' ),
+					__( 'OR ', 'orionrush-tnygmaps' ),
+					__( 'explicit location parameters: ', 'orionrush-tnygmaps' ),
+					__( 'name, street, city, state, postcode, country.', 'orionrush-tnygmaps' )
+				);
 			$message .= "
 				";
-			break;
+				break;
 			case 'wp_error_get';
-				$message .= sprintf('<p><b>%s</b><br/> %s</p>',
+				$message .= sprintf( '<p><b>%s</b><br/> %s</p>',
 					$headline,
 					__('We received an error in the URL response: ', 'orionrush-tnygmaps' )
 				);
@@ -859,7 +871,7 @@ function map_errors( $debug, $error, $response = '' ) {
 				break;
 
 			case 'wp_error_data';
-				$message .= sprintf('<p><b>%s</b><br/>%s</p>',
+				$message .= sprintf( '<p><b>%s</b><br/>%s</p>',
 					$headline,
 					__('There were problems retrieving the body of the response.', 'orionrush-tnygmaps' )
 				);
@@ -870,11 +882,11 @@ function map_errors( $debug, $error, $response = '' ) {
 				break;
 
 			case 'no_api_key';
-				$message .= sprintf('<p><b>%s</b><br/>%s <em>%s</em> %s</p>',
+				$message .= sprintf( '<p><b>%s</b><br/>%s <em>%s</em> %s</p>',
 					$headline,
-					__('Looks like you\'ve used a Google place_ID, but you don\'t have Google API key . Because of this we cannot process the, ', 'orionrush-tnygmaps' ),
-					__('placeid', 'orionrush-tnygmaps' ),
-					__('shortcode parameter. Either add address details manually, or see the documentation on how to get your own api key.', 'orionrush-tnygmaps' )
+					__( 'Looks like you\'ve used a Google place_ID, but you don\'t have Google API key . Because of this we cannot process the, ', 'orionrush-tnygmaps' ),
+					__( 'placeid', 'orionrush-tnygmaps' ),
+					__( 'shortcode parameter. Either add address details manually, or see the documentation on how to get your own api key.', 'orionrush-tnygmaps' )
 				);
 				break;
 
@@ -882,7 +894,7 @@ function map_errors( $debug, $error, $response = '' ) {
 				$message .= sprintf(
 					'<p><b>%s</b>%s</p>',
 					$headline,
-					__('Unable to contact Google API, service response: ', 'orionrush-tnygmaps' )
+					__( 'Unable to contact Google API, service response: ', 'orionrush-tnygmaps' )
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
@@ -900,7 +912,7 @@ function map_errors( $debug, $error, $response = '' ) {
 				$message .= sprintf(
 					'<p><b>%s</b><br/>%s</p>',
 					$headline,
-					__('Google Response: ', 'orionrush-tnygmaps' ) . $error
+					__( 'Google Response: ', 'orionrush-tnygmaps' ) . $error
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
@@ -912,7 +924,7 @@ function map_errors( $debug, $error, $response = '' ) {
 				$message .= sprintf(
 					'<p><b>%s</b>%s</p>',
 					$headline,
-					__('Place not found. Usually this is due to an incomplete or corrupted reference string.', 'orionrush-tnygmaps' )
+					__( 'Place not found. Usually this is due to an incomplete or corrupted reference string.', 'orionrush-tnygmaps' )
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
@@ -924,7 +936,7 @@ function map_errors( $debug, $error, $response = '' ) {
 				$message .= sprintf(
 					'<p><b>%s</b><br/>%s</p>',
 					$headline,
-					__('Here is the data returned from the query, our error reporter is confused.', 'orionrush-tnygmaps' )
+					__( 'Here is the data returned from the query, our error reporter is confused.', 'orionrush-tnygmaps' )
 				);
 				$message .= "<pre>";
 				$message .= print_r( $response, true );
@@ -936,8 +948,8 @@ function map_errors( $debug, $error, $response = '' ) {
 				$message .= sprintf(
 					'<p><b>%s</b><br/>%s <br/><b>%s %s</b></p>',
 					$headline,
-					__('Something went wrong while retrieving your map, please ensure you have entered the short code parameters correctly.', 'orionrush-tnygmaps' ),
-					__('Google\'s response message code is: ', 'orionrush-tnygmaps'),
+					__( 'Something went wrong while retrieving your map, please ensure you have entered the short code parameters correctly.', 'orionrush-tnygmaps' ),
+					__( 'Google\'s response message code is: ', 'orionrush-tnygmaps' ),
 					$error
 				);
 				$message .= "<pre>";
@@ -946,10 +958,9 @@ function map_errors( $debug, $error, $response = '' ) {
 				";
 		endswitch;
 
-		Support\write_log('Google API call errors:');
-		Support\write_log($message);
+		Support\write_log( 'Google API call errors:' );
+		Support\write_log( $message );
 
 		return $message;
-
 	}
 }
