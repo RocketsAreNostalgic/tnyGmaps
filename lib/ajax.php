@@ -1,6 +1,7 @@
 <?php
 namespace OrionRush\TnyGmaps\Ajax;
 use OrionRush\TnyGmaps\Support as Support;
+
 if ( ! defined( 'ABSPATH' ) ) {	die(); }
 
 /***********************************************************************
@@ -18,7 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {	die(); }
 function modal() {
 	ob_start();
 	header( 'Content-Type: text/html; charset=utf-8' );
-	//include( TNYGMAPS_PATH . 'lib/modal.php' );
 	do_action( 'tnygmaps_modal' );
 	$string = ob_get_clean();
 	exit( $string );

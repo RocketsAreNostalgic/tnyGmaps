@@ -1,6 +1,8 @@
 <?php
 namespace OrionRush\TnyGmaps\Admin;
-if ( ! defined( 'ABSPATH' ) ) { die(); }
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 require_once( TNYGMAPS_PATH . 'lib/admin-form.php' );
 
 /**
@@ -16,6 +18,7 @@ require_once( TNYGMAPS_PATH . 'lib/admin-form.php' );
  *
  * @since 0.0.2
  * @author orionrush
+ * @package TNYGMAPS
  */
 add_action( 'admin_menu', __NAMESPACE__ . '\\admin_form_create' );
 
@@ -24,6 +27,7 @@ add_action( 'admin_menu', __NAMESPACE__ . '\\admin_form_create' );
  * Add the admin menu, register settings, and enqueue resources.
  *
  * @since   0.0.4
+ * @author orionrush
  * @package TNYGMAPS
  */
 function admin_form_create() {
@@ -31,10 +35,10 @@ function admin_form_create() {
 	$page_title = TNYGMAPS_NAME;
 	$menu_title = TNYGMAPS_NAME;
 	$capability = 'manage_options';
-	$menu_slug = 'tnygmaps';
-	$function =  __NAMESPACE__ . '\\admin_markup';
+	$menu_slug  = 'tnygmaps';
+	$function   = __NAMESPACE__ . '\\admin_markup';
 
-	$submenu =	add_options_page( $page_title, $menu_title, $capability, $menu_slug, $function);
+	$submenu = add_options_page( $page_title, $menu_title, $capability, $menu_slug, $function );
 
 	add_action( 'admin_init', __NAMESPACE__ . '\\register_tnygmaps_settings' );
 
@@ -47,37 +51,38 @@ function admin_form_create() {
  * Register settings
  *
  * @since   0.0.4
+ * @author orionrush
  * @package TNYGMAPS
  */
 function register_tnygmaps_settings() {
-    $args = array(
-	    'type' => 'string',
-	    'sanitize_callback' => 'sanitize_text_field',
-	    'default' => NULL,
-    );
-	$args_checkbox = array(
-		'type' => 'int',
+	$args           = array(
+		'type'              => 'string',
+		'sanitize_callback' => 'sanitize_text_field',
+		'default'           => null,
+	);
+	$args_checkbox  = array(
+		'type'              => 'int',
 		'sanitize_callback' => 'boolval',
-		'default' => true,
+		'default'           => true,
 	);
 	$args_int_width = array(
-		'type' => 'int',
+		'type'              => 'int',
 		'sanitize_callback' => __NAMESPACE__ . '\\sanitizeStaticDomWidth',
-		'default' => TNYGMAPS_STATIC_DOM_WIDTH,
+		'default'           => TNYGMAPS_STATIC_DOM_WIDTH,
 	);
 
 	//register our options
-	register_setting( 'tnygmaps-settings-group', 'tnygmaps_api_key', $args);
+	register_setting( 'tnygmaps-settings-group', 'tnygmaps_api_key', $args );
 	register_setting( 'tnygmaps-settings-group', 'tnygmaps_custom_icon', $args );
-	register_setting( 'tnygmaps-settings-group', 'tnygmaps_mobile', $args_checkbox  );
-	register_setting( 'tnygmaps-settings-group', 'tnygmaps_mobile_width', $args_int_width  );
-	register_setting( 'tnygmaps-settings-group', 'tnygmaps_debug', $args_checkbox  );
+	register_setting( 'tnygmaps-settings-group', 'tnygmaps_mobile', $args_checkbox );
+	register_setting( 'tnygmaps-settings-group', 'tnygmaps_mobile_width', $args_int_width );
+	register_setting( 'tnygmaps-settings-group', 'tnygmaps_debug', $args_checkbox );
 
 	$icon = '<img id="plugin-icon" src="' . TNYGMAPS_URL . 'assets/img/app_icon_filled.png" >';
 	// Add the areas to the options page
 	add_settings_section(
 		'tnygmaps-settings-group',
-		sprintf(__( '%s Tny gMaps Settings', 'orionrush-tnygmaps' ), $icon),
+		sprintf( __( '%s Tny gMaps Settings', 'orionrush-tnygmaps' ), $icon ),
 		'__return_false',
 		'tnygmaps-settings-group'
 	);
@@ -123,6 +128,7 @@ function register_tnygmaps_settings() {
  *
  * @since 0.0.2
  * @author orionrush
+ * @package TNYGMAPS
  */
 function settings_sanitize( $input ) {
 	$output = array(
@@ -145,6 +151,7 @@ function settings_sanitize( $input ) {
  * https://wordpress.stackexchange.com/a/76420
  *
  * @since   0.0.4
+ * @author orionrush
  * @package TNYGMAPS
  */
 
@@ -156,14 +163,15 @@ function load_admin_assets() {
  * Enqueue admin assets
  *
  * @since   0.0.4
+ * @author orionrush
  * @package TNYGMAPS
  */
 function enqueue_admin_assets() {
-	wp_enqueue_style('orionrush-tnygmaps-admin', plugins_url('../assets/css/tnygmaps_admin.css', __FILE__), array('imagepicker-css'));
-	wp_enqueue_script('orionrush-tnygmaps-admin-js',  plugins_url('../assets/js/tnygmaps-admin.min.js', __FILE__), array('jquery'),'','');
+	wp_enqueue_style( 'orionrush-tnygmaps-admin', plugins_url( '../assets/css/tnygmaps_admin.css', __FILE__ ), array( 'imagepicker-css' ) );
+	wp_enqueue_script( 'orionrush-tnygmaps-admin-js', plugins_url( '../assets/js/tnygmaps-admin.min.js', __FILE__ ), array( 'jquery' ), '', '' );
 
-	wp_enqueue_style('imagepicker-css', plugins_url('../assets/js/vendor/image-picker-master/image-picker/image-picker.css', __FILE__), array());
-	wp_enqueue_script('imagepicker-js',  plugins_url('../assets/js/vendor/image-picker-master/image-picker/image-picker.min.js', __FILE__), array('jquery'),'0.3.0','true');
+	wp_enqueue_style( 'imagepicker-css', plugins_url( '../assets/js/vendor/image-picker-master/image-picker/image-picker.css', __FILE__ ), array() );
+	wp_enqueue_script( 'imagepicker-js', plugins_url( '../assets/js/vendor/image-picker-master/image-picker/image-picker.min.js', __FILE__ ), array( 'jquery' ), '0.3.0', 'true' );
 }
 
 /**
@@ -172,14 +180,18 @@ function enqueue_admin_assets() {
  * @param $int
  *
  * @return int
+ *
+ * @since   0.0.4
+ * @author orionrush
+ * @package TNYGMAPS
  */
-function sanitizeStaticDomWidth ($int) {
-	if (!is_numeric($int)) {
-		$int = absint($int);
+function sanitizeStaticDomWidth( $int ) {
+	if ( ! is_numeric( $int ) ) {
+		$int = absint( $int );
 	}
-	if ($int == null || $int == "") {
+	if ( $int == null || $int == "" ) {
 		return TNYGMAPS_STATIC_DOM_WIDTH;
 	} else {
-	return $int;
+		return $int;
 	}
 }
