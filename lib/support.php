@@ -1,6 +1,8 @@
 <?php
 namespace OrionRush\TnyGmaps\Support;
-if ( ! defined( 'ABSPATH' ) ) { die(); }
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 /**
  * Returns local urls as root relative strings.
@@ -43,10 +45,11 @@ function test_google_key() {
  * @return num
  */
 
-function getMapTransientExpiry () {
+function getMapTransientExpiry() {
 	//cache address or place details for 3 months (in seconds)
 	$time = 3600 * 24 * 30 * 3;
-	return apply_filters('tnygmaps_expiry', $time);
+
+	return apply_filters( 'tnygmaps_expiry', $time );
 }
 
 
@@ -58,9 +61,10 @@ function getMapTransientExpiry () {
  *
  * @return string
  */
-function openMapInNewWin (){
-	$string = __('open map in new window', 'orionrush-tnygmaps');
-	return apply_filters('tnygmaps_mapInNewWindow', $string);
+function openMapInNewWin() {
+	$string = __( 'open map in new window', 'orionrush-tnygmaps' );
+
+	return apply_filters( 'tnygmaps_mapInNewWindow', $string );
 }
 
 
@@ -73,8 +77,9 @@ function openMapInNewWin (){
  *
  */
 
-function gMapsDefultIconName () {
-	$name = __('gMaps default pin', 'orionrush-tnygmaps');
+function gMapsDefultIconName() {
+	$name = __( 'gMaps default pin', 'orionrush-tnygmaps' );
+
 	return $name;
 }
 
@@ -106,7 +111,7 @@ function loaded_tnygmaps_icons_url() {
 
 function loaded_tnygmaps_icons() {
 
-	if ( !file_exists( TNYGMAPS_ICONS_DIR ) ) {
+	if ( ! file_exists( TNYGMAPS_ICONS_DIR ) ) {
 		$icons_path = plugin_dir_path( __FILE__ ) . "../assets/" . TNYGMAPS_ICONS_DIR_NAME . "/";
 	} else {
 		$icons_path = TNYGMAPS_ICONS_DIR;
@@ -124,20 +129,21 @@ function loaded_tnygmaps_icons() {
 
 	$loaded_icons = array_values( $loaded_icons );
 
-	$icons_list   = array_map(
+	$icons_list = array_map(
 		function ( $el ) {
 			return "<a href=\"#\" title=\"{$el}\" class=\"map-icon\">{$el}</a>";
 		}, $loaded_icons
 	);
-	$icons_list   = implode( ", ", $icons_list );
+	$icons_list = implode( ", ", $icons_list );
 
 	$icons_images_list = array_map(
 		function ( $el ) {
 			$icons_path = TNYGMAPS_ICONS_DIR;
+
 			return "<li><div class=\"thumbnail\"><img class=\"image_picker_image\" src=\"{$icons_path}{$el}\" alt=\"{$el}\" /></div></li>";
 		}, $loaded_icons
 	);
-	$icons_images_list   = implode( "", $icons_images_list );
+	$icons_images_list = implode( "", $icons_images_list );
 
 	return array( $icons_list, $loaded_icons, $icons_images_list );
 }
@@ -153,6 +159,7 @@ function loaded_tnygmaps_icons() {
 function load_modal() {
 	include( TNYGMAPS_PATH . 'lib/modal.php' );
 }
+
 add_action( 'tnygmaps_modal', __NAMESPACE__ . "\\load_modal", 10 );
 
 
@@ -164,7 +171,8 @@ add_action( 'tnygmaps_modal', __NAMESPACE__ . "\\load_modal", 10 );
  * @return mixed
  */
 function plugin_add_settings_link( $links = array() ) {
-	$links[] = '<a href="'. esc_url( get_admin_url(null, 'options-general.php?page=tnygmaps') ) .'">Settings</a>';
+	$links[] = '<a href="' . esc_url( get_admin_url( null, 'options-general.php?page=tnygmaps' ) ) . '">Settings</a>';
+
 	return $links;
 }
 
