@@ -23,18 +23,19 @@ function initialize(map_id, map_loc) {
     if (typeof attr === typeof undefined || attr === false || attr === "") {
         tnygmaps_debug(map_loc.debug, "init");
 
-        var latlng = new google.maps.LatLng(map_loc.lat, map_loc.lng);
-        var mapTypeId = map_loc.maptype;
-        var mapOptions = {
-            zoom: parseInt(map_loc.z),
-            mapTypeId: google.maps.MapTypeId[mapTypeId],
-            center: latlng,
-            scrollwheel: map_loc.scrollwheel,
-            scaleControl: map_loc.scaleControl,
-            disableDefaultUI: map_loc.hidecontrols
-        };
-        // Start the map
-        map_id = new google.maps.Map(document.getElementById(map_id), mapOptions);
+		var latlng = new google.maps.LatLng( map_loc.lat, map_loc.lng );
+		var mapTypeId = map_loc.maptype;
+		var mapOptions = {
+			zoom: parseInt( map_loc.z ),
+			mapTypeId: google.maps.MapTypeId[mapTypeId],
+			center: latlng,
+			scrollwheel: map_loc.scrollwheel,
+			scaleControl: map_loc.scaleControl,
+			disableDefaultUI: map_loc.hidecontrols,
+			gestureHandling: 'cooperative'
+		};
+		// Start the map
+		map_id = new google.maps.Map( document.getElementById( map_id ), mapOptions );
 
         // Load the icon and bubble
         google.maps.event.addListenerOnce(map_id, "tilesloaded", function () {
