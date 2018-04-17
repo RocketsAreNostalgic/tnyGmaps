@@ -376,49 +376,49 @@ function sanitise_atributes_array ($attr){
 
 	array_walk( $attr, create_function( '&$val', '$val = trim($val);' ) ); //trim white space
 	// Sanitize array elements whole stock with htmlentities encoding entities and double and single quotes
-	$attr                       = array_htmlentities( $attr );
+	$attr = array_htmlentities( $attr );
 	// load map params into variables
-	$attr['z']                  = filter_var( $attr['z'], FILTER_SANITIZE_NUMBER_INT, array('default' => '11') );
+	$attr['z'] = filter_var( $attr['z'], FILTER_SANITIZE_NUMBER_INT, array( 'default' => '11' ) );
 	// make sure h&w have at least px values if nothing is specified
-	$attr['w']                  = ( ( substr( $attr['w'], - 2 ) != 'px' ) && ( substr( $attr['w'], - 1 ) != '%' ) ) ? $attr['w'] . 'px' : $attr['w'];
-	$attr['h']                  = ( ( substr( $attr['h'], - 2 ) != 'px' ) && ( substr( $attr['h'], - 1 ) != '%' ) ) ? $attr['h'] . 'px' : $attr['h'];
+	$attr['w'] = ( ( substr( $attr['w'], - 2 ) != 'px' ) && ( substr( $attr['w'], - 1 ) != '%' ) ) ? $attr['w'] . 'px' : $attr['w'];
+	$attr['h'] = ( ( substr( $attr['h'], - 2 ) != 'px' ) && ( substr( $attr['h'], - 1 ) != '%' ) ) ? $attr['h'] . 'px' : $attr['h'];
 	// Sanitize map type, default to ROADMAP
-	$maptypes = array ('ROADMAP', 'SATELLITE',  'HYBRID', 'TERRAIN');
-	if (!in_array($attr['maptype'], $maptypes)){
+	$maptypes = array( 'ROADMAP', 'SATELLITE', 'HYBRID', 'TERRAIN' );
+	if ( ! in_array( $attr['maptype'], $maptypes ) ) {
 		$attr['maptype'] = 'ROADMAP';
 	}
-	$attr['lat']                = (is_numeric($attr['lat']) ? $attr['lat'] : "");
-	$attr['lng']                = (is_numeric($attr['lng']) ? $attr['lng'] : "");
-	$attr['placeid']            = filter_var($attr['placeid'], FILTER_SANITIZE_STRIPPED);
-	$attr['address']            = filter_var($attr['address'], FILTER_SANITIZE_STRIPPED);
-	$attr['name']               = filter_var($attr['name'], FILTER_SANITIZE_STRIPPED);
-	$attr['street']             = filter_var($attr['street'], FILTER_SANITIZE_STRIPPED);
-	$attr['city']               = filter_var($attr['city'], FILTER_SANITIZE_STRIPPED);
-	$attr['region']             = filter_var($attr['region'], FILTER_SANITIZE_STRIPPED);
-	$attr['postcode']           = filter_var($attr['postcode'], FILTER_SANITIZE_STRIPPED);
-	$attr['country']            = filter_var($attr['country'], FILTER_SANITIZE_STRIPPED);
-	$attr['web']                = filter_var($attr['web'], FILTER_SANITIZE_STRIPPED);
-	$attr['phone']              = filter_var($attr['phone'], FILTER_SANITIZE_STRIPPED);
-	$attr['marker']             = ( filter_var( $attr['marker'], FILTER_VALIDATE_URL ) != false ) ? $attr['marker'] : null;
-	$attr['default_marker']     = ( $attr['default_marker'] == 'true' ) ? true : false;
+	$attr['lat']            = ( is_numeric( $attr['lat'] ) ? $attr['lat'] : "" );
+	$attr['lng']            = ( is_numeric( $attr['lng'] ) ? $attr['lng'] : "" );
+	$attr['placeid']        = filter_var( $attr['placeid'], FILTER_SANITIZE_STRIPPED );
+	$attr['address']        = filter_var( $attr['address'], FILTER_SANITIZE_STRIPPED );
+	$attr['name']           = filter_var( $attr['name'], FILTER_SANITIZE_STRIPPED );
+	$attr['street']         = filter_var( $attr['street'], FILTER_SANITIZE_STRIPPED );
+	$attr['city']           = filter_var( $attr['city'], FILTER_SANITIZE_STRIPPED );
+	$attr['region']         = filter_var( $attr['region'], FILTER_SANITIZE_STRIPPED );
+	$attr['postcode']       = filter_var( $attr['postcode'], FILTER_SANITIZE_STRIPPED );
+	$attr['country']        = filter_var( $attr['country'], FILTER_SANITIZE_STRIPPED );
+	$attr['web']            = filter_var( $attr['web'], FILTER_SANITIZE_STRIPPED );
+	$attr['phone']          = filter_var( $attr['phone'], FILTER_SANITIZE_STRIPPED );
+	$attr['marker']         = ( filter_var( $attr['marker'], FILTER_VALIDATE_URL ) != false ) ? $attr['marker'] : null;
+	$attr['default_marker'] = ( $attr['default_marker'] == 'true' ) ? true : false;
 	// Populate the default marker image
-	$default_marker_option  = ( filter_var( get_option( 'tnygmaps_custom_icon' ), FILTER_VALIDATE_URL ) );
+	$default_marker_option = ( filter_var( get_option( 'tnygmaps_custom_icon' ), FILTER_VALIDATE_URL ) );
 	// Override $attr['marker'] with the default option if available.
-	if ($attr['default_marker'] && $default_marker_option ) {
+	if ( $attr['default_marker'] && $default_marker_option ) {
 		$name = Support\gMapsDefultIconName();
-		if ($default_marker_option != $name) {
-			$attr['marker']     = $default_marker_option;
+		if ( $default_marker_option != $name ) {
+			$attr['marker'] = $default_marker_option;
 		} else {
-			$attr['marker']     = '';
+			$attr['marker'] = '';
 		}
 	}
-	$attr['icon']               = ( filter_var( $attr['icon'], FILTER_VALIDATE_URL ) != false ) ? $attr['icon'] : null;
+	$attr['icon'] = ( filter_var( $attr['icon'], FILTER_VALIDATE_URL ) != false ) ? $attr['icon'] : null;
 	//  $attr['infowindow'];    // sanitized in $infowindow_extras
 	//  $attr['infowindowb64']; // sanitized in $infowindow_extras
-	$attr['infowindowdefault']  = ( $attr['infowindowdefault'] == 'true' || $attr['infowindowdefault'] == 'yes' ) ? 'yes' : 'no';
-	$attr['hidecontrols']       = ( $attr['hidecontrols'] == 'true' ) ? true : false;
-	$attr['scale']              = ( $attr['scale'] == 'true' ) ? true : false;
-	$attr['scrollwheel']        = ( $attr['scrollwheel'] == 'true' ) ? true : false;
+	$attr['infowindowdefault'] = ( $attr['infowindowdefault'] == 'true' || $attr['infowindowdefault'] == 'yes' ) ? 'yes' : 'no';
+	$attr['hidecontrols']      = ( $attr['hidecontrols'] == 'true' ) ? true : false;
+	$attr['scale']             = ( $attr['scale'] == 'true' ) ? true : false;
+	$attr['scrollwheel']       = ( $attr['scrollwheel'] == 'true' ) ? true : false;
 	// See if static maps have been enabled. If not, setting 'static_DOM_width' to 0 will disable the feature
 	$attr['static_DOM_width']   = remove_px_percent( $attr['static_DOM_width'] );
 	if (!get_option('tnygmaps_mobile')) {
@@ -471,6 +471,7 @@ add_action( 'init', __NAMESPACE__ . '\\register_scripts' );
  * @author:  orionrush
  *
  * @param  string | Infowindow string provided by the user to be scrubbed.
+ *
  * @return string | Returns the sanitised string
  *
  */
