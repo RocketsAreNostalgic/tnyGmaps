@@ -79,6 +79,23 @@ function gMapsDefultIconName () {
 }
 
 /**
+ * Checks if the map icons have been moved to the uploads folder and returns the correct url.
+ * @author orionrush
+ * @since 0.0.4
+ * @return string
+ */
+function loaded_tnygmaps_icons_url() {
+	if ( file_exists( TNYGMAPS_ICONS_DIR ) ) {
+		$icon_dir_url = TNYGMAPS_ICONS_DIR_URL;
+	} else {
+		$icon_dir_url = TNYGMAPS_URL . 'assets/' . TNYGMAPS_ICONS_DIR_NAME . '/';
+	}
+
+	return $icon_dir_url;
+}
+
+
+/**
  * Retrieve a list of all the icons in the icons directory, as both a list of formatted links, and as an array.
  *
  * @author orionrush
