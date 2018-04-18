@@ -4,13 +4,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
-function getPluginAtts () {
+
+/**
+ * Returns an array of plugin details
+ * @since 0.0.5
+ * @author orionrush
+ *
+ * @return array
+ */
+function getPluginAtts() {
 	$plugin_data = get_file_data( TNYGMAPS_PLUGIN, array(
 		'pluginName' => 'Plugin Name',
-		'version' => 'Version',
-		'author' => 'Author'
+		'version'    => 'Version',
+		'author'     => 'Author'
 	) );
-	 return $plugin_data;
+
+	return $plugin_data;
 }
 
 /**
