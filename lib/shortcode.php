@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @type string $infowindowb64      | Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
  * @type string $hidecontrols       | (true : false) Hides the zoom, street view and other controls
  * @type boolean $scale             | (true : false) Is the map scale drawn?
- * @type boolean $attr['scrollwheel']       | (true : false) Will the map zoom react to mouse scrollwheel?
+ * @type boolean $scrollwheel       | (true : false) Will the map zoom react to mouse scrollwheel?
  * @type string $static             | DOM width for when a static map should be drawn instead of a dynamic maps for small screens, empty or '0' will indicate static map is not drawn
  * @type int $static_w              | Width of static map in pixels
  * @type int $static_h              | Height of static map in pixels
@@ -420,7 +420,7 @@ function sanitise_attributes_array( $attr ) {
 	$attr['scrollwheel']       = ( $attr['scrollwheel'] == 'true' ) ? true : false;
 	// See if static maps have been enabled. If not, setting 'static_DOM_width' to 0 will disable the feature
 	$attr['static_DOM_width'] = remove_px_percent( $attr['static_DOM_width'] );
-		// If it hasn't been specified, test it against the global setting.
+	// If it hasn't been specified, test it against the global setting.
 	if ( ! $attr['static_DOM_width'] ) {
 		$attr['static_DOM_width'] = remove_px_percent( get_option( 'tnygmaps_mobile_width' ) );
 		// If no option set for some reason, use baked in constant
@@ -843,8 +843,8 @@ function map_errors( $debug, $error, $response = '' ) {
 		switch ( $error ):
 			case '200';
 				// we wont print to screen, but we can spit out a log.
-				Support\write_log( __('Google replied: 200, lets see if we get location results.', 'orionrush-tnygmaps') );
-			break;
+				Support\write_log( __( 'Google replied: 200, lets see if we get location results.', 'orionrush-tnygmaps' ) );
+				break;
 			case 'insufficient_address';
 			case 'malformed_params';
 				$message .= sprintf( '<p><b>%s</b><br/> %s</p><p>%s<b>%s</b><em>%s</em><b>%s</b><em>%s</em> %s <b>%s %s</b> <em>%s</em> %s <b>%s %s</b> <em>%s</em></p>',
@@ -864,7 +864,7 @@ function map_errors( $debug, $error, $response = '' ) {
 					__( 'explicit location parameters: ', 'orionrush-tnygmaps' ),
 					__( 'name, street, city, state, postcode, country.', 'orionrush-tnygmaps' )
 				);
-			$message .= "
+				$message .= "
 				";
 				break;
 			case 'wp_error_get';
