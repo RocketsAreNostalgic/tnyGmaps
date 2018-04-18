@@ -7,10 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Plugin Name: Tny gMaps
  * Description: A Google Maps plugin, powered by Google's Places, Static Maps and Geocoding APIs.
- * Version: 0.0.4
+ * Version: 0.0.5
  * Author: Ben Rush
  * Author URI: http://www.orionrush.com
- * Plugin URI: http://www.rocketsarenostalgic.net
  * License: GPL
  * License URI: https://wordpress.org/about/gpl/
  * Text Domain: orionrush-tnygmaps
@@ -26,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /***********************************************************************
  * Definitions
  * /*********************************************************************/
-define( 'TNYGMAPS_VERSION', '0.0.3' );
+define( 'TNYGMAPS_VERSION', '0.0.4' );
 define( 'TNYGMAPS_NAME', 'Tny gMaps' );
 define( 'TNYGMAPS_PLUGIN', __FILE__ );                      // Plugin location
 define( 'TNYGMAPS_PATH', plugin_dir_path( __FILE__ ) );     // File path to the plugin directory
