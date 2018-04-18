@@ -53,7 +53,9 @@ function initialize( mapID, mapLocation ) {
 				content: mapLocation.infowindow,
 				position: latlng
 			} );
-			infowindow.open( mapID, marker );
+			if ( mapLocation.infowindowdefault === 'yes' ) {
+				infowindow.open( mapID, marker );
+			}
 			google.maps.event.addListener( marker, "click", function () {
 				infowindow.open( mapID, marker );
 			} );
