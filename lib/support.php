@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function getPluginAtts() {
 	$plugin_data = get_file_data( TNYGMAPS_PLUGIN, array(
-		'pluginName' => 'Plugin Name',
-		'version'    => 'Version',
-		'author'     => 'Author'
+		'Plugin Name' => 'Plugin Name',
+		'Version'    => 'Version',
+		'Author'     => 'Author'
 	) );
 
 	return $plugin_data;
