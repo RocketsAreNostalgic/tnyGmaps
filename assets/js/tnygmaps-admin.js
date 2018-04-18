@@ -25,4 +25,16 @@ jQuery(function () {
             jQuery("#tnygmaps_custom_icon_url pre").html(message);
         }
     });
+	//Tool Tip
+	jQuery( "[data-tooltip !='']" ).qtip( {
+		position: {
+			my: "top left"
+		},
+		content: {
+			attr: "data-tooltip",
+		},
+		hide: {
+			event: 'unfocus'
+		}
+	} );
 });
