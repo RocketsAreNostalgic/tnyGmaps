@@ -76,7 +76,7 @@ function initialize( mapID, mapLocation ) {
  *
  * @param isMobile
  */
-function initTest (isMobile){
+function initTest( isMobile ) {
 
 	jQuery( '.tnygmps_canvas' ).each( function () {
 		var mapID, mapLocation, isSmallScreen, load_maps, mapLoaded;
@@ -109,11 +109,11 @@ function initTest (isMobile){
 			// Set map loaded class
 			jQuery( this ).addClass( 'mapLoaded' );
 			initialize( mapID, mapLocation );
-		}  else {
+		} else {
 			tnygmapsDebug( mapLocation.debug, "Tny gMaps: DOM current width: '" + document.documentElement.clientWidth + "px'." );
-			tnygmapsDebug( mapLocation.debug, "Tny gMaps: isSmallScreen flag: '" + isSmallScreen  + "'");
-			tnygmapsDebug( mapLocation.debug, "Tny gMaps: tnyGmapsIsMobile flag: '" + tnyGmapsIsMobile  + "'");
-			tnygmapsDebug( mapLocation.debug, "Tny gMaps: mapLoaded flag: '" + mapLoaded  + "'");
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: isSmallScreen flag: '" + isSmallScreen + "'" );
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: tnyGmapsIsMobile flag: '" + tnyGmapsIsMobile + "'" );
+			tnygmapsDebug( mapLocation.debug, "Tny gMaps: mapLoaded flag: '" + mapLoaded + "'" );
 			jQuery( "#" + mapID ).css( "height", "auto" );
 		}
 	} );
@@ -126,7 +126,7 @@ function initTest (isMobile){
  * @global tnyGmapsIsMobile
  */
 jQuery( function () {
-	initTest(tnyGmapsIsMobile);
+	initTest( tnyGmapsIsMobile );
 } );
 /**
  * On Screen Orientation Change, init the map.
@@ -135,5 +135,5 @@ jQuery( function () {
  *
  */
 window.addEventListener( "orientationchange", function () {
-	initTest(tnyGmapsIsMobile);
+	initTest( tnyGmapsIsMobile );
 }, false );
