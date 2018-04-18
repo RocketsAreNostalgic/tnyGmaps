@@ -1,15 +1,15 @@
 Tny gMaps Plugin
 ---
 
-This WordPress plugin integrates google maps into your posts and pages using GoogleMaps API v3.
+This WordPress plugin integrates Google Maps into your posts and pages using the Google Maps API v3.
 
-The plugin requires a Google API key, with the following Google API services enabled: 
+The plugin requires a Google API key, with the following services enabled: 
    - Google Maps JavaScript API
    - Static Maps API
    - Geocoding API
    - Places API
 
-https://console.developers.google.com
+See: https://console.developers.google.com
 
 ### Short code generator
 The plugin adds a button to the tinymce editor in posts and pages which provides a pop-up map builder.
@@ -30,14 +30,14 @@ The plugin seeds each map with a custom identifier so more than one map can be d
     - Extensive markup validation for correct syntax in info bubbles
     - Advanced caching prevents repetitive calls to the Google API leveraging the WP transients API 
 
-### Usage
-    // With place_ID
-    [TINYGMAPS z="15" w="100%" h="450px" 
+### Shortcode usage:
+    // With google place_ID which is gathered using the shortcode builder
+    [tnygmaps z="15" w="100%" h="450px" 
     placeid="ChIJ8XNL0uFzhlQRPXBQZ66Rfx4"
     marker="/wp-content/plugins/tinier-googlemaps-plugin/inc/icons/music_folk_map.png" ]
     
-    // Without place_ID
-	[TINYGMAPS z="15" w="100%" h="450px" 
+    // Without place_ID, manually entered address
+	[tnygmaps z="15" w="100%" h="450px" 
 		name="Nice Cafe" 
 		street="East 8th Avenue" 
 		city="Vancouver" 
@@ -45,10 +45,16 @@ The plugin seeds each map with a custom identifier so more than one map can be d
 		postcode="V5T 1R7" 
 		country="Canada" 
 		web="https://plus.google.com/113856077276894937079/about" 
-		phone="+1 604-874-4024" marker="/wp-content/plugins/tinier-googlemaps-plugin/inc/icons/music_folk_map.png" infowindow=""]
+		phone="+1 604-874-4024" 
+        marker="/url/to/map/icon/" 
+        infowindow="My Fav Cafe!"]
+
+    // Less accurate but can still work
+    [tnygmaps z="15" w="100%" h="450px" address="Nice Cafe East 8th Avenue" Vancouver BC V5T 1R7 Canada"]
+
 	
-### Full  parameter list:
-     z                 | Map zoom level 1 - 22
+### Shortcode parameter list:
+     z                 | Map zoom level 1 - 23
      w                 | Map width in pixels or percent
      h                 | Map height in pixels or percent
      maptype           | Map type: ROADMAP, SATELLITE, HYBRID, TERRAIN
@@ -66,7 +72,8 @@ The plugin seeds each map with a custom identifier so more than one map can be d
      phone             | Phone Number
      icon              | An image from the maps api for that location
      marker            | A url full or relative to the plugin (see example) to the icon png 
-     infowindowdefault | (yes : no) Show the infowindow on page load, or keep it hidden until the map icon is clicked.
+     default_marker    | (true : false) Use the global default marker set in the plugin options pannel 
+     infowindowdefault | (yes : no) Show the infowindow on page load, or keep it hidden until the map icon is clicked. 
      infowindow        | Additional contents of the infowindow, but must be text only without any markup.
      infowindowb64     | Additional contents of the infowindow base 64 encoded so complex additional markup won't break the reading of the shortcode by WordPress.
      hidecontrols      | (true : false) Hides the zoom, street view and other controls
@@ -77,11 +84,3 @@ The plugin seeds each map with a custom identifier so more than one map can be d
      static_h          | Height of of static map in pixels
      refresh           | (true : false) Will flush any cashed WP transient data for a given location (good for purging previous results during testing)
      debug             | (true : false) Will render the return values from the Google Maps API object for debugging
-
-#### So much more to do!
-We need to add an admin page to:
-
-* Add google maps api key without hard coding
-* Enable and disable debug mode
-* Set transient expiry 
-* Add alert messages to admin pages about missing API Keys
