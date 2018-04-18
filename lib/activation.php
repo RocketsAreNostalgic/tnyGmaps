@@ -43,19 +43,19 @@ function activate( $blah = null, $phpv = "5.6", $wpv = "4.7" ) {
 	}
 
 	if ( $flag !== null ) {
-		$message = sprintf(
+		$message      = sprintf(
 			'%ss<strong>%s</strong>%s<br/>%s',
-			__('Sorry, ', 'orionrush-tnygmaps' ),
+			__( 'Sorry, ', 'orionrush-tnygmaps' ),
 			$name,
-			_x(' requires ', 'This section is about the plugin\'s  WordPress and PHP minimum version requirements.', 'orionrush-tnygmaps'),
+			_x( ' requires ', 'This section is about the plugin\'s  WordPress and PHP minimum version requirements.', 'orionrush-tnygmaps' ),
 			$flag,
-			__(' version ', 'orionrush-tnygmaps'),
+			__( ' version ', 'orionrush-tnygmaps' ),
 			$target_version,
-			__(' or greater.', 'orionrush-tnygmaps'),
-			__(' You are currently running version: ', 'orionrush-tnygmaps'),
+			__( ' or greater.', 'orionrush-tnygmaps' ),
+			__( ' You are currently running version: ', 'orionrush-tnygmaps' ),
 			$current_version
 		);
-		$error_string =  __('Plugin Activation Error', 'orionrush-tnygmaps');
+		$error_string = __( 'Plugin Activation Error', 'orionrush-tnygmaps' );
 
 		wp_die( $message, $error_string, array(
 			'response'  => 500,
@@ -68,6 +68,7 @@ function activate( $blah = null, $phpv = "5.6", $wpv = "4.7" ) {
 	// Copy the icons to the uploads folder.
 	create_map_icon_directory();
 }
+
 /**
  * Create directory for
  * Adds default options to database.
@@ -80,9 +81,9 @@ function activate( $blah = null, $phpv = "5.6", $wpv = "4.7" ) {
  *
  */
 
-function create_map_icon_directory () {
+function create_map_icon_directory() {
 
-	$errorMessage = new WP_Error();
+	$errorMessage  = new WP_Error();
 	$targetIconDir = TNYGMAPS_ICONS_DIR;
 
 	try {
@@ -90,30 +91,30 @@ function create_map_icon_directory () {
 		$doesTargetDirExists  = file_exists( $targetIconDir );
 		$isTargetDirWriteable = is_writable( $targetIconDir );
 		$isTargetDirEmpty     = ! ( new \FilesystemIterator( $targetIconDir ) )->valid();
-		} catch ( \Exception $e ) {
+	} catch ( \Exception $e ) {
 		$errorMessage->add( 'Error:', $e->getMessage() );
 	}
-		try {
-			// Make the directory
-			if ( wp_mkdir_p( $targetIconDir ) ) {
-					try {
-						// Copy contents of plugin maps directory to new uploads directory
-						$plugin_img_dir = TNYGMAPS_PATH . '/assets/' . TNYGMAPS_ICONS_DIR_NAME . '/';
+	try {
+		// Make the directory
+		if ( wp_mkdir_p( $targetIconDir ) ) {
+			try {
+				// Copy contents of plugin maps directory to new uploads directory
+				$plugin_img_dir = TNYGMAPS_PATH . '/assets/' . TNYGMAPS_ICONS_DIR_NAME . '/';
 
-						$images = opendir( $plugin_img_dir );
-						while ( $read_image = readdir( $images ) ) {
-							if ( $read_image != '.' && $read_image != '..' ) {
-								if ( ! file_exists( $read_image ) ) {
-									copy( $plugin_img_dir . $read_image, $targetIconDir . '/' . $read_image );
-								}
-							}
+				$images = opendir( $plugin_img_dir );
+				while ( $read_image = readdir( $images ) ) {
+					if ( $read_image != '.' && $read_image != '..' ) {
+						if ( ! file_exists( $read_image ) ) {
+							copy( $plugin_img_dir . $read_image, $targetIconDir . '/' . $read_image );
 						}
-					} catch ( \Exception $e ) {
-						$errorMessage;
 					}
+				}
+			} catch ( \Exception $e ) {
+				$errorMessage;
 			}
-		} catch ( \Exception $e ) {
-			$errorMessage->add( 'Error:', $e->getMessage() );
 		}
+	} catch ( \Exception $e ) {
+		$errorMessage->add( 'Error:', $e->getMessage() );
+	}
 	write_log( $errorMessage );
 }
