@@ -25,8 +25,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /***********************************************************************
  * Definitions
  * /*********************************************************************/
-define( 'TNYGMAPS_VERSION', '0.0.4' );
-define( 'TNYGMAPS_NAME', 'Tny gMaps' );
 define( 'TNYGMAPS_PLUGIN', __FILE__ );                      // Plugin location
 define( 'TNYGMAPS_PATH', plugin_dir_path( __FILE__ ) );     // File path to the plugin directory
 define( 'TNYGMAPS_URL', plugin_dir_url( __FILE__ ) );       // URL to the plugin

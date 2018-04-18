@@ -1,5 +1,8 @@
 <?php
 namespace OrionRush\TnyGmaps\Admin;
+
+use OrionRush\TnyGmaps\Support as Support;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
@@ -31,9 +34,11 @@ add_action( 'admin_menu', __NAMESPACE__ . '\\admin_form_create' );
  * @package TNYGMAPS
  */
 function admin_form_create() {
+	$plugin_data = Support\getPluginAtts();
+	$name         = ( ( ! empty( $plugin_data['Plugin Name'] ) ? $plugin_data['Plugin Name'] : '' ) );
 
-	$page_title = TNYGMAPS_NAME;
-	$menu_title = TNYGMAPS_NAME;
+	$page_title = $name;
+	$menu_title = $name;
 	$capability = 'manage_options';
 	$menu_slug  = 'tnygmaps';
 	$function   = __NAMESPACE__ . '\\admin_markup';

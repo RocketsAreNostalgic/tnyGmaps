@@ -1,7 +1,12 @@
 <?php
 namespace OrionRush\TnyGmaps\Activation;
+
+use OrionRush\TnyGmaps\Support as Support;
 use WP_Error;
-if ( ! defined( 'ABSPATH' ) ) { die(); }
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+}
 
 /**
  * Check for minimum operating requirements
@@ -16,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) { die(); }
  * @author orionrush
  */
 function activate( $blah = null, $phpv = "5.6", $wpv = "4.7" ) {
+
+	$plugin_data = Support\getPluginAtts();
+	$name        = ( ( ! empty( $plugin_data['Plugin Name'] ) ? $plugin_data['Plugin Name'] : '' ) );
 
 	$flag           = null;
 	$current        = null;
@@ -35,8 +43,6 @@ function activate( $blah = null, $phpv = "5.6", $wpv = "4.7" ) {
 	}
 
 	if ( $flag !== null ) {
-
-		$name   = TNYGMAPS_NAME;
 		$message = sprintf(
 			'%ss<strong>%s</strong>%s<br/>%s',
 			__('Sorry, ', 'orionrush-tnygmaps' ),

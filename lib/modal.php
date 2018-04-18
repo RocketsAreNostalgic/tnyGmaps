@@ -23,11 +23,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // do we have the google places api key?
 $api_test = Support\test_google_key();
+$plugin_data = Support\getPluginAtts();
+$name         = ( ( ! empty( $plugin_data['Plugin Name'] ) ? $plugin_data['Plugin Name'] : '' ) );
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo esc_html( TNYGMAPS_NAME ) ?></title>
+    <title><?php echo esc_html( $name ) ?></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
