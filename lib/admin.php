@@ -60,6 +60,7 @@ function admin_form_create() {
  * @package TNYGMAPS
  */
 function register_tnygmaps_settings() {
+
 	$args           = array(
 		'type'              => 'string',
 		'sanitize_callback' => 'sanitize_text_field',
@@ -92,32 +93,40 @@ function register_tnygmaps_settings() {
 		'tnygmaps-settings-group'
 	);
 
+	$keyIconToolTip = sprintf( __( '%s Google requires you have an API key.%s', 'orionrush-tnygmaps' ), '<span data-tooltip="', '">?</span>' );
+
 	add_settings_field(
 		'tnygmaps-settings-group-api-key',
-		__( 'Google API Key:', 'orionrush-tnygmaps' ),
+		sprintf(__( 'Google API Key: %s', 'orionrush-tnygmaps' ), $keyIconToolTip),
 		__NAMESPACE__ . '\\api_key',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
 	);
 
+	$defaultIconToolTip =  sprintf( __( '%sChoose your site wide default icon. You can choose a different one using when building your map any time you\'d like.%s', 'orionrush-tnygmaps' ), '<span data-tooltip="', '">?</span>' );
 	add_settings_field(
 		'tnygmaps-settings-group-default-icon',
-		__( 'Default map icon:', 'orionrush-tnygmaps' ),
+		sprintf(__( 'Default map icon: %s', 'orionrush-tnygmaps' ), $defaultIconToolTip),
 		__NAMESPACE__ . '\\default_icon',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
 	);
 
+
+	$staticToolTip =  sprintf( __( '%sThis option produces a %sstatic map%s image rather than a fully interactive map. This wil reduce load times and bandwidth on small %smobile devices%s. %s A width of %s0%spx is equivalent to disabling the feature.%s%s', 'orionrush-tnygmaps' ), '<span data-tooltip="', '<a href=\'https://developers.google.com/maps/documentation/static-maps/\' target=\'_blank\'>', '</a>', '<em><strong>', '</strong></em>', '<br/><br/><em>', '<strong>', '</strong>', '</em>', '">?</span>' );
+
 	add_settings_field(
 		'tnygmaps-settings-group-mobile-devices',
-		__( 'Optimise for mobile:', 'orionrush-tnygmaps' ),
+		sprintf(__( 'Optimise for mobile: %s', 'orionrush-tnygmaps' ), $staticToolTip),
 		__NAMESPACE__ . '\\static_maps',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
 	);
+
+	$debugToolTip =  sprintf( __( '%sThis option enables front end debugging notices on failed Google API queries, as well as Java Script console messages in your browser\'s developer tools panel. %s Don\'t worry, front end notices only appear to those logged into the front-end with administrator privileges.%s%s', 'orionrush-tnygmaps' ), '<span data-tooltip="', '<br/><br/><em>', '</em>', '">?</span>' );
 	add_settings_field(
 		'tnygmaps-settings-group-debug',
-		__( 'Enable Debugging:', 'orionrush-tnygmaps' ),
+		sprintf(__( 'Enable Debugging: %s', 'orionrush-tnygmaps' ), $debugToolTip),
 		__NAMESPACE__ . '\\debugging',
 		'tnygmaps-settings-group',
 		'tnygmaps-settings-group'
@@ -172,11 +181,19 @@ function load_admin_assets() {
  * @package TNYGMAPS
  */
 function enqueue_admin_assets() {
-	wp_enqueue_style( 'orionrush-tnygmaps-admin', plugins_url( '../assets/css/tnygmaps_admin.css', __FILE__ ), array( 'imagepicker-css' ) );
-	wp_enqueue_script( 'orionrush-tnygmaps-admin-js', plugins_url( '../assets/js/tnygmaps-admin.min.js', __FILE__ ), array( 'jquery' ), '', '' );
 
-	wp_enqueue_style( 'imagepicker-css', plugins_url( '../assets/js/vendor/image-picker-master/image-picker/image-picker.css', __FILE__ ), array() );
+	$plugin_data = Support\getPluginAtts();
+	$ver         = ( ( ! empty( $plugin_data['Version'] ) ? $plugin_data['Version'] : '' ) );
+
+	wp_enqueue_style( 'orionrush-tnygmaps-admin', plugins_url( '../assets/css/tnygmaps_admin.css', __FILE__ ), array( 'imagepicker-css' ), $ver );
+	wp_enqueue_script( 'orionrush-tnygmaps-admin-js', plugins_url( '../assets/js/tnygmaps-admin.min.js', __FILE__ ), array( 'jquery' ), $ver, 'false' );
+
+	wp_enqueue_style( 'imagepicker-css', plugins_url( '../assets/js/vendor/image-picker-master/image-picker/image-picker.css', __FILE__ ), array(), $ver );
 	wp_enqueue_script( 'imagepicker-js', plugins_url( '../assets/js/vendor/image-picker-master/image-picker/image-picker.min.js', __FILE__ ), array( 'jquery' ), '0.3.0', 'true' );
+
+	wp_enqueue_style( 'jquery-qtip-custom', plugins_url( '../assets/js/vendor/jquery-qtip-custom/jquery.qtip.css', __FILE__ ), array(), '2.1.1' );
+	wp_enqueue_script( 'jquery-qtip-custom', plugins_url( '../assets/js/vendor/jquery-qtip-custom/jquery.qtip.min.js', __FILE__ ), array( 'jquery' ), '2.1.1', 'true' );
+
 }
 
 /**

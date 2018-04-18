@@ -145,7 +145,6 @@ function default_icon() {
 	<?php
 }
 
-
 /**
  * Add static map options for mobile devices to admin options
  * @author orionrush
@@ -161,10 +160,6 @@ function static_maps() {
 		echo sprintf( __( '%s Use Static Maps on mobile screens smaller than %s pixels wide.', 'orionrush-tnygmaps' ), $input1, $input2 ); ?>
     </fieldset>
     </div>
-    <br/>
-    <div class="bootstrap-tny">
-        <p class=" alert"><?php echo sprintf( __( '%sNote:%s This option produces a %s"static map"%s image rather than a fully interactive map. This wil reduce load times and bandwidth on small %smobile devices%s. %s A width of %s0%spx is equivalent to disabling the feature.%s', 'orionrush-tnygmaps' ), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>', '<em><strong>', '</strong></em>', '<br /><em>', '<strong>', '</strong>', '</em>' ); ?></p>
-    </div>
 	<?php
 }
 
@@ -179,9 +174,5 @@ function debugging() { ?>
         <input type="checkbox" name="tnygmaps_debug"
                value="1" <?php checked( 1, get_option( 'tnygmaps_debug' ), true ); ?> /> <?php esc_html_e( 'Enable Debugging', 'orionrush-tnygmaps' ); ?>
     </fieldset>
-    <br/>
-    <div class="bootstrap-tny">
-        <p class=" alert"><?php echo sprintf( __( '%sNote:%s  This option enables front end debugging notices on failed Google API queries, as well as Java Script console messages in your browser\'s developer tools panel. Don\'t worry, front end notices only appear to logged in admin users.', 'orionrush-tnygmaps' ), '<strong>', '</strong>', '<a href="https://developers.google.com/maps/documentation/static-maps/" target="_blank">', '</a>' ); ?></p>
-    </div>
 	<?php
 }
