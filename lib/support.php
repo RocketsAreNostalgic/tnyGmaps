@@ -4,6 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
+function getPluginAtts () {
+	$plugin_data = get_file_data( TNYGMAPS_PLUGIN, array(
+		'pluginName' => 'Plugin Name',
+		'version' => 'Version',
+		'author' => 'Author'
+	) );
+	 return $plugin_data;
+}
+
 /**
  * Returns local urls as root relative strings.
  * Takes a full URL, removes the server name and returns the result as a root relative URL.
