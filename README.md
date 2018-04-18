@@ -84,3 +84,13 @@ The plugin seeds each map with a custom identifier so more than one map can be d
      static_h          | Height of of static map in pixels
      refresh           | (true : false) Will flush any cashed WP transient data for a given location (good for purging previous results during testing)
      debug             | (true : false) Will render the return values from the Google Maps API object for debugging
+
+### Sholders of Giants: 
+Tny gMaps is indebted to the following projects:
+
+    Bootstrap: https://getbootstrap.com/ [MIT]
+    Image Picker: https://github.com/rvera/image-picker [MIT]
+    jQuery Base64: https://github.com/carlo/jquery-base64 [MIT]
+    jQuery HTML Clean: https://code.google.com/archive/p/jquery-clean/ [3-Clause BSD]
+    jQuery qTip2: http://qtip2.com/ [MIT GPL]
+    Spin JS: https://spin.js.org/ [MIT]
