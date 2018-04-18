@@ -1,6 +1,8 @@
 Tny gMaps Plugin
 ---
 
+
+
 This WordPress plugin integrates Google Maps into your posts and pages using the Google Maps API v3.
 
 The plugin requires a Google API key, with the following services enabled: 
@@ -9,50 +11,56 @@ The plugin requires a Google API key, with the following services enabled:
    - Geocoding API
    - Places API
 
-See: https://console.developers.google.com
+The api key is enabled site wide through the Tny gMaps options page available to admins in the WP dashboard.
+For more informaion see: https://console.developers.google.com
 
 ### Short code generator
-The plugin adds a button to the tinymce editor in posts and pages which provides a pop-up map builder.
-The map builder provides a live preview of what your map will look like, and once satisfied, adds a custom shortcode into your post body. 
+The plugin adds a button to the tinymce editor in posts and pages, which provides a pop-up map builder.
+The map builder provides a live preview of what your map will look like, and once you are satisfied, it adds a custom shortcode into your post body. 
+
+
 
 ### Support for multiple maps
 The plugin seeds each map with a custom identifier so more than one map can be displayed on a page without conflict.
 
 ### The preview features:
-    - live ajax address lookup - or manual address input. 
-    Rich set of parameters including: 
-    - Map size (pixels and percent)
-    - zoom level
-    - map type (ROADMAP, SATELLITE, HYBRID, TERRAIN)
-    - Full paramaters listed below
-    - custom icons (You can include your own)
-    - custom info bubble input
-    - Extensive markup validation for correct syntax in info bubbles
-    - Advanced caching prevents repetitive calls to the Google API leveraging the WP transients API 
+- live ajax address lookup - or manual address input. 
+Rich set of parameters including: 
+- Map size (pixels and percent)
+- zoom level
+- map type (ROADMAP, SATELLITE, HYBRID, TERRAIN)
+- Full parameters listed below
+- custom icons (You can include your own)
+- custom info bubble input
+- Extensive markup validation for correct syntax in info bubbles
+- Advanced caching prevents repetitive calls to the Google API leveraging the WP transients API 
 
 ### Shortcode usage:
+```
     // With google place_ID which is gathered using the shortcode builder
     [tnygmaps z="15" w="100%" h="450px" 
-    placeid="ChIJ8XNL0uFzhlQRPXBQZ66Rfx4"
-    marker="/wp-content/plugins/tinier-googlemaps-plugin/inc/icons/music_folk_map.png" ]
-    
+        placeid="ChIJ8XNL0uFzhlQRPXBQZ66Rfx4"
+        marker="//url/to/map/icon/music_folk_map.png"]
+```
+```
     // Without place_ID, manually entered address
-	[tnygmaps z="15" w="100%" h="450px" 
-		name="Nice Cafe" 
-		street="East 8th Avenue" 
-		city="Vancouver" 
-		region="BC" 
-		postcode="V5T 1R7" 
-		country="Canada" 
-		web="https://plus.google.com/113856077276894937079/about" 
-		phone="+1 604-874-4024" 
-        marker="/url/to/map/icon/" 
+    [tnygmaps z="15" w="100%" h="450px" 
+        name="Nice Cafe" 
+        street="East 8th Avenue" 
+        city="Vancouver" 
+        region="BC" 
+        postcode="V5T 1R7" 
+        country="Canada" 
+        web="https://plus.google.com/113856077276894937079/about" 
+        phone="+1 604-874-4024" 
+        marker="/url/to/map/icon/music_folk_map.png" 
         infowindow="My Fav Cafe!"]
-
-    // Less accurate but can still work
-    [tnygmaps z="15" w="100%" h="450px" address="Nice Cafe East 8th Avenue" Vancouver BC V5T 1R7 Canada"]
-
-	
+```
+```
+    // Less accurate, but will still work
+    [tnygmaps z="15" w="100%" h="450px" 
+    address="Nice Cafe East 8th Avenue" Vancouver BC V5T 1R7 Canada"]
+```
 ### Shortcode parameter list:
      z                 | Map zoom level 1 - 23
      w                 | Map width in pixels or percent
@@ -85,12 +93,13 @@ The plugin seeds each map with a custom identifier so more than one map can be d
      refresh           | (true : false) Will flush any cashed WP transient data for a given location (good for purging previous results during testing)
      debug             | (true : false) Will render the return values from the Google Maps API object for debugging
 
-### Sholders of Giants: 
+### Shoulders of Giants: 
 Tny gMaps is indebted to the following projects:
 
-    Bootstrap: https://getbootstrap.com/ [MIT]
-    Image Picker: https://github.com/rvera/image-picker [MIT]
-    jQuery Base64: https://github.com/carlo/jquery-base64 [MIT]
-    jQuery HTML Clean: https://code.google.com/archive/p/jquery-clean/ [3-Clause BSD]
-    jQuery qTip2: http://qtip2.com/ [MIT GPL]
-    Spin JS: https://spin.js.org/ [MIT]
+* Bootstrap: https://getbootstrap.com/ [MIT]
+* Image Picker: https://github.com/rvera/image-picker/ [MIT]
+* jQuery Base64: https://github.com/carlo/jquery-base64/ [MIT]
+* jQuery HTML Clean: https://code.google.com/archive/p/jquery-clean/ [3-Clause BSD]
+* jQuery qTip2: http://qtip2.com/ [MIT GPL]
+* Map Icons Collection: https://mapicons.mapsmarker.com/about/license/ [CC BY SA 3.0]
+* Spin JS: https://spin.js.org/ [MIT]

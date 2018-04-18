@@ -18,12 +18,13 @@
 <li> Places API</li>
 </ul>
 
-<p>See: https://console.developers.google.com</p>
+<p>The api key is enabled site wide through the Tny gMaps options page available to admins in the WP dashboard.
+For more informaion see: https://console.developers.google.com</p>
 
 <h3 id="shortcodegenerator">Short code generator</h3>
 
-<p>The plugin adds a button to the tinymce editor in posts and pages which provides a pop-up map builder.
-The map builder provides a live preview of what your map will look like, and once satisfied, adds a custom shortcode into your post body.</p>
+<p>The plugin adds a button to the tinymce editor in posts and pages, which provides a pop-up map builder.
+The map builder provides a live preview of what your map will look like, and once you are satisfied, it adds a custom shortcode into your post body.</p>
 
 <h3 id="supportformultiplemaps">Support for multiple maps</h3>
 
@@ -31,40 +32,44 @@ The map builder provides a live preview of what your map will look like, and onc
 
 <h3 id="thepreviewfeatures:">The preview features:</h3>
 
-<pre><code>- live ajax address lookup - or manual address input. 
-Rich set of parameters including: 
-- Map size (pixels and percent)
-- zoom level
-- map type (ROADMAP, SATELLITE, HYBRID, TERRAIN)
-- Full paramaters listed below
-- custom icons (You can include your own)
-- custom info bubble input
-- Extensive markup validation for correct syntax in info bubbles
-- Advanced caching prevents repetitive calls to the Google API leveraging the WP transients API 
-</code></pre>
+<ul>
+<li>live ajax address lookup - or manual address input.
+Rich set of parameters including:</li>
+<li>Map size (pixels and percent)</li>
+<li>zoom level</li>
+<li>map type (ROADMAP, SATELLITE, HYBRID, TERRAIN)</li>
+<li>Full parameters listed below</li>
+<li>custom icons (You can include your own)</li>
+<li>custom info bubble input</li>
+<li>Extensive markup validation for correct syntax in info bubbles</li>
+<li>Advanced caching prevents repetitive calls to the Google API leveraging the WP transients API</li>
+</ul>
 
 <h3 id="shortcodeusage:">Shortcode usage:</h3>
 
-<pre><code>// With google place_ID which is gathered using the shortcode builder
-[tnygmaps z=&quot;15&quot; w=&quot;100%&quot; h=&quot;450px&quot; 
-placeid=&quot;ChIJ8XNL0uFzhlQRPXBQZ66Rfx4&quot;
-marker=&quot;/wp-content/plugins/tinier-googlemaps-plugin/inc/icons/music_folk_map.png&quot; ]
-    
-// Without place_ID, manually entered address
-[tnygmaps z=&quot;15&quot; w=&quot;100%&quot; h=&quot;450px&quot; 
-	name=&quot;Nice Cafe&quot; 
-	street=&quot;East 8th Avenue&quot; 
-	city=&quot;Vancouver&quot; 
-	region=&quot;BC&quot; 
-	postcode=&quot;V5T 1R7&quot; 
-	country=&quot;Canada&quot; 
-	web=&quot;https://plus.google.com/113856077276894937079/about&quot; 
-	phone=&quot;+1 604-874-4024&quot; 
-    marker=&quot;/url/to/map/icon/&quot; 
-    infowindow=&quot;My Fav Cafe!&quot;]
+<pre><code>    // With google place_ID which is gathered using the shortcode builder
+    [tnygmaps z=&quot;15&quot; w=&quot;100%&quot; h=&quot;450px&quot; 
+        placeid=&quot;ChIJ8XNL0uFzhlQRPXBQZ66Rfx4&quot;
+        marker=&quot;//url/to/map/icon/music_folk_map.png&quot;]
+</code></pre>
 
-// Less accurate but can still work
-[tnygmaps z=&quot;15&quot; w=&quot;100%&quot; h=&quot;450px&quot; address=&quot;Nice Cafe East 8th Avenue&quot; Vancouver BC V5T 1R7 Canada&quot;]
+<pre><code>    // Without place_ID, manually entered address
+    [tnygmaps z=&quot;15&quot; w=&quot;100%&quot; h=&quot;450px&quot; 
+        name=&quot;Nice Cafe&quot; 
+        street=&quot;East 8th Avenue&quot; 
+        city=&quot;Vancouver&quot; 
+        region=&quot;BC&quot; 
+        postcode=&quot;V5T 1R7&quot; 
+        country=&quot;Canada&quot; 
+        web=&quot;https://plus.google.com/113856077276894937079/about&quot; 
+        phone=&quot;+1 604-874-4024&quot; 
+        marker=&quot;/url/to/map/icon/music_folk_map.png&quot; 
+        infowindow=&quot;My Fav Cafe!&quot;]
+</code></pre>
+
+<pre><code>    // Less accurate, but will still work
+    [tnygmaps z=&quot;15&quot; w=&quot;100%&quot; h=&quot;450px&quot; 
+    address=&quot;Nice Cafe East 8th Avenue&quot; Vancouver BC V5T 1R7 Canada&quot;]
 </code></pre>
 
 <h3 id="shortcodeparameterlist:">Shortcode parameter list:</h3>
@@ -101,16 +106,19 @@ marker=&quot;/wp-content/plugins/tinier-googlemaps-plugin/inc/icons/music_folk_m
  debug             | (true : false) Will render the return values from the Google Maps API object for debugging
 </code></pre>
 
-<h3 id="sholdersofgiants:">Sholders of Giants:</h3>
+<h3 id="shouldersofgiants:">Shoulders of Giants:</h3>
 
 <p>Tny gMaps is indebted to the following projects:</p>
 
-<pre><code>Bootstrap: https://getbootstrap.com/ [MIT]
-Image Picker: https://github.com/rvera/image-picker [MIT]
-jQuery Base64: https://github.com/carlo/jquery-base64 [MIT]
-jQuery HTML Clean: https://code.google.com/archive/p/jquery-clean/ [3-Clause BSD]
-jQuery qTip2: http://qtip2.com/ [MIT GPL]
-Spin JS: https://spin.js.org/ [MIT]</code></pre>
+<ul>
+<li>Bootstrap: https://getbootstrap.com/ [MIT]</li>
+<li>Image Picker: https://github.com/rvera/image-picker/ [MIT]</li>
+<li>jQuery Base64: https://github.com/carlo/jquery-base64/ [MIT]</li>
+<li>jQuery HTML Clean: https://code.google.com/archive/p/jquery-clean/ [3-Clause BSD]</li>
+<li>jQuery qTip2: http://qtip2.com/ [MIT GPL]</li>
+<li>Map Icons Collection: https://mapicons.mapsmarker.com/about/license/ [CC BY SA 3.0]</li>
+<li>Spin JS: https://spin.js.org/ [MIT]</li>
+</ul>
 
 </body>
 </html>
